@@ -18,5 +18,30 @@
         android:id="@+id/viewPagerFragment"
         android:name="com.example.eshc.onboarding.ViewPagerFragment"
         android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_view_pager" />
+        tools:layout="@layout/fragment_view_pager" >
+        <action
+            android:id="@+id/action_viewPagerFragment_to_fragmentStaff"
+            app:destination="@id/fragmentStaff" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_fragmentStaffLate"
+            app:destination="@id/fragmentStaffLate" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentStaff"
+        android:name="com.example.eshc.onboarding.screens.FragmentStaff"
+        android:label="fragment_staff"
+        tools:layout="@layout/fragment_staff" >
+        <action
+            android:id="@+id/action_fragmentStaff_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentStaffLate"
+        android:name="com.example.eshc.onboarding.screens.FragmentStaffLate"
+        android:label="fragment_staff_late"
+        tools:layout="@layout/fragment_staff_late" >
+        <action
+            android:id="@+id/action_fragmentStaffLate_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
+    </fragment>
 </navigation>

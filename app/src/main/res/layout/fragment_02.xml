@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.screens.Fragment_02">
+    tools:context=".onboarding.screens.Fragment02">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -16,10 +16,11 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:id="@+id/textViewFrag_2"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="@string/hello_blank_fragment"
+                android:text="textViewFrag_2"
                 android:textSize="20dp" />
 
             <TextView

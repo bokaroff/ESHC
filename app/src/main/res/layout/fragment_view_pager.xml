@@ -38,29 +38,5 @@
         app:layout_anchorGravity="bottom"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_gravity="bottom"
-        android:backgroundTint="@color/colorWhite"
-        app:fabCradleMargin="0dp"
-        app:elevation="0dp"
-        app:hideOnScroll="true"
-        app:menu="@menu/app_bar_menu"
-        app:navigationIcon="@drawable/ic_menu" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:src="@drawable/ic_add"
-        android:tint="@color/colorWhite"
-        app:layout_anchor="@id/bottomAppBar"
-        app:maxImageSize="35dp"
-
-        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

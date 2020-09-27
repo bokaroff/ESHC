@@ -5,30 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.eshc.R
+import com.example.eshc.databinding.FragmentViewPagerBinding
 import com.example.eshc.onboarding.screens.*
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_view_pager.view.*
 
 
 class ViewPagerFragment : Fragment() {
-
+    private var _binding: FragmentViewPagerBinding? = null
+    private val mBinding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_view_pager, container, false)
+        _binding = FragmentViewPagerBinding.inflate(layoutInflater, container, false)
 
         val fragmentList = arrayListOf<Fragment>(
-            Fragment_08(),
-            Fragment_15(),
-            Fragment_21(),
-            Fragment_00(),
-            Fragment_02(),
-            Fragment_04(),
-            Fragment_06()
+            Fragment08(),
+            Fragment15(),
+            Fragment21(),
+            Fragment00(),
+            Fragment02(),
+            Fragment04(),
+            Fragment06()
         )
 
         val adapter = ViewPagerAdapter(
@@ -36,9 +36,10 @@ class ViewPagerFragment : Fragment() {
             requireActivity().supportFragmentManager,
             lifecycle
         )
-        view.viewPager.offscreenPageLimit = 7
-        view.viewPager.adapter = adapter
-        TabLayoutMediator(view.tabLayout, view.viewPager) { tab, position ->
+
+        mBinding.viewPager.offscreenPageLimit = 7
+        mBinding.viewPager.adapter = adapter
+        TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager) { tab, position ->
             //tab.text = "${position + 1}"
             when (position) {
                 0 -> tab.text = "08:00"
@@ -51,8 +52,15 @@ class ViewPagerFragment : Fragment() {
             }
         }.attach()
 
-        return view
+        setHasOptionsMenu(true)
+
+
+        return mBinding.root
     }
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

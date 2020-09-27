@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuAbout"
-        android:icon="@drawable/ic_about"
+        android:id="@+id/fragmentStaff"
+        android:icon="@drawable/ic_people_black"
         android:title=""
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/menuSettings"
-        android:icon="@drawable/ic_settings"
+        android:id="@+id/fragmentStaffLate"
+        android:icon="@drawable/ic_people_red"
         android:title=""
         app:showAsAction="ifRoom" />
 
