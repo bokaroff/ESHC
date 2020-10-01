@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_viewPagerFragment"
-            app:destination="@id/viewPagerFragment" />
+            app:destination="@id/viewPagerFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/my_nav" />
     </fragment>
     <fragment
         android:id="@+id/viewPagerFragment"
@@ -20,11 +22,15 @@
         android:label="fragment_view_pager"
         tools:layout="@layout/fragment_view_pager" >
         <action
-            android:id="@+id/action_viewPagerFragment_to_fragmentStaff"
-            app:destination="@id/fragmentStaff" />
-        <action
             android:id="@+id/action_viewPagerFragment_to_fragmentStaffLate"
-            app:destination="@id/fragmentStaffLate" />
+            app:destination="@id/fragmentStaffLate"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/my_nav" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_fragmentStaff"
+            app:destination="@id/fragmentStaff"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/my_nav" />
     </fragment>
     <fragment
         android:id="@+id/fragmentStaff"

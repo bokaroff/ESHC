@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.Fragment00Binding
 import com.example.eshc.databinding.FragmentStaffLateBinding
@@ -20,8 +23,14 @@ class FragmentStaffLate : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentStaffLateBinding.inflate(layoutInflater,container,false)
+
+        mBinding.fragmentStaffLateToolbar.setupWithNavController(findNavController())
+        mBinding.fragmentStaffLateToolbar.title = getString(R.string.staff_late)
+
+
         return mBinding.root
     }
+
 
 
 
@@ -29,6 +38,7 @@ class FragmentStaffLate : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
 
 
