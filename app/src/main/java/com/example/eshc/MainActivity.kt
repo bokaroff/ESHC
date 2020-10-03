@@ -2,18 +2,14 @@ package com.example.eshc
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.databinding.ActivityMainBinding
-import com.example.eshc.onboarding.screens.Observer
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.eshc.utilits.APP_ACTIVITY
 
 class MainActivity : AppCompatActivity() {
 
-    private val observer = Observer()
     private var _binding: ActivityMainBinding? = null
     val mBinding get() = _binding!!
 
@@ -21,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        APP_ACTIVITY = this
 
         //supportActionBar?.hide()
 
@@ -44,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        lifecycle.addObserver(observer)
 
 
 

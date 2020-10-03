@@ -14,15 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentStaffBinding
+import com.example.eshc.utilits.showToast
 
 
 class FragmentStaff : Fragment() {
 
-
-    private val observer = Observer()
     private var _binding: FragmentStaffBinding? = null
     private val mBinding get() = _binding!!
-
+    init {
+        showToast("FragmentStaff")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,8 +33,7 @@ class FragmentStaff : Fragment() {
         _binding = FragmentStaffBinding.inflate(layoutInflater, container, false)
 
         mBinding.fragmentStaffToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentStaffToolbar.title = getString(R.string.staff)
-
+        mBinding.fragmentStaffToolbar.title = resources.getString(R.string.staff)
         return mBinding.root
     }
 

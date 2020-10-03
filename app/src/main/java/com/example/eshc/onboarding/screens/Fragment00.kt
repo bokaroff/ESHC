@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.eshc.R
 import com.example.eshc.databinding.Fragment00Binding
+import com.example.eshc.databinding.Fragment02Binding
 import com.example.eshc.databinding.FragmentViewPagerBinding
 
 class Fragment00 : Fragment() {
+
     private var _binding: Fragment00Binding? = null
     private val mBinding get() = _binding!!
 
@@ -25,8 +27,14 @@ class Fragment00 : Fragment() {
 
 
 
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
+
+
 }

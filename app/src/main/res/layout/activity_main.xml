@@ -17,13 +17,12 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:id="@+id/bottomNavigation"
         app:menu="@menu/bottom_navigation_menu"
         app:layout_anchor="@id/nav_host_fragment"
         app:layout_anchorGravity="bottom"
         app:navigationIcon="@drawable/ic_menu"
-        app:fabCradleMargin="0dp"
         app:elevation="0dp"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         >
@@ -35,10 +34,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
+        app:elevation="0dp"
         android:src="@drawable/ic_add"
         android:tint="@color/colorWhite"
-        app:layout_anchor="@id/bottomNavigation"
-        app:layout_anchorGravity="center_horizontal"
+       android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="?attr/actionBarSize"
         app:maxImageSize="35dp"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         />

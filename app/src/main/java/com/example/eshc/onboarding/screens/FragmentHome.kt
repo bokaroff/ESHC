@@ -5,21 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
-import com.example.eshc.databinding.Fragment00Binding
-import com.example.eshc.databinding.FragmentStaffLateBinding
+import com.example.eshc.databinding.FragmentHomeBinding
+import com.example.eshc.databinding.FragmentStaffBinding
 import com.example.eshc.utilits.showToast
 
-
-class FragmentStaffLate : Fragment() {
-    private var _binding: FragmentStaffLateBinding? = null
+class FragmentHome : Fragment() {
+    private var _binding: FragmentHomeBinding? = null
     private val mBinding get() = _binding!!
-
     init {
-        showToast("FragmentStaffLate")
+        showToast("FragmentHome")
     }
 
     override fun onCreateView(
@@ -27,13 +24,13 @@ class FragmentStaffLate : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentStaffLateBinding.inflate(layoutInflater,container,false)
+        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
-        mBinding.fragmentStaffLateToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentStaffLateToolbar.title = resources.getString(R.string.staff_late)
+        mBinding.fragmentHomeToolbar.setupWithNavController(findNavController())
+        mBinding.fragmentHomeToolbar.title = ""
+
         return mBinding.root
     }
-
 
 
 
@@ -42,8 +39,8 @@ class FragmentStaffLate : Fragment() {
         super.onDestroyView()
         _binding = null
 
+
+
     }
-
-
 
 }
