@@ -20,30 +20,47 @@ class MainActivity : AppCompatActivity() {
         APP_ACTIVITY = this
 
         //supportActionBar?.hide()
+        setUpNavController()
+    }
 
+    private fun setUpNavController() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         mBinding.bottomNavigation.setupWithNavController(navController)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when(destination.id){
-                R.id.fragmentStaff, R.id.fragmentStaffLate -> {
+        mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.fragmentHome -> {
+                    navController.navigate(R.id.action_viewPagerFragment_to_fragmentHome)
                     mBinding.bottomNavigation.visibility = View.GONE
                     mBinding.fab.visibility = View.GONE
-                } else ->{
+                }
+                R.id.fragmentStaff -> {
+                    navController.navigate(R.id.action_viewPagerFragment_to_fragmentStaff)
+                    mBinding.bottomNavigation.visibility = View.GONE
+                    mBinding.fab.visibility = View.GONE
+                }
+                R.id.fragmentStaffLate -> {
+                    navController.navigate(R.id.action_viewPagerFragment_to_fragmentStaffLate)
+                    mBinding.bottomNavigation.visibility = View.GONE
+                    mBinding.fab.visibility = View.GONE
+                }else ->{
                 mBinding.bottomNavigation.visibility = View.VISIBLE
                 mBinding.fab.visibility = View.VISIBLE
                 }
             }
+            true
         }
 
-
-
-
-
-
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id){
+                R.id.viewPagerFragment -> {
+                    mBinding.bottomNavigation.visibility = View.VISIBLE
+                    mBinding.fab.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
 
