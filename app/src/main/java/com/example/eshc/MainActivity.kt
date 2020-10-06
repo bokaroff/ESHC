@@ -3,6 +3,7 @@ package com.example.eshc
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.databinding.ActivityMainBinding
@@ -23,12 +24,16 @@ class MainActivity : AppCompatActivity() {
         setUpNavController()
     }
 
+
+
+
     private fun setUpNavController() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         mBinding.bottomNavigation.setupWithNavController(navController)
+
         mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.fragmentHome -> {
@@ -48,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 }else ->{
                 mBinding.bottomNavigation.visibility = View.VISIBLE
                 mBinding.fab.visibility = View.VISIBLE
-                }
+            }
             }
             true
         }
@@ -62,6 +67,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
 
     override fun onDestroy() {
