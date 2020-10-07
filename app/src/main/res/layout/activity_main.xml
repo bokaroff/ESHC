@@ -22,7 +22,6 @@
         app:menu="@menu/bottom_navigation_menu"
         app:layout_anchor="@id/nav_host_fragment"
         app:layout_anchorGravity="bottom"
-        app:navigationIcon="@drawable/ic_menu"
         app:elevation="0dp"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         >

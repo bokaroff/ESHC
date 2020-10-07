@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.screens.FragmentHome">
+    tools:context=".onboarding.screens.FragmentView">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/fragmentHome_toolbar"
+        android:id="@+id/fragmentView_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
@@ -18,15 +18,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/fragmentHome_textView"
+        android:id="@+id/fragmentView_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="FragmentHome"
+        android:text="FragmentView"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentHome_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/fragmentView_toolbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

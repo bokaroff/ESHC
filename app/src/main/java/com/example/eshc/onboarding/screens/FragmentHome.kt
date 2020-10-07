@@ -27,7 +27,7 @@ class FragmentHome : Fragment() {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
         mBinding.fragmentHomeToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentHomeToolbar.title = ""
+        mBinding.fragmentHomeToolbar.title = resources.getString(R.string.frag_home)
 
         return mBinding.root
     }

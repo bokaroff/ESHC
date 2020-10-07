@@ -43,6 +43,13 @@
             app:exitAnim="@anim/popup_exit"
             app:popEnterAnim="@anim/popup_enter"
             app:popExitAnim="@anim/popup_exit" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_fragmentView"
+            app:destination="@id/fragmentView"
+            app:enterAnim="@anim/popup_enter"
+            app:exitAnim="@anim/popup_exit"
+            app:popEnterAnim="@anim/popup_enter"
+            app:popExitAnim="@anim/popup_exit" />
     </fragment>
     <fragment
         android:id="@+id/fragmentStaff"
@@ -71,5 +78,14 @@
             android:id="@+id/action_fragmentHome_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentView"
+        android:name="com.example.eshc.onboarding.screens.FragmentView"
+        android:label="fragment_view"
+        tools:layout="@layout/fragment_view" >
+        <action
+            android:id="@+id/action_fragmentView_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
     </fragment>
 </navigation>

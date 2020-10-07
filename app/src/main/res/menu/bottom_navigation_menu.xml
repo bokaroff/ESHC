@@ -8,6 +8,11 @@
         android:icon="@drawable/ic_home"
         android:title=""
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/fragmentView"
+        android:icon="@drawable/ic_view"
+        android:title=""
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/fragmentStaff"

@@ -19,8 +19,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         APP_ACTIVITY = this
-
-        //supportActionBar?.hide()
+       // supportActionBar?.hide()
         setUpNavController()
     }
 
@@ -33,11 +32,15 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         mBinding.bottomNavigation.setupWithNavController(navController)
-
         mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.fragmentHome -> {
                     navController.navigate(R.id.action_viewPagerFragment_to_fragmentHome)
+                    mBinding.bottomNavigation.visibility = View.GONE
+                    mBinding.fab.visibility = View.GONE
+                }
+                R.id.fragmentView -> {
+                    navController.navigate(R.id.action_viewPagerFragment_to_fragmentView)
                     mBinding.bottomNavigation.visibility = View.GONE
                     mBinding.fab.visibility = View.GONE
                 }
@@ -64,6 +67,11 @@ class MainActivity : AppCompatActivity() {
                     mBinding.bottomNavigation.visibility = View.VISIBLE
                     mBinding.fab.visibility = View.VISIBLE
                 }
+                R.id.splashFragment -> {
+                    mBinding.bottomNavigation.visibility = View.GONE
+                    mBinding.fab.visibility = View.GONE
+                }
+
             }
         }
     }
