@@ -11,22 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        app:titleTextColor="@color/colorWhite"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/colorWhite" />
 
-    <TextView
-        android:id="@+id/fragmentView_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="FragmentView"
-        android:textSize="20sp"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ryFragmentView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentView_toolbar" />
-
+        app:layout_constraintTop_toBottomOf="@+id/fragmentView_toolbar"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

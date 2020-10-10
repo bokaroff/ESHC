@@ -12,6 +12,6 @@ data class Items(
   val kurator: String ="",
   val worker08: String ="",
   val address: String ="",
-  @ServerTimestamp
-  val serverTimestamp: String =""
+  val worker15: String ="",
+
   ): Serializable
