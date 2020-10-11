@@ -11,7 +11,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/recycler_item_container"
+        android:id="@+id/recycler_item_guard_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorGreyLight"
@@ -22,19 +22,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/recycler_guard_edit_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/recycler_edit_img"
 
             />
 
 
         <TextView
-            android:id="@+id/objectName_txt"
+            android:id="@+id/guardName_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -45,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/kurator_txt"
+            android:id="@+id/guard_kurator_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -53,7 +53,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/objectPhone_txt"
+            android:id="@+id/guardPhone_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -61,41 +61,33 @@
             android:textColor="@color/colorPrimary"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/objectName_txt" />
+            app:layout_constraintTop_toBottomOf="@id/guardName_txt" />
 
         <TextView
-            android:id="@+id/address_txt"
+            android:id="@+id/guard_work_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            tools:text="sdfkskfnkjdsnfkjsndkjvndskjvnkjd
-            snvkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjn"
-            app:layout_constraintEnd_toStartOf="@+id/recycler_edit_img"
+            app:layout_constraintEnd_toStartOf="@+id/recycler_guard_edit_img"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/objectPhone_txt" />
+            app:layout_constraintTop_toBottomOf="@id/guardPhone_txt"
+            tools:text="sdfkskfnkjdsnfkjsndkjvndskjvnkjd
+            snvkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjn" />
 
         <TextView
-            android:id="@+id/worker08_txt"
+            android:id="@+id/guardPhone2_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="8dp"
-            android:text="worker08_txt"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/address_txt" />
+            app:layout_constraintTop_toBottomOf="@id/guard_work_txt"
+            tools:text="worker08_txt" />
 
-        <TextView
-            android:id="@+id/serverTimestamp_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/worker08_txt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

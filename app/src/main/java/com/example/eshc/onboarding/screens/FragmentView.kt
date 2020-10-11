@@ -12,6 +12,7 @@ import com.example.eshc.R
 import com.example.eshc.adapters.FireRecyclerAdapter
 import com.example.eshc.databinding.FragmentViewBinding
 import com.example.eshc.model.Items
+import com.example.eshc.utilits.*
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -19,12 +20,6 @@ import com.google.firebase.firestore.Query
 class FragmentView : Fragment() {
     private var _binding: FragmentViewBinding? = null
     private val mBinding get() = _binding!!
-
-    private lateinit var DB: FirebaseFirestore
-    private lateinit var options: FirestoreRecyclerOptions<Items>
-    private lateinit var adapter: FireRecyclerAdapter<Items, FireRecyclerAdapter.ItemViewHolder>
-    private lateinit var query: Query
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +31,7 @@ class FragmentView : Fragment() {
         mBinding.fragmentViewToolbar.setupWithNavController(findNavController())
         mBinding.fragmentViewToolbar.title = resources.getString(R.string.frag_view_toolbar_title)
         mBinding.ryFragmentView.layoutManager = LinearLayoutManager(context)
-        mBinding.ryFragmentView.adapter = adapter
+        mBinding.ryFragmentView.adapter = adapterFireStore
 
         return mBinding.root
     }
@@ -44,12 +39,19 @@ class FragmentView : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initFirebase()
+    }
+
+
+    fun initFirebase() {
+
         DB = FirebaseFirestore.getInstance()
         query = DB.collection("Items").orderBy("objectName", Query.Direction.ASCENDING)
-        options = FirestoreRecyclerOptions.Builder<Items>()
+        optionsItems = FirestoreRecyclerOptions.Builder<Items>()
             .setQuery(query, Items::class.java)
             .build()
-        adapter = FireRecyclerAdapter(options)
+        adapterFireStore = FireRecyclerAdapter(optionsItems)
 
         DB.collection("Items").addSnapshotListener { value, error ->
         }
@@ -57,12 +59,12 @@ class FragmentView : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        adapter.startListening()
+        adapterFireStore.startListening()
     }
 
     override fun onStop() {
         super.onStop()
-        adapter.stopListening()
+        adapterFireStore.stopListening()
     }
 
 

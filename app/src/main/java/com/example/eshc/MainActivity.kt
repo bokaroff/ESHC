@@ -3,12 +3,12 @@ package com.example.eshc
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.databinding.ActivityMainBinding
+import com.example.eshc.model.Items
 import com.example.eshc.utilits.APP_ACTIVITY
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.eshc.utilits.ITEMS
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         APP_ACTIVITY = this
+        ITEMS = Items()
        // supportActionBar?.hide()
         setUpNavController()
     }

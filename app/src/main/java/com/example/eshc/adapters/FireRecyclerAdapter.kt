@@ -19,15 +19,13 @@ class FireRecyclerAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(
-          R.layout.recycler_item, parent,
-          false
-      )
+          R.layout.recycler_item, parent, false)
         context = parent.context
         return ItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int, model: Items) {
-        holder.recyclerItemCardView.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
+        holder.recyclerItemContainer.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
 
         holder.objectName.text = model.objectName
         holder.kurator.text = model.kurator
@@ -38,6 +36,7 @@ class FireRecyclerAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
     }
 
 
+
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
        val objectName = itemView.objectName_txt
         val kurator = itemView.kurator_txt
@@ -45,8 +44,7 @@ class FireRecyclerAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
         val address = itemView.address_txt
         val worker08 = itemView.worker08_txt
         val serverTimestamp = itemView.serverTimestamp_txt
-        val recyclerItemCardView = itemView.recycler_item_cardView
-
-
+        val edit_img = itemView.recycler_edit_img
+        val recyclerItemContainer = itemView.recycler_item_container
     }
 }
