@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ESHC</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="frag_staff_toolbar_title">Сотрудники</string>
-    <string name="frag_staff_late_toolbar_title">Опоздавшие сотрудники</string>
+    <string name="frag_guard_toolbar_title">Сотрудники на объектах</string>
+    <string name="frag_guard_late_toolbar_title">Опоздавшие сотрудники</string>
     <string name="frag_home">FragHome</string>
     <string name="frag_view_toolbar_title">Все объекты онлайн</string>
 </resources>

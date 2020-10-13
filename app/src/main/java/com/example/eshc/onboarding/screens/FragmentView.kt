@@ -9,12 +9,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.eshc.R
-import com.example.eshc.adapters.FireRecyclerAdapter
+import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.databinding.FragmentViewBinding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
 class FragmentView : Fragment() {
@@ -31,7 +30,7 @@ class FragmentView : Fragment() {
         mBinding.fragmentViewToolbar.setupWithNavController(findNavController())
         mBinding.fragmentViewToolbar.title = resources.getString(R.string.frag_view_toolbar_title)
         mBinding.ryFragmentView.layoutManager = LinearLayoutManager(context)
-        mBinding.ryFragmentView.adapter = adapterFireStore
+        mBinding.ryFragmentView.adapter = adapterFireItem
 
         return mBinding.root
     }
@@ -46,25 +45,22 @@ class FragmentView : Fragment() {
 
     fun initFirebase() {
 
-        DB = FirebaseFirestore.getInstance()
-        query = DB.collection("Items").orderBy("objectName", Query.Direction.ASCENDING)
+        queryItems = collectionITEMS_REF.orderBy("objectName", Query.Direction.ASCENDING)
         optionsItems = FirestoreRecyclerOptions.Builder<Items>()
-            .setQuery(query, Items::class.java)
+            .setQuery(queryItems, Items::class.java)
             .build()
-        adapterFireStore = FireRecyclerAdapter(optionsItems)
+        adapterFireItem = FireItemAdapter(optionsItems)
 
-        DB.collection("Items").addSnapshotListener { value, error ->
-        }
     }
 
     override fun onStart() {
         super.onStart()
-        adapterFireStore.startListening()
+        adapterFireItem.startListening()
     }
 
     override fun onStop() {
         super.onStop()
-        adapterFireStore.stopListening()
+        adapterFireItem.stopListening()
     }
 
 

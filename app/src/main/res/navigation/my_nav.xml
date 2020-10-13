@@ -53,18 +53,18 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentStaff"
-        android:name="com.example.eshc.onboarding.screens.FragmentStaff"
+        android:name="com.example.eshc.onboarding.screens.FragmentGuard"
         android:label="fragment_staff"
-        tools:layout="@layout/fragment_staff" >
+        tools:layout="@layout/fragment_guard" >
         <action
             android:id="@+id/action_fragmentStaff_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentStaffLate"
-        android:name="com.example.eshc.onboarding.screens.FragmentStaffLate"
+        android:name="com.example.eshc.onboarding.screens.FragmentGuardLate"
         android:label="fragment_staff_late"
-        tools:layout="@layout/fragment_staff_late" >
+        tools:layout="@layout/fragment_guard_late" >
         <action
             android:id="@+id/action_fragmentStaffLate_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment" />

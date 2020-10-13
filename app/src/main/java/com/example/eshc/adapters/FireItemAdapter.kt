@@ -12,8 +12,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
-class FireRecyclerAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
-    : FirestoreRecyclerAdapter<Items, FireRecyclerAdapter.ItemViewHolder>(options) {
+class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
+    : FirestoreRecyclerAdapter<Items, FireItemAdapter.ItemViewHolder>(options) {
 
     private lateinit var context: Context
 

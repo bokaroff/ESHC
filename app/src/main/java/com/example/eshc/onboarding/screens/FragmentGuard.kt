@@ -10,20 +10,16 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.eshc.R
 import com.example.eshc.adapters.FireGuardAdapter
-import com.example.eshc.adapters.FireRecyclerAdapter
-import com.example.eshc.databinding.FragmentStaffBinding
+import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.model.Guards
-import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
-import com.example.eshc.utilits.adapterFireStore
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
 
-class FragmentStaff : Fragment() {
+class FragmentGuard : Fragment() {
 
-    private var _binding: FragmentStaffBinding? = null
+    private var _binding: FragmentGuardBinding? = null
     private val mBinding get() = _binding!!
 
     override fun onCreateView(
@@ -31,12 +27,12 @@ class FragmentStaff : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentStaffBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentGuardBinding.inflate(layoutInflater, container, false)
 
-        mBinding.fragmentStaffToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentStaffToolbar.title = resources.getString(R.string.frag_staff_toolbar_title)
-        mBinding.ryFragmentStaff.layoutManager = LinearLayoutManager(context)
-        mBinding.ryFragmentStaff.adapter = adapterFireGuard
+        mBinding.fragmentGuardToolbar.setupWithNavController(findNavController())
+        mBinding.fragmentGuardToolbar.title = resources.getString(R.string.frag_guard_toolbar_title)
+        mBinding.ryFragmentGuard.layoutManager = LinearLayoutManager(context)
+        mBinding.ryFragmentGuard.adapter = adapterFireGuard
 
         return mBinding.root
     }
@@ -48,15 +44,12 @@ class FragmentStaff : Fragment() {
 
     fun initFirebase() {
 
-        DB = FirebaseFirestore.getInstance()
-        queryGuards = DB.collection("Workers").orderBy("guardName", Query.Direction.ASCENDING)
+        queryGuards = collectionGUARDS_REF.orderBy("guardName", Query.Direction.ASCENDING)
         optionsGuards = FirestoreRecyclerOptions.Builder<Guards>()
             .setQuery(queryGuards, Guards::class.java)
             .build()
         adapterFireGuard = FireGuardAdapter(optionsGuards)
 
-        DB.collection("Workers").addSnapshotListener { value, error ->
-        }
     }
 
     override fun onStart() {

@@ -39,25 +39,20 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragmentHome -> {
                     navController.navigate(R.id.action_viewPagerFragment_to_fragmentHome)
                     mBinding.bottomNavigation.visibility = View.GONE
-                    mBinding.fab.visibility = View.GONE
                 }
                 R.id.fragmentView -> {
                     navController.navigate(R.id.action_viewPagerFragment_to_fragmentView)
                     mBinding.bottomNavigation.visibility = View.GONE
-                    mBinding.fab.visibility = View.GONE
                 }
                 R.id.fragmentStaff -> {
                     navController.navigate(R.id.action_viewPagerFragment_to_fragmentStaff)
                     mBinding.bottomNavigation.visibility = View.GONE
-                    mBinding.fab.visibility = View.GONE
                 }
                 R.id.fragmentStaffLate -> {
                     navController.navigate(R.id.action_viewPagerFragment_to_fragmentStaffLate)
                     mBinding.bottomNavigation.visibility = View.GONE
-                    mBinding.fab.visibility = View.GONE
                 }else ->{
                 mBinding.bottomNavigation.visibility = View.VISIBLE
-                mBinding.fab.visibility = View.VISIBLE
             }
             }
             true
@@ -67,11 +62,9 @@ class MainActivity : AppCompatActivity() {
             when(destination.id){
                 R.id.viewPagerFragment -> {
                     mBinding.bottomNavigation.visibility = View.VISIBLE
-                    mBinding.fab.visibility = View.VISIBLE
                 }
                 R.id.splashFragment -> {
                     mBinding.bottomNavigation.visibility = View.GONE
-                    mBinding.fab.visibility = View.GONE
                 }
 
             }
