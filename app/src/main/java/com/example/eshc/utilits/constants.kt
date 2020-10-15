@@ -18,7 +18,6 @@ lateinit var optionsItems: FirestoreRecyclerOptions<Items>
 lateinit var optionsGuards: FirestoreRecyclerOptions<Guards>
 lateinit var adapterFireItem: FireItemAdapter<Items, FireItemAdapter.ItemViewHolder>
 lateinit var adapterFireGuard: FireGuardAdapter<Guards, FireGuardAdapter.GuardViewHolder>
-lateinit var adapterSimple: SimpleAdapter
 lateinit var queryItems: Query
 lateinit var queryGuards: Query
 lateinit var ITEMS:Items
