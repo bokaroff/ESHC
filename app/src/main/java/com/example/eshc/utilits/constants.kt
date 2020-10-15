@@ -23,5 +23,6 @@ lateinit var queryGuards: Query
 lateinit var ITEMS:Items
 
 val collectionITEMS_REF = FirebaseFirestore.getInstance().collection("Items")
+    .orderBy("objectName", Query.Direction.ASCENDING)
 val collectionGUARDS_REF = FirebaseFirestore.getInstance().collection("Workers")
 val collectionSTAFF_REF = FirebaseFirestore.getInstance().collection("Staff")
