@@ -11,8 +11,8 @@ import com.example.eshc.R
 import com.example.eshc.model.Items
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
-class SimpleAdapter(val itemList: MutableList<Items>) :
-    RecyclerView.Adapter<SimpleAdapter.SimpleViewHolder>() {
+class Adapter(val itemList: MutableList<Items>) :
+    RecyclerView.Adapter<Adapter.SimpleViewHolder>() {
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {

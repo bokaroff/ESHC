@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eshc.adapters.SimpleAdapter
+import com.example.eshc.adapters.Adapter
 import com.example.eshc.databinding.Fragment02Binding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.collectionITEMS_REF
-import com.example.eshc.utilits.showToast
+import com.example.eshc.utilits.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,32 +35,35 @@ class Fragment02 : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
         initFirebase()
     }
 
-    private fun initFirebase() {
+
+    private fun initFirebase () {
+
         mRecyclerView = mBinding.ryFragment02
         mRecyclerView.layoutManager = LinearLayoutManager(context)
         val mList = mutableListOf<Items>()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val querySnapshot = collectionITEMS_REF
-                    .whereEqualTo("order02", "true")
-                    .get().await()
+              val querySnapshot = collectionITEMS_REF
+                    .whereEqualTo("order02", "true").get().await()
                 for (snap in querySnapshot) {
-                    val item = snap.toObject(Items::class.java)
+                 val item = snap.toObject(Items::class.java)
                     mList.add(item)
                 }
                 withContext(Dispatchers.Main) {
-                    mRecyclerView.adapter = SimpleAdapter(mList)
+                    mRecyclerView.adapter = Adapter(mList)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    showToast(e.message.toString())
+                    e.message?.let { showToast(it) }
                 }
             }
         }
+
     }
 
 
