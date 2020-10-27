@@ -26,6 +26,7 @@ class Fragment08 : Fragment() {
     private var _binding: Fragment08Binding? = null
     private val mBinding get() = _binding!!
     private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mAdapter: Adapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +42,7 @@ class Fragment08 : Fragment() {
         initFirebase()
     }
 
+
     private fun initFirebase() {
 
         mRecyclerView = mBinding.ryFragment08
@@ -50,7 +52,7 @@ class Fragment08 : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val querySnapshot = collectionITEMS_REF
-                    .whereEqualTo("order00", "true").get().await()
+                    .whereEqualTo("order08", "true").get().await()
                 for (snap in querySnapshot) {
                     val item = snap.toObject(Items::class.java)
                     mList.add(item)
@@ -64,13 +66,12 @@ class Fragment08 : Fragment() {
                 }
             }
         }
-
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        mRecyclerView.adapter = null
     }
 
 }

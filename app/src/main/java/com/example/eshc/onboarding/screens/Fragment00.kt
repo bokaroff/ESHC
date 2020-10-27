@@ -68,5 +68,6 @@ class Fragment00 : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        mRecyclerView.adapter = null
     }
 }

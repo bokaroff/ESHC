@@ -12,6 +12,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
+
 class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
     : FirestoreRecyclerAdapter<Items, FireItemAdapter.ItemViewHolder>(options) {
 
@@ -42,7 +43,7 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
         val kurator = itemView.kurator_txt
         val objectPhone = itemView.objectPhone_txt
         val address = itemView.address_txt
-        val worker08 = itemView.worker08_txt
+        val  worker08 = itemView.worker08_txt
         val serverTimestamp = itemView.serverTimestamp_txt
         val edit_img = itemView.recycler_edit_img
         val recyclerItemContainer = itemView.recycler_item_container

@@ -14,7 +14,6 @@ import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.utilits.*
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.Query
 
 
 class FragmentGuard : Fragment() {
@@ -44,8 +43,8 @@ class FragmentGuard : Fragment() {
 
     fun initFirebase() {
 
-        queryGuards = collectionGUARDS_REF.orderBy("guardName", Query.Direction.ASCENDING)
-        optionsGuards = FirestoreRecyclerOptions.Builder<Guards>()
+        val queryGuards = collectionGUARDS_REF
+        val optionsGuards = FirestoreRecyclerOptions.Builder<Guards>()
             .setQuery(queryGuards, Guards::class.java)
             .build()
         adapterFireGuard = FireGuardAdapter(optionsGuards)

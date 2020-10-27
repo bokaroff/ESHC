@@ -12,7 +12,8 @@ import com.example.eshc.R
 import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.databinding.FragmentViewBinding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.*
+import com.example.eshc.utilits.adapterFireItem
+import com.example.eshc.utilits.collectionITEMS_REF
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.Query
 
@@ -35,21 +36,18 @@ class FragmentView : Fragment() {
         return mBinding.root
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initFirebase()
     }
 
-
     fun initFirebase() {
 
-        queryItems = collectionITEMS_REF.orderBy("objectName", Query.Direction.ASCENDING)
-        optionsItems = FirestoreRecyclerOptions.Builder<Items>()
-            .setQuery(queryItems, Items::class.java)
+        val query = collectionITEMS_REF
+        val options = FirestoreRecyclerOptions.Builder<Items>()
+            .setQuery(query, Items::class.java)
             .build()
-        adapterFireItem = FireItemAdapter(optionsItems)
+        adapterFireItem = FireItemAdapter(options)
 
     }
 

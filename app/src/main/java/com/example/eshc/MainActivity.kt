@@ -5,8 +5,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.eshc.database.room.ItemRoomDao
+import com.example.eshc.database.room.ItemRoomDatabase
+import com.example.eshc.database.room.ItemRoomRepository
 import com.example.eshc.databinding.ActivityMainBinding
-import com.example.eshc.utilits.APP_ACTIVITY
+import com.example.eshc.model.Items
+import com.example.eshc.utilits.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,12 +22,14 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         APP_ACTIVITY = this
+        ITEM = Items()
+        ITEM_ROOM_DATABASE = ItemRoomDatabase.getInstance(this)
+        ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
+        ITEM_ROOM_REPOSITORY = ItemRoomRepository(ITEM_ROOM_DAO)
+
        // supportActionBar?.hide()
         setUpNavController()
     }
-
-
-
 
     private fun setUpNavController() {
         val navHostFragment = supportFragmentManager
