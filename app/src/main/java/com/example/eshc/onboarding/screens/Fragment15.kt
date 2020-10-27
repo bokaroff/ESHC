@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.Adapter
-import com.example.eshc.database.room.ItemRoomDatabase
-import com.example.eshc.database.room.ItemRoomRepository
 import com.example.eshc.databinding.Fragment15Binding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.*
+import com.example.eshc.utilits.ITEM
+import com.example.eshc.utilits.ITEM_ROOM_REPOSITORY
+import com.example.eshc.utilits.collectionITEMS_REF
+import com.example.eshc.utilits.showToast
 import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,9 +25,7 @@ class Fragment15 : Fragment() {
 
     private var _binding: Fragment15Binding? = null
     private val mBinding get() = _binding!!
-    private lateinit var mRecyclerView: RecyclerView
-
-
+    private lateinit var rv: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,18 +33,19 @@ class Fragment15 : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = Fragment15Binding.inflate(layoutInflater, container, false)
+        rv = mBinding.ryFragment15
+        rv.layoutManager = LinearLayoutManager(context)
         return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
-        initFirebase()
-        addChangesRoom()
+        getData()
+        insertChangesRoom()
     }
 
-    private fun initFirebase() {
-        mRecyclerView = mBinding.ryFragment15
-        mRecyclerView.layoutManager = LinearLayoutManager(context)
+
+    private fun getData() {
         val mList = mutableListOf<Items>()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -58,7 +57,7 @@ class Fragment15 : Fragment() {
                     mList.add(item)
                 }
                 withContext(Dispatchers.Main) {
-                    mRecyclerView.adapter = Adapter(mList)
+                    rv.adapter = Adapter(mList)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -68,47 +67,34 @@ class Fragment15 : Fragment() {
         }
     }
 
-    private fun addChangesRoom() {
+
+    private fun insertChangesRoom() {
         collectionITEMS_REF.addSnapshotListener { value, error ->
             if (value != null) {
                 for (dc in value.documentChanges) {
 
                     if (dc.type == DocumentChange.Type.MODIFIED) {
                         ITEM = dc.document.toObject(Items::class.java)
-                       // Log.d(TAG, "addChangesRoom: + ${ITEM.objectName}")
-
-
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
                                 ITEM_ROOM_REPOSITORY.insert(ITEM)
-                                Log.d(TAG, "insertedRoom + ${ITEM.worker08}")
-                                withContext(Dispatchers.Main){
-                                    showToast(" Вы сохранили имя ${ITEM.worker08}")
+                                withContext(Dispatchers.Main) {
                                 }
-
                             } catch (e: Exception) {
                                 withContext(Dispatchers.Main) {
                                     showToast(e.message.toString())
-                                    showToast(ITEM.worker08)
-
                                 }
                             }
                         }
-
-
-
-
                     }
                 }
             } else showToast(error?.message.toString())
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        mRecyclerView.adapter = null
-
+        rv.adapter = null
     }
 }

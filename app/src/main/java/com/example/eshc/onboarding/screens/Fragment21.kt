@@ -23,7 +23,7 @@ class Fragment21 : Fragment() {
 
     private var _binding: Fragment21Binding? = null
     private val mBinding get() = _binding!!
-    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var rv: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,12 +36,12 @@ class Fragment21 : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initFirebase()
+        getData()
     }
 
-    private fun initFirebase() {
-        mRecyclerView = mBinding.ryFragment21
-        mRecyclerView.layoutManager = LinearLayoutManager(context)
+    private fun getData() {
+        rv = mBinding.ryFragment21
+        rv.layoutManager = LinearLayoutManager(context)
         val mList = mutableListOf<Items>()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -53,7 +53,7 @@ class Fragment21 : Fragment() {
                     mList.add(item)
                 }
                 withContext(Dispatchers.Main) {
-                    mRecyclerView.adapter = Adapter(mList)
+                    rv.adapter = Adapter(mList)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -66,6 +66,6 @@ class Fragment21 : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        mRecyclerView.adapter = null
+        rv.adapter = null
     }
 }

@@ -15,7 +15,6 @@ import com.example.eshc.model.Items
 import com.example.eshc.utilits.adapterFireItem
 import com.example.eshc.utilits.collectionITEMS_REF
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.Query
 
 class FragmentView : Fragment() {
     private var _binding: FragmentViewBinding? = null
@@ -38,17 +37,15 @@ class FragmentView : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initFirebase()
+        getData()
     }
 
-    fun initFirebase() {
-
+    private fun getData() {
         val query = collectionITEMS_REF
         val options = FirestoreRecyclerOptions.Builder<Items>()
             .setQuery(query, Items::class.java)
             .build()
         adapterFireItem = FireItemAdapter(options)
-
     }
 
     override fun onStart() {
@@ -61,10 +58,8 @@ class FragmentView : Fragment() {
         adapterFireItem.stopListening()
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

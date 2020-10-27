@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.Adapter
 import com.example.eshc.databinding.Fragment06Binding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.*
+import com.example.eshc.utilits.collectionITEMS_REF
+import com.example.eshc.utilits.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +22,7 @@ class Fragment06 : Fragment() {
 
     private var _binding: Fragment06Binding? = null
     private val mBinding get() = _binding!!
+    private lateinit var rv: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,31 +30,32 @@ class Fragment06 : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = Fragment06Binding.inflate(layoutInflater, container, false)
+        rv = mBinding.ryFragment06
+        rv.layoutManager = LinearLayoutManager(context)
         return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
 
-        initFirebase()
+        getData()
     }
 
 
-    private fun initFirebase () {
-        mRecyclerView = mBinding.ryFragment06
-        mRecyclerView.layoutManager = LinearLayoutManager(context)
+    private fun getData() {
+
         val mList = mutableListOf<Items>()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-               val querySnapshot = collectionITEMS_REF
+                val querySnapshot = collectionITEMS_REF
                     .whereEqualTo("order06", "true").get().await()
                 for (snap in querySnapshot) {
-                   val item = snap.toObject(Items::class.java)
+                    val item = snap.toObject(Items::class.java)
                     mList.add(item)
                 }
                 withContext(Dispatchers.Main) {
-                   mRecyclerView.adapter = Adapter(mList)
+                    rv.adapter = Adapter(mList)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -65,6 +69,6 @@ class Fragment06 : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        mRecyclerView.adapter = null
+        rv.adapter = null
     }
 }

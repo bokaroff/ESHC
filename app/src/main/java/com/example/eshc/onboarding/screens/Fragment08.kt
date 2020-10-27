@@ -21,12 +21,9 @@ import kotlinx.coroutines.withContext
 
 class Fragment08 : Fragment() {
 
-    val TAG = "kotlin"
-
     private var _binding: Fragment08Binding? = null
     private val mBinding get() = _binding!!
-    private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mAdapter: Adapter
+    private lateinit var rv: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,19 +31,19 @@ class Fragment08 : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = Fragment08Binding.inflate(layoutInflater, container, false)
+        rv = mBinding.ryFragment08
+        rv.layoutManager = LinearLayoutManager(context)
         return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
-        initFirebase()
+        getData()
     }
 
 
-    private fun initFirebase() {
+    private fun getData() {
 
-        mRecyclerView = mBinding.ryFragment08
-        mRecyclerView.layoutManager = LinearLayoutManager(context)
         val mList = mutableListOf<Items>()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -58,7 +55,7 @@ class Fragment08 : Fragment() {
                     mList.add(item)
                 }
                 withContext(Dispatchers.Main) {
-                    mRecyclerView.adapter = Adapter(mList)
+                    rv.adapter = Adapter(mList)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -71,7 +68,7 @@ class Fragment08 : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        mRecyclerView.adapter = null
+        rv.adapter = null
     }
 
 }

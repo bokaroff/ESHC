@@ -28,8 +28,7 @@ lateinit var optionsGuards: FirestoreRecyclerOptions<Guards>
 lateinit var adapterFireGuard: FireGuardAdapter<Guards, FireGuardAdapter.GuardViewHolder>
 lateinit var adapterFireItem: FireItemAdapter<Items, FireItemAdapter.ItemViewHolder>
 
-lateinit var mRecyclerView: RecyclerView
-lateinit var mAdapter: Adapter
+
 
 
 val collectionITEMS_REF = FirebaseFirestore.getInstance().collection("Items")

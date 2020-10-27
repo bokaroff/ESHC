@@ -12,7 +12,8 @@ import com.example.eshc.R
 import com.example.eshc.adapters.FireGuardAdapter
 import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.model.Guards
-import com.example.eshc.utilits.*
+import com.example.eshc.utilits.adapterFireGuard
+import com.example.eshc.utilits.collectionGUARDS_REF
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 
 
@@ -38,17 +39,15 @@ class FragmentGuard : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initFirebase()
+        getData()
     }
 
-    fun initFirebase() {
-
+    private fun getData() {
         val queryGuards = collectionGUARDS_REF
         val optionsGuards = FirestoreRecyclerOptions.Builder<Guards>()
             .setQuery(queryGuards, Guards::class.java)
             .build()
         adapterFireGuard = FireGuardAdapter(optionsGuards)
-
     }
 
     override fun onStart() {
@@ -65,5 +64,4 @@ class FragmentGuard : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
