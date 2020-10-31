@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="@string/menu_settings">
+        <menu>
+
+            <item
+                android:id="@+id/add_item_late"
+                android:icon="@drawable/ic_items_late"
+                android:title="@string/add_itemsLateList"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/item_update"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/update"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/item_add"
+                android:icon="@drawable/ic_library_add"
+                android:title="@string/menu_item_add"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/item_delete"
+                android:icon="@drawable/ic_delete"
+                android:title="@string/menu_item_delete"
+                app:showAsAction="never" />
+
+        </menu>
+    </item>
+
+</menu>

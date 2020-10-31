@@ -22,7 +22,7 @@
 
     <item
         android:id="@+id/fragmentStaffLate"
-        android:icon="@drawable/ic_people_red"
+        android:icon="@drawable/ic_items_late"
         android:title=""
         app:showAsAction="ifRoom" />
     

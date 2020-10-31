@@ -11,6 +11,7 @@ import com.example.eshc.adapters.Adapter
 import com.example.eshc.databinding.Fragment00Binding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.collectionITEMS_REF
+import com.example.eshc.utilits.insertItemChangesRoom
 import com.example.eshc.utilits.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,10 +39,10 @@ class Fragment00 : Fragment() {
     override fun onStart() {
         super.onStart()
         getData()
+        insertItemChangesRoom()
     }
 
     private fun getData() {
-
         val mList = mutableListOf<Items>()
 
         CoroutineScope(Dispatchers.IO).launch {

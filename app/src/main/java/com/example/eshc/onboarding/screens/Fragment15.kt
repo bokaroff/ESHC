@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.eshc.R
 import com.example.eshc.adapters.Adapter
 import com.example.eshc.databinding.Fragment15Binding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.ITEM
-import com.example.eshc.utilits.ITEM_ROOM_REPOSITORY
 import com.example.eshc.utilits.collectionITEMS_REF
+import com.example.eshc.utilits.insertItemChangesRoom
 import com.example.eshc.utilits.showToast
-import com.google.firebase.firestore.DocumentChange
+import kotlinx.android.synthetic.main.recycler_item.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,10 +39,14 @@ class Fragment15 : Fragment() {
         return mBinding.root
     }
 
+
+
+
     override fun onStart() {
         super.onStart()
         getData()
-        insertChangesRoom()
+        insertItemChangesRoom()
+
     }
 
 
@@ -67,34 +72,10 @@ class Fragment15 : Fragment() {
         }
     }
 
-
-    private fun insertChangesRoom() {
-        collectionITEMS_REF.addSnapshotListener { value, error ->
-            if (value != null) {
-                for (dc in value.documentChanges) {
-
-                    if (dc.type == DocumentChange.Type.MODIFIED) {
-                        ITEM = dc.document.toObject(Items::class.java)
-                        CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                ITEM_ROOM_REPOSITORY.insert(ITEM)
-                                withContext(Dispatchers.Main) {
-                                }
-                            } catch (e: Exception) {
-                                withContext(Dispatchers.Main) {
-                                    showToast(e.message.toString())
-                                }
-                            }
-                        }
-                    }
-                }
-            } else showToast(error?.message.toString())
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         rv.adapter = null
     }
 }
+

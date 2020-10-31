@@ -15,4 +15,6 @@ data class Items(
   val worker08: String = "",
   val address: String = "",
   val worker15: String = ""
-) : Serializable
+) : Serializable {
+
+}

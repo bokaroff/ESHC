@@ -2,13 +2,19 @@ package com.example.eshc.adapters
 
 
 import android.content.Context
+import android.opengl.Visibility
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Items
+import com.example.eshc.onboarding.screens.Fragment15
+import com.example.eshc.utilits.TAG
+import com.example.eshc.utilits.showToast
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
 class Adapter(val itemList: MutableList<Items>) :
@@ -33,7 +39,7 @@ class Adapter(val itemList: MutableList<Items>) :
         holder.address.text = itemList[position].address
         holder.worker08.text = itemList[position].worker08
         holder.serverTimestamp.text = itemList[position].worker15
-
+        holder.edit_img.visibility = View.GONE
     }
 
     override fun getItemCount(): Int {
@@ -52,5 +58,4 @@ class Adapter(val itemList: MutableList<Items>) :
         val recyclerItemContainer = itemView.recycler_item_container
 
     }
-
 }

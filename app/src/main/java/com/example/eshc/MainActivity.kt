@@ -3,9 +3,9 @@ package com.example.eshc
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.example.eshc.database.room.ItemRoomDao
 import com.example.eshc.database.room.ItemRoomDatabase
 import com.example.eshc.database.room.ItemRoomRepository
 import com.example.eshc.databinding.ActivityMainBinding
@@ -14,6 +14,7 @@ import com.example.eshc.utilits.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var navController: NavController
     private var _binding: ActivityMainBinding? = null
     val mBinding get() = _binding!!
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUpNavController() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
 
         mBinding.bottomNavigation.setupWithNavController(navController)
         mBinding.bottomNavigation.setOnNavigationItemSelectedListener {

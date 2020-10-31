@@ -5,4 +5,9 @@
     <string name="frag_guard_late_toolbar_title">Опоздавшие сотрудники</string>
     <string name="frag_home">FragHome</string>
     <string name="frag_view_toolbar_title">Все объекты онлайн</string>
+    <string name="add_itemsLateList">Добавить в список "Опоздавших"</string>
+    <string name="update">Редактировать</string>
+    <string name="menu_item_add">Добавить новый объект</string>
+    <string name="menu_item_delete">Удалить объект</string>
+    <string name="menu_settings">Настройки</string>
 </resources>
