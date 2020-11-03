@@ -10,12 +10,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.model.Items
+import com.example.eshc.utilits.ITEM
 
 
 class FragmentGuardLate : Fragment() {
     private var _binding: FragmentGuardLateBinding? = null
     private val mBinding get() = _binding!!
-    private lateinit var mCurrentItem: Items
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +26,11 @@ class FragmentGuardLate : Fragment() {
 
         mBinding.fragmentGuardLateToolbar.setupWithNavController(findNavController())
         mBinding.fragmentGuardLateToolbar.title = resources.getString(R.string.frag_guard_late_toolbar_title)
-        mCurrentItem = arguments?.getSerializable("item") as Items
+
+        val bundle = arguments?.getSerializable("item") ?: Items()
+        val mCurrentItem  = bundle as Items
         mBinding.txtFragLate.text = mCurrentItem.objectName
+
         return mBinding.root
     }
 

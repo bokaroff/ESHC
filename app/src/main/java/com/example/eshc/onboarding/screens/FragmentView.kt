@@ -76,7 +76,8 @@ class FragmentView : Fragment() {
            // showToast("popupAddLateList")
             val bundle = Bundle()
             bundle.putSerializable("item", item)
-            APP_ACTIVITY.navController.navigate(R.id.action_fragmentView_to_fragmentStaffLate, bundle)
+            APP_ACTIVITY.navController.navigate(R.id.action_fragmentView_to_fragmentStaffLate,
+                bundle)
         }
         fun popupDelete(item: Items){
             showToast("popupDelete")
