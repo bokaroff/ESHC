@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 
 
-@Database(entities = [Items::class], version = 1, exportSchema = false)
+@Database(entities = [Items::class, Guards::class], version = 1, exportSchema = false)
 abstract class ItemRoomDatabase : RoomDatabase() {
 
     abstract fun getItemRoomDao(): ItemRoomDao
@@ -23,7 +24,7 @@ abstract class ItemRoomDatabase : RoomDatabase() {
                 database = Room.databaseBuilder(
                     context,
                     ItemRoomDatabase::class.java,
-                    "ITEM_DB"
+                    "ESHC_DB"
                 ).build()
                 database as ItemRoomDatabase
             } else database as ItemRoomDatabase

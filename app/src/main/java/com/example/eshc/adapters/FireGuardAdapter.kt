@@ -10,7 +10,7 @@ import com.example.eshc.R
 import com.example.eshc.model.Guards
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import kotlinx.android.synthetic.main.recycler_item_guard.view.*
+import kotlinx.android.synthetic.main.recycler_guard.view.*
 
 class FireGuardAdapter<T, U>(options: FirestoreRecyclerOptions<Guards>)
     : FirestoreRecyclerAdapter<Guards, FireGuardAdapter.GuardViewHolder>(options) {
@@ -19,7 +19,7 @@ class FireGuardAdapter<T, U>(options: FirestoreRecyclerOptions<Guards>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuardViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_item_guard, parent, false)
+            .inflate(R.layout.recycler_guard, parent, false)
         context = parent.context
         return GuardViewHolder(view)
     }

@@ -9,9 +9,7 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Items
-import com.example.eshc.onboarding.screens.FragmentView
-import com.example.eshc.utilits.optionsItems
-import com.example.eshc.utilits.showToast
+import com.example.eshc.onboarding.screens.bottomNavigation.FragmentView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.recycler_item.view.*
@@ -40,7 +38,7 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
                     }
                     R.id.item_add -> {
                         val item = getItem(holder.adapterPosition)
-                        FragmentView.popupAddNew(item)
+                        FragmentView.popupAddNewItem(item)
                         true
                     }
                     R.id.item_delete -> {

@@ -15,16 +15,23 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/fragmentStaff"
+        android:id="@+id/fragmentGuard"
         android:icon="@drawable/ic_people_black"
         android:title=""
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/fragmentStaffLate"
-        android:icon="@drawable/ic_items_late"
+        android:id="@+id/fragmentGuardLate"
+        android:icon="@drawable/ic_guard_late"
         android:title=""
         app:showAsAction="ifRoom" />
-    
+
+    <item
+        android:id="@+id/fragmentItemRoom"
+        android:icon="@drawable/ic_item"
+        android:title=""
+        app:showAsAction="ifRoom" />
+
+
 
 </menu>

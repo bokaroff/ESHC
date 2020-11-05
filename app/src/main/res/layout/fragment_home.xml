@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.screens.FragmentHome">
+    tools:context=".onboarding.screens.bottomNavigation.FragmentHome">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragmentHome_toolbar"

@@ -1,10 +1,16 @@
 package com.example.eshc.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "guards_table")
 data class Guards(
-    val guardKurator: String = "",
-    val guardName: String = "",
-    val guardPhone: String = "",
-    val guardPhone_2: String = "",
-    val guard_img: String = "",
-    val workPlace: String = ""
+    @PrimaryKey(autoGenerate = true) val entity_id: Int = 0,
+    var guardKurator: String = "",
+    var guardName: String = "",
+    var guardPhone: String = "",
+    var guardPhone_2: String = "",
+    var guard_img: String = "",
+    var workPlace: String = "",
+    var guardLateTime: String = ""
 )

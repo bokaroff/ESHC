@@ -23,15 +23,15 @@
         android:label="fragment_view_pager"
         tools:layout="@layout/fragment_view_pager" >
         <action
-            android:id="@+id/action_viewPagerFragment_to_fragmentStaffLate"
-            app:destination="@id/fragmentStaffLate"
+            android:id="@+id/action_viewPagerFragment_to_fragmentGuardLate"
+            app:destination="@id/fragmentGuardLate"
             app:enterAnim="@anim/popup_enter"
             app:exitAnim="@anim/popup_exit"
             app:popEnterAnim="@anim/popup_enter"
             app:popExitAnim="@anim/popup_exit" />
         <action
-            android:id="@+id/action_viewPagerFragment_to_fragmentStaff"
-            app:destination="@id/fragmentStaff"
+            android:id="@+id/action_viewPagerFragment_to_fragmentGuard"
+            app:destination="@id/fragmentGuard"
             app:enterAnim="@anim/popup_enter"
             app:exitAnim="@anim/popup_exit"
             app:popEnterAnim="@anim/popup_enter"
@@ -50,28 +50,31 @@
             app:exitAnim="@anim/popup_exit"
             app:popEnterAnim="@anim/popup_enter"
             app:popExitAnim="@anim/popup_exit" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_fragmentItemRoom"
+            app:destination="@id/fragmentItemRoom" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentStaff"
-        android:name="com.example.eshc.onboarding.screens.FragmentGuard"
+        android:id="@+id/fragmentGuard"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuard"
         android:label="fragment_staff"
         tools:layout="@layout/fragment_guard" >
         <action
-            android:id="@+id/action_fragmentStaff_to_viewPagerFragment"
+            android:id="@+id/action_fragmentGuard_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentStaffLate"
-        android:name="com.example.eshc.onboarding.screens.FragmentGuardLate"
+        android:id="@+id/fragmentGuardLate"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuardLate"
         android:label="fragment_staff_late"
         tools:layout="@layout/fragment_guard_late" >
         <action
-            android:id="@+id/action_fragmentStaffLate_to_viewPagerFragment"
+            android:id="@+id/action_fragmentGuardLate_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="com.example.eshc.onboarding.screens.FragmentHome"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentHome"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -81,14 +84,23 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentView"
-        android:name="com.example.eshc.onboarding.screens.FragmentView"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentView"
         android:label="fragment_view"
         tools:layout="@layout/fragment_view" >
         <action
             android:id="@+id/action_fragmentView_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment" />
         <action
-            android:id="@+id/action_fragmentView_to_fragmentStaffLate"
-            app:destination="@id/fragmentStaffLate" />
+            android:id="@+id/action_fragmentView_to_fragmentGuardLate"
+            app:destination="@id/fragmentGuardLate" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentItemRoom"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentItemRoom"
+        android:label="fragment_item_room"
+        tools:layout="@layout/fragment_item_room" >
+        <action
+            android:id="@+id/action_fragmentItemRoom_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
     </fragment>
 </navigation>

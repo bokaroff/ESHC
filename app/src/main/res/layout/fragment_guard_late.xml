@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".onboarding.screens.FragmentGuardLate">
+    tools:context=".onboarding.screens.bottomNavigation.FragmentGuardLate">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/fragmentGuardLate_toolbar"
+        android:id="@+id/fragmentGuardLateToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
@@ -17,25 +17,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="90dp"
-        android:id="@+id/txt_frag_late"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFragmentGuardLate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentGuardLate_toolbar">
-
-        </TextView>
+        app:layout_constraintTop_toBottomOf="@+id/fragmentGuardLateToolbar"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="100dp"
         android:id="@+id/ryFragmentGuardLate"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentGuardLate_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentGuardLateToolbar"
         />
 
 

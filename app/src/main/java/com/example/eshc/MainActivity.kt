@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.database.room.ItemRoomDatabase
 import com.example.eshc.database.room.ItemRoomRepository
 import com.example.eshc.databinding.ActivityMainBinding
+import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         APP_ACTIVITY = this
         ITEM = Items()
+        GUARD = Guards()
         ITEM_ROOM_DATABASE = ItemRoomDatabase.getInstance(this)
         ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
         ITEM_ROOM_REPOSITORY = ItemRoomRepository(ITEM_ROOM_DAO)
@@ -48,14 +50,19 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_viewPagerFragment_to_fragmentView)
                     mBinding.bottomNavigation.visibility = View.GONE
                 }
-                R.id.fragmentStaff -> {
-                    navController.navigate(R.id.action_viewPagerFragment_to_fragmentStaff)
+                R.id.fragmentGuard -> {
+                    navController.navigate(R.id.action_viewPagerFragment_to_fragmentGuard)
                     mBinding.bottomNavigation.visibility = View.GONE
                 }
-                R.id.fragmentStaffLate -> {
-                    navController.navigate(R.id.action_viewPagerFragment_to_fragmentStaffLate)
+                R.id.fragmentGuardLate -> {
+                    navController.navigate(R.id.action_viewPagerFragment_to_fragmentGuardLate)
                     mBinding.bottomNavigation.visibility = View.GONE
-                }else ->{
+                }
+                R.id.fragmentItemRoom -> {
+                navController.navigate(R.id.action_viewPagerFragment_to_fragmentItemRoom)
+                mBinding.bottomNavigation.visibility = View.GONE
+            }
+                else ->{
                 mBinding.bottomNavigation.visibility = View.VISIBLE
             }
             }

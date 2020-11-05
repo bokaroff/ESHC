@@ -1,21 +1,18 @@
 package com.example.eshc.onboarding.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eshc.R
 import com.example.eshc.adapters.Adapter
 import com.example.eshc.databinding.Fragment15Binding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.collectionITEMS_REF
-import com.example.eshc.utilits.insertItemChangesRoom
-import com.example.eshc.utilits.showToast
-import kotlinx.android.synthetic.main.recycler_item.*
+import com.example.eshc.utilits.*
+import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,16 +36,11 @@ class Fragment15 : Fragment() {
         return mBinding.root
     }
 
-
-
-
     override fun onStart() {
         super.onStart()
         getData()
         insertItemChangesRoom()
-
     }
-
 
     private fun getData() {
         val mList = mutableListOf<Items>()
@@ -71,6 +63,33 @@ class Fragment15 : Fragment() {
             }
         }
     }
+
+    private fun insertItemChangesRoom() {
+
+        collectionITEMS_REF.addSnapshotListener { value, error ->
+            if (value != null) {
+                for (dc in value.documentChanges) {
+                    if (dc.type == DocumentChange.Type.MODIFIED) {
+                        ITEM = dc.document.toObject(Items::class.java)
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                ITEM_ROOM_REPOSITORY.insertItem(ITEM)
+                            } catch (e: Exception) {
+                                withContext(Dispatchers.Main) {
+                                    showToast(e.message.toString())
+                                }
+                            }
+                        }
+                        Log.d(TAG, "onStart: ${ITEM.objectName}")
+                    }
+                }
+            } else showToast(error?.message.toString())
+
+        }
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -3,6 +3,7 @@ package com.example.eshc.utilits
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.MainActivity
 import com.example.eshc.adapters.Adapter
+import com.example.eshc.adapters.AdapterGuardLate
 import com.example.eshc.adapters.FireGuardAdapter
 import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.database.room.ItemRoomDao
@@ -19,6 +20,7 @@ const val TAG = "kotlin"
 
 lateinit var APP_ACTIVITY: MainActivity
 lateinit var ITEM: Items
+lateinit var GUARD: Guards
 lateinit var DB: FirebaseFirestore
 lateinit var ITEM_ROOM_REPOSITORY: ItemRoomRepository
 lateinit var ITEM_ROOM_DAO: ItemRoomDao
@@ -27,6 +29,7 @@ lateinit var optionsItems: FirestoreRecyclerOptions<Items>
 lateinit var optionsGuards: FirestoreRecyclerOptions<Guards>
 lateinit var adapterFireGuard: FireGuardAdapter<Guards, FireGuardAdapter.GuardViewHolder>
 lateinit var adapterFireItem: FireItemAdapter<Items, FireItemAdapter.ItemViewHolder>
+lateinit var adapterGuardLate: AdapterGuardLate
 
 
 
