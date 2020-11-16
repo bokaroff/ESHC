@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.eshc.R
 import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.databinding.FragmentViewBinding
-import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.firebase.ui.firestore.FirestoreRecyclerOptions

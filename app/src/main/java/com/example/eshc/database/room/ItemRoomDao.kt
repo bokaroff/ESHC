@@ -9,14 +9,11 @@ import com.example.eshc.model.Items
 @Dao
 interface ItemRoomDao {
 
- //@Query("SELECT * FROM items_table")
- //fun getAllItems(): LiveData<List<Items>>
-
  @Query("SELECT * FROM items_table")
- suspend fun getAllItems(): List<Items>
+ fun getAllItems(): LiveData<List<Items>>
 
  @Query("SELECT * FROM guards_table")
- suspend fun getAllGuardsLate(): MutableList<Guards>
+ fun getAllGuardsLate(): LiveData<List<Guards>>
 
  @Insert(onConflict = OnConflictStrategy.IGNORE)
  suspend fun insertItem(item: Items)

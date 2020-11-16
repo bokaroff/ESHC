@@ -24,6 +24,7 @@ class Fragment15 : Fragment() {
     private var _binding: Fragment15Binding? = null
     private val mBinding get() = _binding!!
     private lateinit var rv: RecyclerView
+    var name: String = "null"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +41,7 @@ class Fragment15 : Fragment() {
         super.onStart()
         getData()
         insertItemChangesRoom()
+        Log.d(TAG, "insertItemChangesRoom3: $name")
     }
 
     private fun getData() {
@@ -64,29 +66,30 @@ class Fragment15 : Fragment() {
         }
     }
 
-    private fun insertItemChangesRoom() {
+    private fun insertItemChangesRoom(){
 
-        collectionITEMS_REF.addSnapshotListener { value, error ->
+      collectionITEMS_REF.addSnapshotListener { value, error ->
             if (value != null) {
                 for (dc in value.documentChanges) {
                     if (dc.type == DocumentChange.Type.MODIFIED) {
                         ITEM = dc.document.toObject(Items::class.java)
-
+                            name = ITEM.objectName
+                        Log.d(TAG, "insertItemChangesRoom: $name")
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
-                                ITEM_ROOM_REPOSITORY.insertItem(ITEM)
+                                REPOSITORY.insertItem(ITEM)
                             } catch (e: Exception) {
                                 withContext(Dispatchers.Main) {
                                     showToast(e.message.toString())
                                 }
                             }
                         }
-                        Log.d(TAG, "onStart: ${ITEM.objectName}")
                     }
                 }
             } else showToast(error?.message.toString())
 
         }
+        Log.d(TAG, "insertItemChangesRoom2: $name ")
 
     }
 

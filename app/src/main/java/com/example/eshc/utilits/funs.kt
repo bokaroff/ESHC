@@ -2,8 +2,6 @@ package com.example.eshc.utilits
 
 import android.widget.Toast
 import com.example.eshc.model.Guards
-import com.example.eshc.model.Items
-import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +16,7 @@ fun showToast(message: String) {
 fun insertGuardLateRoom(guard: Guards) {
     CoroutineScope(Dispatchers.IO).launch {
         try {
-            ITEM_ROOM_REPOSITORY.insertGuardLate(guard)
+            REPOSITORY.insertGuardLate(guard)
             withContext(Dispatchers.Main) {
                 showToast("Охранник ${guard.guardName} сохранен как опоздавщий")
             }

@@ -1,14 +1,12 @@
 package com.example.eshc.utilits
 
-import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.MainActivity
-import com.example.eshc.adapters.Adapter
 import com.example.eshc.adapters.AdapterGuardLate
 import com.example.eshc.adapters.FireGuardAdapter
 import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.database.room.ItemRoomDao
 import com.example.eshc.database.room.ItemRoomDatabase
-import com.example.eshc.database.room.ItemRoomRepository
+import com.example.eshc.database.room.RoomRepository
 import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -22,7 +20,7 @@ lateinit var APP_ACTIVITY: MainActivity
 lateinit var ITEM: Items
 lateinit var GUARD: Guards
 lateinit var DB: FirebaseFirestore
-lateinit var ITEM_ROOM_REPOSITORY: ItemRoomRepository
+lateinit var REPOSITORY: RoomRepository
 lateinit var ITEM_ROOM_DAO: ItemRoomDao
 lateinit var ITEM_ROOM_DATABASE: ItemRoomDatabase
 lateinit var optionsItems: FirestoreRecyclerOptions<Items>

@@ -1,21 +1,17 @@
 package com.example.eshc.database.room
 
+import androidx.lifecycle.LiveData
 import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 
 
-class ItemRoomRepository(private val itemRoomDao: ItemRoomDao) {
+class RoomRepository(private val itemRoomDao: ItemRoomDao) {
 
-        // val allItems_Entity
-        //       get() = itemRoomDao.getAllItems()
+       val allItems: LiveData<List<Items>>
+        get() = itemRoomDao.getAllItems()
 
-        suspend fun getAllItems(): List<Items> {
-                return itemRoomDao.getAllItems()
-        }
-
-        suspend fun getAllGuardsLate(): MutableList<Guards> {
-                return itemRoomDao.getAllGuardsLate()
-        }
+       val allGuardsLate: LiveData<List<Guards>>
+        get() = itemRoomDao.getAllGuardsLate()
 
         suspend fun insertItem(item: Items) {
                 itemRoomDao.insertItem(item)
