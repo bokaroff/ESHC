@@ -25,28 +25,38 @@
         <action
             android:id="@+id/action_viewPagerFragment_to_fragmentGuardLate"
             app:destination="@id/fragmentGuardLate"
-            app:enterAnim="@anim/slide_right_to_left_enter"
-            app:popEnterAnim="@anim/slide_left_to_right_exit" />
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_viewPagerFragment_to_fragmentGuard"
             app:destination="@id/fragmentGuard"
-            app:enterAnim="@anim/slide_right_to_left_enter"
-            app:popEnterAnim="@anim/slide_left_to_right_exit" />
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_viewPagerFragment_to_fragmentHome"
             app:destination="@id/fragmentHome"
-            app:enterAnim="@anim/slide_right_to_left_enter"
-            app:popEnterAnim="@anim/slide_left_to_right_exit" />
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_viewPagerFragment_to_fragmentView"
             app:destination="@id/fragmentView"
-            app:enterAnim="@anim/slide_right_to_left_enter"
-            app:popEnterAnim="@anim/slide_left_to_right_exit" />
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_viewPagerFragment_to_fragmentItemRoom"
             app:destination="@id/fragmentItemRoom"
-            app:enterAnim="@anim/slide_right_to_left_enter"
-            app:popEnterAnim="@anim/slide_left_to_right_exit" />
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/fragmentGuard"
@@ -55,7 +65,9 @@
         tools:layout="@layout/fragment_guard" >
         <action
             android:id="@+id/action_fragmentGuard_to_viewPagerFragment"
-            app:destination="@id/viewPagerFragment" />
+            app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/fragmentGuardLate"
@@ -64,7 +76,9 @@
         tools:layout="@layout/fragment_guard_late" >
         <action
             android:id="@+id/action_fragmentGuardLate_to_viewPagerFragment"
-            app:destination="@id/viewPagerFragment" />
+            app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/fragmentHome"
@@ -73,7 +87,9 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_fragmentHome_to_viewPagerFragment"
-            app:destination="@id/viewPagerFragment" />
+            app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
 
     </fragment>
     <fragment
@@ -83,7 +99,9 @@
         tools:layout="@layout/fragment_view" >
         <action
             android:id="@+id/action_fragmentView_to_viewPagerFragment"
-            app:destination="@id/viewPagerFragment" />
+            app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_fragmentView_to_fragmentGuardLate"
             app:destination="@id/fragmentGuardLate"
@@ -97,6 +115,8 @@
         tools:layout="@layout/fragment_item_room" >
         <action
             android:id="@+id/action_fragmentItemRoom_to_viewPagerFragment"
-            app:destination="@id/viewPagerFragment" />
+            app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
 </navigation>

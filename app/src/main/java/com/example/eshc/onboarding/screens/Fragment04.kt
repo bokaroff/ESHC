@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eshc.adapters.Adapter
+import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment04Binding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.collectionITEMS_REF
@@ -23,7 +23,8 @@ class Fragment04 : Fragment() {
 
     private var _binding: Fragment04Binding? = null
     private val mBinding get() = _binding!!
-    private lateinit var rv: RecyclerView
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mAdapterItems: AdapterItems
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +32,18 @@ class Fragment04 : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = Fragment04Binding.inflate(layoutInflater, container, false)
-        rv = mBinding.ryFragment04
-        rv.layoutManager = LinearLayoutManager(context)
         return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
+        initialization()
         getData()
+    }
+
+    private fun initialization() {
+        mRecyclerView = mBinding.rvFragment04
+        mAdapterItems = AdapterItems()
     }
 
     private fun getData() {
@@ -54,9 +59,9 @@ class Fragment04 : Fragment() {
                     mList.add(item)
                 }
                 withContext(Dispatchers.Main) {
-                    rv.adapter = Adapter(mList)
+                    mAdapterItems.setList(mList)
+                    mRecyclerView.adapter = mAdapterItems
                 }
-
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
@@ -68,6 +73,6 @@ class Fragment04 : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        rv.adapter = null
+        mRecyclerView.adapter = null
     }
 }

@@ -9,26 +9,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
-import com.example.eshc.adapters.Adapter
+import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.FragmentItemRoomBinding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.showToast
-
 
 class FragmentItemRoom : Fragment() {
     private var _binding: FragmentItemRoomBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: FragmentItemRoomViewModel
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mAdapter: Adapter
+    private lateinit var mAdapterItems: AdapterItems
     private lateinit var mObserveList: Observer<List<Items>>
-
-    init {
-        showToast("FragmentItemRoom")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +31,10 @@ class FragmentItemRoom : Fragment() {
         _binding = FragmentItemRoomBinding.inflate(layoutInflater, container, false)
 
         mBinding.fragmentItemRoomToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentItemRoomToolbar.title = resources.getString(R.string.frag_itemRoom)
+        mBinding.fragmentItemRoomToolbar.title = resources.getString(R.string.frag_itemRoom_toolbar_title)
 
         return mBinding.root
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -50,20 +42,18 @@ class FragmentItemRoom : Fragment() {
     }
 
     private fun initialization() {
-        mAdapter = Adapter(mutableListOf())
+        mAdapterItems = AdapterItems()
         mRecyclerView = mBinding.rvFragmentItemRoom
         mObserveList  = Observer {
             val list = it.asReversed()
-            mAdapter = Adapter(list)
-            mRecyclerView.adapter = mAdapter
+            mAdapterItems.setList(list)
+            mRecyclerView.adapter = mAdapterItems
         }
-        mRecyclerView.layoutManager = LinearLayoutManager(context)
         mViewModel = ViewModelProvider(this)
             .get(FragmentItemRoomViewModel::class.java)
         mViewModel.allItems.observe(this, mObserveList)
 
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

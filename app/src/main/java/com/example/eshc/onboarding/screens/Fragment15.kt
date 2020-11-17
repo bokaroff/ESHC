@@ -1,17 +1,18 @@
 package com.example.eshc.onboarding.screens
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eshc.adapters.Adapter
+import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment15Binding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.*
+import com.example.eshc.utilits.ITEM
+import com.example.eshc.utilits.REPOSITORY
+import com.example.eshc.utilits.collectionITEMS_REF
+import com.example.eshc.utilits.showToast
 import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,8 +24,8 @@ class Fragment15 : Fragment() {
 
     private var _binding: Fragment15Binding? = null
     private val mBinding get() = _binding!!
-    private lateinit var rv: RecyclerView
-    var name: String = "null"
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mAdapterItems: AdapterItems
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,16 +33,19 @@ class Fragment15 : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = Fragment15Binding.inflate(layoutInflater, container, false)
-        rv = mBinding.ryFragment15
-        rv.layoutManager = LinearLayoutManager(context)
         return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
+        initialization()
         getData()
         insertItemChangesRoom()
-        Log.d(TAG, "insertItemChangesRoom3: $name")
+    }
+
+    private fun initialization() {
+        mRecyclerView = mBinding.rvFragment15
+        mAdapterItems = AdapterItems()
     }
 
     private fun getData() {
@@ -56,7 +60,8 @@ class Fragment15 : Fragment() {
                     mList.add(item)
                 }
                 withContext(Dispatchers.Main) {
-                    rv.adapter = Adapter(mList)
+                    mAdapterItems.setList(mList)
+                    mRecyclerView.adapter = mAdapterItems
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -69,35 +74,30 @@ class Fragment15 : Fragment() {
     private fun insertItemChangesRoom(){
 
       collectionITEMS_REF.addSnapshotListener { value, error ->
-            if (value != null) {
-                for (dc in value.documentChanges) {
-                    if (dc.type == DocumentChange.Type.MODIFIED) {
-                        ITEM = dc.document.toObject(Items::class.java)
-                            name = ITEM.objectName
-                        Log.d(TAG, "insertItemChangesRoom: $name")
-                        CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                REPOSITORY.insertItem(ITEM)
-                            } catch (e: Exception) {
-                                withContext(Dispatchers.Main) {
-                                    showToast(e.message.toString())
-                                }
-                            }
-                        }
-                    }
-                }
-            } else showToast(error?.message.toString())
+          if (value != null) {
+              for (dc in value.documentChanges) {
+                  if (dc.type == DocumentChange.Type.MODIFIED) {
+                      ITEM = dc.document.toObject(Items::class.java)
 
-        }
-        Log.d(TAG, "insertItemChangesRoom2: $name ")
-
+                      CoroutineScope(Dispatchers.IO).launch {
+                          try {
+                              REPOSITORY.insertItem(ITEM)
+                          } catch (e: Exception) {
+                              withContext(Dispatchers.Main) {
+                                  showToast(e.message.toString())
+                              }
+                          }
+                      }
+                  }
+              }
+          } else showToast(error?.message.toString())
+      }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        rv.adapter = null
+        mRecyclerView.adapter = null
     }
 }
 

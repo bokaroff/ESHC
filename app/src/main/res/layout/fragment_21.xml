@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".onboarding.screens.Fragment21">
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ryFragment21"
+        android:id="@+id/rvFragment21"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -11,9 +11,9 @@ import com.example.eshc.R
 import com.example.eshc.model.Items
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
-class Adapter(private val itemList: List<Items>) :
-    RecyclerView.Adapter<Adapter.SimpleViewHolder>() {
+class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
     private lateinit var context: Context
+    private var mList = emptyList<Items>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -27,19 +27,18 @@ class Adapter(private val itemList: List<Items>) :
         holder.recyclerItemContainer.animation =
             AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
 
-        holder.objectName.text = itemList[position].objectName
-        holder.kurator.text = itemList[position].kurator
-        holder.objectPhone.text = itemList[position].objectPhone
-        holder.address.text = itemList[position].address
-        holder.worker08.text = itemList[position].worker08
-        holder.serverTimestamp.text = itemList[position].worker15
+        holder.objectName.text = mList[position].objectName
+        holder.kurator.text = mList[position].kurator
+        holder.objectPhone.text = mList[position].objectPhone
+        holder.address.text = mList[position].address
+        holder.worker08.text = mList[position].worker08
+        holder.serverTimestamp.text = mList[position].worker15
         holder.edit_img.visibility = View.GONE
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return mList.size
     }
-
 
     class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val objectName = itemView.objectName_txt
@@ -51,5 +50,10 @@ class Adapter(private val itemList: List<Items>) :
         val edit_img = itemView.recycler_edit_img
         val recyclerItemContainer = itemView.recycler_item_container
 
+    }
+
+    fun setList(list: List<Items>) {
+        mList = list
+        notifyDataSetChanged()
     }
 }

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.eshc.databinding.FragmentViewPagerBinding
 import com.example.eshc.onboarding.screens.*
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.fragment_view_pager.*
 
 
 class ViewPagerFragment : Fragment() {
