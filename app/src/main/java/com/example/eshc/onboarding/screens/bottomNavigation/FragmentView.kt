@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.eshc.R
+import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.databinding.FragmentViewBinding
 import com.example.eshc.model.Items
@@ -18,6 +18,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 class FragmentView : Fragment() {
     private var _binding: FragmentViewBinding? = null
     private val mBinding get() = _binding!!
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mToolbar: Toolbar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,12 +27,6 @@ class FragmentView : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentViewBinding.inflate(layoutInflater, container, false)
-
-        mBinding.fragmentViewToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentViewToolbar.title = resources.getString(R.string.frag_view_toolbar_title)
-        mBinding.ryFragmentView.layoutManager = LinearLayoutManager(context)
-        mBinding.ryFragmentView.adapter = adapterFireItem
-
         return mBinding.root
     }
 
@@ -49,6 +45,15 @@ class FragmentView : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        initialization()
+
+    }
+
+    private fun initialization() {
+        mRecyclerView = mBinding.rvFragmentView
+        mToolbar = mBinding.fragmentViewToolbar
+        mToolbar.setupWithNavController(findNavController())
+        mRecyclerView.adapter = adapterFireItem
         adapterFireItem.startListening()
     }
 
@@ -76,7 +81,6 @@ class FragmentView : Fragment() {
 
             insertGuardLateRoom(GUARD)
         }
-
 
         fun popupDelete(item: Items){
             showToast("popupDelete")

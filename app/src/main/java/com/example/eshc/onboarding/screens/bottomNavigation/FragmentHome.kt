@@ -8,14 +8,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.eshc.R
+import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.databinding.FragmentHomeBinding
-import com.example.eshc.utilits.showToast
 
 class FragmentHome : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar
+    private lateinit var mRecyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +33,8 @@ class FragmentHome : Fragment() {
 
     private fun initialization() {
         mToolbar = mBinding.fragmentHomeToolbar
+        mRecyclerView = mBinding.rvFragmentHome
         mToolbar.setupWithNavController(findNavController())
-        mToolbar.title = resources.getString(R.string.frag_home_toolbar_title)
     }
 
     override fun onDestroyView() {

@@ -61,7 +61,7 @@
     <fragment
         android:id="@+id/fragmentGuard"
         android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuard"
-        android:label="fragment_staff"
+        android:label="@string/frag_guard_toolbar_title"
         tools:layout="@layout/fragment_guard" >
         <action
             android:id="@+id/action_fragmentGuard_to_viewPagerFragment"
@@ -72,7 +72,7 @@
     <fragment
         android:id="@+id/fragmentGuardLate"
         android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuardLate"
-        android:label="fragment_staff_late"
+        android:label="@string/frag_guard_late_toolbar_title"
         tools:layout="@layout/fragment_guard_late" >
         <action
             android:id="@+id/action_fragmentGuardLate_to_viewPagerFragment"
@@ -83,7 +83,7 @@
     <fragment
         android:id="@+id/fragmentHome"
         android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentHome"
-        android:label="fragment_home"
+        android:label="@string/frag_home_toolbar_title"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_fragmentHome_to_viewPagerFragment"
@@ -95,7 +95,7 @@
     <fragment
         android:id="@+id/fragmentView"
         android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentView"
-        android:label="fragment_view"
+        android:label="@string/frag_view_toolbar_title"
         tools:layout="@layout/fragment_view" >
         <action
             android:id="@+id/action_fragmentView_to_viewPagerFragment"
@@ -111,7 +111,7 @@
     <fragment
         android:id="@+id/fragmentItemRoom"
         android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentItemRoom"
-        android:label="fragment_item_room"
+        android:label="@string/frag_itemRoom_toolbar_title"
         tools:layout="@layout/fragment_item_room" >
         <action
             android:id="@+id/action_fragmentItemRoom_to_viewPagerFragment"

@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.eshc.R
+import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.FireGuardAdapter
 import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.model.Guards
@@ -21,6 +21,9 @@ class FragmentGuard : Fragment() {
 
     private var _binding: FragmentGuardBinding? = null
     private val mBinding get() = _binding!!
+    private lateinit var mToolbar: Toolbar
+    private lateinit var mRecyclerView: RecyclerView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,12 +31,6 @@ class FragmentGuard : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentGuardBinding.inflate(layoutInflater, container, false)
-
-        mBinding.fragmentGuardToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentGuardToolbar.title = resources.getString(R.string.frag_guard_toolbar_title)
-        mBinding.ryFragmentGuard.layoutManager = LinearLayoutManager(context)
-        mBinding.ryFragmentGuard.adapter = adapterFireGuard
-
         return mBinding.root
     }
 
@@ -52,6 +49,14 @@ class FragmentGuard : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        initialization()
+    }
+
+    private fun initialization() {
+        mToolbar = mBinding.fragmentGuardToolbar
+        mRecyclerView = mBinding.ryFragmentGuard
+        mToolbar.setupWithNavController(findNavController())
+        mRecyclerView.adapter = adapterFireGuard
         adapterFireGuard.startListening()
     }
 

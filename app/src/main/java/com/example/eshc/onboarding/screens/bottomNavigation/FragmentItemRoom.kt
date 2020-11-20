@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eshc.R
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.FragmentItemRoomBinding
 import com.example.eshc.model.Items
@@ -20,6 +20,7 @@ class FragmentItemRoom : Fragment() {
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: FragmentItemRoomViewModel
     private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mToolbar: Toolbar
     private lateinit var mAdapterItems: AdapterItems
     private lateinit var mObserveList: Observer<List<Items>>
 
@@ -29,10 +30,6 @@ class FragmentItemRoom : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentItemRoomBinding.inflate(layoutInflater, container, false)
-
-        mBinding.fragmentItemRoomToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentItemRoomToolbar.title = resources.getString(R.string.frag_itemRoom_toolbar_title)
-
         return mBinding.root
     }
 
@@ -44,7 +41,9 @@ class FragmentItemRoom : Fragment() {
     private fun initialization() {
         mAdapterItems = AdapterItems()
         mRecyclerView = mBinding.rvFragmentItemRoom
-        mObserveList  = Observer {
+        mToolbar = mBinding.fragmentItemRoomToolbar
+
+        mObserveList = Observer {
             val list = it.asReversed()
             mAdapterItems.setList(list)
             mRecyclerView.adapter = mAdapterItems
@@ -53,6 +52,7 @@ class FragmentItemRoom : Fragment() {
             .get(FragmentItemRoomViewModel::class.java)
         mViewModel.allItems.observe(this, mObserveList)
 
+        mToolbar.setupWithNavController(findNavController())
     }
 
     override fun onDestroyView() {
