@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.recycler_guard_late.view.*
 
 class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>() {
     private lateinit var context: Context
-    private var mList = emptyList<Guards>()
+    private var mList = mutableListOf<Guards>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -51,8 +51,13 @@ class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>
 
     }
 
-    fun setList(list: List<Guards>) {
+    fun setList(list: MutableList<Guards>) {
         mList = list
         notifyDataSetChanged()
+    }
+
+    fun removeItem(viewHolder: RecyclerView.ViewHolder) {
+        mList.removeAt(viewHolder.adapterPosition)
+        notifyItemRemoved(viewHolder.adapterPosition)
     }
 }

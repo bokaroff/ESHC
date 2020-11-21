@@ -23,7 +23,10 @@ interface ItemRoomDao {
 
 
  @Delete
- suspend fun delete(item: Items)
+ suspend fun deleteItem(item: Items)
+
+ @Delete
+ suspend fun deleteGuard(guard: Guards)
 
 }
 

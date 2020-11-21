@@ -54,7 +54,6 @@ class ViewPagerFragment : Fragment() {
         }.attach()
 
         setHasOptionsMenu(true)
-
         return mBinding.root
     }
 

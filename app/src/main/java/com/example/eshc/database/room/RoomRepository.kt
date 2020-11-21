@@ -13,17 +13,21 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
        val allGuardsLate: LiveData<List<Guards>>
         get() = itemRoomDao.getAllGuardsLate()
 
-        suspend fun insertItem(item: Items) {
-                itemRoomDao.insertItem(item)
-        }
+    suspend fun insertItem(item: Items) {
+        itemRoomDao.insertItem(item)
+    }
 
-        suspend fun insertGuardLate(guard: Guards) {
-                itemRoomDao.insertGuardLate(guard)
-        }
+    suspend fun insertGuardLate(guard: Guards) {
+        itemRoomDao.insertGuardLate(guard)
+    }
 
-        suspend fun delete(item: Items) {
-                itemRoomDao.delete(item)
-        }
+    suspend fun deleteItem(item: Items) {
+        itemRoomDao.deleteItem(item)
+    }
+
+    suspend fun deleteGuard(guard: Guards) {
+        itemRoomDao.deleteGuard(guard)
+    }
 
 }
 

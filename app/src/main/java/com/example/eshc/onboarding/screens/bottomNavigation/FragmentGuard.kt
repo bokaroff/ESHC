@@ -1,6 +1,7 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.FireGuardAdapter
 import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.model.Guards
+import com.example.eshc.utilits.TAG
 import com.example.eshc.utilits.adapterFireGuard
 import com.example.eshc.utilits.collectionGUARDS_REF
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.ktx.toObjects
 
 
 class FragmentGuard : Fragment() {

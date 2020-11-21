@@ -10,8 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.databinding.FragmentHomeBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class FragmentHome : Fragment() {
+class FragmentHome : BottomSheetDialogFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar
@@ -32,9 +33,7 @@ class FragmentHome : Fragment() {
     }
 
     private fun initialization() {
-        mToolbar = mBinding.fragmentHomeToolbar
-        mRecyclerView = mBinding.rvFragmentHome
-        mToolbar.setupWithNavController(findNavController())
+
     }
 
     override fun onDestroyView() {

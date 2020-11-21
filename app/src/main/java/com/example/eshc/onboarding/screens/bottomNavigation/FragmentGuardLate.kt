@@ -1,6 +1,7 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterGuardLate
 import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.model.Guards
+import com.example.eshc.utilits.TAG
 
 
 class FragmentGuardLate : Fragment() {
 
     private var _binding: FragmentGuardLateBinding? = null
     private val mBinding get() = _binding!!
+    private var mList = mutableListOf<Guards>()
+
     private lateinit var mAdapter: AdapterGuardLate
     private lateinit var mToolbar: Toolbar
     private lateinit var mRecyclerView: RecyclerView
@@ -38,6 +43,7 @@ class FragmentGuardLate : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
+        swipeToDelete()
     }
 
     private fun initialization() {
@@ -48,7 +54,9 @@ class FragmentGuardLate : Fragment() {
 
         mObserveList = Observer {
             val list = it.asReversed()
-            mAdapter.setList(list)
+            mList = list.toMutableList()
+            Log.d(TAG, "initialization: ${mList.size}")
+            mAdapter.setList(mList)
         }
         mViewModel = ViewModelProvider(this)
             .get(FragmentGuardLateViewModel::class.java)
@@ -57,10 +65,38 @@ class FragmentGuardLate : Fragment() {
         mToolbar.setupWithNavController(findNavController())
     }
 
+    private fun swipeToDelete() {
+        val itemTouchHelperCallBack = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
+                val guard = mList[viewHolder.adapterPosition]
+                mViewModel.deleteGuardLate(guard)
+                mViewModel.allGuardsLate.removeObserver(mObserveList)
+                mAdapter.removeItem(viewHolder)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallBack)
+        itemTouchHelper.attachToRecyclerView(mRecyclerView)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         mViewModel.allGuardsLate.removeObserver(mObserveList)
         mRecyclerView.adapter = null
     }
+
+
 }
+

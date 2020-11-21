@@ -80,7 +80,7 @@
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/fragmentHome"
         android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentHome"
         android:label="@string/frag_home_toolbar_title"
@@ -91,7 +91,7 @@
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
 
-    </fragment>
+    </dialog>
     <fragment
         android:id="@+id/fragmentView"
         android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentView"
