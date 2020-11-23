@@ -1,6 +1,7 @@
 package com.example.eshc.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.example.eshc.model.Items
 import com.example.eshc.onboarding.screens.bottomNavigation.FragmentView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import kotlinx.android.synthetic.main.fragment_update_item.view.*
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
 
@@ -19,9 +21,10 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
     : FirestoreRecyclerAdapter<Items, FireItemAdapter.ItemViewHolder>(options) {
 
     private lateinit var context: Context
-
+/*
     override fun onViewAttachedToWindow(holder: ItemViewHolder) {
         holder.edit_img.setOnClickListener { view ->
+
             val popupMenu = PopupMenu(context, view)
             popupMenu.inflate(R.menu.popup_menu)
             popupMenu.setOnMenuItemClickListener { it ->
@@ -50,6 +53,16 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
                 }
             }
             popupMenu.show()
+        }
+    }
+
+
+ */
+
+    override fun onViewAttachedToWindow(holder: ItemViewHolder) {
+        holder.edit_img.setOnClickListener {
+            val item = getItem(holder.adapterPosition)
+            FragmentView.popUpFragmentClick(item)
         }
     }
 

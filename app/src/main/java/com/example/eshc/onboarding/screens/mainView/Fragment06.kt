@@ -1,14 +1,13 @@
-package com.example.eshc.onboarding.screens
+package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
-import com.example.eshc.databinding.Fragment08Binding
+import com.example.eshc.databinding.Fragment06Binding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.collectionITEMS_REF
 import com.example.eshc.utilits.showToast
@@ -18,10 +17,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
+class Fragment06 : Fragment() {
 
-class Fragment08 : Fragment() {
-
-    private var _binding: Fragment08Binding? = null
+    private var _binding: Fragment06Binding? = null
     private val mBinding get() = _binding!!
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
@@ -31,7 +29,7 @@ class Fragment08 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = Fragment08Binding.inflate(layoutInflater, container, false)
+        _binding = Fragment06Binding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
 
@@ -42,9 +40,10 @@ class Fragment08 : Fragment() {
     }
 
     private fun initialization() {
-        mRecyclerView = mBinding.rvFragment08
+        mRecyclerView = mBinding.rvFragment06
         mAdapterItems = AdapterItems()
     }
+
 
     private fun getData() {
 
@@ -53,7 +52,7 @@ class Fragment08 : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val querySnapshot = collectionITEMS_REF
-                    .whereEqualTo("order08", "true").get().await()
+                    .whereEqualTo("order06", "true").get().await()
                 for (snap in querySnapshot) {
                     val item = snap.toObject(Items::class.java)
                     mList.add(item)

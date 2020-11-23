@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.screens.Fragment08">
+    tools:context=".onboarding.screens.mainView.Fragment08">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFragment08"

@@ -1,6 +1,7 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.eshc.R
 import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.databinding.FragmentViewBinding
 import com.example.eshc.model.Items
@@ -67,10 +69,13 @@ class FragmentView : Fragment() {
         _binding = null
     }
 
+    /*
     companion object{
         fun popupUpdate(item: Items){
+
                 showToast("popupUpdate")
         }
+
         fun popupAddNewItem (item: Items){
             showToast("popupAddNew")
         }
@@ -84,6 +89,14 @@ class FragmentView : Fragment() {
 
         fun popupDelete(item: Items){
             showToast("popupDelete")
+        }
+    }
+     */
+
+    companion object{
+        fun popUpFragmentClick(item: Items){
+            Log.d(TAG, "popUpFragmentClick: ${item.objectName}")
+            APP_ACTIVITY.navController.navigate(R.id.action_fragmentView_to_popUpFragment)
         }
     }
 

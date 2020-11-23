@@ -1,14 +1,13 @@
-package com.example.eshc.onboarding.screens
+package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
-import com.example.eshc.databinding.Fragment02Binding
+import com.example.eshc.databinding.Fragment04Binding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.collectionITEMS_REF
 import com.example.eshc.utilits.showToast
@@ -19,9 +18,9 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 
-class Fragment02 : Fragment() {
+class Fragment04 : Fragment() {
 
-    private var _binding: Fragment02Binding? = null
+    private var _binding: Fragment04Binding? = null
     private val mBinding get() = _binding!!
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
@@ -31,7 +30,7 @@ class Fragment02 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = Fragment02Binding.inflate(layoutInflater, container, false)
+        _binding = Fragment04Binding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
 
@@ -42,7 +41,7 @@ class Fragment02 : Fragment() {
     }
 
     private fun initialization() {
-        mRecyclerView = mBinding.rvFragment02
+        mRecyclerView = mBinding.rvFragment04
         mAdapterItems = AdapterItems()
     }
 
@@ -73,6 +72,6 @@ class Fragment02 : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-       mRecyclerView.adapter = null
+        mRecyclerView.adapter = null
     }
 }

@@ -7,4 +7,5 @@
     <dimen name="padding_top">5dp</dimen>
     <dimen name="padding_main">8dp</dimen>
     <dimen name="toolbar_height">44dp</dimen>
+    <dimen name="edtxt_height">26dp</dimen>
 </resources>

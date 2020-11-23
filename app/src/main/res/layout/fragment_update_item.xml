@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".onboarding.screens.UpdateItemFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/fragmentUpdateItem_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/colorWhite"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/fragmentUpdateItem_edtxt_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_toolbar"
+        android:hint="name"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/fragmentUpdateItem_edtxt_address"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_edtxt_name"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="address"
+        android:inputType="textPersonName"
+        android:autofillHints=""
+
+        />
+
+    <EditText
+        android:id="@+id/fragmentUpdateItem_edtxt_objectPhone"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_edtxt_address"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="objectPhone"
+        android:inputType="phone"
+        android:autofillHints=""
+
+        />
+
+    <EditText
+        android:id="@+id/fragmentUpdateItem_edtxt_mobilePhone"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_edtxt_objectPhone"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="mobilePhone"
+        android:inputType="phone"
+        android:autofillHints=""
+        />
+
+    <EditText
+        android:id="@+id/fragmentUpdateItem_edtxt_kurator"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_edtxt_mobilePhone"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="kurator"
+        android:inputType="textPersonName"
+        android:autofillHints=""
+        />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

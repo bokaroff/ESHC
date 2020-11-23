@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/viewPagerFragment"
         android:name="com.example.eshc.onboarding.ViewPagerFragment"
-        android:label="fragment_view_pager"
+        android:label=""
         tools:layout="@layout/fragment_view_pager" >
         <action
             android:id="@+id/action_viewPagerFragment_to_fragmentGuardLate"
@@ -103,10 +103,8 @@
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
         <action
-            android:id="@+id/action_fragmentView_to_fragmentGuardLate"
-            app:destination="@id/fragmentGuardLate"
-            app:enterAnim="@anim/slide_right_to_left_enter"
-            app:popEnterAnim="@anim/slide_left_to_right_exit" />
+            android:id="@+id/action_fragmentView_to_popUpFragment"
+            app:destination="@id/popUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentItemRoom"
@@ -119,4 +117,14 @@
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
     </fragment>
+    <fragment
+        android:id="@+id/updateItemFragment"
+        android:name="com.example.eshc.onboarding.screens.UpdateItemFragment"
+        android:label="fragment_update_item"
+        tools:layout="@layout/fragment_update_item" />
+    <dialog
+        android:id="@+id/popUpFragment"
+        android:name="com.example.eshc.onboarding.screens.PopUpFragment"
+        android:label="fragment_pop_up"
+        tools:layout="@layout/fragment_pop_up" />
 </navigation>
