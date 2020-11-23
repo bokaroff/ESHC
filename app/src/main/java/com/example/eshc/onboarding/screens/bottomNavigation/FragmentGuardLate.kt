@@ -1,12 +1,16 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,12 +31,15 @@ class FragmentGuardLate : Fragment() {
     private var _binding: FragmentGuardLateBinding? = null
     private val mBinding get() = _binding!!
     private var mList = mutableListOf<Guards>()
+    private var swipeBackground = ColorDrawable(Color.RED)
+
 
     private lateinit var mAdapter: AdapterGuardLate
     private lateinit var mToolbar: Toolbar
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mObserveList: Observer<List<Guards>>
     private lateinit var mViewModel: FragmentGuardLateViewModel
+    private lateinit var deleteIcon: Drawable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +58,9 @@ class FragmentGuardLate : Fragment() {
 
     private fun initialization() {
         mAdapter = AdapterGuardLate()
+        deleteIcon = ResourcesCompat.getDrawable(resources,
+            R.drawable.ic_delete_white, null)!!
+
         mToolbar = mBinding.fragmentGuardLateToolbar
         mRecyclerView = mBinding.rvFragmentGuardLate
         mRecyclerView.adapter = mAdapter
@@ -89,12 +99,57 @@ class FragmentGuardLate : Fragment() {
                 mViewModel.allGuardsLate.removeObserver(mObserveList)
                 mAdapter.removeItem(viewHolder)
 
-                Snackbar.make(viewHolder.itemView,"${guard.guardName} удален",
-                    Snackbar.LENGTH_LONG).setActionTextColor(Color.RED)
-                    .setAction("Отмена"){
-                    mViewModel.insertGuardLate(guard)
-                    mAdapter.insertItem(removedPosition, guard)
-                }.show()
+                Snackbar.make(
+                    viewHolder.itemView, "${guard.guardName} удален",
+                    Snackbar.LENGTH_LONG
+                ).setActionTextColor(Color.RED)
+                    .setAction("Отмена") {
+                        mViewModel.insertGuardLate(guard)
+                        mAdapter.insertItem(removedPosition, guard)
+                        mRecyclerView.smoothScrollToPosition(removedPosition)
+                    }.show()
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+                val iconMargin = (itemView.height - deleteIcon.intrinsicHeight) / 2
+
+
+                if (dX > 0) {
+                    swipeBackground.setBounds(
+                        itemView.left, itemView.top,
+                        dX.toInt(), itemView.bottom
+                    )
+                    deleteIcon.setBounds(itemView.left + iconMargin, itemView.top + iconMargin,
+                    itemView.left + iconMargin + deleteIcon.intrinsicWidth,
+                    itemView.bottom - iconMargin)
+
+                } else {
+                    swipeBackground.setBounds(
+                        itemView.right + dX.toInt(),
+                        itemView.top, itemView.right, itemView.bottom
+                    )
+                    deleteIcon.setBounds(itemView.right - iconMargin - deleteIcon.intrinsicWidth,
+                        itemView.top + iconMargin,
+                        itemView.right - iconMargin,
+                        itemView.bottom - iconMargin)
+                }
+                swipeBackground.draw(c)
+                deleteIcon.draw(c)
+
+                super.onChildDraw(
+                    c, recyclerView, viewHolder, dX, dY,
+                    actionState,
+                    isCurrentlyActive
+                )
             }
         }
 
