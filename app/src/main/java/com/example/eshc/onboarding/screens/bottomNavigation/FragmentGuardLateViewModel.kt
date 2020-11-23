@@ -17,4 +17,11 @@ class FragmentGuardLateViewModel(application: Application): AndroidViewModel(app
             REPOSITORY.deleteGuard(guard)
         }
     }
+
+    fun insertGuardLate(guard: Guards){
+        viewModelScope.launch(Dispatchers.IO){
+            REPOSITORY.insertGuardLate(guard)
+        }
+    }
+
 }

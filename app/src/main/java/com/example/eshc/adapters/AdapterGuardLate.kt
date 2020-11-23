@@ -9,11 +9,13 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.recycler_guard_late.view.*
 
 class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>() {
     private lateinit var context: Context
     private var mList = mutableListOf<Guards>()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -48,7 +50,6 @@ class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>
         val guardLateWork = itemView.guardLateWork
         val guardLatePhone_2 = itemView.guardLatePhone2
         val guardLateTime = itemView.guardLateTime
-
     }
 
     fun setList(list: MutableList<Guards>) {
@@ -59,5 +60,10 @@ class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>
     fun removeItem(viewHolder: RecyclerView.ViewHolder) {
         mList.removeAt(viewHolder.adapterPosition)
         notifyItemRemoved(viewHolder.adapterPosition)
+    }
+
+    fun insertItem(position: Int, guard: Guards){
+        mList.add(position, guard)
+        notifyItemInserted(position)
     }
 }

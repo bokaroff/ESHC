@@ -1,5 +1,6 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,10 +14,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.eshc.R
 import com.example.eshc.adapters.AdapterGuardLate
 import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.utilits.TAG
+import com.google.android.material.snackbar.Snackbar
 
 
 class FragmentGuardLate : Fragment() {
@@ -80,9 +83,18 @@ class FragmentGuardLate : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
                 val guard = mList[viewHolder.adapterPosition]
+                val removedPosition = viewHolder.adapterPosition
+
                 mViewModel.deleteGuardLate(guard)
                 mViewModel.allGuardsLate.removeObserver(mObserveList)
                 mAdapter.removeItem(viewHolder)
+
+                Snackbar.make(viewHolder.itemView,"${guard.guardName} удален",
+                    Snackbar.LENGTH_LONG).setActionTextColor(Color.RED)
+                    .setAction("Отмена"){
+                    mViewModel.insertGuardLate(guard)
+                    mAdapter.insertItem(removedPosition, guard)
+                }.show()
             }
         }
 
