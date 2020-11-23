@@ -95,8 +95,9 @@ class FragmentView : Fragment() {
 
     companion object{
         fun popUpFragmentClick(item: Items){
-            Log.d(TAG, "popUpFragmentClick: ${item.objectName}")
-            APP_ACTIVITY.navController.navigate(R.id.action_fragmentView_to_popUpFragment)
+            val bundle = Bundle()
+            bundle.putSerializable("item",item)
+            APP_ACTIVITY.navController.navigate(R.id.action_fragmentView_to_popUpFragment, bundle)
         }
     }
 

@@ -21,53 +21,16 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
     : FirestoreRecyclerAdapter<Items, FireItemAdapter.ItemViewHolder>(options) {
 
     private lateinit var context: Context
-/*
-    override fun onViewAttachedToWindow(holder: ItemViewHolder) {
-        holder.edit_img.setOnClickListener { view ->
-
-            val popupMenu = PopupMenu(context, view)
-            popupMenu.inflate(R.menu.popup_menu)
-            popupMenu.setOnMenuItemClickListener { it ->
-                when (it.itemId) {
-                    R.id.item_update -> {
-                        val item = getItem(holder.adapterPosition)
-                        FragmentView.popupUpdate(item)
-                        true
-                    }
-                    R.id.add_item_late -> {
-                        val item = getItem(holder.adapterPosition)
-                        FragmentView.popupAddLateList(item)
-                        true
-                    }
-                    R.id.item_add -> {
-                        val item = getItem(holder.adapterPosition)
-                        FragmentView.popupAddNewItem(item)
-                        true
-                    }
-                    R.id.item_delete -> {
-                        val item = getItem(holder.adapterPosition)
-                        FragmentView.popupDelete(item)
-                        true
-                    }
-                    else -> false
-                }
-            }
-            popupMenu.show()
-        }
-    }
-
-
- */
 
     override fun onViewAttachedToWindow(holder: ItemViewHolder) {
-        holder.edit_img.setOnClickListener {
+        holder.recyclerItemContainer.setOnClickListener {
             val item = getItem(holder.adapterPosition)
             FragmentView.popUpFragmentClick(item)
         }
     }
 
     override fun onViewDetachedFromWindow(holder: ItemViewHolder) {
-        holder.edit_img.setOnClickListener(null)
+        holder.recyclerItemContainer.setOnClickListener(null)
         super.onViewDetachedFromWindow(holder)
     }
 
