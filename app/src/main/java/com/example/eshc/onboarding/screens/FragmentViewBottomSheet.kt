@@ -1,18 +1,15 @@
 package com.example.eshc.onboarding.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.eshc.R
-import com.example.eshc.databinding.FragmentPopUpBinding
-import com.example.eshc.databinding.FragmentUpdateItemBinding
+import com.example.eshc.databinding.FragmentViewBottomSheetBinding
 import com.example.eshc.model.Items
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class PopUpFragment : BottomSheetDialogFragment() {
-    private var _binding: FragmentPopUpBinding? = null
+class FragmentViewBottomSheet : BottomSheetDialogFragment() {
+    private var _binding: FragmentViewBottomSheetBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mCurentitem: Items
 
@@ -21,7 +18,8 @@ class PopUpFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentPopUpBinding.inflate(layoutInflater, container,false)
+        _binding = FragmentViewBottomSheetBinding.
+        inflate(layoutInflater, container, false)
         mCurentitem = arguments?.getSerializable("item") as Items
         return mBinding.root
     }

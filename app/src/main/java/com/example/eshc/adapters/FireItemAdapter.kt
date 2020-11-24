@@ -61,7 +61,6 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
         val address = itemView.address_txt
         val  worker08 = itemView.worker08_txt
         val serverTimestamp = itemView.serverTimestamp_txt
-        val edit_img = itemView.recycler_edit_img
         val recyclerItemContainer = itemView.recycler_item_container
     }
 }

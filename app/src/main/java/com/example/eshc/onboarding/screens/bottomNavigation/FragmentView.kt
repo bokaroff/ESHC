@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,9 @@ import com.example.eshc.R
 import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.databinding.FragmentViewBinding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.*
+import com.example.eshc.utilits.APP_ACTIVITY
+import com.example.eshc.utilits.adapterFireItem
+import com.example.eshc.utilits.collectionITEMS_REF
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 
 class FragmentView : Fragment() {
@@ -68,30 +69,6 @@ class FragmentView : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    /*
-    companion object{
-        fun popupUpdate(item: Items){
-
-                showToast("popupUpdate")
-        }
-
-        fun popupAddNewItem (item: Items){
-            showToast("popupAddNew")
-        }
-        fun popupAddLateList(item: Items) {
-            GUARD.workPlace= item.objectName
-            GUARD.guardName = item.worker08
-            GUARD.guardKurator = item.kurator
-
-            insertGuardLateRoom(GUARD)
-        }
-
-        fun popupDelete(item: Items){
-            showToast("popupDelete")
-        }
-    }
-     */
 
     companion object{
         fun popUpFragmentClick(item: Items){

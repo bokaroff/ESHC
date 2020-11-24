@@ -9,7 +9,6 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.recycler_guard_late.view.*
 
 class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>() {
@@ -43,7 +42,6 @@ class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>
 
     class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val rvGuardLateContainer = itemView.rvGuardLateContainer
-        val rvGuardLateEditImg = itemView.rvGuardLateEditImg
         val guardLateName = itemView.guardLateName
         val guardLateKurator = itemView.guardLateKurator
         val guardLatePhone = itemView.guardLatePhone

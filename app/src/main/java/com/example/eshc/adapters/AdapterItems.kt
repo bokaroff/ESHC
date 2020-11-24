@@ -33,7 +33,6 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
         holder.address.text = mList[position].address
         holder.worker08.text = mList[position].worker08
         holder.serverTimestamp.text = mList[position].worker15
-        holder.edit_img.visibility = View.GONE
     }
 
     override fun getItemCount(): Int {
@@ -47,9 +46,7 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
         val address = itemView.address_txt
         val worker08 = itemView.worker08_txt
         val serverTimestamp = itemView.serverTimestamp_txt
-        val edit_img = itemView.recycler_edit_img
         val recyclerItemContainer = itemView.recycler_item_container
-
     }
 
     fun setList(list: List<Items>) {

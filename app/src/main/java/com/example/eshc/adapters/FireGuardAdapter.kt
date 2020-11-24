@@ -41,7 +41,6 @@ class FireGuardAdapter<T, U>(options: FirestoreRecyclerOptions<Guards>)
         val guardPhone_2 = itemView.guardPhone2_txt
         val guardKurator = itemView.guard_kurator_txt
         val guardWorkPlace = itemView.guard_work_txt
-        val guardEditImg = itemView.recycler_guard_edit_img
         val guardRecyclContainer = itemView.recycler_item_guard_container
     }
 

@@ -124,7 +124,7 @@
         tools:layout="@layout/fragment_update_item" />
     <dialog
         android:id="@+id/popUpFragment"
-        android:name="com.example.eshc.onboarding.screens.PopUpFragment"
+        android:name="com.example.eshc.onboarding.screens.FragmentViewBottomSheet"
         android:label="fragment_pop_up"
-        tools:layout="@layout/fragment_pop_up" />
+        tools:layout="@layout/fragment_view_bottom_sheet" />
 </navigation>
