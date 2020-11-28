@@ -23,8 +23,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+
         APP_ACTIVITY = this
         ITEM = Items()
         GUARD = Guards()
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         mBinding.bottomNavigation.setupWithNavController(navController)
+
         mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.fragmentHome -> {
@@ -79,13 +82,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.splashFragment -> {
                     mBinding.bottomNavigation.visibility = View.GONE
                 }
-
             }
         }
     }
-
-
-
 
     override fun onDestroy() {
         super.onDestroy()

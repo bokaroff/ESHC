@@ -35,6 +35,6 @@ lateinit var adapterGuardLate: AdapterGuardLate
 val collectionITEMS_REF = FirebaseFirestore.getInstance().collection("Items")
     .orderBy("objectName", Query.Direction.ASCENDING)
 val collectionGUARDS_REF = FirebaseFirestore.getInstance().collection("Workers")
-    .orderBy("guardName", Query.Direction.ASCENDING)
+
 val collectionSTAFF_REF = FirebaseFirestore.getInstance().collection("Staff")
 

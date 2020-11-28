@@ -74,9 +74,8 @@ class FragmentView : Fragment() {
         fun popUpFragmentClick(item: Items){
             val bundle = Bundle()
             bundle.putSerializable("item",item)
-            APP_ACTIVITY.navController.navigate(R.id.action_fragmentView_to_popUpFragment, bundle)
+            APP_ACTIVITY.navController
+                .navigate(R.id.action_fragmentView_to_fragmentViewBottomSheet, bundle)
         }
     }
-
-
 }

@@ -103,8 +103,8 @@
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
         <action
-            android:id="@+id/action_fragmentView_to_popUpFragment"
-            app:destination="@id/popUpFragment" />
+            android:id="@+id/action_fragmentView_to_fragmentViewBottomSheet"
+            app:destination="@id/fragmentViewBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/fragmentItemRoom"
@@ -123,8 +123,12 @@
         android:label="fragment_update_item"
         tools:layout="@layout/fragment_update_item" />
     <dialog
-        android:id="@+id/popUpFragment"
-        android:name="com.example.eshc.onboarding.screens.FragmentViewBottomSheet"
-        android:label="fragment_pop_up"
-        tools:layout="@layout/fragment_view_bottom_sheet" />
+        android:id="@+id/fragmentViewBottomSheet"
+        android:name="com.example.eshc.onboarding.screens.bottomSheet.FragmentViewBottomSheet"
+        android:label="fragment_view_bottom_sheet"
+        tools:layout="@layout/fragment_view_bottom_sheet" >
+        <action
+            android:id="@+id/action_fragmentViewBottomSheet_to_updateItemFragment"
+            app:destination="@id/updateItemFragment" />
+    </dialog>
 </navigation>

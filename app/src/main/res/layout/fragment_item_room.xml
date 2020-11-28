@@ -14,7 +14,7 @@
         app:titleTextColor="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/eliteColor"
         />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -2,10 +2,23 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/eliteColorLight</item>
+        <item name="colorPrimaryDark">@color/eliteColor</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorWhite</item>
     </style>
+
+    <!-- Splash Theme -->
+    <style name="splashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_image</item>
+        <item name="android:statusBarColor">@color/colorWhite</item>
+    </style>
+
+
+    <!-- TabStyle -->
+    <style name="MyCustomTabText" parent="TextAppearance.Design.Tab">
+      
+    </style>
+
 
 </resources>
