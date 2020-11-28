@@ -33,7 +33,6 @@ class FragmentGuardLate : Fragment() {
     private var mList = mutableListOf<Guards>()
     private var swipeBackground = ColorDrawable(Color.RED)
 
-
     private lateinit var mAdapter: AdapterGuardLate
     private lateinit var mToolbar: Toolbar
     private lateinit var mRecyclerView: RecyclerView

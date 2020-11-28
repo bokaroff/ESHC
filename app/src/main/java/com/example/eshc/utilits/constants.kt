@@ -20,7 +20,7 @@ lateinit var APP_ACTIVITY: MainActivity
 lateinit var ITEM: Items
 lateinit var GUARD: Guards
 lateinit var DB: FirebaseFirestore
-lateinit var REPOSITORY: RoomRepository
+lateinit var REPOSITORY_ROOM: RoomRepository
 lateinit var ITEM_ROOM_DAO: ItemRoomDao
 lateinit var ITEM_ROOM_DATABASE: ItemRoomDatabase
 lateinit var optionsItems: FirestoreRecyclerOptions<Items>
@@ -32,9 +32,10 @@ lateinit var adapterGuardLate: AdapterGuardLate
 
 
 
-val collectionITEMS_REF = FirebaseFirestore.getInstance().collection("Items")
-    .orderBy("objectName", Query.Direction.ASCENDING)
-val collectionGUARDS_REF = FirebaseFirestore.getInstance().collection("Workers")
+val collectionITEMS_REF = FirebaseFirestore.getInstance()
+    .collection("Items").orderBy("objectName", Query.Direction.ASCENDING)
+val collectionGUARDS_REF = FirebaseFirestore.getInstance()
+    .collection("Workers").orderBy("guardName", Query.Direction.ASCENDING)
 
 val collectionSTAFF_REF = FirebaseFirestore.getInstance().collection("Staff")
 

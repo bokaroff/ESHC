@@ -16,7 +16,7 @@ fun showToast(message: String) {
 fun insertGuardLateRoom(guard: Guards) {
     CoroutineScope(Dispatchers.IO).launch {
         try {
-            REPOSITORY.insertGuardLate(guard)
+            REPOSITORY_ROOM.insertGuardLate(guard)
             withContext(Dispatchers.Main) {
                 showToast("Охранник ${guard.guardName} сохранен как опоздавщий")
             }

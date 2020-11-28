@@ -10,7 +10,7 @@ import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment15Binding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.ITEM
-import com.example.eshc.utilits.REPOSITORY
+import com.example.eshc.utilits.REPOSITORY_ROOM
 import com.example.eshc.utilits.collectionITEMS_REF
 import com.example.eshc.utilits.showToast
 import com.google.firebase.firestore.DocumentChange
@@ -81,7 +81,7 @@ class Fragment15 : Fragment() {
 
                       CoroutineScope(Dispatchers.IO).launch {
                           try {
-                              REPOSITORY.insertItem(ITEM)
+                              REPOSITORY_ROOM.insertItem(ITEM)
                           } catch (e: Exception) {
                               withContext(Dispatchers.Main) {
                                   showToast(e.message.toString())

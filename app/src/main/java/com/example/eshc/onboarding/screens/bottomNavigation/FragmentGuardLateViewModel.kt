@@ -4,23 +4,23 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.eshc.model.Guards
-import com.example.eshc.utilits.REPOSITORY
+import com.example.eshc.utilits.REPOSITORY_ROOM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FragmentGuardLateViewModel(application: Application): AndroidViewModel(application) {
 
-    val allGuardsLate = REPOSITORY.allGuardsLate
+    val allGuardsLate = REPOSITORY_ROOM.allGuardsLate
 
     fun deleteGuardLate(guard: Guards){
         viewModelScope.launch(Dispatchers.IO){
-            REPOSITORY.deleteGuard(guard)
+            REPOSITORY_ROOM.deleteGuard(guard)
         }
     }
 
     fun insertGuardLate(guard: Guards){
         viewModelScope.launch(Dispatchers.IO){
-            REPOSITORY.insertGuardLate(guard)
+            REPOSITORY_ROOM.insertGuardLate(guard)
         }
     }
 
