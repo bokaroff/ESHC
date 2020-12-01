@@ -10,21 +10,13 @@
         android:id="@+id/fragmentGuard_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
+        app:menu="@menu/fragment_guard_menu"
         android:background="@color/eliteColor"
         app:titleTextColor="@color/colorWhite"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edTxt_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentGuard_toolbar"
-        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFragmentGuard"
@@ -34,10 +26,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edTxt_search"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentGuard_toolbar"
         />
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

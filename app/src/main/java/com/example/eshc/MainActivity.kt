@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         mBinding.bottomNavigation.setupWithNavController(navController)
-
         mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.fragmentHome -> {
