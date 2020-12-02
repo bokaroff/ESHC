@@ -59,7 +59,6 @@ class FragmentGuard : Fragment() {
         mAdapter = AdapterGuard()
         mRecyclerView = mBinding.rvFragmentGuard
         mToolbar.setupWithNavController(findNavController())
-        APP_ACTIVITY.setSupportActionBar(mToolbar)
         mRecyclerView.adapter = mAdapter
     }
 
@@ -84,7 +83,6 @@ class FragmentGuard : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        Log.i(TAG, "onCreateOptionsMenu")
         inflater.inflate(R.menu.fragment_guard_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -93,7 +91,6 @@ class FragmentGuard : Fragment() {
         val menuItem = menu.findItem(R.id.fragmentGuard_search)
         mSearchView = menuItem.actionView as SearchView
         searching(mSearchView)
-        Log.i(TAG, "onPrepareOptionsMenu")
         super.onPrepareOptionsMenu(menu)
     }
 
@@ -101,13 +98,11 @@ class FragmentGuard : Fragment() {
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 mAdapter.filter.filter(query)
-                Log.i(TAG, "onQueryTextSubmit $query")
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
                 mAdapter.filter.filter(newText)
-                Log.i(TAG, "onQueryTextChange $newText")
                 return true
             }
         })

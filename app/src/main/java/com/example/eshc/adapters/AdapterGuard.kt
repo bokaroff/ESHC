@@ -59,9 +59,8 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
 
     override fun getFilter(): Filter {
         return object : Filter() {
-
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
-                val key = charSequence.toString().trim()
+                val key = charSequence.toString().toLowerCase().trim()
                 mListFiltered = if (key.isEmpty()) {
                     mList
                 } else {
