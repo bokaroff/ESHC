@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -14,7 +13,6 @@ import com.example.eshc.adapters.AdapterGuard
 import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.utilits.APP_ACTIVITY
-import com.example.eshc.utilits.TAG
 import com.example.eshc.utilits.collectionGUARDS_REF
 import com.example.eshc.utilits.showToast
 import kotlinx.coroutines.CoroutineScope
@@ -52,7 +50,7 @@ class FragmentGuard : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        getData()
+        getGuardData()
     }
 
     private fun initialization() {
@@ -63,7 +61,7 @@ class FragmentGuard : Fragment() {
     }
 
 
-    private fun getData() = CoroutineScope(Dispatchers.IO).launch {
+    private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
         val list = mutableListOf<Guards>()
         try {
             val query = collectionGUARDS_REF.get().await()
@@ -107,6 +105,7 @@ class FragmentGuard : Fragment() {
             }
         })
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

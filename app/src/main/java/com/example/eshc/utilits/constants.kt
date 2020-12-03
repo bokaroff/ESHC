@@ -15,6 +15,15 @@ import com.google.firebase.firestore.Query
 
 
 const val TAG = "kotlin"
+const val field_00 = "order00"
+const val field_02 = "order02"
+const val field_04 = "order04"
+const val field_06 = "order06"
+const val field_08 = "order08"
+const val field_15 = "order15"
+const val field_21 = "order21"
+const val yeah = "true"
+
 
 lateinit var APP_ACTIVITY: MainActivity
 lateinit var ITEM: Items
