@@ -87,4 +87,14 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
             }
         }
     }
+
+    fun removeItem(viewHolder: RecyclerView.ViewHolder) {
+        mList.removeAt(viewHolder.adapterPosition)
+        notifyItemRemoved(viewHolder.adapterPosition)
+    }
+
+    fun insertItem(position: Int, guard: Guards){
+        mList.add(position, guard)
+        notifyItemInserted(position)
+    }
 }

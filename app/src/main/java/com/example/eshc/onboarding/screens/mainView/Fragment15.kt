@@ -14,7 +14,6 @@ import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class Fragment15 : Fragment() {
@@ -36,7 +35,7 @@ class Fragment15 : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        getData("order15", "true", mAdapterItems, mRecyclerView)
+        getData(field_15, yeah, mAdapterItems, mRecyclerView)
         insertItemChangesRoom()
     }
 
@@ -45,21 +44,18 @@ class Fragment15 : Fragment() {
         mAdapterItems = AdapterItems()
     }
 
-
-
     private fun insertItemChangesRoom(){
+        collectionITEMS_REF.addSnapshotListener { value, error ->
+            if (value != null) {
+                for (dc in value.documentChanges) {
+                    if (dc.type == DocumentChange.Type.MODIFIED) {
+                        ITEM = dc.document.toObject(Items::class.java)
 
-      collectionITEMS_REF.addSnapshotListener { value, error ->
-          if (value != null) {
-              for (dc in value.documentChanges) {
-                  if (dc.type == DocumentChange.Type.MODIFIED) {
-                      ITEM = dc.document.toObject(Items::class.java)
-
-                      CoroutineScope(Dispatchers.IO).launch {
-                          try {
-                              REPOSITORY_ROOM.insertItem(ITEM)
-                          } catch (e: Exception) {
-                              withContext(Dispatchers.Main) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                REPOSITORY_ROOM.insertItem(ITEM)
+                            } catch (e: Exception) {
+                                withContext(Dispatchers.Main) {
                                   showToast(e.message.toString())
                               }
                           }
