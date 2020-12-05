@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,14 +36,15 @@ fun insertGuardLateRoom(guard: Guards) {
 
 
 
- fun getData(field: String, value: String,
-             mAdapterItems: AdapterItems,
-             mRecyclerView: RecyclerView ) {
+ fun getItemData(field: String, value: String,
+                 mAdapterItems: AdapterItems,
+                 mRecyclerView: RecyclerView ) {
      val mList = mutableListOf<Items>()
 
     CoroutineScope(Dispatchers.IO).launch {
         try {
             val querySnapshot = collectionITEMS_REF
+                .orderBy("objectName", Query.Direction.ASCENDING)
                 .whereEqualTo(field, value).get().await()
             for (snap in querySnapshot) {
                 val item = snap.toObject(Items::class.java)

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment06Binding
 import com.example.eshc.utilits.field_06
-import com.example.eshc.utilits.getData
+import com.example.eshc.utilits.getItemData
 import com.example.eshc.utilits.yeah
 
 class Fragment06 : Fragment() {
@@ -31,7 +31,7 @@ class Fragment06 : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        getData(field_06, yeah, mAdapterItems, mRecyclerView)
+        getItemData(field_06, yeah, mAdapterItems, mRecyclerView)
     }
 
     private fun initialization() {

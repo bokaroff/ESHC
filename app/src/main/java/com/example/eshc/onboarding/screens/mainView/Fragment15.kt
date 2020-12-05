@@ -35,7 +35,7 @@ class Fragment15 : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        getData(field_15, yeah, mAdapterItems, mRecyclerView)
+        getItemData(field_15, yeah, mAdapterItems, mRecyclerView)
         insertItemChangesRoom()
     }
 

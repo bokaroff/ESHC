@@ -17,6 +17,7 @@ import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.adapterFireItem
 import com.example.eshc.utilits.collectionITEMS_REF
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.Query
 
 class FragmentView : Fragment() {
     private var _binding: FragmentViewBinding? = null
@@ -40,6 +41,7 @@ class FragmentView : Fragment() {
 
     private fun getData() {
         val query = collectionITEMS_REF
+            .orderBy("objectName", Query.Direction.ASCENDING)
         val options = FirestoreRecyclerOptions.Builder<Items>()
             .setQuery(query, Items::class.java)
             .build()
@@ -49,7 +51,6 @@ class FragmentView : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-
     }
 
     private fun initialization() {

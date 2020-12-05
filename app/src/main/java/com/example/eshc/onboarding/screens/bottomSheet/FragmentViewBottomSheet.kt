@@ -8,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentViewBottomSheetBinding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.GUARD
 import com.example.eshc.utilits.insertGuardLateRoom
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -38,7 +37,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
         mBinding.txtName.text = mCurentitem.objectName
 
         mBinding.containerAddItemLate.setOnClickListener {
-            GUARD.workPlace= mCurentitem.objectName
+            GUARD.guardWorkPlace= mCurentitem.objectName
             GUARD.guardName = mCurentitem.worker08
             GUARD.guardKurator = mCurentitem.kurator
            insertGuardLateRoom(GUARD)

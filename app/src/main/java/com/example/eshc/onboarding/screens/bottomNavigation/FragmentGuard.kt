@@ -19,10 +19,7 @@ import com.example.eshc.R
 import com.example.eshc.adapters.AdapterGuard
 import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.model.Guards
-import com.example.eshc.utilits.APP_ACTIVITY
-import com.example.eshc.utilits.TAG
-import com.example.eshc.utilits.collectionGUARDS_REF
-import com.example.eshc.utilits.showToast
+import com.example.eshc.utilits.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineScope
@@ -39,6 +36,8 @@ class FragmentGuard : Fragment() {
     private var mList = mutableListOf<Guards>()
     private var swipeBackground = ColorDrawable(Color.RED)
 
+    private lateinit var mKey: String
+    private lateinit var mViewHolder: RecyclerView.ViewHolder
     private lateinit var mToolbar: Toolbar
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mSearchView: SearchView
@@ -83,8 +82,7 @@ class FragmentGuard : Fragment() {
         val list = mutableListOf<Guards>()
         try {
             val query = collectionGUARDS_REF
-                .orderBy("guardName", Query.Direction.ASCENDING)
-                .get().await()
+                .orderBy("guardName", Query.Direction.ASCENDING).get().await()
             for (dc in query) {
                 val guard = dc.toObject(Guards::class.java)
                 list.add(guard)
@@ -141,25 +139,8 @@ class FragmentGuard : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
-                val guard = mList[viewHolder.adapterPosition]
-                val removedPosition = viewHolder.adapterPosition
-                val id = guard.firestore_id
-                Log.d(TAG, "onSwp: $id")
-
-
-                //     mViewModel.deleteGuardLate(guard)
-                //   mViewModel.allGuardsLate.removeObserver(mObserveList)
-                mAdapter.removeItem(viewHolder)
-
-                Snackbar.make(
-                    viewHolder.itemView, "${guard.guardName} удален",
-                    Snackbar.LENGTH_LONG
-                ).setActionTextColor(Color.RED)
-                    .setAction("Отмена") {
-                        // mViewModel.insertGuardLate(guard)
-                        mAdapter.insertItem(removedPosition, guard)
-                        mRecyclerView.smoothScrollToPosition(removedPosition)
-                    }.show()
+                mViewHolder = viewHolder
+                performSwipe(mViewHolder)
             }
 
             override fun onChildDraw(
@@ -173,7 +154,6 @@ class FragmentGuard : Fragment() {
             ) {
                 val itemView = viewHolder.itemView
                 val iconMargin = (itemView.height - deleteIcon.intrinsicHeight) / 2
-
 
                 if (dX > 0) {
                     swipeBackground.setBounds(
@@ -211,6 +191,42 @@ class FragmentGuard : Fragment() {
 
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallBack)
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
+    }
+
+    private fun performSwipe(viewHolder: RecyclerView.ViewHolder) {
+        val guard = mList[viewHolder.adapterPosition]
+        val removedPosition = viewHolder.adapterPosition
+
+        CoroutineScope(Dispatchers.IO).launch {
+            var key: String
+            try {
+                val query = collectionGUARDS_REF
+                    .whereEqualTo(guard_name, guard.guardName).get().await()
+                for (dc in query) {
+                    key = dc.id
+                    mKey = key
+                    collectionGUARDS_REF.document(key).delete().await()
+                    Log.d(TAG, "key: + $key ")
+                }
+                withContext(Dispatchers.Main) {
+                    mAdapter.removeItem(viewHolder)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    showToast(e.message.toString())
+                }
+            }
+        }
+
+        Snackbar.make(
+            viewHolder.itemView, "${guard.guardName} удален",
+            Snackbar.LENGTH_LONG
+        ).setActionTextColor(Color.RED)
+            .setAction("Отмена") {
+                collectionGUARDS_REF.document(mKey).set(guard)
+                mAdapter.insertItem(removedPosition, guard)
+                mRecyclerView.smoothScrollToPosition(removedPosition)
+            }.show()
     }
 
 

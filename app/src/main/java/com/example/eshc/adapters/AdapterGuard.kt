@@ -34,7 +34,7 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
         holder.guardPhone.text = mListFiltered[position].guardPhone
         holder.guardPhone_2.text = mListFiltered[position].guardPhone_2
         holder.guardKurator.text = mListFiltered[position].guardKurator
-        holder.guardWorkPlace.text = mListFiltered[position].workPlace
+        holder.guardWorkPlace.text = mListFiltered[position].guardWorkPlace
     }
 
     override fun getItemCount(): Int {

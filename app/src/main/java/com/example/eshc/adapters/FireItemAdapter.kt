@@ -1,19 +1,16 @@
 package com.example.eshc.adapters
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Items
 import com.example.eshc.onboarding.screens.bottomNavigation.FragmentView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import kotlinx.android.synthetic.main.fragment_update_item.view.*
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
 

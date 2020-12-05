@@ -32,7 +32,7 @@ class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>
         holder.guardLateKurator.text = mList[position].guardKurator
         holder.guardLatePhone.text = mList[position].guardPhone
         holder.guardLatePhone_2.text = mList[position].guardPhone_2
-        holder.guardLateWork.text = mList[position].workPlace
+        holder.guardLateWork.text = mList[position].guardWorkPlace
         holder.guardLateTime.text = mList[position].guardLateTime
     }
 

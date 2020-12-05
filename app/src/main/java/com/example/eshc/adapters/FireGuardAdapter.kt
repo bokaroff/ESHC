@@ -8,7 +8,6 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
-import com.example.eshc.utilits.GUARD
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.recycler_guard.view.*
@@ -32,7 +31,7 @@ class FireGuardAdapter<T, U>(options: FirestoreRecyclerOptions<Guards>)
         holder.guardPhone.text = model.guardPhone
         holder.guardPhone_2.text = model.guardPhone_2
         holder.guardKurator.text = model.guardKurator
-        holder.guardWorkPlace.text = model.workPlace
+        holder.guardWorkPlace.text = model.guardWorkPlace
 
     }
 
