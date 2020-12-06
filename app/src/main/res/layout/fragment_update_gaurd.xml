@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_main"
+    tools:context=".onboarding.screens.UpdateGuardFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/fragmentUpdateGuard_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/eliteColor"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/colorWhite" />
+
+    <EditText
+        android:id="@+id/fragmentUpdateGuard_edtxt_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        android:autofillHints=""
+        android:background="@color/colorGrey"
+        android:hint="name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuard_toolbar" />
+
+    <EditText
+        android:id="@+id/fragmentUpdateGuard_edtxt_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        android:layout_marginTop="10dp"
+        android:autofillHints=""
+        android:background="@color/colorGrey"
+        android:hint="address"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuard_edtxt_name"
+
+        />
+
+    <EditText
+        android:id="@+id/fragmentUpdateGuard_edtxt_objectPhone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        android:layout_marginTop="10dp"
+        android:autofillHints=""
+        android:background="@color/colorGrey"
+        android:hint="objectPhone"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuard_edtxt_address"
+
+        />
+
+    <EditText
+        android:id="@+id/fragmentUpdateGuard_edtxt_mobilePhone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        android:layout_marginTop="10dp"
+        android:autofillHints=""
+        android:background="@color/colorGrey"
+        android:hint="mobilePhone"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuard_edtxt_objectPhone" />
+
+    <EditText
+        android:id="@+id/fragmentUpdateGuard_edtxt_kurator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edtxt_height"
+        android:layout_marginTop="10dp"
+        android:autofillHints=""
+        android:background="@color/colorGrey"
+        android:hint="kurator"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuard_edtxt_mobilePhone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,11 +9,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
-import com.example.eshc.databinding.FragmentGuardBinding
+import com.example.eshc.databinding.FragmentUpdateGaurdBinding
 import com.example.eshc.databinding.FragmentUpdateItemBinding
 
-class UpdateItemFragment : Fragment() {
-    private var _binding: FragmentUpdateItemBinding? = null
+
+class UpdateGuardFragment : Fragment() {
+
+    private var _binding: FragmentUpdateGaurdBinding ? = null
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar
 
@@ -21,19 +23,17 @@ class UpdateItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentUpdateItemBinding.inflate(layoutInflater,
+        _binding = FragmentUpdateGaurdBinding.inflate(layoutInflater,
             container,false)
         return mBinding.root
     }
-
     override fun onStart() {
         super.onStart()
         initialization()
     }
 
     private fun initialization() {
-        mToolbar = mBinding.fragmentUpdateItemToolbar
+        mToolbar = mBinding.fragmentUpdateGuardToolbar
         mToolbar.setupWithNavController(findNavController())
     }
 

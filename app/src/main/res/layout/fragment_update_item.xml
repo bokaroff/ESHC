@@ -26,6 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_toolbar"
         android:hint="name"
+        android:background="@color/colorGrey"
         android:inputType="textPersonName"
         android:autofillHints="" />
 
@@ -38,6 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="address"
+        android:background="@color/colorGrey"
         android:inputType="textPersonName"
         android:autofillHints=""
 
@@ -52,6 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="objectPhone"
+        android:background="@color/colorGrey"
         android:inputType="phone"
         android:autofillHints=""
 
@@ -66,6 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="mobilePhone"
+        android:background="@color/colorGrey"
         android:inputType="phone"
         android:autofillHints=""
         />
@@ -79,12 +83,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="kurator"
+        android:background="@color/colorGrey"
         android:inputType="textPersonName"
         android:autofillHints=""
         />
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

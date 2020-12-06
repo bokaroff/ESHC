@@ -68,6 +68,9 @@
             app:destination="@id/viewPagerFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_fragmentGuard_to_fragmentGuardBottomSheet"
+            app:destination="@id/fragmentGuardBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/fragmentGuardLate"
@@ -131,4 +134,18 @@
             android:id="@+id/action_fragmentViewBottomSheet_to_updateItemFragment"
             app:destination="@id/updateItemFragment" />
     </dialog>
+    <dialog
+        android:id="@+id/fragmentGuardBottomSheet"
+        android:name="com.example.eshc.onboarding.screens.bottomSheet.FragmentGuardBottomSheet"
+        android:label="fragment_guard_bottom_sheet"
+        tools:layout="@layout/fragment_guard_bottom_sheet" >
+        <action
+            android:id="@+id/action_fragmentGuardBottomSheet_to_updateGuardFragment"
+            app:destination="@id/updateGuardFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/updateGuardFragment"
+        android:name="com.example.eshc.onboarding.screens.UpdateGuardFragment"
+        android:label="fragment_update_guard"
+        tools:layout="@layout/fragment_update_gaurd" />
 </navigation>

@@ -10,13 +10,26 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
+import com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuard
 import kotlinx.android.synthetic.main.recycler_guard.view.*
+import java.util.*
 
 class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filterable {
     private lateinit var context: Context
     private var mList = mutableListOf<Guards>()
     private var mListFiltered = mutableListOf<Guards>()
 
+    override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
+        holder.guardRecyclerContainer.setOnClickListener {
+            val guard = mListFiltered[holder.adapterPosition]
+            FragmentGuard.popUpFragmentClick(guard)
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: SimpleViewHolder) {
+        holder.guardRecyclerContainer.setOnClickListener(null)
+        super.onViewDetachedFromWindow(holder)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -27,7 +40,7 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
     }
 
     override fun onBindViewHolder(holder: SimpleViewHolder, position: Int) {
-        holder.guardRecyclContainer.animation =
+        holder.guardRecyclerContainer.animation =
             AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
 
         holder.guardName.text = mListFiltered[position].guardName
@@ -47,7 +60,7 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
         val guardPhone_2 = itemView.guardPhone2_txt
         val guardKurator = itemView.guard_kurator_txt
         val guardWorkPlace = itemView.guard_work_txt
-        val guardRecyclContainer = itemView.recycler_item_guard_container
+        val guardRecyclerContainer = itemView.recycler_item_guard_container
     }
 
     fun setList(list: MutableList<Guards>) {
@@ -59,13 +72,13 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
-                val key = charSequence.toString().toLowerCase().trim()
+                val key = charSequence.toString().toLowerCase(Locale.ROOT).trim()
                 mListFiltered = if (key.isEmpty()) {
                     mList
                 } else {
                     val newList = mutableListOf<Guards>()
                     for (guard in mList) {
-                        val name = guard.guardName.toLowerCase().trim()
+                        val name = guard.guardName.toLowerCase(Locale.ROOT).trim()
                         if (name.contains(key)) {
                             newList.add(guard)
                         }

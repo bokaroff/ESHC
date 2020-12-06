@@ -1,6 +1,7 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,7 @@ class Fragment15 : Fragment() {
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
                                 REPOSITORY_ROOM.insertItem(ITEM)
+                                Log.d(TAG, "insertItemChangesRoom:")
                             } catch (e: Exception) {
                                 withContext(Dispatchers.Main) {
                                   showToast(e.message.toString())

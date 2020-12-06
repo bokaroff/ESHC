@@ -5,7 +5,7 @@
     <dimen name="margin_top_large">24dp</dimen>
     <dimen name="margin_end">8dp</dimen>
     <dimen name="padding_start_end">15dp</dimen>
-    <dimen name="padding_top">5dp</dimen>
+    <dimen name="padding_small">6dp</dimen>
     <dimen name="padding_main">8dp</dimen>
     <dimen name="toolbar_height">44dp</dimen>
     <dimen name="edtxt_height">26dp</dimen>

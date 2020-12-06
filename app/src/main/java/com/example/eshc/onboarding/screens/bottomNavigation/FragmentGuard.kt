@@ -196,6 +196,7 @@ class FragmentGuard : Fragment() {
     private fun performSwipe(viewHolder: RecyclerView.ViewHolder) {
         val guard = mList[viewHolder.adapterPosition]
         val removedPosition = viewHolder.adapterPosition
+        mAdapter.removeItem(viewHolder)
 
         CoroutineScope(Dispatchers.IO).launch {
             var key: String
@@ -207,9 +208,6 @@ class FragmentGuard : Fragment() {
                     mKey = key
                     collectionGUARDS_REF.document(key).delete().await()
                     Log.d(TAG, "key: + $key ")
-                }
-                withContext(Dispatchers.Main) {
-                    mAdapter.removeItem(viewHolder)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -229,10 +227,18 @@ class FragmentGuard : Fragment() {
             }.show()
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         mRecyclerView.adapter = null
+    }
+
+    companion object {
+        fun popUpFragmentClick(guard: Guards) {
+            val bundle = Bundle()
+            bundle.putSerializable("guard", guard)
+            APP_ACTIVITY.navController
+                .navigate(R.id.action_fragmentGuard_to_fragmentGuardBottomSheet, bundle)
+        }
     }
 }

@@ -6,15 +6,15 @@ import java.io.Serializable
 
 @Entity(tableName = "items_table")
 data class Items(
-  @PrimaryKey(autoGenerate = true) val entity_id: Int = 0,
-  val item_id: String = "",
-  val objectName: String = "",
-  val objectPhone: String = "",
-  val mobilePhone: String = "",
-  val kurator: String = "",
-  val worker08: String = "",
-  val address: String = "",
-  val worker15: String = ""
+  @PrimaryKey(autoGenerate = true) var entity_id: Int = 0,
+  var item_id: String = "",
+  var objectName: String = "",
+  var objectPhone: String = "",
+  var mobilePhone: String = "",
+  var kurator: String = "",
+  var worker08: String = "",
+  var address: String = "",
+  var worker15: String = ""
 ) : Serializable {
 
 }
