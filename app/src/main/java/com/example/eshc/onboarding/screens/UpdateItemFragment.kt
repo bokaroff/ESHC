@@ -30,6 +30,8 @@ class UpdateItemFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
+        mBinding.fragmentUpdateItemEdtxtAddress.hint = "где то далеко в Айтем"
+        mBinding.fragmentUpdateItemEdtxtName.hint = "Шишков Алексей в Айтем"
     }
 
     private fun initialization() {

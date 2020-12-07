@@ -30,6 +30,8 @@ class UpdateGuardFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
+        mBinding.fragmentUpdateGuardEdtxtAddress.hint = "где то далеко в Guard"
+        mBinding.fragmentUpdateGuardEdtxtName.hint = "Шишков Алексей в Guard"
     }
 
     private fun initialization() {

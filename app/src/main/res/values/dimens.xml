@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_size_large">16sp</dimen>
-    <dimen name="margin_top">6dp</dimen>
-    <dimen name="margin_top_large">24dp</dimen>
-    <dimen name="margin_end">8dp</dimen>
-    <dimen name="padding_start_end">15dp</dimen>
+    <dimen name="margin_small">6dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_main">8dp</dimen>
+    <dimen name="padding_large">15dp</dimen>
     <dimen name="padding_small">6dp</dimen>
     <dimen name="padding_main">8dp</dimen>
     <dimen name="toolbar_height">44dp</dimen>
-    <dimen name="edtxt_height">26dp</dimen>
+    <dimen name="edtxt_height">36dp</dimen>
 </resources>

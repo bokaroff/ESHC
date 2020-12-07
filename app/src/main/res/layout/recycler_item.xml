@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/padding_start_end"
+    android:paddingStart="@dimen/padding_large"
     android:paddingTop="@dimen/padding_small"
-    android:paddingEnd="@dimen/padding_start_end"
+    android:paddingEnd="@dimen/padding_large"
     >
 
 
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginTop="@dimen/margin_small"
             android:textColor="@color/eliteColorLight"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,8 +56,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin_top"
-            android:layout_marginEnd="@dimen/margin_end"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
             tools:text="sdfkskfnkjdsnfkjsndkjvndskjvnkjd
             snvkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjn"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginTop="@dimen/margin_small"
             tools:text="worker08_txt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/address_txt" />
@@ -82,8 +82,5 @@
             app:layout_constraintTop_toTopOf="@id/worker08_txt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

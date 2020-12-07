@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/padding_start_end"
+    android:paddingStart="@dimen/padding_large"
     android:paddingTop="@dimen/padding_small"
-    android:paddingEnd="@dimen/padding_start_end">
+    android:paddingEnd="@dimen/padding_large">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/recycler_item_guard_container"
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginTop="@dimen/margin_small"
             android:textColor="@color/eliteColorLight"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,8 +54,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin_top"
-            android:layout_marginEnd="@dimen/margin_end"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_main"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guardPhone_txt"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginTop="@dimen/margin_small"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guard_work_txt"
             tools:text="worker08_txt" />

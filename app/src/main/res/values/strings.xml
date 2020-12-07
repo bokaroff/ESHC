@@ -12,4 +12,9 @@
     <string name="menu_item_delete">Удалить объект</string>
     <string name="menu_settings">Настройки</string>
     <string name="frag_itemRoom_toolbar_title">Сохраненные объекты</string>
+    <string name="edttxt_hint_name">Имя Фамилия</string>
+    <string name="edttxt_hint_address">Адрес</string>
+    <string name="edttxt_hint_objectphone">objectPhone</string>
+    <string name="edttxt_hint_mobilephone">mobilePhone</string>
+    <string name="edttxt_hint_kurator">kurator</string>
 </resources>
