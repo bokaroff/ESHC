@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
         android:id="@+id/fragmentHome"
         android:icon="@drawable/ic_home"
@@ -22,16 +21,16 @@
 
     <item
         android:id="@+id/fragmentGuardLate"
-        android:icon="@drawable/ic_guard_late"
+        android:icon="@drawable/guard_late_selector"
         android:title=""
         app:showAsAction="ifRoom" />
+
 
     <item
         android:id="@+id/fragmentItemRoom"
-        android:icon="@drawable/ic_item"
+        android:icon="@drawable/item_selector"
         android:title=""
         app:showAsAction="ifRoom" />
-
 
 
 </menu>

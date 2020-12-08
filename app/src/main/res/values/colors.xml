@@ -7,9 +7,12 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#AF002A</color>
+    <color name="red_dark">#7C0A02</color>
     <color name="colorGrey">#E3E3E3</color>
     <color name="colorGreyLight">#f1f1f1</color>
     <color name="eliteColor">#13436b</color>
     <color name="eliteColorLight">#135D9D</color>
     <color name="blue">#7590FD</color>
+    <color name="electricGreen">#00FF00</color>
+    <color name="green_dark">#006A4E</color>
 </resources>

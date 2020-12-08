@@ -7,7 +7,7 @@
 
             <item
                 android:id="@+id/add_item_late"
-                android:icon="@drawable/ic_guard_late"
+                android:icon="@drawable/ic_guard_late_red"
                 android:title="@string/add_itemsLateList"
                 app:showAsAction="never" />
             <item

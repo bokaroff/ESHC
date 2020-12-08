@@ -24,7 +24,6 @@
         app:elevation="0dp"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         >
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 

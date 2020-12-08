@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 const val TAG = "ktx"
+
 const val field_00 = "order00"
 const val field_02 = "order02"
 const val field_04 = "order04"
@@ -22,7 +23,6 @@ const val field_08 = "order08"
 const val field_15 = "order15"
 const val field_21 = "order21"
 const val yeah = "true"
-
 
 const val guard_fire_id = "guardFire_id"
 const val guard_kurator = "guardKurator"
@@ -40,8 +40,6 @@ const val item_worker08 = "worker08"
 const val item_address = "address"
 const val item_worker15 = "worker15"
 
-
-
 lateinit var APP_ACTIVITY: MainActivity
 lateinit var ITEM: Items
 lateinit var GUARD: Guards
@@ -54,9 +52,6 @@ lateinit var optionsGuards: FirestoreRecyclerOptions<Guards>
 lateinit var adapterFireGuard: FireGuardAdapter<Guards, FireGuardAdapter.GuardViewHolder>
 lateinit var adapterFireItem: FireItemAdapter<Items, FireItemAdapter.ItemViewHolder>
 lateinit var adapterGuardLate: AdapterGuardLate
-
-
-
 
 val collectionITEMS_REF = FirebaseFirestore.getInstance()
     .collection("Items")
