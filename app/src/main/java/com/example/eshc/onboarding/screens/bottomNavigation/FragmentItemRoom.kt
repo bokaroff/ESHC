@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.FragmentItemRoomBinding
 import com.example.eshc.model.Items
+import com.example.eshc.utilits.APP_ACTIVITY
 
 class FragmentItemRoom : Fragment() {
     private var _binding: FragmentItemRoomBinding? = null
@@ -40,6 +41,7 @@ class FragmentItemRoom : Fragment() {
 
     private fun initialization() {
         mAdapterItems = AdapterItems()
+      //  APP_ACTIVITY.bottomNavigationView.setupWithNavController(APP_ACTIVITY.navController)
         mRecyclerView = mBinding.rvFragmentItemRoom
         mToolbar = mBinding.fragmentItemRoomToolbar
 

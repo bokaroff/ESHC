@@ -108,6 +108,18 @@
         <action
             android:id="@+id/action_fragmentView_to_fragmentViewBottomSheet"
             app:destination="@id/fragmentViewBottomSheet" />
+        <action
+            android:id="@+id/action_fragmentView_to_fragmentGuard"
+            app:destination="@id/fragmentGuard" />
+        <action
+            android:id="@+id/action_fragmentView_to_fragmentGuardLate"
+            app:destination="@id/fragmentGuardLate" />
+        <action
+            android:id="@+id/action_fragmentView_to_fragmentItemRoom"
+            app:destination="@id/fragmentItemRoom" />
+        <action
+            android:id="@+id/action_fragmentView_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
     </fragment>
     <fragment
         android:id="@+id/fragmentItemRoom"

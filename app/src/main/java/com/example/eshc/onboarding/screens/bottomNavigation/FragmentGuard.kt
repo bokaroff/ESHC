@@ -22,6 +22,7 @@ import com.example.eshc.model.Guards
 import com.example.eshc.utilits.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.fragment_update_gaurd.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,6 +76,7 @@ class FragmentGuard : Fragment() {
         mRecyclerView = mBinding.rvFragmentGuard
         mToolbar.setupWithNavController(findNavController())
         mRecyclerView.adapter = mAdapter
+      //  APP_ACTIVITY.bottomNavigationView.setupWithNavController(APP_ACTIVITY.navController)
     }
 
 

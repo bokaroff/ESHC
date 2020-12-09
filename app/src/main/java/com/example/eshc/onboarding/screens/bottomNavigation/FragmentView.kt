@@ -1,6 +1,7 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +15,11 @@ import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.databinding.FragmentViewBinding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.APP_ACTIVITY
+import com.example.eshc.utilits.TAG
 import com.example.eshc.utilits.adapterFireItem
 import com.example.eshc.utilits.collectionITEMS_REF
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.Query
 
 class FragmentView : Fragment() {
@@ -52,6 +55,7 @@ class FragmentView : Fragment() {
         super.onStart()
         initialization()
     }
+
 
     private fun initialization() {
         mRecyclerView = mBinding.rvFragmentView

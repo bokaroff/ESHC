@@ -5,31 +5,32 @@
     <item
         android:id="@+id/fragmentHome"
         android:icon="@drawable/ic_home"
-        android:title=""
+        android:title="Другое"
+        android:iconTint="@color/red_dark"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/fragmentView"
-        android:icon="@drawable/ic_view"
-        android:title=""
+        android:icon="@drawable/ic_view_selector"
+        android:title="Онлайн"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/fragmentGuard"
         android:icon="@drawable/ic_people_black"
-        android:title=""
+        android:title="Охранники"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/fragmentGuardLate"
         android:icon="@drawable/guard_late_selector"
-        android:title=""
+        android:title="Опоздавшие"
         app:showAsAction="ifRoom" />
 
 
     <item
         android:id="@+id/fragmentItemRoom"
         android:icon="@drawable/item_selector"
-        android:title=""
+        android:title="Объекты"
         app:showAsAction="ifRoom" />
 
 

@@ -22,6 +22,7 @@ import com.example.eshc.R
 import com.example.eshc.adapters.AdapterGuardLate
 import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.model.Guards
+import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.TAG
 import com.google.android.material.snackbar.Snackbar
 
@@ -57,6 +58,7 @@ class FragmentGuardLate : Fragment() {
 
     private fun initialization() {
         mAdapter = AdapterGuardLate()
+     //  APP_ACTIVITY.bottomNavigationView.setupWithNavController(APP_ACTIVITY.navController)
         deleteIcon = ResourcesCompat.getDrawable(resources,
             R.drawable.ic_delete_white, null)!!
 

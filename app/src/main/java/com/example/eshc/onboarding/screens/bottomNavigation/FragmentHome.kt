@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.databinding.FragmentHomeBinding
+import com.example.eshc.utilits.APP_ACTIVITY
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FragmentHome : BottomSheetDialogFragment() {
@@ -33,7 +34,7 @@ class FragmentHome : BottomSheetDialogFragment() {
     }
 
     private fun initialization() {
-
+     //   APP_ACTIVITY.bottomNavigationView.setupWithNavController(APP_ACTIVITY.navController)
     }
 
     override fun onDestroyView() {
