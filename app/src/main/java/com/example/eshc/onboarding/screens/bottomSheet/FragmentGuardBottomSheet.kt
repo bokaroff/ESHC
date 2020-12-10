@@ -45,7 +45,8 @@ class FragmentGuardBottomSheet : BottomSheetDialogFragment() {
         }
         mBinding.containerGuardUpdate.setOnClickListener {
             findNavController()
-                .navigate(R.id.action_fragmentGuardBottomSheet_to_updateGuardFragment)
+                .navigate(R.id.action_fragmentGuardBottomSheet_to_updateGuardFragment,
+                    arguments)
         }
     }
 

@@ -9,12 +9,14 @@
     <string name="update">Редактировать</string>
     <string name="menu_item_add">Добавить новый объект</string>
     <string name="menu_guard_add">Добавить нового охранника</string>
+    <string name="menu_guard_update">Изменить данные охранника</string>
     <string name="menu_item_delete">Удалить объект</string>
     <string name="menu_settings">Настройки</string>
+    <string name="menu_save">Сохранить</string>
     <string name="frag_itemRoom_toolbar_title">Сохраненные объекты</string>
     <string name="edttxt_hint_name">Имя Фамилия</string>
     <string name="edttxt_hint_address">Адрес</string>
-    <string name="edttxt_hint_objectphone">objectPhone</string>
-    <string name="edttxt_hint_mobilephone">mobilePhone</string>
-    <string name="edttxt_hint_kurator">kurator</string>
+    <string name="edttxt_hint_objectphone">Телефон</string>
+    <string name="edttxt_hint_mobilephone">Мобильный телефон</string>
+    <string name="edttxt_hint_kurator">Куратор</string>
 </resources>

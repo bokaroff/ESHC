@@ -9,12 +9,12 @@
     android:paddingEnd="@dimen/padding_large"
     >
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/recycler_item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorGreyLight"
+        android:foreground="?attr/selectableItemBackground"
         android:padding="@dimen/padding_main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
