@@ -17,7 +17,7 @@
     <string name="frag_itemRoom_toolbar_title">Сохраненные объекты</string>
     <string name="edttxt_hint_name">Имя Фамилия</string>
     <string name="edttxt_hint_address">Адрес</string>
-    <string name="edttxt_hint_objectphone">Телефон</string>
-    <string name="edttxt_hint_mobilephone">Мобильный телефон</string>
+    <string name="edttxt_hint_objectphone">Введите номер телефона</string>
+    <string name="edttxt_hint_mobilephone">Введите номер мобильного телефона</string>
     <string name="edttxt_hint_kurator">Куратор</string>
 </resources>

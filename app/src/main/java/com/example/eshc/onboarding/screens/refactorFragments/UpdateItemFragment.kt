@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -28,6 +30,12 @@ class UpdateItemFragment : Fragment() {
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar
     private lateinit var mCurentitem: Items
+    private lateinit var mTextViewName: TextView
+    private lateinit var mEdtxtName: EditText
+    private lateinit var mEdtxtAddress: EditText
+    private lateinit var mEdtxtPhone: EditText
+    private lateinit var mEdtxtMobile: EditText
+    private lateinit var mEdtxtKurator: EditText
     private lateinit var mButtonSave: Button
 
 
@@ -45,12 +53,14 @@ class UpdateItemFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
+        setEditTexts()
+
         mButtonSave.setOnClickListener {
             val map =  getNewItemMap()
             updateItem(map)
-            showToast("Данные изменены")
+            showToast("Данные по объекту изменены")
             APP_ACTIVITY.navController
-                .navigate(R.id.action_updateGuardFragment_to_viewPagerFragment)
+                .navigate(R.id.action_updateItemFragment_to_viewPagerFragment)
         }
 
     }
@@ -58,13 +68,30 @@ class UpdateItemFragment : Fragment() {
     private fun initialization() {
         mToolbar = mBinding.fragmentUpdateItemToolbar
         mToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentUpdateItemTextView.text = mCurentitem.objectName
+        mTextViewName = mBinding.fragmentUpdateItemTextView
+        mEdtxtName = mBinding.fragmentUpdateItemName
+        mEdtxtAddress = mBinding.fragmentUpdateItemAddress
+        mEdtxtPhone = mBinding.fragmentUpdateItemObjectPhone
+        mEdtxtMobile = mBinding.fragmentUpdateItemMobilePhone
+        mEdtxtKurator = mBinding.fragmentUpdateItemKurator
         mButtonSave = mBinding.fragmentUpdateNewItemButton
-        mBinding.fragmentUpdateItemName.hint = mCurentitem.objectName
-        mBinding.fragmentUpdateItemAddress.hint = mCurentitem.address
-        mBinding.fragmentUpdateItemObjectPhone.hint = mCurentitem.objectPhone
-        mBinding.fragmentUpdateItemMobilePhone.hint = mCurentitem.mobilePhone
-        mBinding.fragmentUpdateItemKurator.hint = mCurentitem.kurator
+    }
+
+    private fun setEditTexts() {
+        val name = mCurentitem.objectName
+        val address = mCurentitem.address
+        val phone = mCurentitem.objectPhone
+        val mobile = mCurentitem.mobilePhone
+        val kurator = mCurentitem.kurator
+
+        mTextViewName.text = name
+        mEdtxtName.hint = name
+        if(mobile.isNotEmpty()){
+            mEdtxtMobile.hint = mobile
+        }
+        if(phone.isNotEmpty()){
+            mEdtxtPhone.hint = phone
+        }
     }
 
     private fun getNewItemMap(): Map<String, Any> {
