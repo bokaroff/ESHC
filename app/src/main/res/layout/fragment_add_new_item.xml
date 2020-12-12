@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".onboarding.screens.refactorFragments.UpdateGuardFragment">
+    tools:context=".onboarding.screens.refactorFragments.AddNewItemFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/fragmentUpdateGuard_toolbar"
+        android:id="@+id/fragmentAddNewItem_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:background="@color/eliteColor"
@@ -17,35 +18,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/colorWhite" />
 
-    <TextView
-        android:id="@+id/fragmentUpdateGuardName_textView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edtxt_height"
-        android:layout_margin="@dimen/margin_main"
-        android:gravity="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuard_toolbar" />
-
-
     <EditText
-        android:id="@+id/fragmentUpdateGuardName"
+        android:id="@+id/fragmentAddNewItem_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/edtxt_height"
-        android:autofillHints=""
         android:layout_margin="@dimen/margin_main"
+        android:autofillHints=""
         android:background="@color/colorGrey"
         android:hint="@string/edttxt_hint_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuardName_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_toolbar" />
 
     <EditText
-        android:id="@+id/fragmentUpdateGuardAddress"
+        android:id="@+id/fragmentAddNewItem_address"
         android:layout_width="match_parent"
         android:layout_height="@dimen/edtxt_height"
         android:layout_margin="@dimen/margin_main"
@@ -55,62 +42,61 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuardName"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_name"
 
         />
 
     <EditText
-        android:id="@+id/fragmentUpdateGuardPhone"
+        android:id="@+id/fragmentAddNewItem_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/edtxt_height"
-        android:autofillHints=""
         android:layout_margin="@dimen/margin_main"
+        android:autofillHints=""
         android:background="@color/colorGrey"
         android:hint="@string/edttxt_hint_objectphone"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuardAddress"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_address"
 
         />
 
     <EditText
-        android:id="@+id/fragmentUpdateGuardMobilePhone"
+        android:id="@+id/fragmentAddNewItem_mobilePhone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/edtxt_height"
-        android:autofillHints=""
         android:layout_margin="@dimen/margin_main"
+        android:autofillHints=""
         android:background="@color/colorGrey"
         android:hint="@string/edttxt_hint_mobilephone"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuardPhone" />
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_phone" />
 
     <EditText
-        android:id="@+id/fragmentUpdateGuardKurator"
+        android:id="@+id/fragmentAddNewItem_kurator"
         android:layout_width="match_parent"
         android:layout_height="@dimen/edtxt_height"
-        android:autofillHints=""
         android:layout_margin="@dimen/margin_main"
+        android:autofillHints=""
         android:background="@color/colorGrey"
         android:hint="@string/edttxt_hint_kurator"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuardMobilePhone" />
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_mobilePhone" />
 
     <Button
-        android:id="@+id/fragmentUpdateGuardButtonSave"
+        android:id="@+id/fragmentAddNewItem_buttonAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_main"
         android:background="@color/eliteColorLight"
-       android:foreground="@drawable/custom_ripple"
+        android:foreground="@drawable/custom_ripple"
         android:text="@string/menu_save"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.eshc.onboarding.screens.bottomSheet
+package com.example.eshc.onboarding.screens.bottomSheetDialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentViewBottomSheetBinding
 import com.example.eshc.model.Items
+import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.GUARD
-import com.example.eshc.utilits.guard_workPlace
 import com.example.eshc.utilits.insertGuardLateRoom
+import com.example.eshc.utilits.showToast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FragmentViewBottomSheet : BottomSheetDialogFragment() {
@@ -36,7 +37,6 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
 
     private fun initialization() {
         mBinding.txtName.text = mCurentitem.objectName
-
         mBinding.containerAddItemLate.setOnClickListener {
             GUARD.guardWorkPlace= mCurentitem.objectName
             GUARD.guardName = mCurentitem.worker08
@@ -45,8 +45,15 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
             dismiss()
         }
         mBinding.containerItemUpdate.setOnClickListener {
-            findNavController()
-                .navigate(R.id.action_fragmentViewBottomSheet_to_updateItemFragment)
+            APP_ACTIVITY.navController
+                .navigate(R.id.action_fragmentViewBottomSheet_to_updateItemFragment, arguments)
+        }
+        mBinding.containerItemAdd.setOnClickListener {
+            APP_ACTIVITY.navController
+                .navigate(R.id.action_fragmentViewBottomSheet_to_addNewItemFragment)
+        }
+        mBinding.containerDelete.setOnClickListener {
+            showToast("deleteItem")
         }
     }
 

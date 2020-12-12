@@ -108,9 +108,6 @@
         <action
             android:id="@+id/action_fragmentView_to_fragmentViewBottomSheet"
             app:destination="@id/fragmentViewBottomSheet" />
-        <action
-            android:id="@+id/action_fragmentView_to_fragmentHome"
-            app:destination="@id/fragmentHome" />
     </fragment>
     <fragment
         android:id="@+id/fragmentItemRoom"
@@ -125,35 +122,73 @@
     </fragment>
     <fragment
         android:id="@+id/updateItemFragment"
-        android:name="com.example.eshc.onboarding.screens.UpdateItemFragment"
-        android:label="fragment_update_item"
-        tools:layout="@layout/fragment_update_item" />
+        android:name="com.example.eshc.onboarding.screens.refactorFragments.UpdateItemFragment"
+        android:label="@string/menu_item_update"
+        tools:layout="@layout/fragment_update_item" >
+        <action
+            android:id="@+id/action_updateItemFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/viewPagerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <dialog
         android:id="@+id/fragmentViewBottomSheet"
-        android:name="com.example.eshc.onboarding.screens.bottomSheet.FragmentViewBottomSheet"
+        android:name="com.example.eshc.onboarding.screens.bottomSheetDialog.FragmentViewBottomSheet"
         android:label="fragment_view_bottom_sheet"
         tools:layout="@layout/fragment_view_bottom_sheet" >
         <action
             android:id="@+id/action_fragmentViewBottomSheet_to_updateItemFragment"
-            app:destination="@id/updateItemFragment" />
+            app:destination="@id/updateItemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_fragmentViewBottomSheet_to_addNewItemFragment"
+            app:destination="@id/addNewItemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </dialog>
     <dialog
         android:id="@+id/fragmentGuardBottomSheet"
-        android:name="com.example.eshc.onboarding.screens.bottomSheet.FragmentGuardBottomSheet"
+        android:name="com.example.eshc.onboarding.screens.bottomSheetDialog.FragmentGuardBottomSheet"
         android:label="fragment_guard_bottom_sheet"
         tools:layout="@layout/fragment_guard_bottom_sheet" >
         <action
             android:id="@+id/action_fragmentGuardBottomSheet_to_updateGuardFragment"
-            app:destination="@id/updateGuardFragment" />
+            app:destination="@id/updateGuardFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </dialog>
     <fragment
         android:id="@+id/updateGuardFragment"
-        android:name="com.example.eshc.onboarding.screens.UpdateGuardFragment"
+        android:name="com.example.eshc.onboarding.screens.refactorFragments.UpdateGuardFragment"
         android:label="@string/menu_guard_update"
         tools:layout="@layout/fragment_update_gaurd" >
         <action
             android:id="@+id/action_updateGuardFragment_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popUpTo="@id/viewPagerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewItemFragment"
+        android:name="com.example.eshc.onboarding.screens.refactorFragments.AddNewItemFragment"
+        android:label="@string/menu_item_add"
+        tools:layout="@layout/fragment_add_new_item" >
+        <action
+            android:id="@+id/action_addNewItemFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
             app:popUpTo="@id/viewPagerFragment"
             app:popUpToInclusive="true" />
     </fragment>

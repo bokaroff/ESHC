@@ -1,4 +1,4 @@
-package com.example.eshc.onboarding.screens
+package com.example.eshc.onboarding.screens.refactorFragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,11 +9,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
-import com.example.eshc.databinding.FragmentGuardBinding
-import com.example.eshc.databinding.FragmentUpdateItemBinding
+import com.example.eshc.databinding.FragmentAddNewGuardBinding
+import com.example.eshc.databinding.FragmentAddNewItemBinding
 
-class UpdateItemFragment : Fragment() {
-    private var _binding: FragmentUpdateItemBinding? = null
+class AddNewGuardFragment : Fragment() {
+    private var _binding: FragmentAddNewGuardBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar
 
@@ -22,7 +22,7 @@ class UpdateItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentUpdateItemBinding.inflate(layoutInflater,
+        _binding = FragmentAddNewGuardBinding.inflate(layoutInflater,
             container,false)
         return mBinding.root
     }
@@ -30,12 +30,12 @@ class UpdateItemFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        mBinding.fragmentUpdateItemEdtxtAddress.hint = "где то далеко в Айтем"
-        mBinding.fragmentUpdateItemEdtxtName.hint = "Шишков Алексей в Айтем"
+        mBinding.fragmentAddNewGuardAddress.hint = "где то далеко в Айтем"
+        mBinding.fragmentAddNewGuardName.hint = "Шишков Алексей в Айтем"
     }
 
     private fun initialization() {
-        mToolbar = mBinding.fragmentUpdateItemToolbar
+        mToolbar = mBinding.fragmentAddNewGuardToolbar
         mToolbar.setupWithNavController(findNavController())
     }
 

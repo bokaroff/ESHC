@@ -1,7 +1,6 @@
-package com.example.eshc.onboarding.screens
+package com.example.eshc.onboarding.screens.refactorFragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentUpdateGaurdBinding
-import com.example.eshc.databinding.FragmentUpdateItemBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.utilits.*
 import com.google.firebase.firestore.SetOptions
@@ -51,6 +49,17 @@ class UpdateGuardFragment : Fragment() {
                 .navigate(R.id.action_updateGuardFragment_to_viewPagerFragment)
         }
     }
+    private fun initialization() {
+        mToolbar = mBinding.fragmentUpdateGuardToolbar
+        mToolbar.setupWithNavController(findNavController())
+        mBinding.fragmentUpdateGuardNameTextView.text = mCurentitem.guardName
+        mButtonSave = mBinding.fragmentUpdateGuardButtonSave
+        mBinding.fragmentUpdateGuardName.hint = mCurentitem.guardName
+        mBinding.fragmentUpdateGuardAddress.hint = mCurentitem.guardWorkPlace
+        mBinding.fragmentUpdateGuardPhone.hint = mCurentitem.guardPhone
+        mBinding.fragmentUpdateGuardMobilePhone.hint = mCurentitem.guardPhone_2
+        mBinding.fragmentUpdateGuardKurator.hint = mCurentitem.guardKurator
+    }
 
     private fun getNewGuardMap(): Map<String, Any> {
         val name = mBinding.fragmentUpdateGuardName.text.toString()
@@ -77,18 +86,7 @@ class UpdateGuardFragment : Fragment() {
             return map
     }
 
-    private fun initialization() {
-        mButtonSave = mBinding.fragmentUpdateGuardButtonSave
-        mToolbar = mBinding.fragmentUpdateGuardToolbar
-        mToolbar.setupWithNavController(findNavController())
-        mBinding.fragmentUpdateGuardName.hint = mCurentitem.guardName
-        mBinding.fragmentUpdateGuardAddress.hint = mCurentitem.guardWorkPlace
-        mBinding.fragmentUpdateGuardPhone.hint = mCurentitem.guardPhone
-        mBinding.fragmentUpdateGuardMobilePhone.hint = mCurentitem.guardPhone_2
-        mBinding.fragmentUpdateGuardKurator.hint = mCurentitem.guardKurator
-    }
-
-     fun updateGuard(newGuardMap: Map<String, Any>) {
+  private fun updateGuard(newGuardMap: Map<String, Any>) {
        val id = mCurentitem.guardFire_id
 
         CoroutineScope(Dispatchers.IO).launch {

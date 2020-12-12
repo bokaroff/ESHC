@@ -10,6 +10,7 @@
     <string name="menu_item_add">Добавить новый объект</string>
     <string name="menu_guard_add">Добавить нового охранника</string>
     <string name="menu_guard_update">Изменить данные охранника</string>
+    <string name="menu_item_update">Изменить данные объекта</string>
     <string name="menu_item_delete">Удалить объект</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_save">Сохранить</string>

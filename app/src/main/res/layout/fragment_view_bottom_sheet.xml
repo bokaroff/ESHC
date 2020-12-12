@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/padding_small"
     android:paddingBottom="@dimen/padding_small"
-    tools:context=".onboarding.screens.bottomSheet.FragmentViewBottomSheet">
+    tools:context=".onboarding.screens.bottomSheetDialog.FragmentViewBottomSheet">
 
     <TextView
         android:id="@+id/txt_name"
