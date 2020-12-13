@@ -59,8 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guardLatePhone"
-            tools:text="sdfkskfnkjdsnfkjsndkjvndskjvnkjd
-            snvkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjn" />
+             />
 
         <TextView
             android:id="@+id/guardLatePhone2"
@@ -79,7 +78,6 @@
             android:layout_gravity="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guardLatePhone" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

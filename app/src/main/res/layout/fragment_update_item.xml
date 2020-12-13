@@ -8,21 +8,18 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragmentUpdateItem_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@color/eliteColor"
-        app:titleTextColor="@color/colorWhite"
-        android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        style="@style/toolBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/colorWhite" />
 
     <TextView
         android:id="@+id/fragmentUpdateItem_textView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/edtxt_height"
         android:layout_margin="@dimen/margin_main"
-       android:gravity="center"
+        android:gravity="center"
         android:textColor="@color/colorBlack"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -31,72 +28,52 @@
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_toolbar"
          />
 
-
     <EditText
         android:id="@+id/fragmentUpdateItem_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_textView"
+        style="@style/editText_text"
         android:hint="@string/edttxt_hint_name"
-        android:background="@color/colorGrey"
-        android:inputType="textPersonName"
-        android:autofillHints="" />
+        android:autofillHints=""
+        android:textColorHint="@color/colorBlack" />
 
     <EditText
         android:id="@+id/fragmentUpdateItem_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/editText_text"
         android:hint="@string/edttxt_hint_address"
-        android:background="@color/colorGrey"
-        android:inputType="textPersonName"
         android:autofillHints=""
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_name"
         />
 
     <EditText
         android:id="@+id/fragmentUpdateItem_objectPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/editText_phone"
         android:hint="@string/edttxt_hint_objectphone"
-        android:background="@color/colorGrey"
-        android:inputType="phone"
         android:autofillHints=""
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_address"
         />
 
     <EditText
         android:id="@+id/fragmentUpdateItem_mobilePhone"
-        android:autofillHints=""
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_main"
-        android:hint="@string/edttxt_hint_mobilephone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/colorGrey"
-        android:inputType="phone"
+        style="@style/editText_phone"
+        android:autofillHints=""
+        android:hint="@string/edttxt_hint_mobilephone"
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_objectPhone" />
 
     <EditText
         android:id="@+id/fragmentUpdateItem_kurator"
-        android:autofillHints=""
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/editText_text"
         android:hint="@string/edttxt_hint_kurator"
-        android:background="@color/colorGrey"
-        android:inputType="textPersonName"
+        android:autofillHints=""
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_mobilePhone" />
 
     <Button

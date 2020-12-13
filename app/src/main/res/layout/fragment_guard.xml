@@ -8,14 +8,11 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragmentGuard_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        app:menu="@menu/fragment_guard_menu"
-        android:background="@color/eliteColor"
-        app:titleTextColor="@color/colorWhite"
-        android:minHeight="?attr/actionBarSize"
+        style="@style/toolBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/fragment_guard_menu"
+        app:titleTextColor="@color/colorWhite"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

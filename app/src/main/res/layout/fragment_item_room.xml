@@ -12,10 +12,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/colorWhite"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@color/eliteColor"
-        />
+        style="@style/toolBar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_FragmentItemRoom"

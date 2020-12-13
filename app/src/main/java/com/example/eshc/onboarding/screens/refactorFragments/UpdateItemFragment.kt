@@ -1,7 +1,7 @@
 package com.example.eshc.onboarding.screens.refactorFragments
 
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +9,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
-import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.databinding.FragmentUpdateItemBinding
-import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.google.firebase.firestore.SetOptions
@@ -86,28 +85,38 @@ class UpdateItemFragment : Fragment() {
 
         mTextViewName.text = name
         mEdtxtName.hint = name
-        if(mobile.isNotEmpty()){
-            mEdtxtMobile.hint = mobile
+        if (address.isNotEmpty()) {
+            mEdtxtAddress.hint = address
+            mEdtxtAddress.setHintTextColor(Color.BLACK)
         }
-        if(phone.isNotEmpty()){
+        if (phone.isNotEmpty()) {
             mEdtxtPhone.hint = phone
+            mEdtxtPhone.setHintTextColor(Color.BLACK)
+        }
+        if (mobile.isNotEmpty()) {
+            mEdtxtMobile.hint = mobile
+            mEdtxtMobile.setHintTextColor(Color.BLACK)
+        }
+        if (kurator.isNotEmpty()) {
+            mEdtxtKurator.hint = kurator
+            mEdtxtKurator.setHintTextColor(Color.BLACK)
         }
     }
 
     private fun getNewItemMap(): Map<String, Any> {
-        val name = mBinding.fragmentUpdateItemName.text.toString()
-        val address = mBinding.fragmentUpdateItemAddress.text.toString()
-        val phone = mBinding.fragmentUpdateItemObjectPhone.text.toString()
-        val mobile = mBinding.fragmentUpdateItemMobilePhone.text.toString()
-        val kurator = mBinding.fragmentUpdateItemKurator.text.toString()
+        val name = mEdtxtName.text.toString().trim()
+        val address = mEdtxtAddress.text.toString().trim()
+        val phone = mEdtxtPhone.text.toString().trim()
+        val mobile = mEdtxtMobile.text.toString().trim()
+        val kurator = mEdtxtKurator.text.toString().trim()
         val map = mutableMapOf<String, Any>()
-        if (name.isNotEmpty()){
+        if (name.isNotEmpty()) {
             map[item_name] = name
         }
-        if (address.isNotEmpty()){
+        if (address.isNotEmpty()) {
             map[item_address] = address
         }
-        if (phone.isNotEmpty()){
+        if (phone.isNotEmpty()) {
             map[item_phone] = phone
         }
         if (mobile.isNotEmpty()){

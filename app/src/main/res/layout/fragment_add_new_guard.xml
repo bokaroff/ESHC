@@ -9,13 +9,10 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragmentAddNewGuard_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@color/eliteColor"
-        android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        style="@style/toolBar"
         app:titleTextColor="@color/colorWhite" />
 
     <EditText
