@@ -1,5 +1,6 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import com.example.eshc.utilits.collectionITEMS_REF
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.Query
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 
 class FragmentView : Fragment() {
     private var _binding: FragmentViewBinding? = null
@@ -54,6 +56,7 @@ class FragmentView : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
+        UIUtil.hideKeyboard(context as Activity)
     }
 
 

@@ -1,10 +1,14 @@
 package com.example.eshc.onboarding.screens.refactorFragments
 
+import android.app.Activity
 import android.graphics.Color
+import android.hardware.input.InputManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -22,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 
 class UpdateItemFragment : Fragment() {
 
@@ -36,7 +41,6 @@ class UpdateItemFragment : Fragment() {
     private lateinit var mEdtxtMobile: EditText
     private lateinit var mEdtxtKurator: EditText
     private lateinit var mButtonSave: Button
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,16 +57,16 @@ class UpdateItemFragment : Fragment() {
         super.onStart()
         initialization()
         setEditTexts()
-
         mButtonSave.setOnClickListener {
             val map =  getNewItemMap()
             updateItem(map)
             showToast("Данные по объекту изменены")
             APP_ACTIVITY.navController
                 .navigate(R.id.action_updateItemFragment_to_viewPagerFragment)
+           UIUtil.hideKeyboard(context as Activity)
         }
-
     }
+
 
     private fun initialization() {
         mToolbar = mBinding.fragmentUpdateItemToolbar

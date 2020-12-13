@@ -1,5 +1,6 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
+import android.app.Activity
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -22,12 +23,12 @@ import com.example.eshc.model.Guards
 import com.example.eshc.utilits.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.fragment_update_gaurd.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 
 
 class FragmentGuard : Fragment() {
@@ -62,6 +63,7 @@ class FragmentGuard : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        UIUtil.hideKeyboard(context as Activity)
         initialization()
         getGuardData()
         swipeToDelete()

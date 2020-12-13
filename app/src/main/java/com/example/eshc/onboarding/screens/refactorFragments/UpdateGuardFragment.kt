@@ -1,5 +1,6 @@
 package com.example.eshc.onboarding.screens.refactorFragments
 
+import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 
 
 class UpdateGuardFragment : Fragment() {
@@ -51,13 +53,13 @@ class UpdateGuardFragment : Fragment() {
         super.onStart()
         initialization()
         setEditTexts()
-
         mButtonSave.setOnClickListener {
             val map =  getNewGuardMap()
             updateGuard(map)
             showToast("Данные изменены")
             APP_ACTIVITY.navController
                 .navigate(R.id.action_updateGuardFragment_to_viewPagerFragment)
+            UIUtil.hideKeyboard(context as Activity)
         }
     }
 
@@ -98,7 +100,6 @@ class UpdateGuardFragment : Fragment() {
             mEdtxtKurator.hint = kurator
             mEdtxtKurator.setHintTextColor(Color.BLACK)
         }
-
     }
 
 
