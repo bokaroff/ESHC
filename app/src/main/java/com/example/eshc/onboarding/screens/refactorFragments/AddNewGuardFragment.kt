@@ -30,8 +30,8 @@ class AddNewGuardFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        mBinding.fragmentAddNewGuardAddress.hint = "где то далеко в Айтем"
-        mBinding.fragmentAddNewGuardName.hint = "Шишков Алексей в Айтем"
+        mBinding.fragmentAddNewGuardAddress.hint = "где то далеко в Guard"
+        mBinding.fragmentAddNewGuardName.hint = "Шишков Алексей в Guard"
     }
 
     private fun initialization() {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentViewBottomSheetBinding
 import com.example.eshc.model.Items
@@ -33,15 +32,19 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
     override fun onStart() {
         super.onStart()
         initialization()
+        clicks()
     }
 
     private fun initialization() {
         mBinding.txtName.text = mCurentitem.objectName
+    }
+
+    private fun clicks() {
         mBinding.containerAddItemLate.setOnClickListener {
-            GUARD.guardWorkPlace= mCurentitem.objectName
+            GUARD.guardWorkPlace = mCurentitem.objectName
             GUARD.guardName = mCurentitem.worker08
             GUARD.guardKurator = mCurentitem.kurator
-           insertGuardLateRoom(GUARD)
+            insertGuardLateRoom(GUARD)
             dismiss()
         }
         mBinding.containerItemUpdate.setOnClickListener {

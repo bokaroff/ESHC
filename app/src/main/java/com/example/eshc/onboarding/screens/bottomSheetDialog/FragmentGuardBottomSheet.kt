@@ -31,13 +31,17 @@ class FragmentGuardBottomSheet : BottomSheetDialogFragment() {
     override fun onStart() {
         super.onStart()
         initialization()
+        clicks()
     }
 
     private fun initialization() {
         mBinding.txtName.text = mCurrentItem.guardName
+    }
 
+    private fun clicks() {
         mBinding.containerGuardAdd.setOnClickListener {
-                    showToast("containerGuardAdd")
+            APP_ACTIVITY.navController
+                .navigate(R.id.action_fragmentGuardBottomSheet_to_addNewGuardFragment)
         }
         mBinding.containerGuardUpdate.setOnClickListener {
             APP_ACTIVITY.navController
