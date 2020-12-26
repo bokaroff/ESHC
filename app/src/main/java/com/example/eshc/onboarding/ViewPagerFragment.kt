@@ -1,31 +1,21 @@
 package com.example.eshc.onboarding
 
-import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.eshc.databinding.FragmentViewPagerBinding
 import com.example.eshc.onboarding.screens.mainView.*
-import com.example.eshc.utilits.APP_ACTIVITY
+import com.example.eshc.utilits.DB
+import com.example.eshc.utilits.TAG
 import com.google.android.material.tabs.TabLayoutMediator
 
 
 class ViewPagerFragment : Fragment() {
     private var _binding: FragmentViewPagerBinding? = null
     private val mBinding get() = _binding!!
-
-/*
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activity?.window?.
-        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-    }
-
-
- */
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +58,17 @@ class ViewPagerFragment : Fragment() {
         setHasOptionsMenu(true)
         return mBinding.root
     }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "start: ${javaClass.name}")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "stop: $javaClass")
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

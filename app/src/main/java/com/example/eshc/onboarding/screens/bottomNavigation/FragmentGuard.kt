@@ -67,6 +67,7 @@ class FragmentGuard : Fragment() {
         initialization()
         getGuardData()
         swipeToDelete()
+        Log.d(TAG, "classname: $javaClass")
     }
 
     private fun initialization() {
@@ -84,12 +85,13 @@ class FragmentGuard : Fragment() {
 
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
         val list = mutableListOf<Guards>()
+        Log.d(TAG, "getGuardData:")
         try {
             val query = collectionGUARDS_REF
                 .orderBy("guardName", Query.Direction.ASCENDING).get().await()
             for (dc in query) {
-                val guard = dc.toObject(Guards::class.java)
-                list.add(guard)
+                GUARD = dc.toObject(Guards::class.java)
+                list.add(GUARD)
             }
             withContext(Dispatchers.Main) {
                 mAdapter.setList(list)
@@ -97,7 +99,7 @@ class FragmentGuard : Fragment() {
 
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
-                showToast(e.message.toString())
+                e.message?.let { showToast(it) }
             }
         }
         mList = list
@@ -200,22 +202,21 @@ class FragmentGuard : Fragment() {
     private fun performSwipe(viewHolder: RecyclerView.ViewHolder) {
         val guard = mList[viewHolder.adapterPosition]
         val removedPosition = viewHolder.adapterPosition
-        mAdapter.removeItem(viewHolder)
 
         CoroutineScope(Dispatchers.IO).launch {
-            var key: String
             try {
                 val query = collectionGUARDS_REF
                     .whereEqualTo(guard_name, guard.guardName).get().await()
                 for (dc in query) {
-                    key = dc.id
-                    mKey = key
-                    collectionGUARDS_REF.document(key).delete().await()
-                    Log.d(TAG, "key: + $key ")
+                    mKey = dc.id
+                    collectionGUARDS_REF.document(mKey).delete().await()
+                    withContext(Dispatchers.Main) {
+                        mAdapter.removeItem(viewHolder)
+                    }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    showToast(e.message.toString())
+                    e.message?.let { showToast(it) }
                 }
             }
         }
@@ -225,9 +226,19 @@ class FragmentGuard : Fragment() {
             Snackbar.LENGTH_LONG
         ).setActionTextColor(Color.RED)
             .setAction("Отмена") {
-                collectionGUARDS_REF.document(mKey).set(guard)
-                mAdapter.insertItem(removedPosition, guard)
-                mRecyclerView.smoothScrollToPosition(removedPosition)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        collectionGUARDS_REF.document(mKey).set(guard).await()
+                        withContext(Dispatchers.Main) {
+                            mAdapter.insertItem(removedPosition, guard)
+                            mRecyclerView.smoothScrollToPosition(removedPosition)
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            e.message?.let { showToast(it) }
+                        }
+                    }
+                }
             }.show()
     }
 
@@ -235,6 +246,7 @@ class FragmentGuard : Fragment() {
         super.onDestroyView()
         _binding = null
         mRecyclerView.adapter = null
+        Log.d(TAG, "stop: $javaClass")
     }
 
     companion object {

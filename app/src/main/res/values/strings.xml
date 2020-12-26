@@ -15,9 +15,11 @@
     <string name="menu_settings">Настройки</string>
     <string name="menu_save">Сохранить</string>
     <string name="frag_itemRoom_toolbar_title">Сохраненные объекты</string>
-    <string name="edttxt_hint_name">Имя Фамилия</string>
+    <string name="edttxt_hint_name">Введите Имя, Фамилию</string>
+    <string name="edttxt_hint_objectName">Введите название объекта</string>
     <string name="edttxt_hint_address">Введите адрес</string>
     <string name="edttxt_hint_objectphone">Введите номер телефона</string>
     <string name="edttxt_hint_mobilephone">Введите номер мобильного телефона</string>
     <string name="edttxt_hint_kurator">Введите имя куратора</string>
+    <string name="getMainItemList_08">SELECT * FROM items_table WHERE order08 = :string ORDER BY objectName Desc</string>
 </resources>

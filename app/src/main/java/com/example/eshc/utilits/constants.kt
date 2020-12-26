@@ -41,9 +41,9 @@ const val item_address = "address"
 const val item_worker15 = "worker15"
 
 lateinit var APP_ACTIVITY: MainActivity
+lateinit var DB: FirebaseFirestore
 lateinit var ITEM: Items
 lateinit var GUARD: Guards
-lateinit var DB: FirebaseFirestore
 lateinit var REPOSITORY_ROOM: RoomRepository
 lateinit var ITEM_ROOM_DAO: ItemRoomDao
 lateinit var ITEM_ROOM_DATABASE: ItemRoomDatabase
@@ -53,10 +53,12 @@ lateinit var adapterFireGuard: FireGuardAdapter<Guards, FireGuardAdapter.GuardVi
 lateinit var adapterFireItem: FireItemAdapter<Items, FireItemAdapter.ItemViewHolder>
 lateinit var adapterGuardLate: AdapterGuardLate
 
-val collectionITEMS_REF = FirebaseFirestore.getInstance()
-    .collection("Items")
-val collectionGUARDS_REF = FirebaseFirestore.getInstance()
-    .collection("Workers")
-val collectionSTAFF_REF = FirebaseFirestore.getInstance()
-    .collection("Staff")
 
+
+
+val collectionITEMS_REF =  FirebaseFirestore.getInstance()
+    .collection("Items")
+val collectionGUARDS_REF =  FirebaseFirestore.getInstance()
+    .collection("Guards")
+val collectionSTAFF_REF =  FirebaseFirestore.getInstance()
+    .collection("Staff")

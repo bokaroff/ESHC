@@ -37,14 +37,16 @@ class FragmentItemRoom : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
+        getData()
     }
 
     private fun initialization() {
         mAdapterItems = AdapterItems()
-      //  APP_ACTIVITY.bottomNavigationView.setupWithNavController(APP_ACTIVITY.navController)
         mRecyclerView = mBinding.rvFragmentItemRoom
         mToolbar = mBinding.fragmentItemRoomToolbar
+    }
 
+    private fun getData() {
         mObserveList = Observer {
             val list = it.asReversed()
             mAdapterItems.setList(list)
@@ -53,7 +55,6 @@ class FragmentItemRoom : Fragment() {
         mViewModel = ViewModelProvider(this)
             .get(FragmentItemRoomViewModel::class.java)
         mViewModel.allItems.observe(this, mObserveList)
-
         mToolbar.setupWithNavController(findNavController())
     }
 

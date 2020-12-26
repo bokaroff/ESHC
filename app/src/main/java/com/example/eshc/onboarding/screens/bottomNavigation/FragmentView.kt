@@ -1,27 +1,35 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.app.Activity
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.databinding.FragmentViewBinding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.APP_ACTIVITY
-import com.example.eshc.utilits.TAG
-import com.example.eshc.utilits.adapterFireItem
-import com.example.eshc.utilits.collectionITEMS_REF
+import com.example.eshc.utilits.*
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 
 class FragmentView : Fragment() {
@@ -30,12 +38,22 @@ class FragmentView : Fragment() {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mToolbar: Toolbar
 
+    private var swipeBackground = ColorDrawable(Color.RED)
+
+    private lateinit var mKey: String
+    private lateinit var path: String
+    private lateinit var mViewHolder: RecyclerView.ViewHolder
+    private lateinit var deleteIcon: Drawable
+    private var removedPosition = 0
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentViewBinding.inflate(layoutInflater, container, false)
+
         return mBinding.root
     }
 
@@ -47,20 +65,27 @@ class FragmentView : Fragment() {
     private fun getData() {
         val query = collectionITEMS_REF
             .orderBy("objectName", Query.Direction.ASCENDING)
-        val options = FirestoreRecyclerOptions.Builder<Items>()
+        optionsItems = FirestoreRecyclerOptions.Builder<Items>()
             .setQuery(query, Items::class.java)
             .build()
-        adapterFireItem = FireItemAdapter(options)
+        adapterFireItem = FireItemAdapter(optionsItems)
     }
 
     override fun onStart() {
         super.onStart()
         initialization()
+        swipeToDelete()
         UIUtil.hideKeyboard(context as Activity)
+        Log.d(TAG, "start: $javaClass")
     }
 
 
     private fun initialization() {
+
+        deleteIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.ic_delete_white, null
+        )!!
         mRecyclerView = mBinding.rvFragmentView
         mToolbar = mBinding.fragmentViewToolbar
         mToolbar.setupWithNavController(findNavController())
@@ -73,15 +98,130 @@ class FragmentView : Fragment() {
         adapterFireItem.stopListening()
     }
 
+    private fun swipeToDelete() {
+        val itemTouchHelperCallBack = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
+                mViewHolder = viewHolder
+                performSwipe()
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+                val iconMargin = (itemView.height - deleteIcon.intrinsicHeight) / 2
+
+                if (dX > 0) {
+                    swipeBackground.setBounds(
+                        itemView.left, itemView.top,
+                        dX.toInt(), itemView.bottom
+                    )
+                    deleteIcon.setBounds(
+                        itemView.left + iconMargin, itemView.top + iconMargin,
+                        itemView.left + iconMargin + deleteIcon.intrinsicWidth,
+                        itemView.bottom - iconMargin
+                    )
+
+                } else {
+                    swipeBackground.setBounds(
+                        itemView.right + dX.toInt(),
+                        itemView.top, itemView.right, itemView.bottom
+                    )
+                    deleteIcon.setBounds(
+                        itemView.right - iconMargin - deleteIcon.intrinsicWidth,
+                        itemView.top + iconMargin,
+                        itemView.right - iconMargin,
+                        itemView.bottom - iconMargin
+                    )
+                }
+                swipeBackground.draw(c)
+                deleteIcon.draw(c)
+
+                super.onChildDraw(
+                    c, recyclerView, viewHolder, dX, dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallBack)
+        itemTouchHelper.attachToRecyclerView(mRecyclerView)
+    }
+
+
+    private fun performSwipe() {
+        ITEM = adapterFireItem.getItem(mViewHolder.adapterPosition)
+
+        Log.d(TAG, "performSwipe: + ${ITEM.objectName}")
+
+
+        val removedPosition = mViewHolder.adapterPosition
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+
+                val query = collectionITEMS_REF
+                    .whereEqualTo(item_name, ITEM.objectName).get().await()
+                for (dc in query) {
+                    mKey = dc.id
+                    collectionITEMS_REF.document(mKey).delete().await()
+                }
+
+
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    e.message?.let { showToast(it) }
+                }
+            }
+        }
+
+        Snackbar.make(
+            mViewHolder.itemView, " удален",
+            Snackbar.LENGTH_LONG
+        ).setActionTextColor(Color.RED)
+            .setAction("Отмена") {
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            e.message?.let { showToast(it) }
+                        }
+                    }
+                }
+            }.show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        Log.d(TAG, "stop: $javaClass")
     }
 
-    companion object{
-        fun popUpFragmentClick(item: Items){
+    companion object {
+        fun popUpFragmentClick(item: Items) {
+            ITEM = item
+            Log.d(TAG, "popUpFragmentClick: + ${ITEM.objectName}")
             val bundle = Bundle()
-            bundle.putSerializable("item",item)
+            bundle.putSerializable("item", item)
             APP_ACTIVITY.navController
                 .navigate(R.id.action_fragmentView_to_fragmentViewBottomSheet, bundle)
         }

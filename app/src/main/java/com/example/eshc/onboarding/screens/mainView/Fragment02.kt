@@ -1,16 +1,18 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment02Binding
-import com.example.eshc.utilits.field_02
-import com.example.eshc.utilits.getItemData
-import com.example.eshc.utilits.yeah
+import com.example.eshc.model.Items
+import com.example.eshc.utilits.TAG
 
 
 class Fragment02 : Fragment() {
@@ -19,6 +21,8 @@ class Fragment02 : Fragment() {
     private val mBinding get() = _binding!!
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
+    private lateinit var mObserveList: Observer<List<Items>>
+    private lateinit var mViewModel: Fragment02ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +36,9 @@ class Fragment02 : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        getItemData(field_02, yeah, mAdapterItems, mRecyclerView)
+        getData02()
+        //  getItemFire(field_02, yeah, mAdapterItems, mRecyclerView)
+        //Log.d(TAG, "start: $javaClass")
     }
 
     private fun initialization() {
@@ -40,10 +46,22 @@ class Fragment02 : Fragment() {
         mAdapterItems = AdapterItems()
     }
 
+    private fun getData02() {
+
+        mObserveList = Observer {
+            mAdapterItems.setList(it)
+            mRecyclerView.adapter = mAdapterItems
+        }
+        mViewModel = ViewModelProvider(this)
+            .get(Fragment02ViewModel::class.java)
+        mViewModel.mainItemList02.observe(this, mObserveList)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-       mRecyclerView.adapter = null
+        mViewModel.mainItemList02.removeObserver(mObserveList)
+        mRecyclerView.adapter = null
+        Log.d(TAG, "stop: $javaClass")
     }
 }

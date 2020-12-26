@@ -14,7 +14,16 @@ data class Items(
   var kurator: String = "",
   var worker08: String = "",
   var address: String = "",
-  var worker15: String = ""
+  var worker15: String = "",
+  var img: String = "",
+  var serverTimeStamp: String = "",
+  var order00: String = "",
+  var order02: String = "",
+  var order04: String = "",
+  var order06: String = "",
+  var order08: String = "",
+  var order15: String = "",
+  var order21: String = ""
 ) : Serializable {
 
 }

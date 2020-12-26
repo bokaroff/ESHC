@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
+import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.onboarding.screens.bottomNavigation.FragmentView
+import com.example.eshc.utilits.optionsItems
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.recycler_item.view.*
@@ -41,7 +43,8 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int, model: Items) {
 
-        holder.recyclerItemContainer.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
+        holder.recyclerItemContainer.animation =
+            AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
 
         holder.objectName.text = model.objectName
         holder.kurator.text = model.kurator
@@ -59,5 +62,13 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
         val  worker08 = itemView.worker08_txt
         val serverTimestamp = itemView.serverTimestamp_txt
         val recyclerItemContainer = itemView.recycler_item_container
+    }
+
+    fun removeItem(viewHolder: RecyclerView.ViewHolder) {
+        notifyItemRemoved(viewHolder.adapterPosition)
+    }
+
+    fun insertItem(position: Int, item: Items){
+        notifyItemInserted(position)
     }
 }

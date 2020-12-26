@@ -1,8 +1,8 @@
 package com.example.eshc
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -14,6 +14,13 @@ import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,14 +41,47 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         APP_ACTIVITY = this
+        DB = FirebaseFirestore.getInstance()
         ITEM = Items()
         GUARD = Guards()
         ITEM_ROOM_DATABASE = ItemRoomDatabase.getInstance(this)
         ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
         REPOSITORY_ROOM = RoomRepository(ITEM_ROOM_DAO)
+        insertMainItemsList()
 
         setUpNavController()
+        Log.d(TAG, "start: $localClassName")
 
+    }
+
+    private fun insertMainItemsList() {
+        val list = mutableListOf<Items>()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+
+                val data =  REPOSITORY_ROOM.selectAllItems()
+                Log.d(TAG, "data: + ${data.size}")
+
+                if (data.isEmpty()){
+                    val querySnapshot = collectionITEMS_REF
+                        .orderBy("objectName", Query.Direction.ASCENDING)
+                        .get().await()
+                    for (snap in querySnapshot) {
+                        val item = snap.toObject(Items::class.java)
+                        list.add(item)
+                    }
+                    REPOSITORY_ROOM.insertMainItemList(list)
+                    Log.d(TAG, "list: + ${list.size}")
+                }
+
+
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    e.message?.let { showToast(it) }
+                }
+            }
+        }
     }
 
     private fun setUpNavController() {
@@ -109,5 +149,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        Log.d(TAG, "stop: $javaClass")
     }
 }

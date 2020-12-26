@@ -22,7 +22,7 @@
         android:layout_margin="@dimen/margin_main"
         android:autofillHints=""
         android:background="@color/colorGrey"
-        android:hint="@string/edttxt_hint_name"
+        android:hint="@string/edttxt_hint_objectName"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
