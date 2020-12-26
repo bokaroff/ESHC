@@ -1,6 +1,7 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment15Binding
 import com.example.eshc.model.Items
+import com.example.eshc.utilits.*
+import com.google.firebase.firestore.DocumentChange
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class Fragment15 : Fragment() {
 
@@ -35,7 +42,7 @@ class Fragment15 : Fragment() {
         super.onStart()
         initialization()
         getData15()
-        // insertItemChangesRoom()
+        insertItemChangesRoom()
     }
 
     private fun initialization() {
@@ -52,7 +59,7 @@ class Fragment15 : Fragment() {
             .get(Fragment15ViewModel::class.java)
         mViewModel.mainItemList15.observe(this, mObserveList)
     }
-/*
+
     private fun insertItemChangesRoom(){
         collectionITEMS_REF.addSnapshotListener { value, error ->
             if (value != null) {
@@ -62,11 +69,12 @@ class Fragment15 : Fragment() {
 
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
+                                ITEM.state = stateChanged
                                 REPOSITORY_ROOM.insertItem(ITEM)
                                 Log.d(TAG, "insertItemChangesRoom:")
                             } catch (e: Exception) {
                                 withContext(Dispatchers.Main) {
-                                  showToast(e.message.toString())
+                                    e.message?.let { showToast(it) }
                               }
                           }
                       }
@@ -76,7 +84,6 @@ class Fragment15 : Fragment() {
       }
     }
 
- */
 
     override fun onDestroyView() {
         super.onDestroyView()

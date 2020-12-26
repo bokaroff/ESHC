@@ -6,6 +6,6 @@ import com.example.eshc.utilits.REPOSITORY_ROOM
 
 class FragmentItemRoomViewModel(application: Application): AndroidViewModel(application) {
 
-    val allItems = REPOSITORY_ROOM.allItems
+    val allChangedItems = REPOSITORY_ROOM.allChangedItems
 
 }

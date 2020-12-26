@@ -54,14 +54,14 @@ class FragmentItemRoom : Fragment() {
         }
         mViewModel = ViewModelProvider(this)
             .get(FragmentItemRoomViewModel::class.java)
-        mViewModel.allItems.observe(this, mObserveList)
+        mViewModel.allChangedItems.observe(this, mObserveList)
         mToolbar.setupWithNavController(findNavController())
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        mViewModel.allItems.removeObserver(mObserveList)
+        mViewModel.allChangedItems.removeObserver(mObserveList)
         mRecyclerView.adapter = null
     }
 }

@@ -23,7 +23,8 @@ data class Items(
   var order06: String = "",
   var order08: String = "",
   var order15: String = "",
-  var order21: String = ""
+  var order21: String = "",
+  var state: String = "main"
 ) : Serializable {
 
 }
