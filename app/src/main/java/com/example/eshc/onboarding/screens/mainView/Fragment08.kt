@@ -37,8 +37,6 @@ class Fragment08 : Fragment() {
         super.onStart()
         initialization()
         getData08()
-        // getItemFire(field_00, yeah, mAdapterItems, mRecyclerView)
-        // Log.d(TAG, "start: $javaClass")
     }
 
     private fun initialization() {
@@ -54,7 +52,6 @@ class Fragment08 : Fragment() {
         mViewModel = ViewModelProvider(this)
             .get(Fragment08ViewModel::class.java)
         mViewModel.mainItemList08.observe(this, mObserveList)
-
     }
 
     override fun onDestroyView() {

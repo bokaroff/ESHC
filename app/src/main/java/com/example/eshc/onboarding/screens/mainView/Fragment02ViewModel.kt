@@ -8,5 +8,4 @@ import com.example.eshc.utilits.REPOSITORY_ROOM
 class Fragment02ViewModel(application: Application): AndroidViewModel(application) {
 
     val mainItemList02 = REPOSITORY_ROOM.mainItemList02
-
 }

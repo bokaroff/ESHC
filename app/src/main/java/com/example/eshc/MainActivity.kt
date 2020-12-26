@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
         REPOSITORY_ROOM = RoomRepository(ITEM_ROOM_DAO)
         insertMainItemsList()
-
         setUpNavController()
         Log.d(TAG, "start: $localClassName")
 
@@ -59,7 +58,6 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-
                 val data =  REPOSITORY_ROOM.selectAllItems()
                 Log.d(TAG, "data: + ${data.size}")
 
@@ -74,7 +72,6 @@ class MainActivity : AppCompatActivity() {
                     REPOSITORY_ROOM.insertMainItemList(list)
                     Log.d(TAG, "list: + ${list.size}")
                 }
-
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {

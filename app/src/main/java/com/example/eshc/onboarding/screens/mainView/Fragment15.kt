@@ -1,21 +1,16 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment15Binding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.*
-import com.google.firebase.firestore.DocumentChange
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class Fragment15 : Fragment() {
 
@@ -23,6 +18,9 @@ class Fragment15 : Fragment() {
     private val mBinding get() = _binding!!
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
+    private lateinit var mObserveList: Observer<List<Items>>
+    private lateinit var mViewModel: Fragment15ViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +34,8 @@ class Fragment15 : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        getItemFire(field_15, yeah, mAdapterItems, mRecyclerView)
-        insertItemChangesRoom()
+        getData15()
+        // insertItemChangesRoom()
     }
 
     private fun initialization() {
@@ -45,6 +43,16 @@ class Fragment15 : Fragment() {
         mAdapterItems = AdapterItems()
     }
 
+    private fun getData15() {
+        mObserveList = Observer {
+            mAdapterItems.setList(it)
+            mRecyclerView.adapter = mAdapterItems
+        }
+        mViewModel = ViewModelProvider(this)
+            .get(Fragment15ViewModel::class.java)
+        mViewModel.mainItemList15.observe(this, mObserveList)
+    }
+/*
     private fun insertItemChangesRoom(){
         collectionITEMS_REF.addSnapshotListener { value, error ->
             if (value != null) {
@@ -68,9 +76,12 @@ class Fragment15 : Fragment() {
       }
     }
 
+ */
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        mViewModel.mainItemList15.removeObserver(mObserveList)
         mRecyclerView.adapter = null
     }
 }

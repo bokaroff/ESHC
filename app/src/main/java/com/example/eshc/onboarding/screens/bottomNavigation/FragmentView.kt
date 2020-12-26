@@ -37,15 +37,11 @@ class FragmentView : Fragment() {
     private val mBinding get() = _binding!!
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mToolbar: Toolbar
-
-    private var swipeBackground = ColorDrawable(Color.RED)
-
     private lateinit var mKey: String
     private lateinit var path: String
     private lateinit var mViewHolder: RecyclerView.ViewHolder
     private lateinit var deleteIcon: Drawable
-    private var removedPosition = 0
-
+    private var swipeBackground = ColorDrawable(Color.RED)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +49,6 @@ class FragmentView : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentViewBinding.inflate(layoutInflater, container, false)
-
         return mBinding.root
     }
 
@@ -79,9 +74,7 @@ class FragmentView : Fragment() {
         Log.d(TAG, "start: $javaClass")
     }
 
-
     private fun initialization() {
-
         deleteIcon = ResourcesCompat.getDrawable(
             resources,
             R.drawable.ic_delete_white, null
@@ -166,26 +159,17 @@ class FragmentView : Fragment() {
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 
-
     private fun performSwipe() {
         ITEM = adapterFireItem.getItem(mViewHolder.adapterPosition)
 
-        Log.d(TAG, "performSwipe: + ${ITEM.objectName}")
-
-
-        val removedPosition = mViewHolder.adapterPosition
-
         CoroutineScope(Dispatchers.IO).launch {
             try {
-
                 val query = collectionITEMS_REF
                     .whereEqualTo(item_name, ITEM.objectName).get().await()
                 for (dc in query) {
                     mKey = dc.id
                     collectionITEMS_REF.document(mKey).delete().await()
                 }
-
-
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
@@ -200,6 +184,9 @@ class FragmentView : Fragment() {
             .setAction("Отмена") {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
+                        collectionITEMS_REF.document(mKey).set(ITEM).await()
+                        collectionITEMS_REF.document(mKey)
+                            .update("item_id", mKey).await()
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {

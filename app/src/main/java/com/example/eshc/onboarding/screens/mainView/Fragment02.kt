@@ -37,8 +37,6 @@ class Fragment02 : Fragment() {
         super.onStart()
         initialization()
         getData02()
-        //  getItemFire(field_02, yeah, mAdapterItems, mRecyclerView)
-        //Log.d(TAG, "start: $javaClass")
     }
 
     private fun initialization() {
