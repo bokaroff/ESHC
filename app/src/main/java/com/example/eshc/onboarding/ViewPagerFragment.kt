@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.eshc.databinding.FragmentViewPagerBinding
 import com.example.eshc.onboarding.screens.mainView.*
-import com.example.eshc.utilits.DB
 import com.example.eshc.utilits.TAG
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -68,7 +67,6 @@ class ViewPagerFragment : Fragment() {
         super.onStop()
         Log.d(TAG, "stop: $javaClass")
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

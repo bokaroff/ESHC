@@ -161,6 +161,7 @@ class FragmentView : Fragment() {
 
     private fun performSwipe() {
         ITEM = adapterFireItem.getItem(mViewHolder.adapterPosition)
+        val name = ITEM.objectName
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -178,7 +179,7 @@ class FragmentView : Fragment() {
         }
 
         Snackbar.make(
-            mViewHolder.itemView, " удален",
+            mViewHolder.itemView, " Объект $name удален",
             Snackbar.LENGTH_LONG
         ).setActionTextColor(Color.RED)
             .setAction("Отмена") {

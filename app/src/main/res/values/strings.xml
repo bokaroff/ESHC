@@ -21,6 +21,5 @@
     <string name="edttxt_hint_objectphone">Введите номер телефона</string>
     <string name="edttxt_hint_mobilephone">Введите номер мобильного телефона</string>
     <string name="edttxt_hint_kurator">Введите имя куратора</string>
-    <string name="getMainItemList_08">SELECT * FROM items_table WHERE order08 = :string ORDER BY objectName Desc</string>
-    <string name="getAllItems">SELECT * FROM items_table</string>
+    <string name="enter_objectName">Введите имя объекта</string>
 </resources>

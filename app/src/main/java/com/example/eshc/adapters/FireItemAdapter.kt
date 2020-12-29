@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
-import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.onboarding.screens.bottomNavigation.FragmentView
-import com.example.eshc.utilits.optionsItems
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.recycler_item.view.*
@@ -49,26 +49,21 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
         holder.objectName.text = model.objectName
         holder.kurator.text = model.kurator
         holder.objectPhone.text = model.objectPhone
+        holder.mobilePhone.text = model.mobilePhone
         holder.address.text = model.address
         holder.worker08.text = model.worker08
         holder.serverTimestamp.text = model.worker15
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-       val objectName = itemView.objectName_txt
-        val kurator = itemView.kurator_txt
-        val objectPhone = itemView.objectPhone_txt
-        val address = itemView.address_txt
-        val  worker08 = itemView.worker08_txt
-        val serverTimestamp = itemView.serverTimestamp_txt
-        val recyclerItemContainer = itemView.recycler_item_container
+        val objectName: TextView = itemView.objectName_txt
+        val kurator: TextView = itemView.kurator_txt
+        val objectPhone: TextView = itemView.objectPhone_txt
+        val mobilePhone: TextView = itemView.mobilePhone_txt
+        val address: TextView = itemView.address_txt
+        val worker08: TextView = itemView.worker08_txt
+        val serverTimestamp: TextView = itemView.serverTimestamp_txt
+        val recyclerItemContainer: ConstraintLayout = itemView.recycler_item_container
     }
 
-    fun removeItem(viewHolder: RecyclerView.ViewHolder) {
-        notifyItemRemoved(viewHolder.adapterPosition)
-    }
-
-    fun insertItem(position: Int, item: Items){
-        notifyItemInserted(position)
-    }
 }

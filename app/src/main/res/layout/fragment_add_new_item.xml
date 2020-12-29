@@ -17,82 +17,54 @@
 
     <EditText
         android:id="@+id/fragmentAddNewItem_name"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edtxt_height"
-        android:layout_margin="@dimen/margin_main"
+        style="@style/editText_text"
         android:autofillHints=""
-        android:background="@color/colorGrey"
         android:hint="@string/edttxt_hint_objectName"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_toolbar" />
 
     <EditText
         android:id="@+id/fragmentAddNewItem_address"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edtxt_height"
-        android:layout_margin="@dimen/margin_main"
+        style="@style/editText_text"
         android:autofillHints=""
-        android:background="@color/colorGrey"
         android:hint="@string/edttxt_hint_address"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_name"
-
         />
 
     <EditText
         android:id="@+id/fragmentAddNewItem_phone"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edtxt_height"
-        android:layout_margin="@dimen/margin_main"
+        style="@style/editText_phone"
         android:autofillHints=""
-        android:background="@color/colorGrey"
         android:hint="@string/edttxt_hint_objectphone"
-        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_address"
-
         />
 
     <EditText
         android:id="@+id/fragmentAddNewItem_mobilePhone"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edtxt_height"
-        android:layout_margin="@dimen/margin_main"
         android:autofillHints=""
-        android:background="@color/colorGrey"
+        style="@style/editText_phone"
         android:hint="@string/edttxt_hint_mobilephone"
-        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_phone" />
 
     <EditText
         android:id="@+id/fragmentAddNewItem_kurator"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/edtxt_height"
-        android:layout_margin="@dimen/margin_main"
+        style="@style/editText_text"
         android:autofillHints=""
-        android:background="@color/colorGrey"
         android:hint="@string/edttxt_hint_kurator"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_mobilePhone" />
 
     <Button
         android:id="@+id/fragmentAddNewItem_buttonAdd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_main"
-        android:background="@color/eliteColorLight"
-        android:foreground="@drawable/custom_ripple"
-        android:text="@string/menu_save"
-        android:textColor="@color/colorWhite"
+        style="@style/button_blue_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

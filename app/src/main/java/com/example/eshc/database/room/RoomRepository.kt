@@ -3,13 +3,9 @@ package com.example.eshc.database.room
 import androidx.lifecycle.LiveData
 import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
-import java.lang.reflect.Array.get
 
 
 class RoomRepository(private val itemRoomDao: ItemRoomDao) {
-
-    val allItems: LiveData<List<Items>>
-        get() = itemRoomDao.getAllItems()
 
     val allChangedItems: LiveData<List<Items>>
         get() = itemRoomDao.getAllChangedItems()
@@ -39,8 +35,8 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
         get() = itemRoomDao.getMainItemList21()
 
 
-    suspend fun selectAllItems(): List<Items> {
-        return itemRoomDao.selectAllItems()
+    suspend fun getMainItemList(): List<Items> {
+        return itemRoomDao.getMainItemList()
     }
 
 

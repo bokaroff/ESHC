@@ -60,7 +60,7 @@ class UpdateItemFragment : Fragment() {
         mButtonSave.setOnClickListener {
             val map =  getNewItemMap()
             updateItem(map)
-            showToast("Данные по объекту изменены")
+            showToast("Данные по объекту ${map[item_name]} изменены")
             APP_ACTIVITY.navController
                 .navigate(R.id.action_updateItemFragment_to_viewPagerFragment)
            UIUtil.hideKeyboard(context as Activity)
@@ -116,6 +116,8 @@ class UpdateItemFragment : Fragment() {
         val map = mutableMapOf<String, Any>()
         if (name.isNotEmpty()) {
             map[item_name] = name
+        }else{
+            map[item_name] = mCurentitem.objectName
         }
         if (address.isNotEmpty()) {
             map[item_address] = address
@@ -141,7 +143,7 @@ class UpdateItemFragment : Fragment() {
                     .set(newItemMap, SetOptions.merge()).await()
             }catch (e: Exception){
                 withContext(Dispatchers.Main) {
-                    showToast(e.message.toString())
+                    e.message?.let { showToast(it) }
                 }
             }
         }

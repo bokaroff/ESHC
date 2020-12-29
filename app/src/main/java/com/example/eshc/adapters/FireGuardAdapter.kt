@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
@@ -25,23 +27,24 @@ class FireGuardAdapter<T, U>(options: FirestoreRecyclerOptions<Guards>)
     }
 
     override fun onBindViewHolder(holder: GuardViewHolder, position: Int, model: Guards) {
-        holder.guardRecyclContainer.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
+        holder.guardRvContainer.animation =
+            AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
 
         holder.guardName.text = model.guardName
         holder.guardPhone.text = model.guardPhone
-        holder.guardPhone_2.text = model.guardPhone_2
+        holder.guardPhone2.text = model.guardPhone_2
         holder.guardKurator.text = model.guardKurator
         holder.guardWorkPlace.text = model.guardWorkPlace
 
     }
 
-    class GuardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val guardName = itemView.guardName_txt
-        val guardPhone = itemView.guardPhone_txt
-        val guardPhone_2 = itemView.guardPhone2_txt
-        val guardKurator = itemView.guard_kurator_txt
-        val guardWorkPlace = itemView.guard_work_txt
-        val guardRecyclContainer = itemView.recycler_item_guard_container
+    class GuardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val guardName: TextView = itemView.guardName_txt
+        val guardPhone: TextView = itemView.guardPhone_txt
+        val guardPhone2: TextView = itemView.guardPhone2_txt
+        val guardKurator: TextView = itemView.guard_kurator_txt
+        val guardWorkPlace: TextView = itemView.guard_work_txt
+        val guardRvContainer: ConstraintLayout = itemView.recycler_item_guard_container
     }
 
 }

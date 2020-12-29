@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
@@ -20,14 +22,14 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
     private var mListFiltered = mutableListOf<Guards>()
 
     override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
-        holder.guardRecyclerContainer.setOnClickListener {
+        holder.guardRvContainer.setOnClickListener {
             val guard = mListFiltered[holder.adapterPosition]
             FragmentGuard.popUpFragmentClick(guard)
         }
     }
 
     override fun onViewDetachedFromWindow(holder: SimpleViewHolder) {
-        holder.guardRecyclerContainer.setOnClickListener(null)
+        holder.guardRvContainer.setOnClickListener(null)
         super.onViewDetachedFromWindow(holder)
     }
 
@@ -40,12 +42,12 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
     }
 
     override fun onBindViewHolder(holder: SimpleViewHolder, position: Int) {
-        holder.guardRecyclerContainer.animation =
+        holder.guardRvContainer.animation =
             AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
 
         holder.guardName.text = mListFiltered[position].guardName
         holder.guardPhone.text = mListFiltered[position].guardPhone
-        holder.guardPhone_2.text = mListFiltered[position].guardPhone_2
+        holder.guardPhone2.text = mListFiltered[position].guardPhone_2
         holder.guardKurator.text = mListFiltered[position].guardKurator
         holder.guardWorkPlace.text = mListFiltered[position].guardWorkPlace
     }
@@ -55,12 +57,12 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
     }
 
     class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val guardName = itemView.guardName_txt
-        val guardPhone = itemView.guardPhone_txt
-        val guardPhone_2 = itemView.guardPhone2_txt
-        val guardKurator = itemView.guard_kurator_txt
-        val guardWorkPlace = itemView.guard_work_txt
-        val guardRecyclerContainer = itemView.recycler_item_guard_container
+        val guardName: TextView = itemView.guardName_txt
+        val guardPhone: TextView = itemView.guardPhone_txt
+        val guardPhone2: TextView = itemView.guardPhone2_txt
+        val guardKurator: TextView = itemView.guard_kurator_txt
+        val guardWorkPlace: TextView = itemView.guard_work_txt
+        val guardRvContainer: ConstraintLayout = itemView.recycler_item_guard_container
     }
 
     fun setList(list: MutableList<Guards>) {

@@ -10,46 +10,46 @@ import com.example.eshc.utilits.*
 @Dao
 interface ItemRoomDao {
 
- @Query(getAllItems)
+ @Query(getAllMainItems)
  fun getAllItems(): LiveData<List<Items>>
 
  @Query(getAllChangedItems)
  fun getAllChangedItems(): LiveData<List<Items>>
 
- @Query("SELECT * FROM guards_table")
+ @Query(getAllGuardsLate)
  fun getAllGuardsLate(): LiveData<List<Guards>>
 
 
- @Query("SELECT * FROM items_table WHERE order00 = 'true' AND state = 'main' ORDER BY objectName Asc")
+ @Query(getMainItemList00)
  fun getMainItemList00(): LiveData<List<Items>>
 
 
- @Query("SELECT * FROM items_table WHERE order02 = 'true' AND state = 'main' ORDER BY objectName Asc")
+ @Query(getMainItemList02)
  fun getMainItemList02(): LiveData<List<Items>>
 
 
- @Query("SELECT * FROM items_table WHERE order04 = 'true' AND state = 'main' ORDER BY objectName Asc")
+ @Query(getMainItemList04)
  fun getMainItemList04(): LiveData<List<Items>>
 
 
- @Query("SELECT * FROM items_table WHERE order06 = 'true' AND state = 'main' ORDER BY objectName Asc")
+ @Query(getMainItemList06)
  fun getMainItemList06(): LiveData<List<Items>>
 
 
- @Query("SELECT * FROM items_table WHERE order08 = 'true' AND state = 'main' ORDER BY objectName Asc")
+ @Query(getMainItemList08)
  fun getMainItemList08(): LiveData<List<Items>>
 
 
- @Query("SELECT * FROM items_table WHERE order15 = 'true' AND state = 'main' ORDER BY objectName Asc")
+ @Query(getMainItemList15)
  fun getMainItemList15(): LiveData<List<Items>>
 
 
- @Query("SELECT * FROM items_table WHERE order21 = 'true' AND state = 'main' ORDER BY objectName Asc")
+ @Query(getMainItemList21)
  fun getMainItemList21(): LiveData<List<Items>>
 
 
- @Query("SELECT * FROM items_table")
- suspend fun selectAllItems(): List<Items>
+ @Query(getAllMainItems)
+ suspend fun getMainItemList(): List<Items>
 
  @Insert(onConflict = OnConflictStrategy.IGNORE)
  suspend fun insertItem(item: Items)

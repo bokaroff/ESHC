@@ -52,6 +52,17 @@
             app:layout_constraintTop_toBottomOf="@id/objectName_txt" />
 
         <TextView
+            android:id="@+id/mobilePhone_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/margin_small"
+            android:textColor="@color/eliteColorLight"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/objectName_txt" />
+
+        <TextView
             android:id="@+id/address_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

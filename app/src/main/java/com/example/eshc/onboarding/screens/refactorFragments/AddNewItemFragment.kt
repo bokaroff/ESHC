@@ -3,26 +3,25 @@ package com.example.eshc.onboarding.screens.refactorFragments
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.eshc.R
 import com.example.eshc.databinding.FragmentAddNewItemBinding
-import com.example.eshc.databinding.FragmentUpdateItemBinding
 import com.example.eshc.utilits.*
-import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
+import java.util.*
+import kotlin.math.log
 
 class AddNewItemFragment : Fragment() {
     private var _binding: FragmentAddNewItemBinding? = null
@@ -48,14 +47,17 @@ class AddNewItemFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        getNewItemMap()
         mButtonSave.setOnClickListener {
-            val map =  getNewItemMap()
-         //   addNewItem(map)
-          //  showToast("Добавлен новый объект ${map[item_name]}")
-          //  APP_ACTIVITY.navController
-            //    .navigate(R.id.action_addNewItemFragment_to_viewPagerFragment)
-           // UIUtil.hideKeyboard(context as Activity)
+            val map = getNewItemMap()
+            if (map[item_name] !== null) {
+                addNewItem(map)
+            }
+
+
+            // showToast("Добавлен новый объект ${map[item_name]}")
+            //  APP_ACTIVITY.navController
+            //       .navigate(R.id.action_addNewItemFragment_to_viewPagerFragment)
+            UIUtil.hideKeyboard(context as Activity)
         }
     }
 
@@ -76,11 +78,11 @@ class AddNewItemFragment : Fragment() {
         val phone = mEdtxtPhone.text.toString().trim()
         val mobile = mEdtxtMobile.text.toString().trim()
         val kurator = mEdtxtKurator.text.toString().trim()
-        val map = mutableMapOf<String, Any>()
+        val map = mutableMapOf<String, String>()
 
         if (name.isEmpty()) {
-           // showToast("Введите имя объекта")
-        } else{
+            showToast("Введите имя объекта")
+        } else {
             map[item_name] = name
         }
         if (address.isNotEmpty()) {
@@ -98,36 +100,45 @@ class AddNewItemFragment : Fragment() {
         return map
     }
 
-/*
-    private fun addNewItem(newItemMap: Map<String, Any>) {
-        val id = collectionITEMS_REF.document().id
 
+    private fun addNewItem(newItemMap: Map<String, Any>) {
+        val newName = newItemMap[item_name].toString()
+            .toLowerCase(Locale.ROOT).trim()
+        Log.d(TAG, "newName: + $newName  ")
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val querySnapshot = collectionITEMS_REF.get().await()
-                for (dc in querySnapshot) {
-                    val itemName = dc[item_name].toString().trim()
+                val roomList =  REPOSITORY_ROOM.getMainItemList()
+                Log.d(TAG, "roomList: + ${roomList.size}  ")
+                val fireList = collectionITEMS_REF.get().await()
+
+                for (doc in roomList){
+                    val oldName = doc.objectName
+                        .toLowerCase(Locale.ROOT).trim()
+
+                    if (oldName == newName){
+                        Log.d(TAG, "equal: + $oldName + $newName ")
+                        withContext(Dispatchers.Main) {
+                            showToast(" Объект с таким именем уже существует")
+                        }
+                    }else{
 
 
+                        Log.d(TAG, "not_equal: + $oldName + $newName")
 
-                   // if (itemName == newItemMap[item_name]) {
-                   //     Log.d(TAG, "addNewItem: + $itemName + ${newItemMap[item_name]} ")
-                   //    withContext(Dispatchers.Main) {
-                   //         showToast("Объект с таким именем уже существует")
-                   //    }
-                  //  }
+
+                    }
                 }
+
 
             } catch (e: Exception){
                 withContext(Dispatchers.Main) {
-                    showToast(e.message.toString())
+                    e.message?.let { showToast(it) }
                 }
             }
         }
     }
 
 
- */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

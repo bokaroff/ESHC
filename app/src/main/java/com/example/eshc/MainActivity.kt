@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val data =  REPOSITORY_ROOM.selectAllItems()
+                val data =  REPOSITORY_ROOM.getMainItemList()
                 Log.d(TAG, "data: + ${data.size}")
 
                 if (data.isEmpty()){

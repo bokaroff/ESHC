@@ -55,9 +55,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
             APP_ACTIVITY.navController
                 .navigate(R.id.action_fragmentViewBottomSheet_to_addNewItemFragment)
         }
-        mBinding.containerDelete.setOnClickListener {
-            showToast("deleteItem")
-        }
+
     }
 
     override fun onDestroyView() {

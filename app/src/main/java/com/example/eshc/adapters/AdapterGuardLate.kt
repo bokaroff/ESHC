@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
@@ -31,7 +33,7 @@ class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>
         holder.guardLateName.text = mList[position].guardName
         holder.guardLateKurator.text = mList[position].guardKurator
         holder.guardLatePhone.text = mList[position].guardPhone
-        holder.guardLatePhone_2.text = mList[position].guardPhone_2
+        holder.guardLatePhone2.text = mList[position].guardPhone_2
         holder.guardLateWork.text = mList[position].guardWorkPlace
         holder.guardLateTime.text = mList[position].guardLateTime
     }
@@ -41,13 +43,13 @@ class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>
     }
 
     class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val rvGuardLateContainer = itemView.rvGuardLateContainer
-        val guardLateName = itemView.guardLateName
-        val guardLateKurator = itemView.guardLateKurator
-        val guardLatePhone = itemView.guardLatePhone
-        val guardLateWork = itemView.guardLateWork
-        val guardLatePhone_2 = itemView.guardLatePhone2
-        val guardLateTime = itemView.guardLateTime
+        val rvGuardLateContainer: ConstraintLayout = itemView.rvGuardLateContainer
+        val guardLateName: TextView = itemView.guardLateName
+        val guardLateKurator: TextView = itemView.guardLateKurator
+        val guardLatePhone: TextView = itemView.guardLatePhone
+        val guardLateWork: TextView = itemView.guardLateWork
+        val guardLatePhone2: TextView = itemView.guardLatePhone2
+        val guardLateTime: TextView = itemView.guardLateTime
     }
 
     fun setList(list: MutableList<Guards>) {

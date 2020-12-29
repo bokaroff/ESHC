@@ -79,13 +79,7 @@
 
     <Button
         android:id="@+id/fragmentUpdateGuardButtonSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_main"
-        android:background="@color/eliteColorLight"
-       android:foreground="@drawable/custom_ripple"
-        android:text="@string/menu_save"
-        android:textColor="@color/colorWhite"
+        style="@style/button_blue_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
