@@ -62,11 +62,13 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "data: + ${data.size}")
 
                 if (data.isEmpty()){
-                    val querySnapshot = collectionITEMS_REF
+                   val querySnapshot = collectionITEMS_REF
                         .orderBy("objectName", Query.Direction.ASCENDING)
                         .get().await()
+
                     for (snap in querySnapshot) {
                         val item = snap.toObject(Items::class.java)
+                        item.item_id = snap.id
                         list.add(item)
                     }
                     REPOSITORY_ROOM.insertMainItemList(list)

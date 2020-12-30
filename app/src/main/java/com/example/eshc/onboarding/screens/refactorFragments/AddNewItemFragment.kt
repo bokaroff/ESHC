@@ -21,7 +21,6 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 import java.util.*
-import kotlin.math.log
 
 class AddNewItemFragment : Fragment() {
     private var _binding: FragmentAddNewItemBinding? = null
@@ -84,19 +83,28 @@ class AddNewItemFragment : Fragment() {
             showToast("Введите имя объекта")
         } else {
             map[item_name] = name
+            ITEM.objectName = name
         }
-        if (address.isNotEmpty()) {
-            map[item_address] = address
-        }
-        if (phone.isNotEmpty()) {
-            map[item_phone] = phone
-        }
-        if (mobile.isNotEmpty()){
-            map[item_mobilePhone] = mobile
-        }
-        if (kurator.isNotEmpty()){
-            map[item_kurator] = kurator
-        }
+        map[item_address] = address
+        map[item_phone] = phone
+        map[item_mobilePhone] = mobile
+        map[item_kurator] = kurator
+        map[item_fire_id] = ""
+        map[item_worker08] = ""
+        map[item_worker15] = ""
+        map[item_img] = ""
+        map[field_00] = ""
+        map[field_02] = ""
+        map[field_04] = ""
+        map[field_06] = ""
+        map[field_08] = ""
+        map[field_15] = ""
+        map[field_21] = ""
+        map[item_serverTimeStamp] = ""
+
+        ITEM.address = address
+        ITEM.state = stateMain
+
         return map
     }
 
@@ -109,26 +117,26 @@ class AddNewItemFragment : Fragment() {
             try {
                 val roomList =  REPOSITORY_ROOM.getMainItemList()
                 Log.d(TAG, "roomList: + ${roomList.size}  ")
-                val fireList = collectionITEMS_REF.get().await()
 
-                for (doc in roomList){
+                for (doc in roomList) {
                     val oldName = doc.objectName
                         .toLowerCase(Locale.ROOT).trim()
 
-                    if (oldName == newName){
+                    if (oldName == newName) {
                         Log.d(TAG, "equal: + $oldName + $newName ")
                         withContext(Dispatchers.Main) {
                             showToast(" Объект с таким именем уже существует")
                         }
-                    }else{
-
-
-                        Log.d(TAG, "not_equal: + $oldName + $newName")
-
-
+                        return@launch
                     }
                 }
 
+             val docRef =   collectionITEMS_REF.add(newItemMap).await()
+                val key = docRef.id
+                collectionITEMS_REF.document(key).update(item_fire_id, key).await()
+                ITEM.item_id = key
+                REPOSITORY_ROOM.insertItem(ITEM)
+                Log.d(TAG, "addNewItem: ${ITEM.item_id} + ${ITEM.objectName} + ${ITEM.state}")
 
             } catch (e: Exception){
                 withContext(Dispatchers.Main) {

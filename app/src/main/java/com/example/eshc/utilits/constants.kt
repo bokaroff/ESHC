@@ -42,14 +42,17 @@ const val guard_phone = "guardPhone"
 const val guard_phone_2 = "guardPhone_2"
 const val guard_img = "guard_img"
 const val guard_workPlace = "guardWorkPlace"
+
 const val item_fire_id = "item_id"
 const val item_name = "objectName"
+const val item_address = "address"
 const val item_phone = "objectPhone"
 const val item_mobilePhone = "mobilePhone"
 const val item_kurator = "kurator"
 const val item_worker08 = "worker08"
-const val item_address = "address"
 const val item_worker15 = "worker15"
+const val item_img = "img"
+const val item_serverTimeStamp = "serverTimeStamp"
 
 lateinit var APP_ACTIVITY: MainActivity
 lateinit var DB: FirebaseFirestore
