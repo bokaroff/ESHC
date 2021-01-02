@@ -52,8 +52,8 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
         itemRoomDao.insertGuardLate(guard)
     }
 
-    suspend fun deleteItem(item: Items) {
-        itemRoomDao.deleteItem(item)
+    suspend fun deleteItem(item_id: String, main: String){
+        itemRoomDao.deleteItem(item_id, main)
     }
 
     suspend fun deleteGuard(guard: Guards) {

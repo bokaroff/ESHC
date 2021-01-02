@@ -135,6 +135,7 @@ class AddNewItemFragment : Fragment() {
                 val key = docRef.id
                 collectionITEMS_REF.document(key).update(item_fire_id, key).await()
                 ITEM.item_id = key
+                ITEM.state = stateMain
                 REPOSITORY_ROOM.insertItem(ITEM)
                 Log.d(TAG, "addNewItem: ${ITEM.item_id} + ${ITEM.objectName} + ${ITEM.state}")
 

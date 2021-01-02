@@ -53,7 +53,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
         }
         mBinding.containerItemAdd.setOnClickListener {
             APP_ACTIVITY.navController
-                .navigate(R.id.action_fragmentViewBottomSheet_to_addNewItemFragment)
+                .navigate(R.id.action_fragmentViewBottomSheet_to_addNewItemFragment,)
         }
 
     }

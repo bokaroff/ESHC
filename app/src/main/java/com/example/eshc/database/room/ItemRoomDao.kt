@@ -60,8 +60,8 @@ interface ItemRoomDao {
  @Insert(onConflict = OnConflictStrategy.IGNORE)
  suspend fun insertGuardLate(guard: Guards)
 
- @Delete
- suspend fun deleteItem(item: Items)
+ @Query("DELETE FROM items_table WHERE item_id =:item_id and state =:main ")
+ suspend fun deleteItem(item_id: String, main: String)
 
  @Delete
  suspend fun deleteGuard(guard: Guards)

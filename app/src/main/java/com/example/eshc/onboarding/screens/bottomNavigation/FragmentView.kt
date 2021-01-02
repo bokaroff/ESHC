@@ -105,7 +105,9 @@ class FragmentView : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
                 mViewHolder = viewHolder
-                performSwipe()
+                val removedPosition = viewHolder.adapterPosition
+                performSwipe(removedPosition)
+                Log.d(TAG, "position: + ${viewHolder.adapterPosition} ")
             }
 
             override fun onChildDraw(
@@ -158,7 +160,7 @@ class FragmentView : Fragment() {
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 
-    private fun performSwipe() {
+    private fun performSwipe(removedPosition: Int) {
         val item = adapterFireItem.getItem(mViewHolder.adapterPosition)
         val name = item.objectName
         mKey = item.item_id
@@ -167,7 +169,8 @@ class FragmentView : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 collectionITEMS_REF.document(mKey).delete().await()
-                REPOSITORY_ROOM.deleteItem(item)
+                REPOSITORY_ROOM.deleteItem(mKey, stateMain)
+                Log.d(TAG, "deleted: + ${item.objectName}")
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -186,6 +189,8 @@ class FragmentView : Fragment() {
                         collectionITEMS_REF.document(mKey).set(item).await()
                         collectionITEMS_REF.document(mKey)
                             .update(item_fire_id, mKey).await()
+                        mRecyclerView.smoothScrollToPosition(removedPosition)
+                        item.state = stateMain
                         REPOSITORY_ROOM.insertItem(item)
 
                     } catch (e: Exception) {
@@ -205,7 +210,6 @@ class FragmentView : Fragment() {
 
     companion object {
         fun popUpFragmentClick(item: Items) {
-            ITEM = item
             Log.d(TAG, "popUpFragmentClick: + ${ITEM.objectName}")
             val bundle = Bundle()
             bundle.putSerializable("item", item)
