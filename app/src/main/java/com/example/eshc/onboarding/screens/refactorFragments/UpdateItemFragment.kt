@@ -1,14 +1,11 @@
 package com.example.eshc.onboarding.screens.refactorFragments
 
 import android.app.Activity
-import android.graphics.Color
-import android.hardware.input.InputManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -40,6 +37,8 @@ class UpdateItemFragment : Fragment() {
     private lateinit var mEdtxtPhone: EditText
     private lateinit var mEdtxtMobile: EditText
     private lateinit var mEdtxtKurator: EditText
+    private lateinit var mEdtxtField08: EditText
+    private lateinit var mEdtxtField15: EditText
     private lateinit var mButtonSave: Button
 
     override fun onCreateView(
@@ -56,11 +55,10 @@ class UpdateItemFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initialization()
-        setEditTexts()
         mButtonSave.setOnClickListener {
-            val map =  getNewItemMap()
-            updateItem(map)
-            showToast("Данные по объекту ${map[item_name]} изменены")
+            val map =  getNewItem()
+            updateItem(ITEM)
+            showToast("Данные по объекту ${ITEM.objectName} изменены")
             APP_ACTIVITY.navController
                 .navigate(R.id.action_updateItemFragment_to_viewPagerFragment)
            UIUtil.hideKeyboard(context as Activity)
@@ -77,70 +75,57 @@ class UpdateItemFragment : Fragment() {
         mEdtxtPhone = mBinding.fragmentUpdateItemObjectPhone
         mEdtxtMobile = mBinding.fragmentUpdateItemMobilePhone
         mEdtxtKurator = mBinding.fragmentUpdateItemKurator
+        mEdtxtField08 = mBinding.fragmentUpdateItemField08
+        mEdtxtField15 = mBinding.fragmentUpdateItemField15
         mButtonSave = mBinding.fragmentUpdateNewItemButton
+        mTextViewName.text = mCurentitem.objectName
     }
 
-    private fun setEditTexts() {
-        val name = mCurentitem.objectName
-        val address = mCurentitem.address
-        val phone = mCurentitem.objectPhone
-        val mobile = mCurentitem.mobilePhone
-        val kurator = mCurentitem.kurator
+    private fun getNewItem(): Items {
 
-        mTextViewName.text = name
-        mEdtxtName.hint = name
-        if (address.isNotEmpty()) {
-            mEdtxtAddress.hint = address
-            mEdtxtAddress.setHintTextColor(Color.BLACK)
-        }
-        if (phone.isNotEmpty()) {
-            mEdtxtPhone.hint = phone
-            mEdtxtPhone.setHintTextColor(Color.BLACK)
-        }
-        if (mobile.isNotEmpty()) {
-            mEdtxtMobile.hint = mobile
-            mEdtxtMobile.setHintTextColor(Color.BLACK)
-        }
-        if (kurator.isNotEmpty()) {
-            mEdtxtKurator.hint = kurator
-            mEdtxtKurator.setHintTextColor(Color.BLACK)
-        }
-    }
+        ITEM = mCurentitem
 
-    private fun getNewItemMap(): Map<String, Any> {
         val name = mEdtxtName.text.toString().trim()
         val address = mEdtxtAddress.text.toString().trim()
         val phone = mEdtxtPhone.text.toString().trim()
         val mobile = mEdtxtMobile.text.toString().trim()
         val kurator = mEdtxtKurator.text.toString().trim()
-        val map = mutableMapOf<String, Any>()
+        val field08 = mEdtxtField08.text.toString().trim()
+        val field15 = mEdtxtField15.text.toString().trim()
+
         if (name.isNotEmpty()) {
-            map[item_name] = name
-        }else{
-            map[item_name] = mCurentitem.objectName
+           ITEM.objectName = name
         }
         if (address.isNotEmpty()) {
-            map[item_address] = address
+            ITEM.address = address
         }
         if (phone.isNotEmpty()) {
-            map[item_phone] = phone
+            ITEM.objectPhone = phone
         }
         if (mobile.isNotEmpty()){
-            map[item_mobilePhone] = mobile
+            ITEM.mobilePhone = mobile
         }
         if (kurator.isNotEmpty()){
-            map[item_kurator] = kurator
+            ITEM.kurator = kurator
         }
-        return map
+        if (field08.isNotEmpty()){
+            ITEM.order08 = field08
+        }
+        if (field15.isNotEmpty()){
+            ITEM.order15 = field15
+        }
+        return ITEM
     }
 
-    private fun updateItem(newItemMap: Map<String, Any>) {
+    private fun updateItem(item: Items) {
         val id = mCurentitem.item_id
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 collectionITEMS_REF.document(id)
-                    .set(newItemMap, SetOptions.merge()).await()
+                    .set(item, SetOptions.merge()).await()
+                    REPOSITORY_ROOM.deleteMainItem(id)
+                    REPOSITORY_ROOM.insertMainItem(item)
             }catch (e: Exception){
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
@@ -148,7 +133,6 @@ class UpdateItemFragment : Fragment() {
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

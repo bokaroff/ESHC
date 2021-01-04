@@ -62,17 +62,18 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "data: + ${data.size}")
 
                 if (data.isEmpty()){
+
                    val querySnapshot = collectionITEMS_REF
                         .orderBy("objectName", Query.Direction.ASCENDING)
                         .get().await()
 
-                    for (snap in querySnapshot) {
-                        val item = snap.toObject(Items::class.java)
-                        item.item_id = snap.id
+                    for (documentSnapShot in querySnapshot) {
+                        val item = documentSnapShot.toObject(Items::class.java)
+                        item.item_id = documentSnapShot.id
                         list.add(item)
                     }
                     REPOSITORY_ROOM.insertMainItemList(list)
-                    Log.d(TAG, "list: + ${list.size}")
+                    Log.d(TAG, "list: + ${list.size} + ")
                 }
 
             } catch (e: Exception) {

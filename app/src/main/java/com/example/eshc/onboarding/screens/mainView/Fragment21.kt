@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment21Binding
 import com.example.eshc.model.Items
+import com.example.eshc.utilits.field_21
+import com.example.eshc.utilits.insertItemChangesRoom
 
 class Fragment21 : Fragment() {
 
@@ -35,6 +37,7 @@ class Fragment21 : Fragment() {
         super.onStart()
         initialization()
         getData21()
+        insertItemChangesRoom(field_21)
     }
 
     private fun initialization() {

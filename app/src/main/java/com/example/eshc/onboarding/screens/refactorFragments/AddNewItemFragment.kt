@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.eshc.R
 import com.example.eshc.databinding.FragmentAddNewItemBinding
 import com.example.eshc.utilits.*
 import kotlinx.coroutines.CoroutineScope
@@ -31,6 +32,8 @@ class AddNewItemFragment : Fragment() {
     private lateinit var mEdtxtPhone: EditText
     private lateinit var mEdtxtMobile: EditText
     private lateinit var mEdtxtKurator: EditText
+    private lateinit var mEdtxtField08: EditText
+    private lateinit var mEdtxtField15: EditText
     private lateinit var mButtonSave: Button
 
     override fun onCreateView(
@@ -51,11 +54,6 @@ class AddNewItemFragment : Fragment() {
             if (map[item_name] !== null) {
                 addNewItem(map)
             }
-
-
-            // showToast("Добавлен новый объект ${map[item_name]}")
-            //  APP_ACTIVITY.navController
-            //       .navigate(R.id.action_addNewItemFragment_to_viewPagerFragment)
             UIUtil.hideKeyboard(context as Activity)
         }
     }
@@ -68,6 +66,8 @@ class AddNewItemFragment : Fragment() {
         mEdtxtPhone = mBinding.fragmentAddNewItemPhone
         mEdtxtMobile = mBinding.fragmentAddNewItemMobilePhone
         mEdtxtKurator = mBinding.fragmentAddNewItemKurator
+        mEdtxtField08 = mBinding.fragmentAddNewItemField08
+        mEdtxtField15 = mBinding.fragmentAddNewItemField15
         mButtonSave = mBinding.fragmentAddNewItemButtonAdd
     }
 
@@ -77,7 +77,11 @@ class AddNewItemFragment : Fragment() {
         val phone = mEdtxtPhone.text.toString().trim()
         val mobile = mEdtxtMobile.text.toString().trim()
         val kurator = mEdtxtKurator.text.toString().trim()
+        val field08 = mEdtxtField08.text.toString().trim()
+        val field15 = mEdtxtField15.text.toString().trim()
         val map = mutableMapOf<String, String>()
+
+      // checkForEmpty()
 
         if (name.isEmpty()) {
             showToast("Введите имя объекта")
@@ -85,6 +89,23 @@ class AddNewItemFragment : Fragment() {
             map[item_name] = name
             ITEM.objectName = name
         }
+
+        if (field08.isEmpty()) {
+            showToast("Введите время отзвона в 08:00")
+        } else {
+            map[field_08] = field08
+            ITEM.order08 = field08
+        }
+
+        if (field08.isEmpty()) {
+            showToast("Введите время отзвона в 08:00")
+        } else {
+            map[field_15] = field15
+            ITEM.order15 = field15
+        }
+
+
+
         map[item_address] = address
         map[item_phone] = phone
         map[item_mobilePhone] = mobile
@@ -97,8 +118,8 @@ class AddNewItemFragment : Fragment() {
         map[field_02] = ""
         map[field_04] = ""
         map[field_06] = ""
-        map[field_08] = ""
-        map[field_15] = ""
+        map[field_08] = field08
+        map[field_15] = field15
         map[field_21] = ""
         map[item_serverTimeStamp] = ""
 
@@ -108,6 +129,8 @@ class AddNewItemFragment : Fragment() {
         return map
     }
 
+    private fun checkForEmpty() {
+    }
 
     private fun addNewItem(newItemMap: Map<String, Any>) {
         val newName = newItemMap[item_name].toString()
@@ -131,13 +154,20 @@ class AddNewItemFragment : Fragment() {
                     }
                 }
 
-             val docRef =   collectionITEMS_REF.add(newItemMap).await()
+                val docRef = collectionITEMS_REF.add(newItemMap).await()
                 val key = docRef.id
-                collectionITEMS_REF.document(key).update(item_fire_id, key).await()
+                collectionITEMS_REF.document(key)
+                    .update(item_fire_id, key, item_worker15, "Создан новый объект").await()
                 ITEM.item_id = key
                 ITEM.state = stateMain
-                REPOSITORY_ROOM.insertItem(ITEM)
-                Log.d(TAG, "addNewItem: ${ITEM.item_id} + ${ITEM.objectName} + ${ITEM.state}")
+                REPOSITORY_ROOM.insertMainItem(ITEM)
+
+                //  Log.d(TAG, "addNewItem: ${ITEM.item_id} + ${ITEM.objectName} + ${ITEM.state}")
+                withContext(Dispatchers.Main) {
+                    APP_ACTIVITY.navController
+                        .navigate(R.id.action_addNewItemFragment_to_viewPagerFragment)
+                    showToast("Добавлен новый объект ${ITEM.objectName}")
+                }
 
             } catch (e: Exception){
                 withContext(Dispatchers.Main) {
@@ -147,11 +177,8 @@ class AddNewItemFragment : Fragment() {
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

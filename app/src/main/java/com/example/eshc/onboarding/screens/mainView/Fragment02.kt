@@ -13,6 +13,8 @@ import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment02Binding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.TAG
+import com.example.eshc.utilits.field_02
+import com.example.eshc.utilits.insertItemChangesRoom
 
 
 class Fragment02 : Fragment() {
@@ -37,6 +39,7 @@ class Fragment02 : Fragment() {
         super.onStart()
         initialization()
         getData02()
+        insertItemChangesRoom(field_02)
     }
 
     private fun initialization() {

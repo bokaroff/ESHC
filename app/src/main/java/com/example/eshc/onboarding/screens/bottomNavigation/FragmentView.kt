@@ -169,7 +169,7 @@ class FragmentView : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 collectionITEMS_REF.document(mKey).delete().await()
-                REPOSITORY_ROOM.deleteItem(mKey, stateMain)
+                REPOSITORY_ROOM.deleteMainItem(mKey)
                 Log.d(TAG, "deleted: + ${item.objectName}")
 
             } catch (e: Exception) {
@@ -191,7 +191,7 @@ class FragmentView : Fragment() {
                             .update(item_fire_id, mKey).await()
                         mRecyclerView.smoothScrollToPosition(removedPosition)
                         item.state = stateMain
-                        REPOSITORY_ROOM.insertItem(item)
+                        REPOSITORY_ROOM.insertMainItem(item)
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
@@ -210,7 +210,6 @@ class FragmentView : Fragment() {
 
     companion object {
         fun popUpFragmentClick(item: Items) {
-            Log.d(TAG, "popUpFragmentClick: + ${ITEM.objectName}")
             val bundle = Bundle()
             bundle.putSerializable("item", item)
             APP_ACTIVITY.navController
