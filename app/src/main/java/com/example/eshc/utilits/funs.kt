@@ -51,8 +51,8 @@ fun insertGuardLateRoom(guard: Guards) {
 
 
 
- fun insertItemChangesRoom(field: String){
-    collectionITEMS_REF.whereEqualTo(field, "true")
+ fun insertItemChangesRoom(){
+    collectionITEMS_REF
         .addSnapshotListener { value, error ->
             if (value != null) {
                 for (dc in value.documentChanges) {

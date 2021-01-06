@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/fragmentUpdateItem_textView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/edtxt_height"
+        android:layout_height="@dimen/et_height"
         android:layout_margin="@dimen/margin_main"
         android:gravity="center"
         android:textColor="@color/colorBlack"
@@ -34,7 +34,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_textView"
         style="@style/editText_text"
-        android:hint="@string/edttxt_hint_objectName"
+        android:drawableStart="@drawable/custom_object"
+        android:hint="@string/et_hint_objectName"
         android:autofillHints=""
          />
 
@@ -43,7 +44,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/editText_text"
-        android:hint="@string/edttxt_hint_address"
+        android:drawableStart="@drawable/custom_location"
+        android:hint="@string/et_hint_address"
         android:autofillHints=""
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_name"
         />
@@ -53,7 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/editText_phone"
-        android:hint="@string/edttxt_hint_objectphone"
+        android:drawableStart="@drawable/custom_contact_phone"
+        android:hint="@string/et_hint_object_phone"
         android:autofillHints=""
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_address"
         />
@@ -63,8 +66,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/editText_phone"
+        android:drawableStart="@drawable/custom_contact_phone"
         android:autofillHints=""
-        android:hint="@string/edttxt_hint_mobilephone"
+        android:hint="@string/et_hint_mobile_phone"
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_objectPhone" />
 
     <EditText
@@ -72,7 +76,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/editText_text"
-        android:hint="@string/edttxt_hint_kurator"
+        android:drawableStart="@drawable/custom_person_add"
+        android:hint="@string/et_hint_kurator"
         android:autofillHints=""
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_mobilePhone" />
 

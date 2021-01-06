@@ -15,11 +15,11 @@
     <string name="menu_settings">Настройки</string>
     <string name="menu_save">Сохранить</string>
     <string name="frag_itemRoom_toolbar_title">Сохраненные объекты</string>
-    <string name="edttxt_hint_name">Введите Имя, Фамилию</string>
-    <string name="edttxt_hint_objectName">Введите название объекта</string>
-    <string name="edttxt_hint_address">Введите адрес</string>
-    <string name="edttxt_hint_objectphone">Введите номер телефона</string>
-    <string name="edttxt_hint_mobilephone">Введите номер мобильного телефона</string>
-    <string name="edttxt_hint_kurator">Введите имя куратора</string>
-    <string name="enter_objectName">Введите имя объекта</string>
+    <string name="et_hint_name">Введите Имя, Фамилию</string>
+    <string name="et_hint_objectName">Введите название объекта</string>
+    <string name="et_hint_address">Введите адрес</string>
+    <string name="et_hint_object_phone">Введите номер телефона</string>
+    <string name="et_hint_mobile_phone">Введите номер мобильного телефона</string>
+    <string name="et_hint_kurator">Введите имя куратора</string>
+    <string name="enter_object_name">Введите имя объекта</string>
 </resources>

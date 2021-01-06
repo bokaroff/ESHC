@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/fragmentUpdateGuardName_textView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/edtxt_height"
+        android:layout_height="@dimen/et_height"
         android:layout_margin="@dimen/margin_main"
         android:gravity="center"
         android:textColor="@color/colorBlack"
@@ -31,7 +31,7 @@
     <EditText
         android:id="@+id/fragmentUpdateGuardName"
         android:autofillHints=""
-        android:hint="@string/edttxt_hint_name"
+        android:hint="@string/et_hint_name"
         android:textColorHint="@color/colorBlack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
     <EditText
         android:id="@+id/fragmentUpdateGuardAddress"
         android:autofillHints=""
-        android:hint="@string/edttxt_hint_address"
+        android:hint="@string/et_hint_address"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuardName"
@@ -50,7 +50,7 @@
     <EditText
         android:id="@+id/fragmentUpdateGuardPhone"
         android:autofillHints=""
-        android:hint="@string/edttxt_hint_objectphone"
+        android:hint="@string/et_hint_object_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuardAddress"
@@ -60,7 +60,7 @@
     <EditText
         android:id="@+id/fragmentUpdateGuardMobilePhone"
         android:autofillHints=""
-        android:hint="@string/edttxt_hint_mobilephone"
+        android:hint="@string/et_hint_mobile_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/editText_phone"
@@ -70,7 +70,7 @@
         android:id="@+id/fragmentUpdateGuardKurator"
         android:autofillHints=""
         android:layout_margin="@dimen/margin_main"
-        android:hint="@string/edttxt_hint_kurator"
+        android:hint="@string/et_hint_kurator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuardMobilePhone"

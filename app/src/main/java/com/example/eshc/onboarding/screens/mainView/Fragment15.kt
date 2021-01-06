@@ -37,7 +37,7 @@ class Fragment15 : Fragment() {
         super.onStart()
         initialization()
         getData15()
-        insertItemChangesRoom(field_15)
+        insertItemChangesRoom()
     }
 
     private fun initialization() {

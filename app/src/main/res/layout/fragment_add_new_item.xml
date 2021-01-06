@@ -18,8 +18,9 @@
     <EditText
         android:id="@+id/fragmentAddNewItem_name"
         style="@style/editText_text"
+        android:drawableStart="@drawable/custom_object"
         android:autofillHints=""
-        android:hint="@string/edttxt_hint_objectName"
+        android:hint="@string/et_hint_objectName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_toolbar" />
@@ -27,8 +28,9 @@
     <EditText
         android:id="@+id/fragmentAddNewItem_address"
         style="@style/editText_text"
+        android:drawableStart="@drawable/custom_location"
         android:autofillHints=""
-        android:hint="@string/edttxt_hint_address"
+        android:hint="@string/et_hint_address"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_name"
@@ -37,8 +39,9 @@
     <EditText
         android:id="@+id/fragmentAddNewItem_phone"
         style="@style/editText_phone"
+        android:drawableStart="@drawable/custom_contact_phone"
         android:autofillHints=""
-        android:hint="@string/edttxt_hint_objectphone"
+        android:hint="@string/et_hint_object_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_address"
@@ -48,7 +51,8 @@
         android:id="@+id/fragmentAddNewItem_mobilePhone"
         android:autofillHints=""
         style="@style/editText_phone"
-        android:hint="@string/edttxt_hint_mobilephone"
+        android:drawableStart="@drawable/custom_contact_phone"
+        android:hint="@string/et_hint_mobile_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_phone" />
@@ -56,8 +60,9 @@
     <EditText
         android:id="@+id/fragmentAddNewItem_kurator"
         style="@style/editText_text"
+        android:drawableStart="@drawable/custom_person_add"
         android:autofillHints=""
-        android:hint="@string/edttxt_hint_kurator"
+        android:hint="@string/et_hint_kurator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_mobilePhone" />
