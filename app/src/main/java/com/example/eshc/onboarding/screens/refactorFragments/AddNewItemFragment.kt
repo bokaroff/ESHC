@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -32,8 +33,8 @@ class AddNewItemFragment : Fragment() {
     private lateinit var mEdtxtPhone: EditText
     private lateinit var mEdtxtMobile: EditText
     private lateinit var mEdtxtKurator: EditText
-    private lateinit var mEdtxtField08: EditText
-    private lateinit var mEdtxtField15: EditText
+    private lateinit var mEdtxtField08: CheckBox
+    private lateinit var mEdtxtField15: CheckBox
     private lateinit var mButtonSave: Button
 
     override fun onCreateView(
@@ -66,8 +67,8 @@ class AddNewItemFragment : Fragment() {
         mEdtxtPhone = mBinding.fragmentAddNewItemPhone
         mEdtxtMobile = mBinding.fragmentAddNewItemMobilePhone
         mEdtxtKurator = mBinding.fragmentAddNewItemKurator
-        mEdtxtField08 = mBinding.fragmentAddNewItemField08
-        mEdtxtField15 = mBinding.fragmentAddNewItemField15
+        mEdtxtField08 = mBinding.fragmentAddItemField08
+        mEdtxtField15 = mBinding.fragmentAddItemField15
         mButtonSave = mBinding.fragmentAddNewItemButtonAdd
     }
 

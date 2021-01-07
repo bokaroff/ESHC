@@ -2,13 +2,12 @@ package com.example.eshc.onboarding.screens.refactorFragments
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -30,15 +29,19 @@ class UpdateItemFragment : Fragment() {
     private var _binding: FragmentUpdateItemBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar
-    private lateinit var mCurentitem: Items
-    private lateinit var mTextViewName: TextView
-    private lateinit var mEdtxtName: EditText
-    private lateinit var mEdtxtAddress: EditText
-    private lateinit var mEdtxtPhone: EditText
-    private lateinit var mEdtxtMobile: EditText
-    private lateinit var mEdtxtKurator: EditText
-    private lateinit var mEdtxtField08: EditText
-    private lateinit var mEdtxtField15: EditText
+    private lateinit var mCurrentItem: Items
+    private lateinit var mEtName: EditText
+    private lateinit var mEtAddress: EditText
+    private lateinit var mEtPhone: EditText
+    private lateinit var mEtMobile: EditText
+    private lateinit var mEtKurator: EditText
+    private lateinit var checkBox08: CheckBox
+    private lateinit var checkBox15: CheckBox
+    private lateinit var checkBox21: CheckBox
+    private lateinit var checkBox00: CheckBox
+    private lateinit var checkBox02: CheckBox
+    private lateinit var checkBox04: CheckBox
+    private lateinit var checkBox06: CheckBox
     private lateinit var mButtonSave: Button
 
     override fun onCreateView(
@@ -46,9 +49,11 @@ class UpdateItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentUpdateItemBinding.inflate(layoutInflater,
-            container,false)
-        mCurentitem = arguments?.getSerializable("item") as Items
+        _binding = FragmentUpdateItemBinding.inflate(
+            layoutInflater,
+            container, false
+        )
+        mCurrentItem = arguments?.getSerializable("item") as Items
         return mBinding.root
     }
 
@@ -69,32 +74,40 @@ class UpdateItemFragment : Fragment() {
     private fun initialization() {
         mToolbar = mBinding.fragmentUpdateItemToolbar
         mToolbar.setupWithNavController(findNavController())
-        mTextViewName = mBinding.fragmentUpdateItemTextView
-        mEdtxtName = mBinding.fragmentUpdateItemName
-        mEdtxtAddress = mBinding.fragmentUpdateItemAddress
-        mEdtxtPhone = mBinding.fragmentUpdateItemObjectPhone
-        mEdtxtMobile = mBinding.fragmentUpdateItemMobilePhone
-        mEdtxtKurator = mBinding.fragmentUpdateItemKurator
-        mEdtxtField08 = mBinding.fragmentUpdateItemField08
-        mEdtxtField15 = mBinding.fragmentUpdateItemField15
+        mEtName = mBinding.fragmentUpdateItemName
+        mEtAddress = mBinding.fragmentUpdateItemAddress
+        mEtPhone = mBinding.fragmentUpdateItemObjectPhone
+        mEtMobile = mBinding.fragmentUpdateItemMobilePhone
+        mEtKurator = mBinding.fragmentUpdateItemKurator
+        checkBox08 = mBinding.fragmentUpdateItemField08
+        checkBox15 = mBinding.fragmentUpdateItemField15
+        checkBox21 = mBinding.fragmentUpdateItemField21
+        checkBox00 = mBinding.fragmentUpdateItemField00
+        checkBox02 = mBinding.fragmentUpdateItemField02
+        checkBox04 = mBinding.fragmentUpdateItemField04
+        checkBox06 = mBinding.fragmentUpdateItemField06
         mButtonSave = mBinding.fragmentUpdateNewItemButton
-        mTextViewName.text = mCurentitem.objectName
+
+        mEtName.text.append(mCurrentItem.objectName)
+        mEtAddress.text.append(mCurrentItem.address)
+        mEtPhone.text.append(mCurrentItem.objectPhone)
+        mEtMobile.text.append(mCurrentItem.mobilePhone)
+        mEtKurator.text.append(mCurrentItem.kurator)
     }
 
     private fun getNewItem(): Items {
 
-        ITEM = mCurentitem
+        var mCheckBox: CheckBox
+        ITEM = mCurrentItem
 
-        val name = mEdtxtName.text.toString().trim()
-        val address = mEdtxtAddress.text.toString().trim()
-        val phone = mEdtxtPhone.text.toString().trim()
-        val mobile = mEdtxtMobile.text.toString().trim()
-        val kurator = mEdtxtKurator.text.toString().trim()
-        val field08 = mEdtxtField08.text.toString().trim()
-        val field15 = mEdtxtField15.text.toString().trim()
+        val name = mEtName.text.toString().trim()
+        val address = mEtAddress.text.toString().trim()
+        val phone = mEtPhone.text.toString().trim()
+        val mobile = mEtMobile.text.toString().trim()
+        val kurator = mEtKurator.text.toString().trim()
 
         if (name.isNotEmpty()) {
-           ITEM.objectName = name
+            ITEM.objectName = name
         }
         if (address.isNotEmpty()) {
             ITEM.address = address
@@ -102,23 +115,49 @@ class UpdateItemFragment : Fragment() {
         if (phone.isNotEmpty()) {
             ITEM.objectPhone = phone
         }
-        if (mobile.isNotEmpty()){
+        if (mobile.isNotEmpty()) {
             ITEM.mobilePhone = mobile
         }
-        if (kurator.isNotEmpty()){
+        if (kurator.isNotEmpty()) {
             ITEM.kurator = kurator
         }
-        if (field08.isNotEmpty()){
-            ITEM.order08 = field08
+
+
+        when {
+            checkBox08.isChecked -> ITEM.order08 = "true"
+            !checkBox08.isChecked -> ITEM.order08 = "false"
         }
-        if (field15.isNotEmpty()){
-            ITEM.order15 = field15
+        when {
+            checkBox15.isChecked -> ITEM.order15 = "true"
+            !checkBox15.isChecked -> ITEM.order15 = "false"
         }
+        when {
+            checkBox21.isChecked -> ITEM.order21 = "true"
+            !checkBox21.isChecked -> ITEM.order21 = "false"
+        }
+        when {
+            checkBox00.isChecked -> ITEM.order00 = "true"
+            !checkBox00.isChecked -> ITEM.order00 = "false"
+        }
+        when {
+            checkBox02.isChecked -> ITEM.order02 = "true"
+            !checkBox02.isChecked -> ITEM.order02 = "false"
+        }
+        when {
+            checkBox04.isChecked -> ITEM.order04 = "true"
+            !checkBox04.isChecked -> ITEM.order04 = "false"
+        }
+        when {
+            checkBox06.isChecked -> ITEM.order06 = "true"
+            !checkBox06.isChecked -> ITEM.order06 = "false"
+        }
+
         return ITEM
     }
 
+
     private fun updateItem(item: Items) {
-        val id = mCurentitem.item_id
+        val id = mCurrentItem.item_id
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
