@@ -78,11 +78,13 @@ class AddNewItemFragment : Fragment() {
         val phone = mEdtxtPhone.text.toString().trim()
         val mobile = mEdtxtMobile.text.toString().trim()
         val kurator = mEdtxtKurator.text.toString().trim()
-        val field08 = mEdtxtField08.text.toString().trim()
-        val field15 = mEdtxtField15.text.toString().trim()
         val map = mutableMapOf<String, String>()
 
       // checkForEmpty()
+
+
+
+
 
         if (name.isEmpty()) {
             showToast("Введите имя объекта")
@@ -91,19 +93,7 @@ class AddNewItemFragment : Fragment() {
             ITEM.objectName = name
         }
 
-        if (field08.isEmpty()) {
-            showToast("Введите время отзвона в 08:00")
-        } else {
-            map[field_08] = field08
-            ITEM.order08 = field08
-        }
 
-        if (field08.isEmpty()) {
-            showToast("Введите время отзвона в 08:00")
-        } else {
-            map[field_15] = field15
-            ITEM.order15 = field15
-        }
 
 
 
@@ -119,8 +109,7 @@ class AddNewItemFragment : Fragment() {
         map[field_02] = ""
         map[field_04] = ""
         map[field_06] = ""
-        map[field_08] = field08
-        map[field_15] = field15
+
         map[field_21] = ""
         map[item_serverTimeStamp] = ""
 

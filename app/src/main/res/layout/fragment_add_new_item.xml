@@ -18,7 +18,7 @@
     <EditText
         android:id="@+id/fragmentAddNewItem_name"
         style="@style/editText_text"
-        android:drawableStart="@drawable/custom_object"
+        android:drawableStart="@drawable/custom_face"
         android:autofillHints=""
         android:hint="@string/et_hint_objectName"
         app:layout_constraintEnd_toEndOf="parent"

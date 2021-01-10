@@ -61,7 +61,7 @@ class UpdateItemFragment : Fragment() {
         super.onStart()
         initialization()
         mButtonSave.setOnClickListener {
-            val map =  getNewItem()
+            getNewItem()
             updateItem(ITEM)
             showToast("Данные по объекту ${ITEM.objectName} изменены")
             APP_ACTIVITY.navController
@@ -93,11 +93,37 @@ class UpdateItemFragment : Fragment() {
         mEtPhone.text.append(mCurrentItem.objectPhone)
         mEtMobile.text.append(mCurrentItem.mobilePhone)
         mEtKurator.text.append(mCurrentItem.kurator)
+
+        checkBoxState()
     }
 
-    private fun getNewItem(): Items {
+    private fun checkBoxState() {
 
-        var mCheckBox: CheckBox
+        when (mCurrentItem.order08) {
+            "true" -> checkBox08.isChecked = true
+        }
+        when (mCurrentItem.order15) {
+            "true" -> checkBox15.isChecked = true
+        }
+        when (mCurrentItem.order21) {
+            "true" -> checkBox21.isChecked = true
+        }
+        when (mCurrentItem.order00) {
+            "true" -> checkBox00.isChecked = true
+        }
+        when (mCurrentItem.order02) {
+            "true" -> checkBox02.isChecked = true
+        }
+        when (mCurrentItem.order04) {
+            "true" -> checkBox04.isChecked = true
+        }
+        when (mCurrentItem.order06) {
+            "true" -> checkBox06.isChecked = true
+        }
+
+    }
+
+    private fun getNewItem() {
         ITEM = mCurrentItem
 
         val name = mEtName.text.toString().trim()
@@ -106,22 +132,22 @@ class UpdateItemFragment : Fragment() {
         val mobile = mEtMobile.text.toString().trim()
         val kurator = mEtKurator.text.toString().trim()
 
-        if (name.isNotEmpty()) {
-            ITEM.objectName = name
-        }
-        if (address.isNotEmpty()) {
-            ITEM.address = address
-        }
-        if (phone.isNotEmpty()) {
-            ITEM.objectPhone = phone
-        }
-        if (mobile.isNotEmpty()) {
-            ITEM.mobilePhone = mobile
-        }
-        if (kurator.isNotEmpty()) {
-            ITEM.kurator = kurator
+        when {
+            name.isNotEmpty() -> ITEM.objectName = name
         }
 
+        when {
+            address.isNotEmpty() -> ITEM.address = address
+        }
+        when {
+            phone.isNotEmpty() -> ITEM.objectPhone = phone
+        }
+        when {
+            mobile.isNotEmpty() -> ITEM.mobilePhone = mobile
+        }
+        when {
+            kurator.isNotEmpty() -> ITEM.kurator = kurator
+        }
 
         when {
             checkBox08.isChecked -> ITEM.order08 = "true"
@@ -151,8 +177,6 @@ class UpdateItemFragment : Fragment() {
             checkBox06.isChecked -> ITEM.order06 = "true"
             !checkBox06.isChecked -> ITEM.order06 = "false"
         }
-
-        return ITEM
     }
 
 

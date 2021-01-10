@@ -202,7 +202,7 @@
     <fragment
         android:id="@+id/addNewGuardFragment"
         android:name="com.example.eshc.onboarding.screens.refactorFragments.AddNewGuardFragment"
-        android:label="fragment_add_new_guard"
+        android:label="@string/menu_guard_add"
         tools:layout="@layout/fragment_add_new_guard" >
         <action
             android:id="@+id/action_addNewGuardFragment_to_viewPagerFragment"
