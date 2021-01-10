@@ -129,6 +129,8 @@
     <Button
         android:id="@+id/fragmentUpdateNewItem_button"
         style="@style/button_blue_save"
+        app:backgroundTint ="@null"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

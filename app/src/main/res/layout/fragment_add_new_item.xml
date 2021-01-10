@@ -136,6 +136,7 @@
     <Button
         android:id="@+id/fragmentAddNewItem_buttonAdd"
         style="@style/button_blue_save"
+        app:backgroundTint ="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
