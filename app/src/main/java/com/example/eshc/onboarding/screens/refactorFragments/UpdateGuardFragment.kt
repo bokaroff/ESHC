@@ -1,16 +1,14 @@
 package com.example.eshc.onboarding.screens.refactorFragments
 
 import android.app.Activity
-import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
@@ -28,37 +26,34 @@ import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 
 class UpdateGuardFragment : Fragment() {
 
-    private var _binding: FragmentUpdateGaurdBinding ? = null
+    private var _binding: FragmentUpdateGaurdBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar
-    private lateinit var mCurrentItem: Guards
-    private lateinit var mTextViewName: TextView
-    private lateinit var mEdtxtName: EditText
-    private lateinit var mEdtxtAddress: EditText
-    private lateinit var mEdtxtPhone: EditText
-    private lateinit var mEdtxtMobile: EditText
-    private lateinit var mEdtxtKurator: EditText
-    private lateinit var mButtonSave: Button
+    private lateinit var mCurrentGuard: Guards
+    private lateinit var etName: EditText
+    private lateinit var etAddress: EditText
+    private lateinit var etPhone: EditText
+    private lateinit var etPhone_2: EditText
+    private lateinit var etKurator: EditText
+    private lateinit var btnSave: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentUpdateGaurdBinding.inflate(layoutInflater,
-            container,false)
-        mCurrentItem = arguments?.getSerializable("guard") as Guards
+        _binding = FragmentUpdateGaurdBinding.inflate(
+            layoutInflater,
+            container, false
+        )
+        mCurrentGuard = arguments?.getSerializable("guard") as Guards
         return mBinding.root
     }
     override fun onStart() {
         super.onStart()
         initialization()
-        setEditTexts()
-        mButtonSave.setOnClickListener {
-            val map =  getNewGuardMap()
-            updateGuard(map)
-            showToast("Данные изменены")
-            APP_ACTIVITY.navController
-                .navigate(R.id.action_updateGuardFragment_to_viewPagerFragment)
+        btnSave.setOnClickListener {
+            val guard = getNewGuard()
+            updateGuard(guard)
             UIUtil.hideKeyboard(context as Activity)
         }
     }
@@ -66,80 +61,68 @@ class UpdateGuardFragment : Fragment() {
     private fun initialization() {
         mToolbar = mBinding.fragmentUpdateGuardToolbar
         mToolbar.setupWithNavController(findNavController())
-        mTextViewName = mBinding.fragmentUpdateGuardNameTextView
-        mEdtxtName = mBinding.fragmentUpdateGuardName
-        mEdtxtAddress = mBinding.fragmentUpdateGuardAddress
-        mEdtxtPhone = mBinding.fragmentUpdateGuardPhone
-        mEdtxtMobile = mBinding.fragmentUpdateGuardMobilePhone
-        mEdtxtKurator = mBinding.fragmentUpdateGuardKurator
-        mButtonSave = mBinding.fragmentUpdateGuardButtonSave
+        etName = mBinding.fragmentUpdateGuardName
+        etAddress = mBinding.fragmentUpdateGuardAddress
+        etPhone = mBinding.fragmentUpdateGuardPhone
+        etPhone_2 = mBinding.fragmentUpdateGuardMobilePhone
+        etKurator = mBinding.fragmentUpdateGuardKurator
+        btnSave = mBinding.fragmentUpdateGuardButtonSave
+
+        etName.text.append(mCurrentGuard.guardName)
+        etAddress.text.append(mCurrentGuard.guardWorkPlace)
+        etPhone.text.append(mCurrentGuard.guardPhone)
+        etPhone_2.text.append(mCurrentGuard.guardPhone_2)
+        etKurator.text.append(mCurrentGuard.guardKurator)
     }
 
-    private fun setEditTexts() {
-        val name = mCurrentItem.guardName
-        val address = mCurrentItem.guardWorkPlace
-        val phone = mCurrentItem.guardPhone
-        val mobile = mCurrentItem.guardPhone_2
-        val kurator = mCurrentItem.guardKurator
+    private fun getNewGuard(): Guards {
+        GUARD = mCurrentGuard
 
-        mTextViewName.text = name
-        mEdtxtName.hint = name
-        if (address.isNotEmpty()) {
-            mEdtxtAddress.hint = address
-            mEdtxtAddress.setHintTextColor(Color.BLACK)
+        val name = etName.text.toString().trim()
+        val address = etAddress.text.toString().trim()
+        val phone = etPhone.text.toString().trim()
+        val mobile = etPhone_2.text.toString().trim()
+        val kurator = etKurator.text.toString().trim()
+
+        when {
+            name.isNotEmpty() -> GUARD.guardName = name
         }
-        if (phone.isNotEmpty()) {
-            mEdtxtPhone.hint = phone
-            mEdtxtPhone.setHintTextColor(Color.BLACK)
+
+        when {
+            address.isNotEmpty() -> GUARD.guardWorkPlace = address
         }
-        if (mobile.isNotEmpty()) {
-            mEdtxtMobile.hint = mobile
-            mEdtxtMobile.setHintTextColor(Color.BLACK)
+        when {
+            phone.isNotEmpty() -> GUARD.guardPhone = phone
         }
-        if (kurator.isNotEmpty()) {
-            mEdtxtKurator.hint = kurator
-            mEdtxtKurator.setHintTextColor(Color.BLACK)
+        when {
+            mobile.isNotEmpty() -> GUARD.guardPhone_2 = mobile
         }
+        when {
+            kurator.isNotEmpty() -> GUARD.guardKurator = kurator
+        }
+        return GUARD
     }
 
-
-    private fun getNewGuardMap(): Map<String, Any> {
-        val name = mEdtxtName.text.toString().trim()
-        val address = mEdtxtAddress.text.toString().trim()
-        val phone = mEdtxtPhone.text.toString().trim()
-        val mobile = mEdtxtMobile.text.toString().trim()
-        val kurator = mEdtxtKurator.text.toString().trim()
-        val map = mutableMapOf<String, Any>()
-        if (name.isNotEmpty()){
-            map[guard_name] = name
-        }
-        if (address.isNotEmpty()){
-            map[guard_workPlace] = address
-        }
-        if (phone.isNotEmpty()){
-            map[guard_phone] = phone
-        }
-        if (mobile.isNotEmpty()){
-            map[guard_phone_2] = mobile
-        }
-        if (kurator.isNotEmpty()){
-            map[guard_kurator] = kurator
-        }
-            return map
-    }
-
-  private fun updateGuard(newGuardMap: Map<String, Any>) {
-       val id = mCurrentItem.guardFire_id
+    private fun updateGuard(guard: Guards) {
+        val id = guard.guardFire_id
 
         CoroutineScope(Dispatchers.IO).launch {
-           try {
-               collectionGUARDS_REF.document(id)
-                   .set(newGuardMap, SetOptions.merge()).await()
-           }catch (e: Exception){
-               withContext(Dispatchers.Main) {
-                   showToast(e.message.toString())
-               }
-           }
+            try {
+                collectionGUARDS_REF.document(id)
+                    .set(guard, SetOptions.merge()).await()
+                REPOSITORY_ROOM.deleteMainGuard(id)
+                REPOSITORY_ROOM.insertMainGuard(guard)
+
+                withContext(Dispatchers.Main) {
+                    APP_ACTIVITY.navController
+                        .navigate(R.id.action_updateGuardFragment_to_viewPagerFragment)
+                    showToast("Данные по охраннику ${guard.guardName} изменены")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    e.message?.let { showToast(it) }
+                }
+            }
         }
     }
 

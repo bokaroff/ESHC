@@ -2,6 +2,7 @@ package com.example.eshc.onboarding.screens.refactorFragments
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
+import java.util.*
 
 class UpdateItemFragment : Fragment() {
 
@@ -61,15 +63,11 @@ class UpdateItemFragment : Fragment() {
         super.onStart()
         initialization()
         mButtonSave.setOnClickListener {
-            getNewItem()
-            updateItem(ITEM)
-            showToast("Данные по объекту ${ITEM.objectName} изменены")
-            APP_ACTIVITY.navController
-                .navigate(R.id.action_updateItemFragment_to_viewPagerFragment)
-           UIUtil.hideKeyboard(context as Activity)
+            val item = getNewItem()
+            updateItem(item)
+            UIUtil.hideKeyboard(context as Activity)
         }
     }
-
 
     private fun initialization() {
         mToolbar = mBinding.fragmentUpdateItemToolbar
@@ -123,7 +121,7 @@ class UpdateItemFragment : Fragment() {
 
     }
 
-    private fun getNewItem() {
+    private fun getNewItem(): Items {
         ITEM = mCurrentItem
 
         val name = mEtName.text.toString().trim()
@@ -177,18 +175,25 @@ class UpdateItemFragment : Fragment() {
             checkBox06.isChecked -> ITEM.order06 = "true"
             !checkBox06.isChecked -> ITEM.order06 = "false"
         }
+        return ITEM
     }
 
-
     private fun updateItem(item: Items) {
-        val id = mCurrentItem.item_id
+        val id = item.item_id
+        Log.d(TAG, "newName: + ${item.objectName}  ")
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 collectionITEMS_REF.document(id)
                     .set(item, SetOptions.merge()).await()
-                    REPOSITORY_ROOM.deleteMainItem(id)
-                    REPOSITORY_ROOM.insertMainItem(item)
+                REPOSITORY_ROOM.deleteMainItem(id)
+                REPOSITORY_ROOM.insertMainItem(item)
+
+                withContext(Dispatchers.Main) {
+                    APP_ACTIVITY.navController
+                        .navigate(R.id.action_updateItemFragment_to_viewPagerFragment)
+                    showToast("Данные по объекту ${item.objectName} изменены")
+                }
             }catch (e: Exception){
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }

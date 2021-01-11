@@ -51,17 +51,30 @@ interface ItemRoomDao {
  @Query(getAllMainItems)
  suspend fun getMainItemList(): List<Items>
 
+ @Query(getAllMainGuards)
+ suspend fun getMainGuardList(): List<Guards>
+
  @Insert(onConflict = OnConflictStrategy.REPLACE)
  suspend fun insertMainItem(item: Items)
 
  @Insert(onConflict = OnConflictStrategy.REPLACE)
+ suspend fun insertMainGuard(guard: Guards)
+
+
+ @Insert(onConflict = OnConflictStrategy.REPLACE)
  suspend fun insertMainItemList(list: MutableList<Items>)
+
+ @Insert(onConflict = OnConflictStrategy.REPLACE)
+ suspend fun insertMainGuardList(list: MutableList<Guards>)
 
  @Insert(onConflict = OnConflictStrategy.REPLACE)
  suspend fun insertGuardLate(guard: Guards)
 
  @Query("DELETE FROM items_table WHERE item_id =:item_id and state = 'main' ")
  suspend fun deleteMainItem(item_id: String)
+
+ @Query("DELETE FROM guards_table WHERE guardFire_id =:guardFire_id and state = 'main' ")
+ suspend fun deleteMainGuard(guardFire_id: String)
 
 // @Query("")
  //suspend fun updateMainItem()

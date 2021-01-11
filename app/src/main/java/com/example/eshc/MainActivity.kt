@@ -48,20 +48,21 @@ class MainActivity : AppCompatActivity() {
         ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
         REPOSITORY_ROOM = RoomRepository(ITEM_ROOM_DAO)
         insertMainItemsList()
+        insertMainGuardsList()
         setUpNavController()
         Log.d(TAG, "start: $localClassName")
 
     }
 
     private fun insertMainItemsList() {
-        val list = mutableListOf<Items>()
+        val itemsList = mutableListOf<Items>()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val data =  REPOSITORY_ROOM.getMainItemList()
-                Log.d(TAG, "data: + ${data.size}")
+                val itemsData =  REPOSITORY_ROOM.getMainItemList()
+                Log.d(TAG, "dataItems: + ${itemsData.size}")
 
-                if (data.isEmpty()){
+                if (itemsData.isEmpty()){
 
                    val querySnapshot = collectionITEMS_REF
                         .orderBy("objectName", Query.Direction.ASCENDING)
@@ -70,10 +71,10 @@ class MainActivity : AppCompatActivity() {
                     for (documentSnapShot in querySnapshot) {
                         val item = documentSnapShot.toObject(Items::class.java)
                         item.item_id = documentSnapShot.id
-                        list.add(item)
+                        itemsList.add(item)
                     }
-                    REPOSITORY_ROOM.insertMainItemList(list)
-                    Log.d(TAG, "list: + ${list.size} + ")
+                    REPOSITORY_ROOM.insertMainItemList(itemsList)
+                    Log.d(TAG, "listRoomItems: + ${itemsList.size} + ")
                 }
 
             } catch (e: Exception) {
@@ -82,6 +83,37 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun insertMainGuardsList() {
+        val guardsList = mutableListOf<Guards>()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val guardsData =  REPOSITORY_ROOM.getMainGuardList()
+                Log.d(TAG, "dataGuards: + ${guardsData.size}")
+
+                if (guardsData.isEmpty()){
+
+                    val querySnapshot =  collectionGUARDS_REF
+                        .orderBy("guardName", Query.Direction.ASCENDING).get().await()
+
+                    for (documentSnapShot in querySnapshot) {
+                        val guard = documentSnapShot.toObject(Guards::class.java)
+                        guard.guardFire_id = documentSnapShot.id
+                        guardsList.add(guard)
+                    }
+                    REPOSITORY_ROOM.insertMainGuardList(guardsList)
+                    Log.d(TAG, "listRoomGuards: + ${guardsList.size} + ")
+                }
+
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    e.message?.let { showToast(it) }
+                }
+            }
+        }
+
     }
 
     private fun setUpNavController() {

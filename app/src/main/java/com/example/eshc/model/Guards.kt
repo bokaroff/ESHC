@@ -14,5 +14,6 @@ data class Guards(
     var guardPhone_2: String = "",
     var guard_img: String = "",
     var guardWorkPlace: String = "",
-    var guardLateTime: String = ""
+    var guardLateTime: String = "",
+    var state: String = "main"
 ) : Serializable

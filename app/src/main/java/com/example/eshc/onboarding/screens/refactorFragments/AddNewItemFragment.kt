@@ -80,22 +80,12 @@ class AddNewItemFragment : Fragment() {
         val kurator = mEdtxtKurator.text.toString().trim()
         val map = mutableMapOf<String, String>()
 
-      // checkForEmpty()
-
-
-
-
-
         if (name.isEmpty()) {
             showToast("Введите имя объекта")
         } else {
             map[item_name] = name
             ITEM.objectName = name
         }
-
-
-
-
 
         map[item_address] = address
         map[item_phone] = phone

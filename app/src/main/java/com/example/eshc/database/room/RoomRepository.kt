@@ -39,19 +39,25 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
         return itemRoomDao.getMainItemList()
     }
 
+    suspend fun getMainGuardList(): List<Guards> {
+        return itemRoomDao.getMainGuardList()
+    }
 
     suspend fun insertMainItem(item: Items) {
         itemRoomDao.insertMainItem(item)
     }
 
-    suspend fun updateMainItem(item: Items){
-        itemRoomDao.updateMainItem(item)
+    suspend fun insertMainGuard(guard: Guards){
+        itemRoomDao.insertMainGuard(guard)
     }
-
 
 
     suspend fun insertMainItemList(list: MutableList<Items>) {
         itemRoomDao.insertMainItemList(list)
+    }
+
+    suspend fun insertMainGuardList(list: MutableList<Guards>) {
+        itemRoomDao.insertMainGuardList(list)
     }
 
     suspend fun insertGuardLate(guard: Guards) {
@@ -60,6 +66,10 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
 
     suspend fun deleteMainItem(item_id: String){
         itemRoomDao.deleteMainItem(item_id)
+    }
+
+    suspend fun deleteMainGuard(guardFire_id: String){
+        itemRoomDao.deleteMainGuard(guardFire_id)
     }
 
     suspend fun deleteGuard(guard: Guards) {
