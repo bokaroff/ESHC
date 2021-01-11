@@ -22,7 +22,6 @@ import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.utilits.*
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -84,17 +83,13 @@ class FragmentGuard : Fragment() {
 
 
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
-        val list = mutableListOf<Guards>()
+       // var mList = mutableListOf<Guards>()
         Log.d(TAG, "getGuardData:")
         try {
-            val query = collectionGUARDS_REF
-                .orderBy("guardName", Query.Direction.ASCENDING).get().await()
-            for (dc in query) {
-                GUARD = dc.toObject(Guards::class.java)
-                list.add(GUARD)
-            }
+            val list = REPOSITORY_ROOM.getMainGuardList()
+            mList = list.toMutableList()
             withContext(Dispatchers.Main) {
-                mAdapter.setList(list)
+                mAdapter.setList(mList)
             }
 
         } catch (e: Exception) {
@@ -102,7 +97,7 @@ class FragmentGuard : Fragment() {
                 e.message?.let { showToast(it) }
             }
         }
-        mList = list
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -210,6 +205,7 @@ class FragmentGuard : Fragment() {
                 for (dc in query) {
                     mKey = dc.id
                     collectionGUARDS_REF.document(mKey).delete().await()
+                    REPOSITORY_ROOM.deleteMainGuard(mKey)
                     withContext(Dispatchers.Main) {
                         mAdapter.removeItem(viewHolder)
                     }
@@ -229,6 +225,7 @@ class FragmentGuard : Fragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         collectionGUARDS_REF.document(mKey).set(guard).await()
+                        REPOSITORY_ROOM.insertGuard(guard)
                         withContext(Dispatchers.Main) {
                             mAdapter.insertItem(removedPosition, guard)
                             mRecyclerView.smoothScrollToPosition(removedPosition)

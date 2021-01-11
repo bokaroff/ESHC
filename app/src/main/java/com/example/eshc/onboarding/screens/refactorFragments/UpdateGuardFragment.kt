@@ -111,7 +111,7 @@ class UpdateGuardFragment : Fragment() {
                 collectionGUARDS_REF.document(id)
                     .set(guard, SetOptions.merge()).await()
                 REPOSITORY_ROOM.deleteMainGuard(id)
-                REPOSITORY_ROOM.insertMainGuard(guard)
+                REPOSITORY_ROOM.insertGuard(guard)
 
                 withContext(Dispatchers.Main) {
                     APP_ACTIVITY.navController

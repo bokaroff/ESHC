@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
-import java.util.*
 
 class UpdateItemFragment : Fragment() {
 
@@ -187,7 +186,7 @@ class UpdateItemFragment : Fragment() {
                 collectionITEMS_REF.document(id)
                     .set(item, SetOptions.merge()).await()
                 REPOSITORY_ROOM.deleteMainItem(id)
-                REPOSITORY_ROOM.insertMainItem(item)
+                REPOSITORY_ROOM.insertItem(item)
 
                 withContext(Dispatchers.Main) {
                     APP_ACTIVITY.navController

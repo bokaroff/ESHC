@@ -109,9 +109,6 @@ class AddNewItemFragment : Fragment() {
         return map
     }
 
-    private fun checkForEmpty() {
-    }
-
     private fun addNewItem(newItemMap: Map<String, Any>) {
         val newName = newItemMap[item_name].toString()
             .toLowerCase(Locale.ROOT).trim()
@@ -140,7 +137,7 @@ class AddNewItemFragment : Fragment() {
                     .update(item_fire_id, key, item_worker15, "Создан новый объект").await()
                 ITEM.item_id = key
                 ITEM.state = stateMain
-                REPOSITORY_ROOM.insertMainItem(ITEM)
+                REPOSITORY_ROOM.insertItem(ITEM)
 
                 //  Log.d(TAG, "addNewItem: ${ITEM.item_id} + ${ITEM.objectName} + ${ITEM.state}")
                 withContext(Dispatchers.Main) {

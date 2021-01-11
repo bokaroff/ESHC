@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentViewBottomSheetBinding
+import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.APP_ACTIVITY
-import com.example.eshc.utilits.GUARD
-import com.example.eshc.utilits.insertGuardLateRoom
-import com.example.eshc.utilits.showToast
+import com.example.eshc.utilits.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FragmentViewBottomSheet : BottomSheetDialogFragment() {
     private var _binding: FragmentViewBottomSheetBinding? = null
@@ -44,6 +46,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
             GUARD.guardWorkPlace = mCurentitem.objectName
             GUARD.guardName = mCurentitem.worker08
             GUARD.guardKurator = mCurentitem.kurator
+            GUARD.state = stateLate
             insertGuardLateRoom(GUARD)
             dismiss()
         }
@@ -55,7 +58,22 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
             APP_ACTIVITY.navController
                 .navigate(R.id.action_fragmentViewBottomSheet_to_addNewItemFragment,)
         }
+    }
 
+
+    private fun insertGuardLateRoom(guard: Guards) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                REPOSITORY_ROOM.insertGuard(guard)
+                withContext(Dispatchers.Main) {
+                    showToast("Охранник ${guard.guardName} сохранен как опоздавший")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    e.message?.let { showToast(it) }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

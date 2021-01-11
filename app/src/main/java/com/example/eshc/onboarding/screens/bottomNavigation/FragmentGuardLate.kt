@@ -22,7 +22,6 @@ import com.example.eshc.R
 import com.example.eshc.adapters.AdapterGuardLate
 import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.model.Guards
-import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.TAG
 import com.google.android.material.snackbar.Snackbar
 
@@ -105,7 +104,7 @@ class FragmentGuardLate : Fragment() {
                     Snackbar.LENGTH_LONG
                 ).setActionTextColor(Color.RED)
                     .setAction("Отмена") {
-                        mViewModel.insertGuardLate(guard)
+                        mViewModel.insertGuard(guard)
                         mAdapter.insertItem(removedPosition, guard)
                         mRecyclerView.smoothScrollToPosition(removedPosition)
                     }.show()

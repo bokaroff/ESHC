@@ -191,7 +191,7 @@ class FragmentView : Fragment() {
                             .update(item_fire_id, mKey).await()
                         mRecyclerView.smoothScrollToPosition(removedPosition)
                         item.state = stateMain
-                        REPOSITORY_ROOM.insertMainItem(item)
+                        REPOSITORY_ROOM.insertItem(item)
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {

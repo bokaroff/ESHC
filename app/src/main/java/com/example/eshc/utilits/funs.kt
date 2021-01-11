@@ -34,22 +34,6 @@ fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_LONG).show()
 }
 
-fun insertGuardLateRoom(guard: Guards) {
-    CoroutineScope(Dispatchers.IO).launch {
-        try {
-            REPOSITORY_ROOM.insertGuardLate(guard)
-            withContext(Dispatchers.Main) {
-                showToast("Охранник ${guard.guardName} сохранен как опоздавший")
-            }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                e.message?.let { showToast(it) }
-            }
-        }
-    }
-}
-
-
 
  fun insertItemChangesRoom(){
     collectionITEMS_REF
@@ -62,7 +46,7 @@ fun insertGuardLateRoom(guard: Guards) {
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
                                 item.state = stateChanged
-                                REPOSITORY_ROOM.insertMainItem(item)
+                                REPOSITORY_ROOM.insertItem(item)
                                 Log.d(TAG, "insertItemChangesRoom: + ${item.state}")
                             } catch (e: Exception) {
                                 withContext(Dispatchers.Main) {

@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                         item.item_id = documentSnapShot.id
                         itemsList.add(item)
                     }
-                    REPOSITORY_ROOM.insertMainItemList(itemsList)
+                    REPOSITORY_ROOM.insertItemList(itemsList)
                     Log.d(TAG, "listRoomItems: + ${itemsList.size} + ")
                 }
 
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                         guard.guardFire_id = documentSnapShot.id
                         guardsList.add(guard)
                     }
-                    REPOSITORY_ROOM.insertMainGuardList(guardsList)
+                    REPOSITORY_ROOM.insertGuardList(guardsList)
                     Log.d(TAG, "listRoomGuards: + ${guardsList.size} + ")
                 }
 
@@ -113,7 +113,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun setUpNavController() {
