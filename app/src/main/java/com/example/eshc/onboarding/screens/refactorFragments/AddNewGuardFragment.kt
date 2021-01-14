@@ -133,7 +133,7 @@ class AddNewGuardFragment : Fragment() {
                 GUARD.state = stateMain
                 REPOSITORY_ROOM.insertGuard(GUARD)
 
-                //  Log.d(TAG, "addNewItem: ${ITEM.item_id} + ${ITEM.objectName} + ${ITEM.state}")
+                 Log.d(TAG, "addNewItem: $key + ${ GUARD.guardName} + ${ GUARD.state}")
                 withContext(Dispatchers.Main) {
                     APP_ACTIVITY.navController
                         .navigate(R.id.action_addNewGuardFragment_to_viewPagerFragment)

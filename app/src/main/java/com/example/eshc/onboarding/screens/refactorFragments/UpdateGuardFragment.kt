@@ -2,6 +2,7 @@ package com.example.eshc.onboarding.screens.refactorFragments
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
+import java.util.*
 
 
 class UpdateGuardFragment : Fragment() {
@@ -53,7 +55,11 @@ class UpdateGuardFragment : Fragment() {
         initialization()
         btnSave.setOnClickListener {
             val guard = getNewGuard()
-            updateGuard(guard)
+            if (guard.guardName.isEmpty()) {
+                showToast("Введите имя охранника")
+                return@setOnClickListener
+            } else updateGuard(guard)
+
             UIUtil.hideKeyboard(context as Activity)
         }
     }
@@ -86,8 +92,8 @@ class UpdateGuardFragment : Fragment() {
 
         when {
             name.isNotEmpty() -> GUARD.guardName = name
+            else -> GUARD.guardName = ""
         }
-
         when {
             address.isNotEmpty() -> GUARD.guardWorkPlace = address
         }
@@ -100,14 +106,33 @@ class UpdateGuardFragment : Fragment() {
         when {
             kurator.isNotEmpty() -> GUARD.guardKurator = kurator
         }
+
         return GUARD
     }
 
     private fun updateGuard(guard: Guards) {
         val id = guard.guardFire_id
+        val newName = guard.guardName.toLowerCase(Locale.ROOT).trim()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
+
+                val roomList = REPOSITORY_ROOM.getMainGuardList()
+                Log.d(TAG, "roomList: + ${roomList.size}  ")
+
+                for (doc in roomList) {
+                    val oldName = doc.guardName
+                        .toLowerCase(Locale.ROOT).trim()
+
+                    if (oldName == newName) {
+                        Log.d(TAG, "equal: + $oldName + $newName ")
+                        withContext(Dispatchers.Main) {
+                            showToast("Охранник с таким именем уже существует")
+                        }
+                        return@launch
+                    }
+                }
+
                 collectionGUARDS_REF.document(id)
                     .set(guard, SetOptions.merge()).await()
                 REPOSITORY_ROOM.deleteMainGuard(id)
