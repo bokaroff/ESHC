@@ -66,7 +66,7 @@ class FragmentGuard : Fragment() {
         initialization()
         getGuardData()
         swipeToDelete()
-        Log.d(TAG, "classname: $javaClass")
+        Log.d(TAG, "$javaClass + onStart")
     }
 
     private fun initialization() {
@@ -84,9 +84,10 @@ class FragmentGuard : Fragment() {
 
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
        // var mList = mutableListOf<Guards>()
-        Log.d(TAG, "getGuardData:")
+
         try {
             val list = REPOSITORY_ROOM.getMainGuardList()
+            Log.d(TAG, " + getMainGuardList + ${list.size}")
             mList = list.toMutableList()
             withContext(Dispatchers.Main) {
                 mAdapter.setList(mList)

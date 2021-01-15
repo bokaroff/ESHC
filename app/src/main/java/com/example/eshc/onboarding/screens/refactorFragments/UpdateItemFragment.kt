@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -24,12 +25,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
+import java.util.*
 
 class UpdateItemFragment : Fragment() {
 
     private var _binding: FragmentUpdateItemBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar
+    private lateinit var mTextView: TextView
     private lateinit var mCurrentItem: Items
     private lateinit var mEtName: EditText
     private lateinit var mEtAddress: EditText
@@ -63,13 +66,16 @@ class UpdateItemFragment : Fragment() {
         initialization()
         mButtonSave.setOnClickListener {
             val item = getNewItem()
-            updateItem(item)
+            if (item.objectName.isNotEmpty()) {
+                updateItem(item)
+            }
             UIUtil.hideKeyboard(context as Activity)
         }
     }
 
     private fun initialization() {
         mToolbar = mBinding.fragmentUpdateItemToolbar
+        mTextView = mBinding.fragmentUpdateItemTextView
         mToolbar.setupWithNavController(findNavController())
         mEtName = mBinding.fragmentUpdateItemName
         mEtAddress = mBinding.fragmentUpdateItemAddress
@@ -85,6 +91,7 @@ class UpdateItemFragment : Fragment() {
         checkBox06 = mBinding.fragmentUpdateItemField06
         mButtonSave = mBinding.fragmentUpdateNewItemButton
 
+        mTextView.text = mCurrentItem.objectName
         mEtName.text.append(mCurrentItem.objectName)
         mEtAddress.text.append(mCurrentItem.address)
         mEtPhone.text.append(mCurrentItem.objectPhone)
@@ -130,21 +137,17 @@ class UpdateItemFragment : Fragment() {
         val kurator = mEtKurator.text.toString().trim()
 
         when {
-            name.isNotEmpty() -> ITEM.objectName = name
+            name.isEmpty() -> {
+                ITEM.objectName = ""
+                showToast("Введите имя объекта")
+            }
+            else -> ITEM.objectName = name
         }
 
-        when {
-            address.isNotEmpty() -> ITEM.address = address
-        }
-        when {
-            phone.isNotEmpty() -> ITEM.objectPhone = phone
-        }
-        when {
-            mobile.isNotEmpty() -> ITEM.mobilePhone = mobile
-        }
-        when {
-            kurator.isNotEmpty() -> ITEM.kurator = kurator
-        }
+        ITEM.address = address
+        ITEM.objectPhone = phone
+        ITEM.mobilePhone = mobile
+        ITEM.kurator = kurator
 
         when {
             checkBox08.isChecked -> ITEM.order08 = "true"
@@ -174,26 +177,41 @@ class UpdateItemFragment : Fragment() {
             checkBox06.isChecked -> ITEM.order06 = "true"
             !checkBox06.isChecked -> ITEM.order06 = "false"
         }
+        ITEM.state = stateMain
+
         return ITEM
     }
 
     private fun updateItem(item: Items) {
-        val id = item.item_id
-        Log.d(TAG, "newName: + ${item.objectName}  ")
+        val newId = item.item_id
+        val newName = item.objectName.toLowerCase(Locale.ROOT).trim()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                collectionITEMS_REF.document(id)
-                    .set(item, SetOptions.merge()).await()
-                REPOSITORY_ROOM.deleteMainItem(id)
-                REPOSITORY_ROOM.insertItem(item)
+                val roomList = REPOSITORY_ROOM.getMainItemList()
 
+                for (doc in roomList) {
+                    val oldName = doc.objectName.toLowerCase(Locale.ROOT).trim()
+                    val oldId = doc.item_id
+
+                    if (oldName == newName && oldId != newId) {
+                        Log.d(TAG, "equal: + $oldName + $newName ")
+                        withContext(Dispatchers.Main) {
+                            showToast(" Объект с таким именем уже существует")
+                        }
+                        return@launch
+                    }
+                }
+                collectionITEMS_REF.document(newId)
+                    .set(item, SetOptions.merge()).await()
+                REPOSITORY_ROOM.deleteMainItem(newId)
+                REPOSITORY_ROOM.insertItem(item)
                 withContext(Dispatchers.Main) {
                     APP_ACTIVITY.navController
                         .navigate(R.id.action_updateItemFragment_to_viewPagerFragment)
                     showToast("Данные по объекту ${item.objectName} изменены")
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
                 }

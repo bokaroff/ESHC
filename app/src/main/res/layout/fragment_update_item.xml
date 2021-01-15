@@ -14,11 +14,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/colorWhite" />
 
+    <TextView
+        android:id="@+id/fragmentUpdateItem_textView"
+        style="@style/textView_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_toolbar"
+         />
+
     <EditText
         android:id="@+id/fragmentUpdateItem_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_textView"
         style="@style/editText_text"
         android:drawableStart="@drawable/custom_object"
         android:hint="@string/et_hint_objectName"
@@ -68,54 +76,30 @@
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_mobilePhone" />
 
     <CheckBox
-        android:id="@+id/fragmentUpdateItem_field08"
-        style="@style/checkbox"
-        android:autofillHints=""
-        android:text="@string/_08_00"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_kurator" />
-
-    <CheckBox
-        android:id="@+id/fragmentUpdateItem_field15"
-        style="@style/checkbox"
-        android:autofillHints=""
-        android:text="@string/_15_00"
-        app:layout_constraintEnd_toStartOf="@+id/fragmentUpdateItem_field21"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_field08" />
-
-    <CheckBox
-        android:id="@+id/fragmentUpdateItem_field21"
-        style="@style/checkbox"
-        android:autofillHints=""
-        android:text="@string/_21_00"
-        app:layout_constraintEnd_toStartOf="@+id/fragmentUpdateItem_field00"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_field08" />
-
-    <CheckBox
         android:id="@+id/fragmentUpdateItem_field00"
         style="@style/checkbox"
         android:autofillHints=""
         android:text="@string/_00_00"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_field08" />
+        app:layout_constraintEnd_toStartOf="@+id/fragmentUpdateItem_field04"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_kurator" />
 
     <CheckBox
         android:id="@+id/fragmentUpdateItem_field02"
         style="@style/checkbox"
         android:autofillHints=""
         android:text="@string/_02_00"
-        app:layout_constraintStart_toEndOf="@+id/fragmentUpdateItem_field00"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_field08" />
+        app:layout_constraintEnd_toStartOf="@+id/fragmentUpdateItem_field06"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_field00" />
 
     <CheckBox
         android:id="@+id/fragmentUpdateItem_field04"
         style="@style/checkbox"
+        android:layout_marginTop="140dp"
         android:autofillHints=""
         android:text="@string/_04_00"
-        app:layout_constraintStart_toEndOf="@+id/fragmentUpdateItem_field02"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_field08" />
+        app:layout_constraintEnd_toEndOf="@+id/fragmentUpdateItem_field06"
+        app:layout_constraintStart_toStartOf="@+id/fragmentUpdateItem_field02"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_kurator" />
 
     <CheckBox
         android:id="@+id/fragmentUpdateItem_field06"
@@ -125,6 +109,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_field00" />
+
+    <CheckBox
+        android:id="@+id/fragmentUpdateItem_field08"
+        style="@style/checkbox"
+        android:layout_marginTop="8dp"
+        android:autofillHints=""
+        android:text="@string/_08_00"
+        app:layout_constraintEnd_toEndOf="@+id/fragmentUpdateItem_field15"
+        app:layout_constraintStart_toStartOf="@+id/fragmentUpdateItem_field06"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_kurator" />
+
+    <CheckBox
+        android:id="@+id/fragmentUpdateItem_field15"
+        style="@style/checkbox"
+        android:autofillHints=""
+        android:text="@string/_15_00"
+        app:layout_constraintStart_toEndOf="@+id/fragmentUpdateItem_field06"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_field00" />
+
+    <CheckBox
+        android:id="@+id/fragmentUpdateItem_field21"
+        style="@style/checkbox"
+        android:autofillHints=""
+        android:text="@string/_21_00"
+        app:layout_constraintStart_toEndOf="@+id/fragmentUpdateItem_field08"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateItem_kurator" />
 
     <Button
         android:id="@+id/fragmentUpdateNewItem_button"

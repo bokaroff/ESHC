@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentAddNewGuardBinding
+import com.example.eshc.model.Guards
 import com.example.eshc.utilits.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,9 +51,9 @@ class AddNewGuardFragment : Fragment() {
         super.onStart()
         initialization()
         btnSave.setOnClickListener {
-            val map = getNewGuardMap()
-            if (map[guard_name] !== null) {
-                addNewGuard(map)
+            val guard = getNewGuard()
+            if (guard.guardName.isNotEmpty()) {
+                addNewGuard(guard)
             }
             UIUtil.hideKeyboard(context as Activity)
         }
@@ -69,31 +70,20 @@ class AddNewGuardFragment : Fragment() {
         btnSave = mBinding.fragmentAddNewGuardButtonAdd
     }
 
-    private fun getNewGuardMap(): Map<String, Any> {
+    private fun getNewGuard(): Guards {
 
         val name = etName.text.toString().trim()
         val address = etAddress.text.toString().trim()
         val phone = etPhone.text.toString().trim()
         val mobile = etPhone_2.text.toString().trim()
         val kurator = etKurator.text.toString().trim()
-        val map = mutableMapOf<String, String>()
 
-        if (name.isEmpty()) {
-            showToast("Введите имя охранника")
-        } else {
-            map[guard_name] = name
-            GUARD.guardName = name
+        when {
+            name.isEmpty() ->{
+                GUARD.guardName = ""
+                showToast("Введите имя охранника")
+            } else -> GUARD.guardName = name
         }
-
-        map[guard_workPlace] = address
-        map[guard_phone] = phone
-        map[guard_phone_2] = mobile
-        map[guard_kurator] = kurator
-        map[guard_kurator] = kurator
-        map[guard_fire_id] = ""
-        map[guard_img] = ""
-        map[state] = stateMain
-        map[guardLateTime] = ""
 
         GUARD.guardWorkPlace = address
         GUARD.guardPhone = phone
@@ -101,12 +91,11 @@ class AddNewGuardFragment : Fragment() {
         GUARD.guardKurator = kurator
         GUARD.state = stateMain
 
-        return map
+        return GUARD
     }
 
-    private fun addNewGuard(newGuardMap: Map<String, Any>) {
-        val newName = newGuardMap[guard_name].toString()
-            .toLowerCase(Locale.ROOT).trim()
+    private fun addNewGuard(guard: Guards) {
+        val newName = guard.guardName.toLowerCase(Locale.ROOT).trim()
         Log.d(TAG, "newName: + $newName  ")
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -126,18 +115,19 @@ class AddNewGuardFragment : Fragment() {
                     }
                 }
 
-                val docRef = collectionGUARDS_REF.add(newGuardMap).await()
+                val docRef = collectionGUARDS_REF.add(guard).await()
                 val key = docRef.id
                 collectionGUARDS_REF.document(key).update(guard_fire_id, key).await()
-                GUARD.guardFire_id = key
-                GUARD.state = stateMain
-                REPOSITORY_ROOM.insertGuard(GUARD)
+                guard.guardFire_id = key
+                guard.state = stateMain
+                REPOSITORY_ROOM.insertGuard(guard)
 
-                 Log.d(TAG, "addNewItem: $key + ${ GUARD.guardName} + ${ GUARD.state}")
+
+                 Log.d(TAG, "addNewItem: $key + ${ guard.guardName} + ${ guard.state}")
                 withContext(Dispatchers.Main) {
                     APP_ACTIVITY.navController
                         .navigate(R.id.action_addNewGuardFragment_to_viewPagerFragment)
-                    showToast("Добавлен новый охранник ${GUARD.guardName}")
+                    showToast("Добавлен новый охранник ${guard.guardName}")
                 }
 
             } catch (e: Exception) {

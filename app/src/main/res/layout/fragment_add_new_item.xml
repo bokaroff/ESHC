@@ -68,41 +68,13 @@
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_mobilePhone" />
 
     <CheckBox
-        android:id="@+id/fragmentAddItem_field08"
-        style="@style/checkbox"
-        android:autofillHints=""
-        android:text="@string/_08_00"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_kurator"
-        />
-
-    <CheckBox
-        android:id="@+id/fragmentAddItem_field15"
-        style="@style/checkbox"
-        android:autofillHints=""
-        android:text="@string/_15_00"
-        app:layout_constraintEnd_toStartOf="@+id/fragmentAddItem_field21"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field08"
-        />
-
-    <CheckBox
-        android:id="@+id/fragmentAddItem_field21"
-        style="@style/checkbox"
-        android:autofillHints=""
-        android:text="@string/_21_00"
-        app:layout_constraintEnd_toStartOf="@+id/fragmentAddItem_field00"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field08"
-        />
-
-    <CheckBox
         android:id="@+id/fragmentAddItem_field00"
         style="@style/checkbox"
         android:autofillHints=""
         android:text="@string/_00_00"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field08"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddNewItem_kurator"
         />
 
     <CheckBox
@@ -110,8 +82,8 @@
         style="@style/checkbox"
         android:autofillHints=""
         android:text="@string/_02_00"
-        app:layout_constraintStart_toEndOf="@+id/fragmentAddItem_field00"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field08"
+        app:layout_constraintEnd_toStartOf="@+id/fragmentAddItem_field04"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field00"
         />
 
     <CheckBox
@@ -119,8 +91,8 @@
         style="@style/checkbox"
         android:autofillHints=""
         android:text="@string/_04_00"
-        app:layout_constraintStart_toEndOf="@+id/fragmentAddItem_field02"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field08"
+        app:layout_constraintEnd_toStartOf="@+id/fragmentAddItem_field06"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field00"
         />
 
     <CheckBox
@@ -131,6 +103,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field00"
+        />
+
+    <CheckBox
+        android:id="@+id/fragmentAddItem_field08"
+        style="@style/checkbox"
+        android:autofillHints=""
+        android:text="@string/_08_00"
+        app:layout_constraintStart_toEndOf="@+id/fragmentAddItem_field06"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field00"
+        />
+
+    <CheckBox
+        android:id="@+id/fragmentAddItem_field15"
+        style="@style/checkbox"
+        android:autofillHints=""
+        android:text="@string/_15_00"
+        app:layout_constraintStart_toEndOf="@+id/fragmentAddItem_field08"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field00"
+        />
+
+    <CheckBox
+        android:id="@+id/fragmentAddItem_field21"
+        style="@style/checkbox"
+        android:autofillHints=""
+        android:text="@string/_21_00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentAddItem_field15"
         />
 
     <Button

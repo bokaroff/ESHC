@@ -14,6 +14,14 @@
         style="@style/toolBar"
         app:titleTextColor="@color/colorWhite" />
 
+    <TextView
+        android:id="@+id/fragmentUpdateGuard_textView"
+        style="@style/textView_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuard_toolbar"
+        />
+
     <EditText
         android:id="@+id/fragmentUpdateGuardName"
         android:autofillHints=""
@@ -22,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/editText_text"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuard_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/fragmentUpdateGuard_textView" />
 
     <EditText
         android:id="@+id/fragmentUpdateGuardAddress"

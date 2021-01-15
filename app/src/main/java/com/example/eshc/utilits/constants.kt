@@ -39,7 +39,7 @@ const val stateLate = "late"
 const val state = "state"
 
 const val guard_fire_id = "guardFire_id"
-const val guard_entity_id = "entity_id"
+const val entity_id = "entity_id"
 const val guard_kurator = "guardKurator"
 const val guard_name = "guardName"
 const val guard_phone = "guardPhone"

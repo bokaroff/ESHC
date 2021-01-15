@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentAddNewItemBinding
+import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,8 +34,13 @@ class AddNewItemFragment : Fragment() {
     private lateinit var mEdtxtPhone: EditText
     private lateinit var mEdtxtMobile: EditText
     private lateinit var mEdtxtKurator: EditText
-    private lateinit var mEdtxtField08: CheckBox
-    private lateinit var mEdtxtField15: CheckBox
+    private lateinit var checkBox08: CheckBox
+    private lateinit var checkBox15: CheckBox
+    private lateinit var checkBox21: CheckBox
+    private lateinit var checkBox00: CheckBox
+    private lateinit var checkBox02: CheckBox
+    private lateinit var checkBox04: CheckBox
+    private lateinit var checkBox06: CheckBox
     private lateinit var mButtonSave: Button
 
     override fun onCreateView(
@@ -42,8 +48,10 @@ class AddNewItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentAddNewItemBinding.inflate(layoutInflater,
-            container,false)
+        _binding = FragmentAddNewItemBinding.inflate(
+            layoutInflater,
+            container, false
+        )
         return mBinding.root
     }
 
@@ -51,9 +59,9 @@ class AddNewItemFragment : Fragment() {
         super.onStart()
         initialization()
         mButtonSave.setOnClickListener {
-            val map = getNewItemMap()
-            if (map[item_name] !== null) {
-                addNewItem(map)
+            val item = getNewItem()
+            if (item.objectName.isNotEmpty()) {
+                addNewItem(item)
             }
             UIUtil.hideKeyboard(context as Activity)
         }
@@ -67,55 +75,75 @@ class AddNewItemFragment : Fragment() {
         mEdtxtPhone = mBinding.fragmentAddNewItemPhone
         mEdtxtMobile = mBinding.fragmentAddNewItemMobilePhone
         mEdtxtKurator = mBinding.fragmentAddNewItemKurator
-        mEdtxtField08 = mBinding.fragmentAddItemField08
-        mEdtxtField15 = mBinding.fragmentAddItemField15
+        checkBox08 = mBinding.fragmentAddItemField08
+        checkBox15 = mBinding.fragmentAddItemField15
+        checkBox21 = mBinding.fragmentAddItemField21
+        checkBox00 = mBinding.fragmentAddItemField00
+        checkBox02 = mBinding.fragmentAddItemField02
+        checkBox04 = mBinding.fragmentAddItemField04
+        checkBox06 = mBinding.fragmentAddItemField06
         mButtonSave = mBinding.fragmentAddNewItemButtonAdd
     }
 
-    private fun getNewItemMap(): Map<String, Any> {
+    private fun getNewItem(): Items {
         val name = mEdtxtObjectName.text.toString().trim()
         val address = mEdtxtAddress.text.toString().trim()
         val phone = mEdtxtPhone.text.toString().trim()
         val mobile = mEdtxtMobile.text.toString().trim()
         val kurator = mEdtxtKurator.text.toString().trim()
-        val map = mutableMapOf<String, String>()
 
-        if (name.isEmpty()) {
-            showToast("Введите имя объекта")
-        } else {
-            map[item_name] = name
-            ITEM.objectName = name
+        when {
+            name.isEmpty() -> {
+                ITEM.objectName = ""
+                showToast("Введите имя охранника")
+            }
+            else -> ITEM.objectName = name
         }
 
-        map[item_address] = address
-        map[item_phone] = phone
-        map[item_mobilePhone] = mobile
-        map[item_kurator] = kurator
-        map[item_fire_id] = ""
-        map[item_worker08] = ""
-        map[item_worker15] = ""
-        map[item_img] = ""
-        map[field_00] = ""
-        map[field_02] = ""
-        map[field_04] = ""
-        map[field_06] = ""
-
-        map[field_21] = ""
-        map[item_serverTimeStamp] = ""
-
         ITEM.address = address
+        ITEM.objectPhone = phone
+        ITEM.mobilePhone = mobile
+        ITEM.kurator = kurator
+
+        when {
+            checkBox08.isChecked -> ITEM.order08 = "true"
+            !checkBox08.isChecked -> ITEM.order08 = "false"
+        }
+        when {
+            checkBox15.isChecked -> ITEM.order15 = "true"
+            !checkBox15.isChecked -> ITEM.order15 = "false"
+        }
+        when {
+            checkBox21.isChecked -> ITEM.order21 = "true"
+            !checkBox21.isChecked -> ITEM.order21 = "false"
+        }
+        when {
+            checkBox00.isChecked -> ITEM.order00 = "true"
+            !checkBox00.isChecked -> ITEM.order00 = "false"
+        }
+        when {
+            checkBox02.isChecked -> ITEM.order02 = "true"
+            !checkBox02.isChecked -> ITEM.order02 = "false"
+        }
+        when {
+            checkBox04.isChecked -> ITEM.order04 = "true"
+            !checkBox04.isChecked -> ITEM.order04 = "false"
+        }
+        when {
+            checkBox06.isChecked -> ITEM.order06 = "true"
+            !checkBox06.isChecked -> ITEM.order06 = "false"
+        }
         ITEM.state = stateMain
 
-        return map
+        return ITEM
     }
 
-    private fun addNewItem(newItemMap: Map<String, Any>) {
-        val newName = newItemMap[item_name].toString()
-            .toLowerCase(Locale.ROOT).trim()
+    private fun addNewItem(item: Items) {
+        val newName = item.objectName.toLowerCase(Locale.ROOT).trim()
         Log.d(TAG, "newName: + $newName  ")
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val roomList =  REPOSITORY_ROOM.getMainItemList()
+                val roomList = REPOSITORY_ROOM.getMainItemList()
                 Log.d(TAG, "roomList: + ${roomList.size}  ")
 
                 for (doc in roomList) {
@@ -131,13 +159,13 @@ class AddNewItemFragment : Fragment() {
                     }
                 }
 
-                val docRef = collectionITEMS_REF.add(newItemMap).await()
+                val docRef = collectionITEMS_REF.add(item).await()
                 val key = docRef.id
                 collectionITEMS_REF.document(key)
                     .update(item_fire_id, key, item_worker15, "Создан новый объект").await()
-                ITEM.item_id = key
-                ITEM.state = stateMain
-                REPOSITORY_ROOM.insertItem(ITEM)
+                item.item_id = key
+                item.state = stateMain
+                REPOSITORY_ROOM.insertItem(item)
 
                 //  Log.d(TAG, "addNewItem: ${ITEM.item_id} + ${ITEM.objectName} + ${ITEM.state}")
                 withContext(Dispatchers.Main) {

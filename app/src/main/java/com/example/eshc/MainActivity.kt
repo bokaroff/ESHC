@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val itemsData =  REPOSITORY_ROOM.getMainItemList()
-                Log.d(TAG, "dataItems: + ${itemsData.size}")
+                Log.d(TAG, "$localClassName getMainItemList: + ${itemsData.size}")
 
                 if (itemsData.isEmpty()){
 
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                         itemsList.add(item)
                     }
                     REPOSITORY_ROOM.insertItemList(itemsList)
-                    Log.d(TAG, "listRoomItems: + ${itemsList.size} + ")
+                    Log.d(TAG, " $localClassName insertItemList: + ${itemsList.size} + ")
                 }
 
             } catch (e: Exception) {
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val guardsData =  REPOSITORY_ROOM.getMainGuardList()
-                Log.d(TAG, "dataGuards: + ${guardsData.size}")
+                Log.d(TAG, " $localClassName getMainGuardList: + ${guardsData.size}")
 
                 if (guardsData.isEmpty()){
 
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                         guardsList.add(guard)
                     }
                     REPOSITORY_ROOM.insertGuardList(guardsList)
-                    Log.d(TAG, "listRoomGuards: + ${guardsList.size} + ")
+                    Log.d(TAG, " $localClassName insertGuardList: + ${guardsList.size} + ")
                 }
 
             } catch (e: Exception) {
@@ -180,6 +180,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        Log.d(TAG, "stop: $javaClass")
+        Log.d(TAG, " $localClassName stop: ")
     }
 }

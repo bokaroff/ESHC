@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -31,6 +32,7 @@ class UpdateGuardFragment : Fragment() {
     private var _binding: FragmentUpdateGaurdBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar
+    private lateinit var mTextView: TextView
     private lateinit var mCurrentGuard: Guards
     private lateinit var etName: EditText
     private lateinit var etAddress: EditText
@@ -50,22 +52,22 @@ class UpdateGuardFragment : Fragment() {
         mCurrentGuard = arguments?.getSerializable("guard") as Guards
         return mBinding.root
     }
+
     override fun onStart() {
         super.onStart()
         initialization()
         btnSave.setOnClickListener {
             val guard = getNewGuard()
-            if (guard.guardName.isEmpty()) {
-                showToast("Введите имя охранника")
-                return@setOnClickListener
-            } else updateGuard(guard)
-
+            if (guard.guardName.isNotEmpty()) {
+                updateGuard(guard)
+            }
             UIUtil.hideKeyboard(context as Activity)
         }
     }
 
     private fun initialization() {
         mToolbar = mBinding.fragmentUpdateGuardToolbar
+        mTextView = mBinding.fragmentUpdateGuardTextView
         mToolbar.setupWithNavController(findNavController())
         etName = mBinding.fragmentUpdateGuardName
         etAddress = mBinding.fragmentUpdateGuardAddress
@@ -74,6 +76,7 @@ class UpdateGuardFragment : Fragment() {
         etKurator = mBinding.fragmentUpdateGuardKurator
         btnSave = mBinding.fragmentUpdateGuardButtonSave
 
+        mTextView.text = mCurrentGuard.guardName
         etName.text.append(mCurrentGuard.guardName)
         etAddress.text.append(mCurrentGuard.guardWorkPlace)
         etPhone.text.append(mCurrentGuard.guardPhone)
@@ -91,40 +94,35 @@ class UpdateGuardFragment : Fragment() {
         val kurator = etKurator.text.toString().trim()
 
         when {
-            name.isNotEmpty() -> GUARD.guardName = name
-            else -> GUARD.guardName = ""
+            name.isEmpty() -> {
+                GUARD.guardName = ""
+                showToast("Введите имя охранника")
+            }
+            else -> GUARD.guardName = name
         }
-        when {
-            address.isNotEmpty() -> GUARD.guardWorkPlace = address
-        }
-        when {
-            phone.isNotEmpty() -> GUARD.guardPhone = phone
-        }
-        when {
-            mobile.isNotEmpty() -> GUARD.guardPhone_2 = mobile
-        }
-        when {
-            kurator.isNotEmpty() -> GUARD.guardKurator = kurator
-        }
+
+        GUARD.guardWorkPlace = address
+        GUARD.guardPhone = phone
+        GUARD.guardPhone_2 = mobile
+        GUARD.guardKurator = kurator
+        GUARD.state = stateMain
 
         return GUARD
     }
 
     private fun updateGuard(guard: Guards) {
-        val id = guard.guardFire_id
+        val newId = guard.guardFire_id
         val newName = guard.guardName.toLowerCase(Locale.ROOT).trim()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-
                 val roomList = REPOSITORY_ROOM.getMainGuardList()
-                Log.d(TAG, "roomList: + ${roomList.size}  ")
 
                 for (doc in roomList) {
-                    val oldName = doc.guardName
-                        .toLowerCase(Locale.ROOT).trim()
+                    val oldName = doc.guardName.toLowerCase(Locale.ROOT).trim()
+                    val oldId = doc.guardFire_id
 
-                    if (oldName == newName) {
+                    if (oldName == newName && oldId != newId) {
                         Log.d(TAG, "equal: + $oldName + $newName ")
                         withContext(Dispatchers.Main) {
                             showToast("Охранник с таким именем уже существует")
@@ -132,16 +130,14 @@ class UpdateGuardFragment : Fragment() {
                         return@launch
                     }
                 }
-
-                collectionGUARDS_REF.document(id)
+                collectionITEMS_REF.document(newId)
                     .set(guard, SetOptions.merge()).await()
-                REPOSITORY_ROOM.deleteMainGuard(id)
+                REPOSITORY_ROOM.deleteMainItem(newId)
                 REPOSITORY_ROOM.insertGuard(guard)
-
                 withContext(Dispatchers.Main) {
                     APP_ACTIVITY.navController
                         .navigate(R.id.action_updateGuardFragment_to_viewPagerFragment)
-                    showToast("Данные по охраннику ${guard.guardName} изменены")
+                    showToast("Данные по объекту ${guard.guardName} изменены")
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
