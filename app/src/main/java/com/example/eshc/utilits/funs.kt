@@ -2,14 +2,11 @@ package com.example.eshc.utilits
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eshc.adapters.AdapterGuard
-import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.CoroutineScope
@@ -26,8 +23,7 @@ private lateinit var mViewHolder: RecyclerView.ViewHolder
 private lateinit var mToolbar: Toolbar
 private lateinit var mRecyclerView: RecyclerView
 private lateinit var mSearchView: SearchView
-private lateinit var mAdapter: AdapterGuard
-private lateinit var deleteIcon: Drawable
+lateinit var mDutyItem: Items
 
 
 fun showToast(message: String) {
@@ -59,4 +55,7 @@ fun showToast(message: String) {
             } else showToast(error?.message.toString())
         }
 }
+
+
+
 

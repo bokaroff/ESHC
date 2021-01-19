@@ -18,7 +18,7 @@
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
-        app:tabTextColor="@color/colorBlack">
+        app:tabTextColor="@color/colorAccent">
 
     </com.google.android.material.tabs.TabLayout>
 

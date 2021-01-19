@@ -12,16 +12,13 @@ class FragmentGuardLateViewModel(application: Application): AndroidViewModel(app
 
     val allGuardsLate = REPOSITORY_ROOM.allGuardsLate
 
-    fun deleteGuardLate(guard: Guards){
-        viewModelScope.launch(Dispatchers.IO){
+    fun deleteGuardLate(guard: Guards) =
+        viewModelScope.launch(Dispatchers.IO) {
             REPOSITORY_ROOM.deleteGuardLate(guard)
         }
-    }
 
-    fun insertGuard(guard: Guards){
-        viewModelScope.launch(Dispatchers.IO){
+    fun insertGuard(guard: Guards) =
+        viewModelScope.launch(Dispatchers.IO) {
             REPOSITORY_ROOM.insertGuard(guard)
         }
-    }
-
 }

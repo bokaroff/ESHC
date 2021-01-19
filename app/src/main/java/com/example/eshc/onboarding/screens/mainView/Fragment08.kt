@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment08Binding
 import com.example.eshc.model.Items
-import com.example.eshc.utilits.TAG
-import com.example.eshc.utilits.field_08
-import com.example.eshc.utilits.insertItemChangesRoom
+import com.example.eshc.utilits.*
+import com.google.firebase.firestore.DocumentChange
 
 
 class Fragment08 : Fragment() {
@@ -25,6 +24,7 @@ class Fragment08 : Fragment() {
     private lateinit var mAdapterItems: AdapterItems
     private lateinit var mObserveList: Observer<List<Items>>
     private lateinit var mViewModel: Fragment08ViewModel
+    private var mutableList = mutableListOf<Items>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +40,36 @@ class Fragment08 : Fragment() {
         initialization()
         getData08()
         insertItemChangesRoom()
+
+
+        collectionITEMS_REF
+            .addSnapshotListener { value, error ->
+                if (value != null) {
+                    for (dc in value.documentChanges) {
+                        if (dc.type == DocumentChange.Type.MODIFIED) {
+                            val item = dc.document.toObject(Items::class.java)
+                            Log.d(TAG, "mutableList: + ${item.objectName} ")
+
+                            for (i in mutableList){
+                                if (i.objectName == item.objectName) {
+                                    mAdapterItems.removeItem(i)
+                                    Log.d(TAG, "removeItem: + ${mutableList.size} ")
+
+                                }
+
+                            }
+
+                        }
+                    }
+                } else showToast(error?.message.toString())
+            }
+
+
+
+
+
+
+
     }
 
     private fun initialization() {
@@ -49,13 +79,22 @@ class Fragment08 : Fragment() {
 
     private fun getData08() {
         mObserveList = Observer {
-            mAdapterItems.setList(it)
+            mutableList = it.toMutableList()
+            mAdapterItems.setList(mutableList)
             mRecyclerView.adapter = mAdapterItems
         }
         mViewModel = ViewModelProvider(this)
             .get(Fragment08ViewModel::class.java)
         mViewModel.mainItemList08.observe(this, mObserveList)
     }
+
+
+
+
+
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

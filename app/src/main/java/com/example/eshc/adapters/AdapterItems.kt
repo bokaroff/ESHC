@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.recycler_item.view.*
 
 class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
     private lateinit var context: Context
-    private var mList = emptyList<Items>()
+    private var mList = mutableListOf<Items>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -53,8 +53,15 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
         val recyclerItemContainer: ConstraintLayout = itemView.recycler_item_container
     }
 
-    fun setList(list: List<Items>) {
+    fun setList(list: MutableList<Items>) {
         mList = list
         notifyDataSetChanged()
+    }
+
+    fun removeItem(item: Items) {
+        mList.remove(item)
+        notifyDataSetChanged()
+
+
     }
 }

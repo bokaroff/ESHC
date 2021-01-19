@@ -164,6 +164,5 @@ class FragmentGuardLate : Fragment() {
         mRecyclerView.adapter = null
     }
 
-
 }
 

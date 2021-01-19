@@ -1,6 +1,7 @@
 package com.example.eshc.database.room
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 
@@ -47,7 +48,7 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
         itemRoomDao.insertItem(item)
     }
 
-    suspend fun insertGuard(guard: Guards){
+    suspend fun insertGuard(guard: Guards) {
         itemRoomDao.insertGuard(guard)
     }
 
@@ -72,7 +73,6 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
     suspend fun deleteGuardLate(guard: Guards) {
         itemRoomDao.deleteGuard(guard)
     }
-
 
 
 }

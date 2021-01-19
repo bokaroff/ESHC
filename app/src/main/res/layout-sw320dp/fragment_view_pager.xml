@@ -14,8 +14,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="scrollable"
         app:tabGravity="center"
-        app:tabMode="fixed"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:tabTextColor="@color/colorBlack">

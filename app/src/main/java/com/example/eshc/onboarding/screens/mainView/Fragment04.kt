@@ -50,7 +50,7 @@ class Fragment04 : Fragment() {
 
     private fun getData04() {
         mObserveList = Observer {
-            mAdapterItems.setList(it)
+            mAdapterItems.setList(it.toMutableList())
             mRecyclerView.adapter = mAdapterItems
         }
         mViewModel = ViewModelProvider(this)

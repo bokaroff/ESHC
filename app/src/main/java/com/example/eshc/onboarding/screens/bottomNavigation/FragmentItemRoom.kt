@@ -49,7 +49,7 @@ class FragmentItemRoom : Fragment() {
     private fun getData() {
         mObserveList = Observer {
             val list = it.asReversed()
-            mAdapterItems.setList(list)
+            mAdapterItems.setList(list.toMutableList())
             mRecyclerView.adapter = mAdapterItems
         }
         mViewModel = ViewModelProvider(this)
