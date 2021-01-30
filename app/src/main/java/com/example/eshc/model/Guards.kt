@@ -2,7 +2,10 @@ package com.example.eshc.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
 import java.io.Serializable
+import java.util.*
 
 @Entity(tableName = "guards_table")
 data class Guards(
@@ -14,6 +17,7 @@ data class Guards(
     var guardPhone_2: String = "",
     var guard_img: String = "",
     var guardWorkPlace: String = "",
-    var guardLateTime: String = "",
+    var serverTimeStamp: String = "",
+    var guardLongTime: Long = 0,
     var state: String = "main"
 ) : Serializable

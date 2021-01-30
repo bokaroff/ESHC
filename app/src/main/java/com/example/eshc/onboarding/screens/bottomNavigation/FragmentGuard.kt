@@ -78,7 +78,6 @@ class FragmentGuard : Fragment() {
         mRecyclerView = mBinding.rvFragmentGuard
         mToolbar.setupWithNavController(findNavController())
         mRecyclerView.adapter = mAdapter
-      //  APP_ACTIVITY.bottomNavigationView.setupWithNavController(APP_ACTIVITY.navController)
     }
 
 
@@ -98,7 +97,6 @@ class FragmentGuard : Fragment() {
                 e.message?.let { showToast(it) }
             }
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

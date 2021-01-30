@@ -32,10 +32,8 @@ class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>
 
         holder.guardLateName.text = mList[position].guardName
         holder.guardLateKurator.text = mList[position].guardKurator
-        holder.guardLatePhone.text = mList[position].guardPhone
-        holder.guardLatePhone2.text = mList[position].guardPhone_2
         holder.guardLateWork.text = mList[position].guardWorkPlace
-        holder.guardLateTime.text = mList[position].guardLateTime
+        holder.guardLateTime.text = mList[position].serverTimeStamp
     }
 
     override fun getItemCount(): Int {
@@ -46,9 +44,7 @@ class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>
         val rvGuardLateContainer: ConstraintLayout = itemView.rvGuardLateContainer
         val guardLateName: TextView = itemView.guardLateName
         val guardLateKurator: TextView = itemView.guardLateKurator
-        val guardLatePhone: TextView = itemView.guardLatePhone
         val guardLateWork: TextView = itemView.guardLateWork
-        val guardLatePhone2: TextView = itemView.guardLatePhone2
         val guardLateTime: TextView = itemView.guardLateTime
     }
 

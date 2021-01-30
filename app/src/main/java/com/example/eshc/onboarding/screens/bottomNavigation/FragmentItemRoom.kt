@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItems
+import com.example.eshc.adapters.AdapterItemsRoom
 import com.example.eshc.databinding.FragmentItemRoomBinding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.APP_ACTIVITY
@@ -22,7 +23,7 @@ class FragmentItemRoom : Fragment() {
     private lateinit var mViewModel: FragmentItemRoomViewModel
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mToolbar: Toolbar
-    private lateinit var mAdapterItems: AdapterItems
+    private lateinit var mAdapterItemsRoom: AdapterItemsRoom
     private lateinit var mObserveList: Observer<List<Items>>
 
     override fun onCreateView(
@@ -41,7 +42,7 @@ class FragmentItemRoom : Fragment() {
     }
 
     private fun initialization() {
-        mAdapterItems = AdapterItems()
+        mAdapterItemsRoom = AdapterItemsRoom()
         mRecyclerView = mBinding.rvFragmentItemRoom
         mToolbar = mBinding.fragmentItemRoomToolbar
     }
@@ -49,8 +50,9 @@ class FragmentItemRoom : Fragment() {
     private fun getData() {
         mObserveList = Observer {
             val list = it.asReversed()
-            mAdapterItems.setList(list.toMutableList())
-            mRecyclerView.adapter = mAdapterItems
+            val mutableList = list.toMutableList()
+            mAdapterItemsRoom.setList(mutableList)
+            mRecyclerView.adapter = mAdapterItemsRoom
         }
         mViewModel = ViewModelProvider(this)
             .get(FragmentItemRoomViewModel::class.java)

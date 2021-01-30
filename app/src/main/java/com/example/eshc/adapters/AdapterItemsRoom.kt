@@ -11,11 +11,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Items
-import kotlinx.android.synthetic.main.recycler_item.view.*
-import kotlinx.android.synthetic.main.recycler_item.view.rv_item_container
 import kotlinx.android.synthetic.main.recycler_item_mini.view.*
 
-class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
+class AdapterItemsRoom() : RecyclerView.Adapter<AdapterItemsRoom.SimpleViewHolder>() {
     private lateinit var context: Context
     private var mList = mutableListOf<Items>()
 
@@ -32,9 +30,8 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
             AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
 
         holder.objectName.text = mList[position].objectName
-        holder.kurator.text = mList[position].kurator
-        holder.objectPhone.text = mList[position].objectPhone
-        holder.mobilePhone.text = mList[position].mobilePhone
+        holder.worker.text = mList[position].worker08
+        holder.serverTime.text = mList[position].serverTimeStamp
     }
 
     override fun getItemCount(): Int {
@@ -43,9 +40,8 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
 
     class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val objectName: TextView = itemView.objectName_mini
-        val kurator: TextView = itemView.kurator_mini
-        val objectPhone: TextView = itemView.phone_mini
-        val mobilePhone: TextView = itemView.mobile_mini
+        val worker: TextView = itemView.phone_mini
+        val serverTime: TextView = itemView.mobile_mini
         val recyclerItemContainer: ConstraintLayout = itemView.rv_item_container
     }
 

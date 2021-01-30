@@ -1,7 +1,6 @@
 package com.example.eshc.database.room
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 
@@ -14,6 +13,7 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
     val allGuardsLate: LiveData<List<Guards>>
         get() = itemRoomDao.getAllGuardsLate()
 
+/*
     val mainItemList00: LiveData<List<Items>>
         get() = itemRoomDao.getMainItemList00()
 
@@ -26,8 +26,10 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
     val mainItemList06: LiveData<List<Items>>
         get() = itemRoomDao.getMainItemList06()
 
-    val mainItemList08: LiveData<List<Items>>
-        get() = itemRoomDao.getMainItemList08()
+    val mainItemList08: List<Items>
+       get() = itemRoomDao.getMainItemList08()
+
+
 
     val mainItemList15: LiveData<List<Items>>
         get() = itemRoomDao.getMainItemList15()
@@ -36,8 +38,38 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
         get() = itemRoomDao.getMainItemList21()
 
 
+ */
+
     suspend fun getMainItemList(): List<Items> {
         return itemRoomDao.getMainItemList()
+    }
+
+    suspend fun getMainItemList08(): List<Items> {
+        return itemRoomDao.getMainItemList08()
+    }
+
+    suspend fun getMainItemList15(): List<Items> {
+        return itemRoomDao.getMainItemList15()
+    }
+
+    suspend fun getMainItemList21(): List<Items> {
+        return itemRoomDao.getMainItemList21()
+    }
+
+    suspend fun getMainItemList00(): List<Items> {
+        return itemRoomDao.getMainItemList00()
+    }
+
+    suspend fun getMainItemList02(): List<Items> {
+        return itemRoomDao.getMainItemList02()
+    }
+
+    suspend fun getMainItemList04(): List<Items> {
+        return itemRoomDao.getMainItemList04()
+    }
+
+    suspend fun getMainItemList06(): List<Items> {
+        return itemRoomDao.getMainItemList06()
     }
 
     suspend fun getMainGuardList(): List<Guards> {

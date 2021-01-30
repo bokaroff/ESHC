@@ -47,14 +47,13 @@ class MainActivity : AppCompatActivity() {
         ITEM_ROOM_DATABASE = ItemRoomDatabase.getInstance(this)
         ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
         REPOSITORY_ROOM = RoomRepository(ITEM_ROOM_DAO)
-        insertMainItemsList()
-        insertMainGuardsList()
+        getMainItemsList()
+        getMainGuardsList()
         setUpNavController()
         Log.d(TAG, "start: $localClassName")
-
     }
 
-    private fun insertMainItemsList() {
+    private fun getMainItemsList() {
         val itemsList = mutableListOf<Items>()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -85,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun insertMainGuardsList() {
+    private fun getMainGuardsList() {
         val guardsList = mutableListOf<Guards>()
 
         CoroutineScope(Dispatchers.IO).launch {

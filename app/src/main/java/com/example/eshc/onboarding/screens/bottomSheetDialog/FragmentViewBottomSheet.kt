@@ -1,6 +1,7 @@
 package com.example.eshc.onboarding.screens.bottomSheetDialog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +15,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FragmentViewBottomSheet : BottomSheetDialogFragment() {
     private var _binding: FragmentViewBottomSheetBinding? = null
     private val mBinding get() = _binding!!
+    private var stringTime: String = String()
+  //  private var dateTime: Date = Date()
     private lateinit var mCurentitem: Items
 
     override fun onCreateView(
@@ -43,9 +48,17 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
 
     private fun clicks() {
         mBinding.containerAddItemLate.setOnClickListener {
+
+            stringTime = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
+                .format(Date())
+          //  dateTime = Calendar.getInstance(Locale.getDefault()).time
+            val longTime = Date().time
+            Log.d(TAG, "clicks: + $longTime")
             GUARD.guardWorkPlace = mCurentitem.objectName
             GUARD.guardName = mCurentitem.worker08
             GUARD.guardKurator = mCurentitem.kurator
+            GUARD.serverTimeStamp = stringTime
+            GUARD.guardLongTime = longTime
             GUARD.state = stateLate
             insertGuardLateRoom(GUARD)
             dismiss()

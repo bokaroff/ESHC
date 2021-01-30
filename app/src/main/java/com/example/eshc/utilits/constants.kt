@@ -11,6 +11,7 @@ import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 
 
 const val TAG = "ktx"
@@ -46,14 +47,14 @@ const val guard_phone = "guardPhone"
 const val guard_phone_2 = "guardPhone_2"
 const val guard_img = "guard_img"
 const val guard_workPlace = "guardWorkPlace"
-const val guardLateTime = "guardLateTime"
+const val guardLateTime = "serverTimeStamp"
 
 const val item_fire_id = "item_id"
 const val item_name = "objectName"
 const val item_address = "address"
 const val item_phone = "objectPhone"
 const val item_mobilePhone = "mobilePhone"
-const val item_kurator = "kurator"
+const val item_kurator = "kurator_textView"
 const val item_worker08 = "worker08"
 const val item_worker15 = "worker15"
 const val item_img = "img"

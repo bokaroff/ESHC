@@ -17,6 +17,7 @@ data class Items(
   var worker15: String = "",
   var img: String = "",
   var serverTimeStamp: String = "",
+  var itemLongTime: Long = 0,
   var order00: String = "",
   var order02: String = "",
   var order04: String = "",

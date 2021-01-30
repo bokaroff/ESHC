@@ -162,10 +162,12 @@ class AddNewItemFragment : Fragment() {
                 val docRef = collectionITEMS_REF.add(item).await()
                 val key = docRef.id
                 collectionITEMS_REF.document(key)
-                    .update(item_fire_id, key, item_worker15, "Создан новый объект").await()
+                    .update(item_fire_id, key, item_worker08, "Создан новый объект").await()
                 item.item_id = key
                 item.state = stateMain
                 REPOSITORY_ROOM.insertItem(item)
+
+                Log.d(TAG, "addNewItem: job is completed")
 
                 //  Log.d(TAG, "addNewItem: ${ITEM.item_id} + ${ITEM.objectName} + ${ITEM.state}")
                 withContext(Dispatchers.Main) {

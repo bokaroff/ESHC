@@ -202,9 +202,12 @@ class UpdateItemFragment : Fragment() {
                         return@launch
                     }
                 }
-                collectionITEMS_REF.document(newId)
+                 collectionITEMS_REF.document(newId)
                     .set(item, SetOptions.merge()).await()
-                REPOSITORY_ROOM.deleteMainItem(newId)
+              REPOSITORY_ROOM.deleteMainItem(newId)
+
+                    Log.d(TAG, "job_1.isCompleted")
+
                 REPOSITORY_ROOM.insertItem(item)
                 withContext(Dispatchers.Main) {
                     APP_ACTIVITY.navController

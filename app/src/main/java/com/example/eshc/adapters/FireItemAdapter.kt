@@ -56,14 +56,14 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val objectName: TextView = itemView.objectName_txt
+        val objectName: TextView = itemView.name_txt
         val kurator: TextView = itemView.kurator_txt
-        val objectPhone: TextView = itemView.objectPhone_txt
-        val mobilePhone: TextView = itemView.mobilePhone_txt
+        val objectPhone: TextView = itemView.phone
+        val mobilePhone: TextView = itemView.mobile
         val address: TextView = itemView.address_txt
         val worker08: TextView = itemView.worker08_txt
         val serverTimestamp: TextView = itemView.serverTimestamp_txt
-        val recyclerItemContainer: ConstraintLayout = itemView.recycler_item_container
+        val recyclerItemContainer: ConstraintLayout = itemView.rv_item_container
     }
 
 }
