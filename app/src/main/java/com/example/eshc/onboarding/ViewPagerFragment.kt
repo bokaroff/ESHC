@@ -29,8 +29,6 @@ class ViewPagerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     //   insertMainItemsList()
-       // insertMainGuardsList()
         Log.d(TAG, "onCreate: ${javaClass.name}")
     }
 
@@ -40,11 +38,7 @@ class ViewPagerFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentViewPagerBinding.inflate(layoutInflater, container, false)
-
-      //  insertMainItemsList()
-      //  insertMainGuardsList()
         Log.d(TAG, "onCreateView: ${javaClass.name}")
-
 
         val fragmentList = arrayListOf<Fragment>(
             Fragment08(),
@@ -83,10 +77,6 @@ class ViewPagerFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        //mAdapterItems = AdapterItems()
-       // insertMainItemsList()
-        //mAdapterItems.notifyDataSetChanged()
-      //  insertMainGuardsList()
         Log.d(TAG, "start: ${javaClass.name}")
     }
 
@@ -94,70 +84,6 @@ class ViewPagerFragment : Fragment() {
         super.onStop()
         Log.d(TAG, "stop: $javaClass")
     }
-
-
-    private fun insertMainItemsList() {
-        val itemsList = mutableListOf<Items>()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val itemsData =  REPOSITORY_ROOM.getMainItemList()
-                Log.d(TAG, " getMainItemList_viewpager: + ${itemsData.size}")
-
-                if (itemsData.isEmpty()){
-
-                    val querySnapshot = collectionITEMS_REF
-                        .orderBy("objectName", Query.Direction.ASCENDING)
-                        .get().await()
-
-                    for (documentSnapShot in querySnapshot) {
-                        val item = documentSnapShot.toObject(Items::class.java)
-                        item.item_id = documentSnapShot.id
-                        itemsList.add(item)
-                    }
-                    REPOSITORY_ROOM.insertItemList(itemsList)
-                    Log.d(TAG, " insertItemList_viewpager: + ${itemsList.size} + ")
-                }
-
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    e.message?.let { showToast(it) }
-                }
-            }
-        }
-
-    }
-
-    private fun insertMainGuardsList() {
-        val guardsList = mutableListOf<Guards>()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val guardsData =  REPOSITORY_ROOM.getMainGuardList()
-                Log.d(TAG, " getMainGuardList_viewpager: + ${guardsData.size}")
-
-                if (guardsData.isEmpty()){
-
-                    val querySnapshot =  collectionGUARDS_REF
-                        .orderBy("guardName", Query.Direction.ASCENDING).get().await()
-
-                    for (documentSnapShot in querySnapshot) {
-                        val guard = documentSnapShot.toObject(Guards::class.java)
-                        guard.guardFire_id = documentSnapShot.id
-                        guardsList.add(guard)
-                    }
-                    REPOSITORY_ROOM.insertGuardList(guardsList)
-                    Log.d(TAG, "insertGuardList_viewpager: + ${guardsList.size} + ")
-                }
-
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    e.message?.let { showToast(it) }
-                }
-            }
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -74,9 +74,17 @@ class Fragment06 : Fragment() {
 
     private fun setListToAdapter() {
         CoroutineScope(Dispatchers.IO).launch {
-            mMutableList = mDeferred.await()
-            mAdapterItems.setList(mMutableList)
-            Log.d(TAG, "mDeferred06: + ${mMutableList.size} ")
+            try {
+                mMutableList = mDeferred.await()
+                withContext(Dispatchers.Main) {
+                    mAdapterItems.setList(mMutableList)
+                    Log.d(TAG, "mDeferred00: + ${mMutableList.size} ")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    e.message?.let { showToast(it) }
+                }
+            }
         }
     }
 
