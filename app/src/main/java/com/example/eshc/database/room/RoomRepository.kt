@@ -72,6 +72,10 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
         return itemRoomDao.getMainItemList06()
     }
 
+    suspend fun getAllChangedItemsWhereTimeBetween(timeStart: Long, timeEnd: Long): List<Items> {
+        return itemRoomDao.getAllChangedItemsWhereTimeBetween(timeStart, timeEnd)
+    }
+
     suspend fun getMainGuardList(): List<Guards> {
         return itemRoomDao.getMainGuardList()
     }
@@ -105,6 +109,8 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
     suspend fun deleteGuardLate(guard: Guards) {
         itemRoomDao.deleteGuard(guard)
     }
+
+
 
 
 }

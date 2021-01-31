@@ -25,6 +25,9 @@ class Fragment15 : Fragment() {
     private var currentTime: Date = Date()
     private var timeStart: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeStartLongType: Long = 0
+    private var timeEndLongType: Long = 0
+    private var typeConverter = TypeConverter()
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
@@ -100,6 +103,9 @@ class Fragment15 : Fragment() {
         timeEnd.set(Calendar.HOUR_OF_DAY, 15)
         timeEnd.set(Calendar.MINUTE, 20)
         timeEnd.set(Calendar.SECOND, 0)
+
+        timeStartLongType = typeConverter.dateToLong(timeStart.time)
+        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
         //  Log.d(TAG, "set:+ ${currentTime}  + ${timeStart.time} + ${timeEnd.time}")
     }
 
@@ -111,6 +117,7 @@ class Fragment15 : Fragment() {
 
     private fun getChanges() {
         collectionITEMS_REF
+            .whereEqualTo(field_15, "true")
             .addSnapshotListener { value, error ->
                 if (value != null) {
                     for (dc in value.documentChanges) {

@@ -26,6 +26,9 @@ class Fragment08 : Fragment() {
     private var currentTime: Date = Date()
     private var timeStart: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeStartLongType: Long = 0
+    private var timeEndLongType: Long = 0
+    private var typeConverter = TypeConverter()
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
@@ -34,7 +37,7 @@ class Fragment08 : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     //  getData08()
+       getData08()
     }
 
     private fun getData08() {
@@ -68,7 +71,6 @@ class Fragment08 : Fragment() {
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart08: ")
-        getData08()
         setCurrentTime()
         initialization()
         setListToAdapter()
@@ -105,6 +107,13 @@ class Fragment08 : Fragment() {
         timeEnd.set(Calendar.HOUR_OF_DAY, 11)
         timeEnd.set(Calendar.MINUTE, 30)
         timeEnd.set(Calendar.SECOND, 0)
+
+        timeStartLongType = typeConverter.dateToLong(timeStart.time)
+        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
+
+      val currentLongTime = typeConverter.dateToLong(currentTime)
+
+        Log.d(TAG, "typeConverter_08:+ $timeStartLongType  + $timeEndLongType + $currentLongTime")
         //  Log.d(TAG, "set:+ ${currentTime}  + ${timeStart.time} + ${timeEnd.time}")
     }
 
@@ -118,24 +127,30 @@ class Fragment08 : Fragment() {
 
     private fun getChanges() {
         collectionITEMS_REF
+            .whereEqualTo(field_08, "true")
             .addSnapshotListener { value, error ->
                 if (value != null) {
                     for (dc in value.documentChanges) {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
 
-                            val snapTime = SimpleDateFormat(
+                            val snapStringTime = SimpleDateFormat(
                                 "HH:mm, dd/MM/yyyy",
                                 Locale.getDefault()
                             )
                                 .format(Date())
-                            Log.d(TAG, "date_08:  + $snapTime")
+                            Log.d(TAG, "date_08:  + $snapStringTime")
+
+                            val snapDateTime = Calendar.getInstance(Locale.getDefault()).time
+                            val typeConverter = TypeConverter()
+                            val snapLongTime = typeConverter.dateToLong(snapDateTime)
 
                             val item = dc.document.toObject(Items::class.java)
-                            item.serverTimeStamp = snapTime
+                            item.serverTimeStamp = snapStringTime
+                            item.itemLongTime = snapLongTime
                             val name = item.objectName
                             Log.d(
                                 TAG,
-                                "snap08 +${mMutableList.size} + ${item.address} + ${item.state} "
+                                "MODIFIED_Time_08 +${mMutableList.size} + ${item.address} + ${item.state} "
                             )
 
                             saveToRoom(item)

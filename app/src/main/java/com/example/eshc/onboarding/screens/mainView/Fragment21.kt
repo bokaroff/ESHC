@@ -25,13 +25,18 @@ class Fragment21 : Fragment() {
     private var currentTime: Date = Date()
     private var timeStart: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeStartLongType: Long = 0
+    private var timeEndLongType: Long = 0
+    private var currentTimeLongType: Long = 0
+    private var typeConverter = TypeConverter()
+
     private lateinit var mDeferred: Deferred<MutableList<Items>>
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       getData21()
+        getData21()
     }
 
     private fun getData21() {
@@ -63,18 +68,69 @@ class Fragment21 : Fragment() {
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart21: ")
-        setCurrentTime()
         initialization()
+        setCurrentTime()
         setListToAdapter()
         if ((currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))) {
             getChanges()
         }
     }
 
+    private fun setCurrentTime() {
+        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
+            .format(Date())
+        currentTime = Calendar.getInstance(Locale.getDefault()).time
+        Log.d(TAG, "date_1:  + $currentDate")
+
+        timeStart.set(Calendar.HOUR_OF_DAY, 18)
+        timeStart.set(Calendar.MINUTE, 0)
+        timeStart.set(Calendar.SECOND, 0)
+        timeEnd.set(Calendar.HOUR_OF_DAY, 20)
+        timeEnd.set(Calendar.MINUTE, 0)
+        timeEnd.set(Calendar.SECOND, 0)
+
+        timeStartLongType = typeConverter.dateToLong(timeStart.time)
+        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
+        //  Log.d(TAG, "set:+ ${currentTime}  + ${timeStart.time} + ${timeEnd.time}")
+    }
+
+
+    private fun initialization() {
+        mRecyclerView = mBinding.rvFragment21
+        mAdapterItems = AdapterItems()
+        mRecyclerView.adapter = mAdapterItems
+    }
+
     private fun setListToAdapter() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 mMutableList = mDeferred.await()
+                Log.d(TAG, "origin_mMutableList: ${mMutableList.size}")
+
+                val list = REPOSITORY_ROOM
+                    .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
+                Log.d(TAG, "list_of_changedItems: ${list.size}")
+
+                for (item in list) {
+                    val name = item.objectName
+                    Log.d(TAG, "setListToAdapter_name: $name")
+
+                    val newIterator: MutableIterator<Items> = mMutableList.iterator()
+                    while (newIterator.hasNext()) {
+                        val it = newIterator.next()
+                        if (it.objectName == name) {
+                            newIterator.remove()
+
+                            Log.d(
+                                TAG,
+                                "Removed_MMutableList: " + mMutableList.size
+                            )
+                        }
+                    }
+                }
+
+                Log.d(TAG, "final_MutableList: ${mMutableList.size}")
+
                 withContext(Dispatchers.Main) {
                     mAdapterItems.setList(mMutableList)
                     Log.d(TAG, "mDeferred00: + ${mMutableList.size} ")
@@ -87,34 +143,15 @@ class Fragment21 : Fragment() {
         }
     }
 
-    private fun setCurrentTime() {
-        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
-            .format(Date())
-        currentTime = Calendar.getInstance(Locale.getDefault()).time
-        Log.d(TAG, "date_1:  + $currentDate")
-
-        timeStart.set(Calendar.HOUR_OF_DAY, 19)
-        timeStart.set(Calendar.MINUTE, 0)
-        timeStart.set(Calendar.SECOND, 0)
-        timeEnd.set(Calendar.HOUR_OF_DAY, 22)
-        timeEnd.set(Calendar.MINUTE, 50)
-        timeEnd.set(Calendar.SECOND, 0)
-        //  Log.d(TAG, "set:+ ${currentTime}  + ${timeStart.time} + ${timeEnd.time}")
-    }
-
-
-    private fun initialization() {
-        mRecyclerView = mBinding.rvFragment21
-        mAdapterItems = AdapterItems()
-        mRecyclerView.adapter = mAdapterItems
-    }
-
     private fun getChanges() {
         collectionITEMS_REF
+            .whereEqualTo(field_21, "true")
             .addSnapshotListener { value, error ->
                 if (value != null) {
                     for (dc in value.documentChanges) {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
+
+                            currentTimeLongType = currentTime.time
 
                             val snapTime = SimpleDateFormat(
                                 "HH:mm, dd/MM/yyyy",
@@ -125,6 +162,7 @@ class Fragment21 : Fragment() {
 
                             val item = dc.document.toObject(Items::class.java)
                             item.serverTimeStamp = snapTime
+                            item.itemLongTime = currentTimeLongType
                             val name = item.objectName
                             Log.d(
                                 TAG,

@@ -26,11 +26,13 @@ class Fragment00 : Fragment() {
     private var currentTime: Date = Date()
     private var timeStart: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeStartLongType: Long = 0
+    private var timeEndLongType: Long = 0
+    private var typeConverter = TypeConverter()
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
     private lateinit var mDeferred: Deferred<MutableList<Items>>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +102,9 @@ class Fragment00 : Fragment() {
         timeEnd.set(Calendar.HOUR_OF_DAY, 1)
         timeEnd.set(Calendar.MINUTE, 30)
         timeEnd.set(Calendar.SECOND, 0)
+
+        timeStartLongType = typeConverter.dateToLong(timeStart.time)
+        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
         //  Log.d(TAG, "set:+ ${currentTime}  + ${timeStart.time} + ${timeEnd.time}")
     }
 
@@ -112,6 +117,7 @@ class Fragment00 : Fragment() {
 
     private fun getChanges() {
         collectionITEMS_REF
+            .whereEqualTo(field_00, "true")
             .addSnapshotListener { value, error ->
                 if (value != null) {
                     for (dc in value.documentChanges) {

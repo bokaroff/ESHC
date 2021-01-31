@@ -16,6 +16,9 @@ interface ItemRoomDao {
  @Query(getAllChangedItems)
  fun getAllChangedItems(): LiveData<List<Items>>
 
+ @Query(getAllChangedItemsWhereTimeBetween)
+ fun getAllChangedItemsWhereTimeBetween(timeStart: Long, timeEnd: Long): List<Items>
+
  @Query(getAllGuardsLate)
  fun getAllGuardsLate(): LiveData<List<Guards>>
 

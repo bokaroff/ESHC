@@ -4,11 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
+import com.example.eshc.utilits.TypeConverter
 
 
 @Database(entities = [Items::class, Guards::class], version = 1, exportSchema = false)
+@TypeConverters(TypeConverter::class)
 abstract class ItemRoomDatabase : RoomDatabase() {
 
     abstract fun getItemRoomDao(): ItemRoomDao
