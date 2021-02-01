@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,6 @@ class Fragment21 : Fragment() {
     private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
-    private var currentTimeLongType: Long = 0
     private var typeConverter = TypeConverter()
 
     private lateinit var mDeferred: Deferred<MutableList<Items>>
@@ -45,7 +43,6 @@ class Fragment21 : Fragment() {
             try {
                 val list = async { REPOSITORY_ROOM.getMainItemList21() }
                 mMutableList = list.await() as MutableList<Items>
-                Log.d(TAG, "onCreate_21: +  ${mMutableList.size}")
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
@@ -54,7 +51,6 @@ class Fragment21 : Fragment() {
             mMutableList
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +63,6 @@ class Fragment21 : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart21: ")
         initialization()
         setCurrentTime()
         setListToAdapter()
@@ -76,64 +71,50 @@ class Fragment21 : Fragment() {
         }
     }
 
-    private fun setCurrentTime() {
-        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
-            .format(Date())
-        currentTime = Calendar.getInstance(Locale.getDefault()).time
-        Log.d(TAG, "date_1:  + $currentDate")
-
-        timeStart.set(Calendar.HOUR_OF_DAY, 18)
-        timeStart.set(Calendar.MINUTE, 0)
-        timeStart.set(Calendar.SECOND, 0)
-        timeEnd.set(Calendar.HOUR_OF_DAY, 20)
-        timeEnd.set(Calendar.MINUTE, 0)
-        timeEnd.set(Calendar.SECOND, 0)
-
-        timeStartLongType = typeConverter.dateToLong(timeStart.time)
-        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
-        //  Log.d(TAG, "set:+ ${currentTime}  + ${timeStart.time} + ${timeEnd.time}")
-    }
-
-
     private fun initialization() {
         mRecyclerView = mBinding.rvFragment21
         mAdapterItems = AdapterItems()
         mRecyclerView.adapter = mAdapterItems
     }
 
+    private fun setCurrentTime() {
+        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
+            .format(Date())
+        currentTime = Calendar.getInstance(Locale.getDefault()).time
+
+        timeStart.set(Calendar.HOUR_OF_DAY, 18)
+        timeStart.set(Calendar.MINUTE, 0)
+        timeStart.set(Calendar.SECOND, 0)
+        timeEnd.set(Calendar.HOUR_OF_DAY, 23)
+        timeEnd.set(Calendar.MINUTE, 0)
+        timeEnd.set(Calendar.SECOND, 0)
+
+        timeStartLongType = typeConverter.dateToLong(timeStart.time)
+        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
+    }
+
     private fun setListToAdapter() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 mMutableList = mDeferred.await()
-                Log.d(TAG, "origin_mMutableList: ${mMutableList.size}")
 
                 val list = REPOSITORY_ROOM
                     .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
-                Log.d(TAG, "list_of_changedItems: ${list.size}")
 
                 for (item in list) {
                     val name = item.objectName
-                    Log.d(TAG, "setListToAdapter_name: $name")
-
                     val newIterator: MutableIterator<Items> = mMutableList.iterator()
+
                     while (newIterator.hasNext()) {
                         val it = newIterator.next()
                         if (it.objectName == name) {
                             newIterator.remove()
-
-                            Log.d(
-                                TAG,
-                                "Removed_MMutableList: " + mMutableList.size
-                            )
                         }
                     }
                 }
 
-                Log.d(TAG, "final_MutableList: ${mMutableList.size}")
-
                 withContext(Dispatchers.Main) {
                     mAdapterItems.setList(mMutableList)
-                    Log.d(TAG, "mDeferred00: + ${mMutableList.size} ")
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -151,57 +132,33 @@ class Fragment21 : Fragment() {
                     for (dc in value.documentChanges) {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
 
-                            currentTimeLongType = currentTime.time
-
+                            val currentTimeLongType = currentTime.time
                             val snapTime = SimpleDateFormat(
                                 "HH:mm, dd/MM/yyyy",
                                 Locale.getDefault()
-                            )
-                                .format(Date())
-                            Log.d(TAG, "date_21:  + $snapTime")
+                            ).format(Date())
 
                             val item = dc.document.toObject(Items::class.java)
-                            item.serverTimeStamp = snapTime
-                            item.itemLongTime = currentTimeLongType
                             val name = item.objectName
-                            Log.d(
-                                TAG,
-                                "snap21 +${mMutableList.size} + ${item.address} + ${item.state} "
-                            )
-
+                            item.itemLongTime = currentTimeLongType
+                            item.serverTimeStamp = snapTime
+                            item.state = stateChanged
+                            
                             val newIterator: MutableIterator<Items> = mMutableList.iterator()
+
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
-                                    saveToRoom(item)
+                                    saveChangedItemToRoom(item)
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
                                     mAdapterItems.removeItem(index, it, mMutableList)
-
-                                    Log.d(
-                                        TAG,
-                                        "RemovedSnapshotListener21: " + mMutableList.size
-                                    )
                                 }
                             }
                         }
                     }
                 } else showToast(error?.message.toString())
             }
-    }
-
-    private fun saveToRoom(item: Items) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                item.state = stateChanged
-                REPOSITORY_ROOM.insertItem(item)
-                Log.d(TAG, "insertItemChangesRoom21: + ${item.state}")
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    e.message?.let { showToast(it) }
-                }
-            }
-        }
     }
 
     override fun onDestroyView() {

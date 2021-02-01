@@ -30,32 +30,15 @@ fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_LONG).show()
 }
 
-
- fun insertItemChangesRoom(){
-    collectionITEMS_REF
-        .addSnapshotListener { value, error ->
-            if (value != null) {
-                for (dc in value.documentChanges) {
-                    if (dc.type == DocumentChange.Type.MODIFIED) {
-                        val item = dc.document.toObject(Items::class.java)
-
-                        CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                item.state = stateChanged
-                                REPOSITORY_ROOM.insertItem(item)
-                                Log.d(TAG, "insertItemChangesRoom: + ${item.state}")
-                            } catch (e: Exception) {
-                                withContext(Dispatchers.Main) {
-                                    e.message?.let { showToast(it) }
-                                }
-                            }
-                        }
-                    }
-                }
-            } else showToast(error?.message.toString())
+fun saveChangedItemToRoom(item: Items) {
+    CoroutineScope(Dispatchers.IO).launch {
+        try {
+            REPOSITORY_ROOM.insertItem(item)
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                e.message?.let { showToast(it) }
+            }
         }
+    }
 }
-
-
-
 
