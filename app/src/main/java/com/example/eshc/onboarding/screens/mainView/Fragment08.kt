@@ -28,6 +28,7 @@ class Fragment08 : Fragment() {
     private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
+    private var timeRange: Boolean = false
     private var typeConverter = TypeConverter()
 
     private lateinit var mRecyclerView: RecyclerView
@@ -51,11 +52,9 @@ class Fragment08 : Fragment() {
                     e.message?.let { showToast(it) }
                 }
             }
-
             mMutableList
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +71,7 @@ class Fragment08 : Fragment() {
         initialization()
         setCurrentTime()
         setListToAdapter()
-        if ((currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))) {
+        if (timeRange) {
             getChanges()
         }
     }
@@ -82,17 +81,21 @@ class Fragment08 : Fragment() {
             try {
                 mMutableList = mDeferred.await()
 
-                val list = REPOSITORY_ROOM
-                    .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
+                if (timeRange) {
 
-                for (item in list) {
-                    val name = item.objectName
-                    val newIterator: MutableIterator<Items> = mMutableList.iterator()
+                    val list = REPOSITORY_ROOM
+                        .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
 
-                    while (newIterator.hasNext()) {
-                        val it = newIterator.next()
-                        if (it.objectName == name) {
-                            newIterator.remove()
+                    for (item in list) {
+                        val name = item.objectName
+                        val newIterator: MutableIterator<Items> = mMutableList.iterator()
+
+                        while (newIterator.hasNext()) {
+                            val it = newIterator.next()
+                            if (it.objectName == name) {
+                                newIterator.remove()
+                                Log.d(TAG, "newIterator_removed: + ${it.objectName}")
+                            }
                         }
                     }
                 }
@@ -121,8 +124,9 @@ class Fragment08 : Fragment() {
         timeEnd.set(Calendar.MINUTE, 30)
         timeEnd.set(Calendar.SECOND, 0)
 
-        timeStartLongType = typeConverter.dateToLong(timeStart.time)
-        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
+        timeRange = (currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))
+        timeStartLongType = timeStart.time.time
+        timeEndLongType = timeEnd.time.time
     }
 
 

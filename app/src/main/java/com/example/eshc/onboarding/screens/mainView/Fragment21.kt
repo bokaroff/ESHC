@@ -24,6 +24,7 @@ class Fragment21 : Fragment() {
     private var currentTime: Date = Date()
     private var timeStart: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange: Boolean = false
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
     private var typeConverter = TypeConverter()
@@ -66,7 +67,7 @@ class Fragment21 : Fragment() {
         initialization()
         setCurrentTime()
         setListToAdapter()
-        if ((currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))) {
+        if (timeRange) {
             getChanges()
         }
     }
@@ -82,15 +83,16 @@ class Fragment21 : Fragment() {
             .format(Date())
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
-        timeStart.set(Calendar.HOUR_OF_DAY, 18)
+        timeStart.set(Calendar.HOUR_OF_DAY, 19)
         timeStart.set(Calendar.MINUTE, 0)
         timeStart.set(Calendar.SECOND, 0)
         timeEnd.set(Calendar.HOUR_OF_DAY, 23)
         timeEnd.set(Calendar.MINUTE, 0)
         timeEnd.set(Calendar.SECOND, 0)
 
-        timeStartLongType = typeConverter.dateToLong(timeStart.time)
-        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
+        timeRange = (currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))
+        timeStartLongType = timeStart.time.time
+        timeEndLongType = timeEnd.time.time
     }
 
     private fun setListToAdapter() {
@@ -98,17 +100,20 @@ class Fragment21 : Fragment() {
             try {
                 mMutableList = mDeferred.await()
 
-                val list = REPOSITORY_ROOM
-                    .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
+                if (timeRange) {
 
-                for (item in list) {
-                    val name = item.objectName
-                    val newIterator: MutableIterator<Items> = mMutableList.iterator()
+                    val list = REPOSITORY_ROOM
+                        .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
 
-                    while (newIterator.hasNext()) {
-                        val it = newIterator.next()
-                        if (it.objectName == name) {
-                            newIterator.remove()
+                    for (item in list) {
+                        val name = item.objectName
+                        val newIterator: MutableIterator<Items> = mMutableList.iterator()
+
+                        while (newIterator.hasNext()) {
+                            val it = newIterator.next()
+                            if (it.objectName == name) {
+                                newIterator.remove()
+                            }
                         }
                     }
                 }

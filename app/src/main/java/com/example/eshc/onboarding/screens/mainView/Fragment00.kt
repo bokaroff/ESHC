@@ -24,10 +24,16 @@ class Fragment00 : Fragment() {
     private var mMutableList = mutableListOf<Items>()
     private var currentDate: String = String()
     private var currentTime: Date = Date()
-    private var timeStart: Calendar = Calendar.getInstance(Locale.getDefault())
-    private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
-    private var timeStartLongType: Long = 0
-    private var timeEndLongType: Long = 0
+    private var timeStartBeforeMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeStartAfterMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEndBeforeMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEndAfterMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeStartBeforeMidnightLongType: Long = 0
+    private var timeStartAfterMidnightLongType: Long = 0
+    private var timeEndBeforeMidnightLongType: Long = 0
+    private var timeEndAfterMidnightLongType: Long = 0
+    private var timeRangeBeforeMidnight: Boolean = false
+    private var timeRangeAfterMidnight: Boolean = false
     private var typeConverter = TypeConverter()
 
     private lateinit var mRecyclerView: RecyclerView
@@ -69,7 +75,7 @@ class Fragment00 : Fragment() {
         initialization()
         setCurrentTime()
         setListToAdapter()
-        if ((currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))) {
+        if (timeRangeAfterMidnight) {
             getChanges()
         }
     }
@@ -85,15 +91,33 @@ class Fragment00 : Fragment() {
             .format(Date())
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
-        timeStart.set(Calendar.HOUR_OF_DAY, 0)
-        timeStart.set(Calendar.MINUTE, 0)
-        timeStart.set(Calendar.SECOND, 0)
-        timeEnd.set(Calendar.HOUR_OF_DAY, 0)
-        timeEnd.set(Calendar.MINUTE, 20)
-        timeEnd.set(Calendar.SECOND, 0)
+        timeStartBeforeMidnight.set(Calendar.HOUR_OF_DAY, 23)
+        timeStartBeforeMidnight.set(Calendar.MINUTE, 40)
+        timeStartBeforeMidnight.set(Calendar.SECOND, 0)
+        timeEndBeforeMidnight.set(Calendar.HOUR_OF_DAY, 23)
+        timeEndBeforeMidnight.set(Calendar.MINUTE, 59)
+        timeEndBeforeMidnight.set(Calendar.SECOND, 59)
 
-        timeStartLongType = typeConverter.dateToLong(timeStart.time)
-        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
+        timeStartAfterMidnight.set(Calendar.HOUR_OF_DAY, 0)
+        timeStartAfterMidnight.set(Calendar.MINUTE, 0)
+        timeStartAfterMidnight.set(Calendar.SECOND, 0)
+        timeEndAfterMidnight.set(Calendar.HOUR_OF_DAY, 0)
+        timeEndAfterMidnight.set(Calendar.MINUTE, 30)
+        timeEndAfterMidnight.set(Calendar.SECOND, 0)
+
+      //  timeStartBeforeMidnightLongType = typeConverter.dateToLong(timeStartBeforeMidnight.time)
+        timeStartBeforeMidnightLongType = timeStartBeforeMidnight.time.time
+        timeEndBeforeMidnightLongType = timeEndBeforeMidnight.time.time
+
+        timeStartAfterMidnightLongType = timeStartAfterMidnight.time.time
+        timeEndAfterMidnightLongType = timeEndAfterMidnight.time.time
+
+        timeRangeBeforeMidnight = (currentTime.after(timeStartBeforeMidnight.time))
+                && (currentTime.before(timeEndBeforeMidnight.time))
+
+        timeRangeAfterMidnight = (currentTime.after(timeStartAfterMidnight.time))
+                && (currentTime.before(timeEndAfterMidnight.time))
+
     }
 
     private fun setListToAdapter() {
@@ -101,17 +125,47 @@ class Fragment00 : Fragment() {
             try {
                 mMutableList = mDeferred.await()
 
-                val list = REPOSITORY_ROOM
-                    .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
+                if (timeRangeBeforeMidnight) {
 
-                for (item in list) {
-                    val name = item.objectName
-                    val newIterator: MutableIterator<Items> = mMutableList.iterator()
+                    val list = REPOSITORY_ROOM
+                        .getAllChangedItemsWhereTimeBetween(
+                            timeStartBeforeMidnightLongType,
+                            timeEndBeforeMidnightLongType
+                        )
 
-                    while (newIterator.hasNext()) {
-                        val it = newIterator.next()
-                        if (it.objectName == name) {
-                            newIterator.remove()
+                    for (item in list) {
+                        val name = item.objectName
+                        val newIterator: MutableIterator<Items> = mMutableList.iterator()
+
+                        while (newIterator.hasNext()) {
+                            val it = newIterator.next()
+                            if (it.objectName == name) {
+                                newIterator.remove()
+                            }
+                        }
+                    }
+                } else if (timeRangeAfterMidnight) {
+
+                    val timeStart = timeEndAfterMidnight
+                    timeStart.add(Calendar.MINUTE, -50)
+                    val timeStartLong = timeStart.time.time
+                    Log.d(TAG, "timeRangeBeforeMidnight:  +  ${timeStart.time}")
+
+                    val list = REPOSITORY_ROOM
+                        .getAllChangedItemsWhereTimeBetween(
+                            timeStartLong,
+                            timeEndAfterMidnightLongType
+                        )
+
+                    for (item in list) {
+                        val name = item.objectName
+                        val newIterator: MutableIterator<Items> = mMutableList.iterator()
+
+                        while (newIterator.hasNext()) {
+                            val it = newIterator.next()
+                            if (it.objectName == name) {
+                                newIterator.remove()
+                            }
                         }
                     }
                 }

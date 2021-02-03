@@ -27,6 +27,7 @@ class Fragment02 : Fragment() {
     private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
+    private var timeRange: Boolean = false
     private var typeConverter = TypeConverter()
 
     private lateinit var mDeferred: Deferred<MutableList<Items>>
@@ -53,7 +54,6 @@ class Fragment02 : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,26 +68,53 @@ class Fragment02 : Fragment() {
         initialization()
         setCurrentTime()
         setListToAdapter()
-        if ((currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))) {
+        if (timeRange) {
             getChanges()
         }
     }
 
-    private fun setListToAdapter() = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            mMutableList = mDeferred.await()
+    private fun initialization() {
+        mRecyclerView = mBinding.rvFragment02
+        mAdapterItems = AdapterItems()
+        mRecyclerView.adapter = mAdapterItems
+    }
 
-            val list = REPOSITORY_ROOM
-                .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
+    private fun setCurrentTime() {
+        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
+            .format(Date())
+        currentTime = Calendar.getInstance(Locale.getDefault()).time
 
-            for (item in list) {
-                val name = item.objectName
-                val newIterator: MutableIterator<Items> = mMutableList.iterator()
+        timeStart.set(Calendar.HOUR_OF_DAY, 1)
+        timeStart.set(Calendar.MINUTE, 40)
+        timeStart.set(Calendar.SECOND, 0)
+        timeEnd.set(Calendar.HOUR_OF_DAY, 2)
+        timeEnd.set(Calendar.MINUTE, 30)
+        timeEnd.set(Calendar.SECOND, 0)
 
-                    while (newIterator.hasNext()) {
-                        val it = newIterator.next()
-                        if (it.objectName == name) {
-                            newIterator.remove()
+        timeRange = (currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))
+        timeStartLongType = timeStart.time.time
+        timeEndLongType = timeEnd.time.time
+    }
+
+    private fun setListToAdapter() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                mMutableList = mDeferred.await()
+
+                if (timeRange) {
+
+                    val list = REPOSITORY_ROOM
+                        .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
+
+                    for (item in list) {
+                        val name = item.objectName
+                        val newIterator: MutableIterator<Items> = mMutableList.iterator()
+
+                        while (newIterator.hasNext()) {
+                            val it = newIterator.next()
+                            if (it.objectName == name) {
+                                newIterator.remove()
+                            }
                         }
                     }
                 }
@@ -101,31 +128,10 @@ class Fragment02 : Fragment() {
                 }
             }
         }
-
-
-    private fun setCurrentTime() {
-        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
-            .format(Date())
-        currentTime = Calendar.getInstance(Locale.getDefault()).time
-
-        timeStart.set(Calendar.HOUR_OF_DAY, 1)
-        timeStart.set(Calendar.MINUTE, 40)
-        timeStart.set(Calendar.SECOND, 0)
-        timeEnd.set(Calendar.HOUR_OF_DAY, 2)
-        timeEnd.set(Calendar.MINUTE, 20)
-        timeEnd.set(Calendar.SECOND, 0)
-
-        timeStartLongType = typeConverter.dateToLong(timeStart.time)
-        timeEndLongType = typeConverter.dateToLong(timeEnd.time)
     }
 
-    private fun initialization() {
-        mRecyclerView = mBinding.rvFragment02
-        mAdapterItems = AdapterItems()
-        mRecyclerView.adapter = mAdapterItems
-    }
-
-    private fun getChanges() = collectionITEMS_REF
+    private fun getChanges() {
+        collectionITEMS_REF
             .whereEqualTo(field_02, "true")
             .addSnapshotListener { value, error ->
                 if (value != null) {
@@ -158,6 +164,7 @@ class Fragment02 : Fragment() {
                     }
                 } else showToast(error?.message.toString())
             }
+    }
 
 
     override fun onDestroyView() {
