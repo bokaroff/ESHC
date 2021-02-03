@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eshc.adapters.AdapterItems
+import com.example.eshc.R
 import com.example.eshc.adapters.AdapterItemsRoom
 import com.example.eshc.databinding.FragmentItemRoomBinding
 import com.example.eshc.model.Items
@@ -65,5 +65,14 @@ class FragmentItemRoom : Fragment() {
         _binding = null
         mViewModel.allChangedItems.removeObserver(mObserveList)
         mRecyclerView.adapter = null
+    }
+
+    companion object {
+        fun itemClick(item: Items) {
+            val bundle = Bundle()
+            bundle.putSerializable("item", item)
+            APP_ACTIVITY.navController
+                .navigate(R.id.action_fragmentItemRoom_to_fragmentItemRoomSingle, bundle)
+        }
     }
 }

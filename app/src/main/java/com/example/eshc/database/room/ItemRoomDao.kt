@@ -16,8 +16,11 @@ interface ItemRoomDao {
  @Query(getAllChangedItems)
  fun getAllChangedItems(): LiveData<List<Items>>
 
+ @Query("SELECT * FROM items_table WHERE state = 'changed' and objectName =:name")
+ suspend fun singleChangedItem(name: String): List<Items>
+
  @Query(getAllChangedItemsWhereTimeBetween)
- fun getAllChangedItemsWhereTimeBetween(timeStart: Long, timeEnd: Long): List<Items>
+ suspend fun getAllChangedItemsWhereTimeBetween(timeStart: Long, timeEnd: Long): List<Items>
 
  @Query(getAllGuardsLate)
  fun getAllGuardsLate(): LiveData<List<Guards>>

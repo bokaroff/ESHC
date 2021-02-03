@@ -13,32 +13,10 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
     val allGuardsLate: LiveData<List<Guards>>
         get() = itemRoomDao.getAllGuardsLate()
 
-/*
-    val mainItemList00: LiveData<List<Items>>
-        get() = itemRoomDao.getMainItemList00()
 
-    val mainItemList02: LiveData<List<Items>>
-        get() = itemRoomDao.getMainItemList02()
-
-    val mainItemList04: LiveData<List<Items>>
-        get() = itemRoomDao.getMainItemList04()
-
-    val mainItemList06: LiveData<List<Items>>
-        get() = itemRoomDao.getMainItemList06()
-
-    val mainItemList08: List<Items>
-       get() = itemRoomDao.getMainItemList08()
-
-
-
-    val mainItemList15: LiveData<List<Items>>
-        get() = itemRoomDao.getMainItemList15()
-
-    val mainItemList21: LiveData<List<Items>>
-        get() = itemRoomDao.getMainItemList21()
-
-
- */
+  suspend  fun singleChangedItem(name: String): List<Items>{
+        return itemRoomDao.singleChangedItem(name)
+    }
 
     suspend fun getMainItemList(): List<Items> {
         return itemRoomDao.getMainItemList()
@@ -109,9 +87,6 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
     suspend fun deleteGuardLate(guard: Guards) {
         itemRoomDao.deleteGuard(guard)
     }
-
-
-
 
 }
 

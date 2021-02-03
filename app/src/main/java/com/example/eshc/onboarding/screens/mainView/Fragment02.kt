@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,17 +73,16 @@ class Fragment02 : Fragment() {
         }
     }
 
-    private fun setListToAdapter() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                mMutableList = mDeferred.await()
+    private fun setListToAdapter() = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            mMutableList = mDeferred.await()
 
-                val list = REPOSITORY_ROOM
-                    .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
+            val list = REPOSITORY_ROOM
+                .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
 
-                for (item in list) {
-                    val name = item.objectName
-                    val newIterator: MutableIterator<Items> = mMutableList.iterator()
+            for (item in list) {
+                val name = item.objectName
+                val newIterator: MutableIterator<Items> = mMutableList.iterator()
 
                     while (newIterator.hasNext()) {
                         val it = newIterator.next()
@@ -103,7 +101,7 @@ class Fragment02 : Fragment() {
                 }
             }
         }
-    }
+
 
     private fun setCurrentTime() {
         currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
@@ -127,8 +125,7 @@ class Fragment02 : Fragment() {
         mRecyclerView.adapter = mAdapterItems
     }
 
-    private fun getChanges() {
-        collectionITEMS_REF
+    private fun getChanges() = collectionITEMS_REF
             .whereEqualTo(field_02, "true")
             .addSnapshotListener { value, error ->
                 if (value != null) {
@@ -161,7 +158,7 @@ class Fragment02 : Fragment() {
                     }
                 } else showToast(error?.message.toString())
             }
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

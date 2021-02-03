@@ -119,6 +119,13 @@
             app:destination="@id/viewPagerFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_fragmentItemRoom_to_fragmentItemRoomSingle"
+            app:destination="@id/fragmentItemRoomSingle"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/updateItemFragment"
@@ -212,4 +219,8 @@
             app:popUpTo="@id/viewPagerFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentItemRoomSingle"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentItemRoomSingle"
+        tools:layout="@layout/fragment_item_room_single" />
 </navigation>

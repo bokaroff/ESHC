@@ -22,8 +22,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
     private var _binding: FragmentViewBottomSheetBinding? = null
     private val mBinding get() = _binding!!
     private var stringTime: String = String()
-  //  private var dateTime: Date = Date()
-    private lateinit var mCurentitem: Items
+    private lateinit var mCurrentItem: Items
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +31,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
         // Inflate the layout for this fragment
         _binding = FragmentViewBottomSheetBinding.
         inflate(layoutInflater, container, false)
-        mCurentitem = arguments?.getSerializable("item") as Items
+        mCurrentItem = arguments?.getSerializable("item") as Items
         return mBinding.root
     }
 
@@ -43,7 +42,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun initialization() {
-        mBinding.txtName.text = mCurentitem.objectName
+        mBinding.txtName.text = mCurrentItem.objectName
     }
 
     private fun clicks() {
@@ -54,9 +53,9 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
           //  dateTime = Calendar.getInstance(Locale.getDefault()).time
             val longTime = Date().time
             Log.d(TAG, "clicks: + $longTime")
-            GUARD.guardWorkPlace = mCurentitem.objectName
-            GUARD.guardName = mCurentitem.worker08
-            GUARD.guardKurator = mCurentitem.kurator
+            GUARD.guardWorkPlace = mCurrentItem.objectName
+            GUARD.guardName = mCurrentItem.worker08
+            GUARD.guardKurator = mCurrentItem.kurator
             GUARD.serverTimeStamp = stringTime
             GUARD.guardLongTime = longTime
             GUARD.state = stateLate
