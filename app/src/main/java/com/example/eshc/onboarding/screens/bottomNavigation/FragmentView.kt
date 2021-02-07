@@ -35,6 +35,7 @@ import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 class FragmentView : Fragment() {
     private var _binding: FragmentViewBinding? = null
     private val mBinding get() = _binding!!
+    private lateinit var adapterFireItem: FireItemAdapter<Items, FireItemAdapter.ItemViewHolder>
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mToolbar: Toolbar
     private lateinit var mKey: String

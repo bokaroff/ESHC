@@ -1,5 +1,6 @@
 package com.example.eshc.utilits
 
+import android.content.Context
 import com.example.eshc.MainActivity
 import com.example.eshc.adapters.AdapterGuardLate
 import com.example.eshc.adapters.FireGuardAdapter
@@ -64,7 +65,6 @@ const val item_img = "img"
 const val item_serverTimeStamp = "serverTimeStamp"
 
 lateinit var APP_ACTIVITY: MainActivity
-lateinit var DB: FirebaseFirestore
 lateinit var ITEM: Items
 lateinit var GUARD: Guards
 lateinit var REPOSITORY_ROOM: RoomRepository
@@ -72,9 +72,6 @@ lateinit var ITEM_ROOM_DAO: ItemRoomDao
 lateinit var ITEM_ROOM_DATABASE: ItemRoomDatabase
 lateinit var optionsItems: FirestoreRecyclerOptions<Items>
 lateinit var optionsGuards: FirestoreRecyclerOptions<Guards>
-lateinit var adapterFireGuard: FireGuardAdapter<Guards, FireGuardAdapter.GuardViewHolder>
-lateinit var adapterFireItem: FireItemAdapter<Items, FireItemAdapter.ItemViewHolder>
-lateinit var adapterGuardLate: AdapterGuardLate
 
 
 

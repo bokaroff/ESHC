@@ -75,7 +75,7 @@ class Fragment00 : Fragment() {
         initialization()
         setCurrentTime()
         setListToAdapter()
-        if (timeRangeAfterMidnight) {
+        if (timeRangeBeforeMidnight || timeRangeAfterMidnight) {
             getChanges()
         }
     }
