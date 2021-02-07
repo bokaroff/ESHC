@@ -1,19 +1,12 @@
 package com.example.eshc
 
 import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -31,7 +24,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         APP_ACTIVITY = this
         // CONTEXT = this
-      //  DB = FirebaseFirestore.getInstance()
+        DB = FirebaseFirestore.getInstance()
         ITEM = Items()
         GUARD = Guards()
         ITEM_ROOM_DATABASE = ItemRoomDatabase.getInstance(this)

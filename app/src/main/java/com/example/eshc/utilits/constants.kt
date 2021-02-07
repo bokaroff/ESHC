@@ -1,10 +1,6 @@
 package com.example.eshc.utilits
 
-import android.content.Context
 import com.example.eshc.MainActivity
-import com.example.eshc.adapters.AdapterGuardLate
-import com.example.eshc.adapters.FireGuardAdapter
-import com.example.eshc.adapters.FireItemAdapter
 import com.example.eshc.database.room.ItemRoomDao
 import com.example.eshc.database.room.ItemRoomDatabase
 import com.example.eshc.database.room.RoomRepository
@@ -12,7 +8,6 @@ import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 
 
 const val TAG = "ktx"
@@ -28,16 +23,25 @@ const val itemLongTime = "itemLongTime"
 const val getAllMainItems = "SELECT * FROM items_table WHERE state = 'main'"
 const val getAllMainGuards = "SELECT * FROM guards_table WHERE state = 'main'"
 const val getAllChangedItems = "SELECT * FROM items_table WHERE state = 'changed'"
-const val singleChangedItem = "SELECT * FROM items_table WHERE state = 'changed' and objectName =:name"
-const val getAllChangedItemsWhereTimeBetween = "SELECT * FROM items_table WHERE state = 'changed'and itemLongTime BETWEEN :timeStart and :timeEnd"
+const val singleChangedItem =
+    "SELECT * FROM items_table WHERE state = 'changed' and objectName =:name"
+const val getAllChangedItemsWhereTimeBetween =
+    "SELECT * FROM items_table WHERE state = 'changed'and itemLongTime BETWEEN :timeStart and :timeEnd"
 const val getAllGuardsLate = "SELECT * FROM guards_table WHERE state = 'late'"
-const val getMainItemList00 = "SELECT * FROM items_table WHERE order00 = 'true' AND state = 'main' ORDER BY objectName Asc"
-const val getMainItemList02 = "SELECT * FROM items_table WHERE order02 = 'true' AND state = 'main' ORDER BY objectName Asc"
-const val getMainItemList04 = "SELECT * FROM items_table WHERE order04 = 'true' AND state = 'main' ORDER BY objectName Asc"
-const val getMainItemList06 = "SELECT * FROM items_table WHERE order06 = 'true' AND state = 'main' ORDER BY objectName Asc"
-const val getMainItemList08 = "SELECT * FROM items_table WHERE order08 = 'true' AND state = 'main' ORDER BY objectName Asc"
-const val getMainItemList15 = "SELECT * FROM items_table WHERE order15 = 'true' AND state = 'main' ORDER BY objectName Asc"
-const val getMainItemList21 = "SELECT * FROM items_table WHERE order21 = 'true' AND state = 'main' ORDER BY objectName Asc"
+const val getMainItemList00 =
+    "SELECT * FROM items_table WHERE order00 = 'true' AND state = 'main' ORDER BY objectName Asc"
+const val getMainItemList02 =
+    "SELECT * FROM items_table WHERE order02 = 'true' AND state = 'main' ORDER BY objectName Asc"
+const val getMainItemList04 =
+    "SELECT * FROM items_table WHERE order04 = 'true' AND state = 'main' ORDER BY objectName Asc"
+const val getMainItemList06 =
+    "SELECT * FROM items_table WHERE order06 = 'true' AND state = 'main' ORDER BY objectName Asc"
+const val getMainItemList08 =
+    "SELECT * FROM items_table WHERE order08 = 'true' AND state = 'main' ORDER BY objectName Asc"
+const val getMainItemList15 =
+    "SELECT * FROM items_table WHERE order15 = 'true' AND state = 'main' ORDER BY objectName Asc"
+const val getMainItemList21 =
+    "SELECT * FROM items_table WHERE order21 = 'true' AND state = 'main' ORDER BY objectName Asc"
 const val stateChanged = "changed"
 const val stateMain = "main"
 const val stateLate = "late"
@@ -65,6 +69,7 @@ const val item_img = "img"
 const val item_serverTimeStamp = "serverTimeStamp"
 
 lateinit var APP_ACTIVITY: MainActivity
+lateinit var DB: FirebaseFirestore
 lateinit var ITEM: Items
 lateinit var GUARD: Guards
 lateinit var REPOSITORY_ROOM: RoomRepository
@@ -74,11 +79,9 @@ lateinit var optionsItems: FirestoreRecyclerOptions<Items>
 lateinit var optionsGuards: FirestoreRecyclerOptions<Guards>
 
 
-
-
-val collectionITEMS_REF =  FirebaseFirestore.getInstance()
+val collectionITEMS_REF = FirebaseFirestore.getInstance()
     .collection("Items")
-val collectionGUARDS_REF =  FirebaseFirestore.getInstance()
+val collectionGUARDS_REF = FirebaseFirestore.getInstance()
     .collection("Guards")
-val collectionSTAFF_REF =  FirebaseFirestore.getInstance()
+val collectionSTAFF_REF = FirebaseFirestore.getInstance()
     .collection("Staff")
