@@ -1,6 +1,5 @@
 package com.example.eshc
 
-import android.app.AlarmManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             NavController.OnDestinationChangedListener
     private lateinit var bottomNavigationView: BottomNavigationView
     lateinit var navController: NavController
-    lateinit var alarmManager: AlarmManager
 
     private var _binding: ActivityMainBinding? = null
     val mBinding get() = _binding!!
@@ -47,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         APP_ACTIVITY = this
-        // CONTEXT = this
         DB = FirebaseFirestore.getInstance()
         ITEM = Items()
         GUARD = Guards()
