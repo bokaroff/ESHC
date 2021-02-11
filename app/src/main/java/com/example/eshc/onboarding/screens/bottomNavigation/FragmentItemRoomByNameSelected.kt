@@ -21,7 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FragmentItemRoomSingle : Fragment() {
+class FragmentItemRoomByNameSelected : Fragment() {
     private var _binding: FragmentItemRoomSingleBinding? = null
     private val mBinding get() = _binding!!
     private var name: String = ""

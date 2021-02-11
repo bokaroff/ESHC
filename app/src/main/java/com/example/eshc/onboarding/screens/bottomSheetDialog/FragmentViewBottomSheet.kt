@@ -37,11 +37,11 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         clicks()
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mBinding.txtName.text = mCurrentItem.objectName
     }
 

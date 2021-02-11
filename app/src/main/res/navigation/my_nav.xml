@@ -126,6 +126,9 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_fragmentItemRoom_to_fragmentItemRoomBottomSheet"
+            app:destination="@id/fragmentItemRoomBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/updateItemFragment"
@@ -221,6 +224,11 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentItemRoomSingle"
-        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentItemRoomSingle"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentItemRoomByNameSelected"
         tools:layout="@layout/fragment_item_room_single" />
+    <fragment
+        android:id="@+id/fragmentItemRoomBottomSheet"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentItemRoomByDateSelected"
+        android:label="fragment_item_room_bottom_sheet"
+        tools:layout="@layout/fragment_item_room_bottom_sheet" />
 </navigation>

@@ -34,7 +34,6 @@ class Fragment00 : Fragment() {
     private var timeEndAfterMidnightLongType: Long = 0
     private var timeRangeBeforeMidnight: Boolean = false
     private var timeRangeAfterMidnight: Boolean = false
-    private var typeConverter = TypeConverter()
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
@@ -72,7 +71,7 @@ class Fragment00 : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         setCurrentTime()
         setListToAdapter()
         if (timeRangeBeforeMidnight || timeRangeAfterMidnight) {
@@ -80,7 +79,7 @@ class Fragment00 : Fragment() {
         }
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mRecyclerView = mBinding.rvFragment00
         mAdapterItems = AdapterItems()
         mRecyclerView.adapter = mAdapterItems

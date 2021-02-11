@@ -31,4 +31,8 @@
     <string name="_02_00">02:00</string>
     <string name="_04_00">04:00</string>
     <string name="_06_00">06:00</string>
+    <string name="until">до:</string>
+    <string name="start_from">Начиная с:</string>
+    <string name="find">Найти</string>
+    <string name="get_objects_for_period">Выбрать объекты за период</string>
 </resources>

@@ -28,7 +28,6 @@ class Fragment02 : Fragment() {
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
     private var timeRange: Boolean = false
-    private var typeConverter = TypeConverter()
 
     private lateinit var mDeferred: Deferred<MutableList<Items>>
     private lateinit var mRecyclerView: RecyclerView
@@ -65,7 +64,7 @@ class Fragment02 : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         setCurrentTime()
         setListToAdapter()
         if (timeRange) {
@@ -73,7 +72,7 @@ class Fragment02 : Fragment() {
         }
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mRecyclerView = mBinding.rvFragment02
         mAdapterItems = AdapterItems()
         mRecyclerView.adapter = mAdapterItems

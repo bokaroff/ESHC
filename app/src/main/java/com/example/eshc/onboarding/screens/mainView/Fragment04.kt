@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,7 +65,7 @@ class Fragment04 : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         setCurrentTime()
         setListToAdapter()
         if (timeRange) {
@@ -74,7 +73,7 @@ class Fragment04 : Fragment() {
         }
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mRecyclerView = mBinding.rvFragment04
         mAdapterItems = AdapterItems()
         mRecyclerView.adapter = mAdapterItems

@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentGuardBottomSheetBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.utilits.APP_ACTIVITY
-import com.example.eshc.utilits.showToast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FragmentGuardBottomSheet : BottomSheetDialogFragment() {
@@ -30,11 +28,11 @@ class FragmentGuardBottomSheet : BottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         clicks()
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mBinding.txtName.text = mCurrentItem.guardName
     }
 

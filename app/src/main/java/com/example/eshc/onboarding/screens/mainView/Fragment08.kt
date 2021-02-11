@@ -67,7 +67,7 @@ class Fragment08 : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         setCurrentTime()
         setListToAdapter()
         if (timeRange) {
@@ -129,7 +129,7 @@ class Fragment08 : Fragment() {
     }
 
 
-    private fun initialization() {
+    private fun initialise() {
         mRecyclerView = mBinding.rvFragment08
         mAdapterItems = AdapterItems()
         mRecyclerView.adapter = mAdapterItems
