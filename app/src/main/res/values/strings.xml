@@ -5,8 +5,9 @@
     <string name="frag_guard_late_toolbar_title">Опоздавшие сотрудники</string>
     <string name="frag_home_toolbar_title">Дополнительно</string>
     <string name="frag_view_toolbar_title">Все объекты онлайн</string>
-    <string name="add_itemsLateList">Добавить в список "Опоздавших"</string>
-    <string name="update">Редактировать</string>
+    <string name="add_itemsLateList">Добавить текущего сотрудника в список "Опоздавших"</string>
+    <string name="add_itemsLateList_new">Добавить нового сотрудника в список "Опоздавших"</string>
+    <string name="update_object">Редактировать данные по объекту</string>
     <string name="menu_item_add">Добавить новый объект</string>
     <string name="menu_guard_add">Добавить нового охранника</string>
     <string name="menu_guard_update">Изменить данные охранника</string>

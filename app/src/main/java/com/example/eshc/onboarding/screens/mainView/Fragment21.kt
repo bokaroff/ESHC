@@ -12,6 +12,7 @@ import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.*
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -138,15 +139,16 @@ class Fragment21 : Fragment() {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
 
                             val currentTimeLongType = currentTime.time
-                            val snapTime = SimpleDateFormat(
-                                "HH:mm, dd/MM/yyyy",
+                            val stringTime = SimpleDateFormat(
+                                "HH:mm, dd MMM.yyyy",
                                 Locale.getDefault()
                             ).format(Date())
+
 
                             val item = dc.document.toObject(Items::class.java)
                             val name = item.objectName
                             item.itemLongTime = currentTimeLongType
-                            item.serverTimeStamp = snapTime
+                            item.serverTimeStamp = stringTime
                             item.state = stateChanged
                             
                             val newIterator: MutableIterator<Items> = mMutableList.iterator()

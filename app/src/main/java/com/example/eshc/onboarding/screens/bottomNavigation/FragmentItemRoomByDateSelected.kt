@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.adapters.AdapterItemsRoom
 import com.example.eshc.databinding.FragmentItemRoomBottomSheetBinding
@@ -38,6 +41,7 @@ class FragmentItemRoomByDateSelected : Fragment() {
     private lateinit var firstDate: TextView
     private lateinit var secondDate: TextView
     private lateinit var btn: Button
+    private lateinit var mToolbar: Toolbar
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItemsRoom
 
@@ -60,10 +64,12 @@ class FragmentItemRoomByDateSelected : Fragment() {
     }
 
     private fun initialise() {
-        firstDate = mBinding.fragmentItemRoomBottomSheetEt1
-        secondDate = mBinding.fragmentItemRoomBottomSheetEt2
-        btn = mBinding.fragmentItemRoomBottomSheetButton
-        mRecyclerView = mBinding.rvFragmentItemRoomBottomSheet
+        firstDate = mBinding.FragmentItemRoomByDateSelectedTxt1
+        secondDate = mBinding.FragmentItemRoomByDateSelectedTxt2
+        btn = mBinding.FragmentItemRoomByDateSelectedButton
+        mRecyclerView = mBinding.rvFragmentItemRoomByDateSelected
+        mToolbar = mBinding.FragmentItemRoomByDateSelectedToolbar
+        mToolbar.setupWithNavController(findNavController())
         mAdapterItems = AdapterItemsRoom()
         mRecyclerView.adapter = mAdapterItems
     }
@@ -121,9 +127,12 @@ class FragmentItemRoomByDateSelected : Fragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val list = REPOSITORY_ROOM
-                                .getAllChangedItemsWhereTimeBetween(firstDateLongType, secondDateLongType)
+                            .getAllChangedItemsWhereTimeBetween(
+                                firstDateLongType,
+                                secondDateLongType
+                            )
                         withContext(Dispatchers.Main) {
-                            mAdapterItems.setList(list)
+                            mAdapterItems.setList(list.asReversed())
                             showToast("${list.size}")
                         }
                     } catch (e: Exception) {

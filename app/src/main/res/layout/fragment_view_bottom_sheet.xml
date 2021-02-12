@@ -22,12 +22,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_add_item_late"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="@dimen/padding_large"
+        style="@style/constraint_bottom_sheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_name">
@@ -52,18 +47,40 @@
             app:layout_constraintTop_toTopOf="@+id/img_add_item_late" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container_item_update"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="@dimen/padding_large"
+        android:id="@+id/container_add_new_item_late"
+        style="@style/constraint_bottom_sheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container_add_item_late">
+
+        <ImageView
+            android:id="@+id/img_add_new_item_late"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_guard_late_red"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txt_add_new_item_late"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_large"
+            android:text="@string/add_itemsLateList_new"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/img_add_new_item_late"
+            app:layout_constraintTop_toTopOf="@+id/img_add_new_item_late" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_item_update"
+        style="@style/constraint_bottom_sheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_add_new_item_late">
 
         <ImageView
             android:id="@+id/img_item_update"
@@ -79,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_large"
-            android:text="@string/update"
+            android:text="@string/update_object"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintStart_toEndOf="@+id/img_item_update"
             app:layout_constraintTop_toTopOf="@+id/img_item_update" />
@@ -88,12 +105,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_item_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="@dimen/padding_large"
+        style="@style/constraint_bottom_sheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container_item_update">

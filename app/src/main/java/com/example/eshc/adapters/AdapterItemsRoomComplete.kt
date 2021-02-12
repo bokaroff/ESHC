@@ -11,11 +11,25 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Items
+import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentItemRoom
 import kotlinx.android.synthetic.main.recycler_item_mini.view.*
 
-class AdapterItemsRoom() : RecyclerView.Adapter<AdapterItemsRoom.SimpleViewHolder>() {
+class AdapterItemsRoomComplete() : RecyclerView.Adapter<AdapterItemsRoomComplete.SimpleViewHolder>() {
     private lateinit var context: Context
     private var mList = mutableListOf<Items>()
+
+    override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
+        holder.recyclerItemContainer.setOnClickListener {
+            val item = mList[holder.adapterPosition]
+
+            FragmentItemRoom.itemClick(item)
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: SimpleViewHolder) {
+        holder.recyclerItemContainer.setOnClickListener(null)
+        super.onViewDetachedFromWindow(holder)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -47,7 +61,6 @@ class AdapterItemsRoom() : RecyclerView.Adapter<AdapterItemsRoom.SimpleViewHolde
 
     fun setList(list: List<Items>) {
         mList = list.toMutableList()
-        // Log.d(TAG, "AdaptermainItemList08:  ${mList.size}")
         notifyDataSetChanged()
     }
 /*

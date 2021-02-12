@@ -23,7 +23,6 @@
             android:id="@+id/guardName_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
@@ -34,7 +33,6 @@
             android:id="@+id/guard_kurator_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +40,6 @@
             android:id="@+id/guardPhone_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:layout_marginTop="@dimen/margin_small"
             android:textColor="@color/eliteColorLight"
             android:textStyle="italic"
@@ -53,9 +50,8 @@
             android:id="@+id/guard_work_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginEnd="@dimen/margin_main"
+            android:layout_marginEnd="@dimen/margin_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guardPhone_txt"
@@ -65,10 +61,10 @@
             android:id="@+id/guardPhone2_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:layout_marginTop="@dimen/margin_small"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guard_work_txt"
+            android:textColor="@color/eliteColorLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guardName_txt"
             tools:text="worker08_txt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

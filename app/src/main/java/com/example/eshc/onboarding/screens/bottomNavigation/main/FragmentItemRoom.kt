@@ -1,6 +1,5 @@
-package com.example.eshc.onboarding.screens.bottomNavigation
+package com.example.eshc.onboarding.screens.bottomNavigation.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.Toolbar
@@ -11,31 +10,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
-import com.example.eshc.adapters.AdapterItemsRoom
+import com.example.eshc.adapters.AdapterItemsRoomComplete
 import com.example.eshc.databinding.FragmentItemRoomBinding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.APP_ACTIVITY
 
 class FragmentItemRoom : Fragment() {
 
-    private var day = 0
-    private var month = 0
-    private var year = 0
-
-    private var savedDay = 0
-    private var savedMonth = 0
-    private var savedYear = 0
-
     private var _binding: FragmentItemRoomBinding? = null
     private val mBinding get() = _binding!!
-
-    private var _context: Context? = null
-    private val mContext get() = _context!!
 
     private lateinit var mViewModel: FragmentItemRoomViewModel
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mToolbar: Toolbar
-    private lateinit var mAdapterItemsRoom: AdapterItemsRoom
+    private lateinit var mAdapterItemsRoomComplete: AdapterItemsRoomComplete
     private lateinit var mObserveList: Observer<List<Items>>
 
     override fun onCreateView(
@@ -44,10 +32,6 @@ class FragmentItemRoom : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentItemRoomBinding.inflate(layoutInflater, container, false)
-
-        if (container != null) {
-            _context = container.context
-        }
 
         setHasOptionsMenu(true)
         mToolbar = mBinding.fragmentItemRoomToolbar
@@ -62,7 +46,7 @@ class FragmentItemRoom : Fragment() {
     }
 
     private fun initialization() {
-        mAdapterItemsRoom = AdapterItemsRoom()
+        mAdapterItemsRoomComplete = AdapterItemsRoomComplete()
         mRecyclerView = mBinding.rvFragmentItemRoom
     }
 
@@ -70,8 +54,8 @@ class FragmentItemRoom : Fragment() {
         mObserveList = Observer {
             val list = it.asReversed()
             val mutableList = list.toMutableList()
-            mAdapterItemsRoom.setList(mutableList)
-            mRecyclerView.adapter = mAdapterItemsRoom
+            mAdapterItemsRoomComplete.setList(mutableList)
+            mRecyclerView.adapter = mAdapterItemsRoomComplete
         }
         mViewModel = ViewModelProvider(this)
             .get(FragmentItemRoomViewModel::class.java)

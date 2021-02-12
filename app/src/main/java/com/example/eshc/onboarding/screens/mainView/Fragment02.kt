@@ -79,7 +79,7 @@ class Fragment02 : Fragment() {
     }
 
     private fun setCurrentTime() {
-        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
+        currentDate = SimpleDateFormat("HH:mm, dd MMM.yyyy", Locale.getDefault())
             .format(Date())
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
@@ -138,15 +138,15 @@ class Fragment02 : Fragment() {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
 
                             val currentTimeLongType = currentTime.time
-                            val snapTime = SimpleDateFormat(
-                                "HH:mm, dd/MM/yyyy",
+                            val stringTime = SimpleDateFormat(
+                                "HH:mm, dd MMM.yyyy",
                                 Locale.getDefault()
                             ).format(Date())
 
                             val item = dc.document.toObject(Items::class.java)
                             val name = item.objectName
                             item.itemLongTime = currentTimeLongType
-                            item.serverTimeStamp = snapTime
+                            item.serverTimeStamp = stringTime
                             item.state = stateChanged
 
                             val newIterator: MutableIterator<Items> = mMutableList.iterator()
@@ -164,7 +164,6 @@ class Fragment02 : Fragment() {
                 } else showToast(error?.message.toString())
             }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

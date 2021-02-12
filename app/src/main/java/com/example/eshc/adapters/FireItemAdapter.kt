@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Items
-import com.example.eshc.onboarding.screens.bottomNavigation.FragmentView
+import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.recycler_item.view.*

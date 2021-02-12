@@ -7,55 +7,55 @@
     android:paddingBottom="@dimen/margin_4dp"
     tools:context=".onboarding.screens.bottomNavigation.FragmentItemRoomByDateSelected">
 
-    <TextView
-        android:id="@+id/fragmentItemRoomBottomSheet_textView"
-        style="@style/textView_large"
-        android:text="@string/get_objects_for_period"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/FragmentItemRoomByDateSelected_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/colorWhite"
+        style="@style/toolBar" />
 
     <TextView
-        android:id="@+id/fragmentItemRoomBottomSheet_et_1"
+        android:id="@+id/FragmentItemRoomByDateSelected_txt_1"
         style="@style/textView_calendar"
-        android:clickable="true"
-        android:focusable="true"
         android:text="@string/start_from"
+        android:layout_marginTop="@dimen/margin_main"
+        android:layout_marginStart="@dimen/margin_main"
+        android:layout_marginEnd="@dimen/margin_4dp"
         app:drawableStartCompat="@drawable/ic_calendar_focused"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/FragmentItemRoomByDateSelected_txt_2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentItemRoomBottomSheet_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/FragmentItemRoomByDateSelected_toolbar" />
 
     <TextView
-        android:id="@+id/fragmentItemRoomBottomSheet_et_2"
+        android:id="@+id/FragmentItemRoomByDateSelected_txt_2"
         style="@style/textView_calendar"
-        android:clickable="true"
-        android:focusable="true"
         android:text="@string/until"
+        android:layout_marginTop="@dimen/margin_main"
+        android:layout_marginStart="@dimen/margin_4dp"
+        android:layout_marginEnd="@dimen/margin_main"
         app:drawableStartCompat="@drawable/ic_calendar_focused"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentItemRoomBottomSheet_et_1" />
+        app:layout_constraintStart_toEndOf="@+id/FragmentItemRoomByDateSelected_txt_1"
+        app:layout_constraintTop_toBottomOf="@+id/FragmentItemRoomByDateSelected_toolbar" />
 
     <Button
-        android:id="@+id/fragmentItemRoomBottomSheet_button"
+        android:id="@+id/FragmentItemRoomByDateSelected_button"
         style="@style/button_blue_save"
-        android:foreground="?attr/selectableItemBackground"
-        android:state_enabled="true"
         android:text="@string/find"
         app:backgroundTint="@null"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentItemRoomBottomSheet_et_2"
+        app:layout_constraintTop_toBottomOf="@+id/FragmentItemRoomByDateSelected_txt_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_FragmentItemRoomBottomSheet"
+        android:id="@+id/rv_FragmentItemRoomByDateSelected"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentItemRoomBottomSheet_button"
+        app:layout_constraintTop_toBottomOf="@+id/FragmentItemRoomByDateSelected_button"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

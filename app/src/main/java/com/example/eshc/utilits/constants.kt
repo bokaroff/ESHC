@@ -21,7 +21,7 @@ const val field_15 = "order15"
 const val field_21 = "order21"
 const val itemLongTime = "itemLongTime"
 const val getAllMainItems = "SELECT * FROM items_table WHERE state = 'main'"
-const val getAllMainGuards = "SELECT * FROM guards_table WHERE state = 'main'"
+const val getAllMainGuards = "SELECT * FROM guards_table WHERE state = 'main' ORDER BY guardName Asc"
 const val getAllChangedItems = "SELECT * FROM items_table WHERE state = 'changed'"
 const val singleChangedItem =
     "SELECT * FROM items_table WHERE state = 'changed' and objectName =:name"

@@ -12,11 +12,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
+import com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuardAddNewLate
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuard
 import kotlinx.android.synthetic.main.recycler_guard.view.*
 import java.util.*
 
-class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filterable {
+class AdapterGuardAddNewLate : RecyclerView.Adapter<AdapterGuardAddNewLate.SimpleViewHolder>(), Filterable {
     private lateinit var context: Context
     private var mList = mutableListOf<Guards>()
     private var mListFiltered = mutableListOf<Guards>()
@@ -24,7 +25,7 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
     override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
         holder.guardRvContainer.setOnClickListener {
             val guard = mListFiltered[holder.adapterPosition]
-            FragmentGuard.popUpFragmentClick(guard)
+            FragmentGuardAddNewLate.showDialog(guard)
         }
     }
 
@@ -101,15 +102,5 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
                 notifyDataSetChanged()
             }
         }
-    }
-
-    fun removeItem(viewHolder: RecyclerView.ViewHolder) {
-        mList.removeAt(viewHolder.adapterPosition)
-        notifyItemRemoved(viewHolder.adapterPosition)
-    }
-
-    fun insertItem(position: Int, guard: Guards){
-        mList.add(position, guard)
-        notifyItemInserted(position)
     }
 }

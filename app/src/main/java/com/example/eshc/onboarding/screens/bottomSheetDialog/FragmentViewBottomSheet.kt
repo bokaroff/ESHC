@@ -48,7 +48,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
     private fun clicks() {
         mBinding.containerAddItemLate.setOnClickListener {
 
-            stringTime = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
+            stringTime = SimpleDateFormat("HH:mm, dd MMM.yyyy", Locale.getDefault())
                 .format(Date())
           //  dateTime = Calendar.getInstance(Locale.getDefault()).time
             val longTime = Date().time
@@ -62,13 +62,19 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
             insertGuardLateRoom(GUARD)
             dismiss()
         }
+
+        mBinding.containerAddNewItemLate.setOnClickListener {
+            APP_ACTIVITY.navController
+                .navigate(R.id.action_fragmentViewBottomSheet_to_fragmentGuardAddNewLate, arguments)
+        }
+
         mBinding.containerItemUpdate.setOnClickListener {
             APP_ACTIVITY.navController
                 .navigate(R.id.action_fragmentViewBottomSheet_to_updateItemFragment, arguments)
         }
         mBinding.containerItemAdd.setOnClickListener {
             APP_ACTIVITY.navController
-                .navigate(R.id.action_fragmentViewBottomSheet_to_addNewItemFragment,)
+                .navigate(R.id.action_fragmentViewBottomSheet_to_addNewItemFragment)
         }
     }
 

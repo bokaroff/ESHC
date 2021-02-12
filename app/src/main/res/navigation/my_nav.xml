@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentGuard"
-        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuard"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuard"
         android:label="@string/frag_guard_toolbar_title"
         tools:layout="@layout/fragment_guard" >
         <action
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentGuardLate"
-        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuardLate"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuardLate"
         android:label="@string/frag_guard_late_toolbar_title"
         tools:layout="@layout/fragment_guard_late" >
         <action
@@ -85,7 +85,7 @@
     </fragment>
     <dialog
         android:id="@+id/fragmentHome"
-        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentHome"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentHome"
         android:label="@string/frag_home_toolbar_title"
         tools:layout="@layout/fragment_home" >
         <action
@@ -97,7 +97,7 @@
     </dialog>
     <fragment
         android:id="@+id/fragmentView"
-        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentView"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentView"
         android:label="@string/frag_view_toolbar_title"
         tools:layout="@layout/fragment_view" >
         <action
@@ -111,7 +111,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentItemRoom"
-        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentItemRoom"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentItemRoom"
         android:label="@string/frag_itemRoom_toolbar_title"
         tools:layout="@layout/fragment_item_room" >
         <action
@@ -158,6 +158,13 @@
         <action
             android:id="@+id/action_fragmentViewBottomSheet_to_addNewItemFragment"
             app:destination="@id/addNewItemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_fragmentViewBottomSheet_to_fragmentGuardAddNewLate"
+            app:destination="@id/fragmentGuardAddNewLate"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
@@ -229,6 +236,17 @@
     <fragment
         android:id="@+id/fragmentItemRoomBottomSheet"
         android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentItemRoomByDateSelected"
-        android:label="fragment_item_room_bottom_sheet"
+        android:label="@string/get_objects_for_period"
         tools:layout="@layout/fragment_item_room_bottom_sheet" />
+    <fragment
+        android:id="@+id/fragmentGuardAddNewLate"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuardAddNewLate"
+        tools:layout="@layout/fragment_guard_add_new_late" >
+        <action
+            android:id="@+id/action_fragmentGuardAddNewLate_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

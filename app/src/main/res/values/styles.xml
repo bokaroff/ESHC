@@ -35,7 +35,6 @@
     </style>
 
 
-
     <!-- EditTextStyle -->
     <style name="editText_phone">
         <item name="android:layout_width">match_parent</item>
@@ -65,9 +64,10 @@
 
     <!-- TextViewStyle -->
     <style name="textView_calendar">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">@dimen/margin_10</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
         <item name="android:padding">@dimen/margin_main</item>
         <item name="android:elevation">@dimen/margin_main</item>
         <item name="android:drawablePadding">@dimen/margin_main</item>
@@ -102,7 +102,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/margin_main</item>
         <item name="android:background">@drawable/custom_button_save</item>
-        <item name="android:elevation">@dimen/margin_4dp</item>
+        <item name="android:elevation">@dimen/margin_main</item>
         <item name="android:text">@string/menu_save</item>
         <item name="android:textColor">@color/colorWhite</item>
     </style>
@@ -117,6 +117,25 @@
         <item name="android:backgroundTint">@color/custom_gree</item>
         <item name="android:src">@drawable/ic_add</item>
         <item name="android:elevation">@dimen/margin_4dp</item>
+    </style>
+
+    <!-- ConstraintStyle -->
+    <style name="constraint_bottom_sheet">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:padding">@dimen/padding_large</item>
+    </style>
+
+    <!-- RecyclerContainer -->
+    <style name="rv_container">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:padding">@dimen/padding_main</item>
     </style>
 
 

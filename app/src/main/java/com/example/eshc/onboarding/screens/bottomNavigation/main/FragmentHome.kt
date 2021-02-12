@@ -1,4 +1,4 @@
-package com.example.eshc.onboarding.screens.bottomNavigation
+package com.example.eshc.onboarding.screens.bottomNavigation.main
 
 import android.os.Bundle
 import android.view.LayoutInflater

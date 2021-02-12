@@ -6,11 +6,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rv_item_container"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:foreground="?attr/selectableItemBackground"
-        android:padding="@dimen/padding_main"
+        style="@style/rv_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
