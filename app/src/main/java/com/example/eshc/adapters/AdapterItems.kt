@@ -11,8 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Items
-import kotlinx.android.synthetic.main.recycler_item.view.*
-import kotlinx.android.synthetic.main.recycler_item.view.rv_item_container
 import kotlinx.android.synthetic.main.recycler_item_mini.view.*
 
 class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {

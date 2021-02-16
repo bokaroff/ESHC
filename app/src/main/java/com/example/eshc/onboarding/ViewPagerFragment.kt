@@ -1,5 +1,6 @@
 package com.example.eshc.onboarding
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 
 
 class ViewPagerFragment : Fragment() {
@@ -77,6 +79,7 @@ class ViewPagerFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        UIUtil.hideKeyboard(context as Activity)
         Log.d(TAG, "start: ${javaClass.name}")
     }
 
