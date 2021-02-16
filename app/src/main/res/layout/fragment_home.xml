@@ -1,53 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".onboarding.screens.bottomNavigation.main.FragmentHome">
 
-    <TextView
-        android:id="@+id/txt_1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
 
-    <TextView
-        android:id="@+id/txt_2"
-        app:layout_constraintTop_toBottomOf="@+id/txt_1"
-        android:background="@color/colorBlack"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profileImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_launcher_background" />
 
-    <TextView
-        android:id="@+id/txt_3"
+        <EditText
+            android:id="@+id/et_profileUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName" />
 
-        app:layout_constraintTop_toBottomOf="@+id/txt_2"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        <EditText
+            android:id="@+id/et_profileEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress" />
 
-    <TextView
-        android:id="@+id/txt_4"
-        app:layout_constraintTop_toBottomOf="@+id/txt_3"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        <Button
+            android:id="@+id/btn_profileSaveInfo"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_save"
+            android:layout_margin="10dp"
+            android:backgroundTint="#42A5F5"
+            android:text="Save info"
+            android:textColor="@android:color/white" />
 
+        <TextView
+            android:id="@+id/tv_profile_signOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="Sign out"
+            android:textColor="#EF5350" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</RelativeLayout>

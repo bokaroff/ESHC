@@ -7,6 +7,7 @@ import com.example.eshc.database.room.RoomRepository
 import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -70,6 +71,7 @@ const val item_serverTimeStamp = "serverTimeStamp"
 
 lateinit var APP_ACTIVITY: MainActivity
 lateinit var DB: FirebaseFirestore
+lateinit var AUTH: FirebaseAuth
 lateinit var ITEM: Items
 lateinit var GUARD: Guards
 lateinit var REPOSITORY_ROOM: RoomRepository

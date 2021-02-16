@@ -1,10 +1,12 @@
 package com.example.eshc
 
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -186,4 +188,27 @@ class MainActivity : AppCompatActivity() {
         _binding = null
         Log.d(TAG, " $localClassName stop: ")
     }
+/*
+    override fun onBackPressed() {
+
+        val count = supportFragmentManager.backStackEntryCount
+        if (count == 0) {
+
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Вы уверены!")
+            builder.setMessage("Что хотите выйти из приложения?")
+            builder.setPositiveButton("Да")
+            { _: DialogInterface, _: Int ->
+                finish()
+            }
+            builder.setNegativeButton("Нет")
+            { _: DialogInterface, _: Int -> }
+            builder.show()
+        } else {
+            supportFragmentManager.popBackStack()
+        }
+    }
+
+ */
 }

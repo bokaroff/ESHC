@@ -4,6 +4,7 @@
     package="com.example.eshc">
 
     <application
+        android:requestLegacyExternalStorage="true"
         android:icon="@drawable/ic_elite_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"

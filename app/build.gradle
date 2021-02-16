@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:22.0.0'
     implementation 'com.google.firebase:firebase-firestore:21.7.1'
     implementation 'com.google.firebase:firebase-appindexing:19.1.0'
+    implementation 'com.google.firebase:firebase-auth:20.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -84,6 +85,15 @@ dependencies {
 
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+
+    //CardView
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    //Image picker
+    implementation 'com.github.dhaval2404:imagepicker:1.8'
+
+    //Circular ImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
 }

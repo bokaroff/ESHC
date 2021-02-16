@@ -12,20 +12,22 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
+import com.example.eshc.model.Items
 import com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuardAddNewLate
-import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuard
 import kotlinx.android.synthetic.main.recycler_guard.view.*
 import java.util.*
 
 class AdapterGuardAddNewLate : RecyclerView.Adapter<AdapterGuardAddNewLate.SimpleViewHolder>(), Filterable {
     private lateinit var context: Context
+    private lateinit var mItem: Items
+
     private var mList = mutableListOf<Guards>()
     private var mListFiltered = mutableListOf<Guards>()
 
     override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
         holder.guardRvContainer.setOnClickListener {
             val guard = mListFiltered[holder.adapterPosition]
-            FragmentGuardAddNewLate.showDialog(guard)
+            FragmentGuardAddNewLate.showDialog(guard, mItem)
         }
     }
 
@@ -103,4 +105,10 @@ class AdapterGuardAddNewLate : RecyclerView.Adapter<AdapterGuardAddNewLate.Simpl
             }
         }
     }
+
+    fun senCurrentItem(items: Items){
+        mItem = items
+    }
+
+
 }

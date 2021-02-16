@@ -1,5 +1,6 @@
 package com.example.eshc.utilits
 
+import android.util.Log
 import android.widget.Toast
 import com.example.eshc.model.Items
 import kotlinx.coroutines.CoroutineScope
@@ -16,6 +17,7 @@ fun saveChangedItemToRoom(item: Items) {
     CoroutineScope(Dispatchers.IO).launch {
         try {
             REPOSITORY_ROOM.insertItem(item)
+            Log.d(TAG, "saveChangedItemToRoom:")
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 e.message?.let { showToast(it) }

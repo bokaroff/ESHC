@@ -1,51 +1,39 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
-import android.app.Activity
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
-import com.example.eshc.adapters.AdapterGuard
 import com.example.eshc.adapters.AdapterGuardAddNewLate
 import com.example.eshc.databinding.FragmentGuardAddNewLateBinding
-import com.example.eshc.databinding.FragmentGuardBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FragmentGuardAddNewLate : Fragment() {
 
     private var _binding: FragmentGuardAddNewLateBinding? = null
     private val mBinding get() = _binding!!
     private var mList = mutableListOf<Guards>()
-    private var swipeBackground = ColorDrawable(Color.RED)
 
-    private lateinit var mKey: String
-    private lateinit var mViewHolder: RecyclerView.ViewHolder
     private lateinit var mToolbar: Toolbar
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mSearchView: SearchView
     private lateinit var mAdapter: AdapterGuardAddNewLate
-    private lateinit var deleteIcon: Drawable
     private lateinit var mCurrentItem: Items
 
     override fun onCreateView(
@@ -74,6 +62,7 @@ class FragmentGuardAddNewLate : Fragment() {
 
     private fun initialization() {
         mAdapter = AdapterGuardAddNewLate()
+        mAdapter.senCurrentItem(mCurrentItem)
         mRecyclerView = mBinding.rvFragmentGuardAddNewLate
         mToolbar.setupWithNavController(findNavController())
         mRecyclerView.adapter = mAdapter
@@ -121,7 +110,6 @@ class FragmentGuardAddNewLate : Fragment() {
         })
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -130,8 +118,71 @@ class FragmentGuardAddNewLate : Fragment() {
     }
 
     companion object {
-        fun showDialog(guard: Guards) {
-        showToast("Dialog will be shown with ${guard.guardName}")
+        fun showDialog(guard: Guards, mItem: Items) {
+
+            val stringTime = SimpleDateFormat("HH:mm, dd MMM.yyyy", Locale.getDefault())
+                .format(Date())
+
+            GUARD.guardName = guard.guardName
+            GUARD.guardWorkPlace = mItem.objectName
+            GUARD.serverTimeStamp = stringTime
+            GUARD.state = stateLate
+            GUARD.guardKurator = guard.guardKurator
+
+
+            /*
+            Log.d(
+                TAG,
+                "showDialog: + ${guard.guardName} + $stringTime + ${guard.state} + ${guard.guardWorkPlace} + ${mItem.objectName} "
+            )
+
+
+             */
+            val builder = AlertDialog.Builder(APP_ACTIVITY)
+            builder.setTitle("Вы уверены!")
+            builder.setMessage("Что хотите добавить ${guard.guardName} в список Опоздавших?")
+            builder.setPositiveButton("Да")
+            { _: DialogInterface, _: Int ->
+
+                insertGuardLateRoom(GUARD)
+
+
+                APP_ACTIVITY.navController
+                    .navigate(R.id.action_fragmentGuardAddNewLate_to_viewPagerFragment)
+            }
+            builder.setNegativeButton("Нет")
+            { _: DialogInterface, _: Int -> }
+            builder.show()
+        }
+
+        private fun insertGuardLateRoom(guard: Guards) {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    REPOSITORY_ROOM.insertGuard(guard)
+
+
+                    Log.d(
+                        TAG,
+                        "showDialog: + ${guard.guardName}  + ${guard.state} + ${guard.guardWorkPlace} + "
+
+
+
+                    )
+
+
+
+
+
+
+                    withContext(Dispatchers.Main) {
+                        showToast("Охранник ${guard.guardName} сохранен как опоздавший")
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        e.message?.let { showToast(it) }
+                    }
+                }
+            }
         }
     }
 }

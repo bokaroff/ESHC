@@ -116,7 +116,7 @@ class Fragment02 : Fragment() {
                             }
                         }
                     }
-                }
+               }
 
                 withContext(Dispatchers.Main) {
                     mAdapterItems.setList(mMutableList)
