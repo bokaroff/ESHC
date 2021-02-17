@@ -77,6 +77,7 @@ class ViewPagerFragment : Fragment() {
         return mBinding.root
     }
 
+
     override fun onStart() {
         super.onStart()
         UIUtil.hideKeyboard(context as Activity)
