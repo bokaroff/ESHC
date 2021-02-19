@@ -58,6 +58,11 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
         return itemRoomDao.getMainGuardList()
     }
 
+    suspend  fun singleGuardLateByName(name: String): List<Guards>{
+        return itemRoomDao.singleGuardLateByName(name)
+    }
+
+
     suspend fun insertItem(item: Items) {
         itemRoomDao.insertItem(item)
     }

@@ -22,13 +22,15 @@ const val field_15 = "order15"
 const val field_21 = "order21"
 const val itemLongTime = "itemLongTime"
 const val getAllMainItems = "SELECT * FROM items_table WHERE state = 'main'"
-const val getAllMainGuards = "SELECT * FROM guards_table WHERE state = 'main' ORDER BY guardName Asc"
+const val getAllMainGuards =
+    "SELECT * FROM guards_table WHERE state = 'main' ORDER BY guardName Asc"
 const val getAllChangedItems = "SELECT * FROM items_table WHERE state = 'changed'"
 const val singleChangedItem =
     "SELECT * FROM items_table WHERE state = 'changed' and objectName =:name"
 const val getAllChangedItemsWhereTimeBetween =
     "SELECT * FROM items_table WHERE state = 'changed'and itemLongTime BETWEEN :timeStart and :timeEnd"
 const val getAllGuardsLate = "SELECT * FROM guards_table WHERE state = 'late'"
+const val singleGuardLateByName = "SELECT * FROM guards_table WHERE state = 'late' and guardName =:name"
 const val getMainItemList00 =
     "SELECT * FROM items_table WHERE order00 = 'true' AND state = 'main' ORDER BY objectName Asc"
 const val getMainItemList02 =

@@ -11,6 +11,8 @@
     <string name="menu_item_add">Добавить новый объект</string>
     <string name="menu_guard_add">Добавить нового охранника</string>
     <string name="menu_guard_update">Изменить данные охранника</string>
+    <string name="change">изменить</string>
+    <string name="logIn">войти</string>
     <string name="menu_item_update">Изменить данные объекта</string>
     <string name="menu_item_delete">Удалить объект</string>
     <string name="menu_settings">Настройки</string>
@@ -36,4 +38,11 @@
     <string name="start_from">Начиная с:</string>
     <string name="find">Найти</string>
     <string name="get_objects_for_period">Выбрать объекты за период</string>
+    <string name="register">Регистрация</string>
+    <string name="password">Пароль</string>
+    <string name="e_mail">Электронная почта</string>
+    <string name="userName">Имя пользователя</string>
+    <string name="exit">Выйти</string>
+    <string name="cars">Авто E.S</string>
+    <string name="staff_ES">Сотрудники E.S</string>
 </resources>

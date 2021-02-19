@@ -9,19 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.eshc.databinding.ActivityMainBinding
 import com.example.eshc.databinding.FragmentSplashBinding
-import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.AUTH
 import com.example.eshc.utilits.showToast
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.auth.UserProfileChangeRequest
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_splash.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class SplashFragment : Fragment() {
     private var _binding: FragmentSplashBinding? = null
@@ -32,7 +34,7 @@ class SplashFragment : Fragment() {
     private lateinit var img: CircleImageView
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
-    private lateinit var btnSingUp: Button
+    private lateinit var txtRegister: TextView
     private lateinit var btnLogIn: Button
 
 
@@ -41,19 +43,6 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSplashBinding.inflate(layoutInflater, container, false)
-
-
-        /*
-        Handler().postDelayed({
-            if (view != null) {
-
-                findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
-            }
-        }, 1000)
-        Log.d(TAG, "classname: $javaClass")
-
-         */
-
         return mBinding.root
     }
 
@@ -68,19 +57,17 @@ class SplashFragment : Fragment() {
         img = mBinding.ivProfileImage
         etEmail = mBinding.etEmailLogin
         etPassword = mBinding.etPasswordLogin
-        btnSingUp = mBinding.btnRegister
+        txtRegister = mBinding.txtRegister
         btnLogIn = mBinding.btnLogin
     }
 
     private fun buttonClicks() {
         btnLogIn.setOnClickListener {
-            //  findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
             firstTimeUser = false
             createOrLoginUser()
         }
 
-        btnSingUp.setOnClickListener {
-            //  findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
+        txtRegister.setOnClickListener {
             firstTimeUser = true
             createOrLoginUser()
         }
@@ -111,7 +98,6 @@ class SplashFragment : Fragment() {
 
                     withContext(Dispatchers.Main) {
                         showToast("Вы вошли в свой аккаунт")
-
                         findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
                     }
 
@@ -121,6 +107,8 @@ class SplashFragment : Fragment() {
                     }
                 }
             }
+        } else {
+            showToast("Заполните все поля")
         }
     }
 
@@ -155,5 +143,8 @@ class SplashFragment : Fragment() {
         }
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

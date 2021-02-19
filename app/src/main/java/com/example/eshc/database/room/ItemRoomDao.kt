@@ -25,6 +25,8 @@ interface ItemRoomDao {
  @Query(getAllGuardsLate)
  fun getAllGuardsLate(): LiveData<List<Guards>>
 
+ @Query(singleGuardLateByName)
+ fun singleGuardLateByName(name: String): List<Guards>
 
  @Query(getAllMainItems)
  suspend fun getMainItemList(): List<Items>

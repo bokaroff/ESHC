@@ -10,11 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
+import com.example.eshc.R
 import com.example.eshc.databinding.FragmentHomeBinding
 import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.AUTH
@@ -23,9 +19,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.UserProfileChangeRequest
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_splash.*
-import kotlinx.android.synthetic.main.fragment_splash.iv_profileImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,9 +27,6 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class FragmentHome : BottomSheetDialogFragment() {
-
-
-
 
     private var _binding: FragmentHomeBinding? = null
     private val mBinding get() = _binding!!
@@ -51,7 +42,6 @@ class FragmentHome : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
@@ -86,8 +76,8 @@ class FragmentHome : BottomSheetDialogFragment() {
     }
 
     private fun setUserInfo(){
-        etEmail.append(AUTH.currentUser?.email)
-        etUserName.append(AUTH.currentUser?.displayName)
+        etEmail.setText(AUTH.currentUser?.email)
+        etUserName.setText(AUTH.currentUser?.displayName)
         img.setImageURI(AUTH.currentUser?.photoUrl)
 
         fileUri = AUTH.currentUser?.photoUrl
@@ -124,6 +114,9 @@ class FragmentHome : BottomSheetDialogFragment() {
 
     private fun signOutUser(){
         AUTH.signOut()
+
+        APP_ACTIVITY.navController
+            .navigate(R.id.action_fragmentHome_to_splashFragment)
         showToast("Вы вышли из своего аккаунта")
     }
 
@@ -152,15 +145,8 @@ class FragmentHome : BottomSheetDialogFragment() {
         }
     }
 
-
-
-
-
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

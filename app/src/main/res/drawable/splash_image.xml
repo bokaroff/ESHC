@@ -5,5 +5,4 @@
     <item
         android:drawable="@drawable/ic_elite"
         android:gravity="center" />
-
 </layer-list>

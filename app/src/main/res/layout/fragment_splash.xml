@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@android:color/darker_gray">
+    android:background="@color/grey_light"
+    tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        >
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,57 +32,37 @@
 
             <EditText
                 android:id="@+id/et_emailLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/custom_input"
-                android:backgroundTint="#F2F2F2"
-                android:hint="E-mail"
+                style="@style/editText_text"
+                android:drawableStart="@drawable/custom_email"
+                android:hint="@string/e_mail"
                 android:inputType="textEmailAddress"
-                android:padding="10dp" />
+                android:autofillHints=" " />
 
             <EditText
                 android:id="@+id/et_passwordLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/custom_input"
-                android:backgroundTint="#F2F2F2"
-                android:hint="Password"
+                style="@style/editText_text"
+                android:drawableStart="@drawable/custom_password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
-                android:padding="10dp" />
+                android:autofillHints="" />
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/button_blue_save"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="@string/logIn"
+                app:backgroundTint="@null" />
 
+            <TextView
+                android:id="@+id/txt_register"
+                style="@style/constraint_bottom_sheet"
+                android:gravity="center"
+                android:text="@string/register"
+                android:textColor="@color/red_dark" />
 
-                <Button
-                    android:id="@+id/btn_register"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_button_save"
-                    android:backgroundTint="#FFA726"
-                    android:text="Sign up"
-                    android:textColor="@android:color/white" />
-
-                <Button
-                    android:id="@+id/btn_login"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_button_save"
-                    android:backgroundTint="#42A5F5"
-                    android:text="Login"
-                    android:textColor="@android:color/white" />
-
-            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

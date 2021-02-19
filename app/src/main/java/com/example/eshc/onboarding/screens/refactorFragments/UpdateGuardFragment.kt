@@ -130,7 +130,7 @@ class UpdateGuardFragment : Fragment() {
                         return@launch
                     }
                 }
-                collectionITEMS_REF.document(newId)
+                collectionGUARDS_REF.document(newId)
                     .set(guard, SetOptions.merge()).await()
                 REPOSITORY_ROOM.deleteMainItem(newId)
                 REPOSITORY_ROOM.insertGuard(guard)

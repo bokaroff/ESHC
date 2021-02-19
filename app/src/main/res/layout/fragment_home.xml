@@ -1,58 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".onboarding.screens.bottomNavigation.main.FragmentHome">
 
-    <LinearLayout
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_profileImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="@dimen/margin_main"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_profileUsername"
+        style="@style/editText_text_short"
+        android:autofillHints=""
+        android:drawableStart="@drawable/custom_face"
+        android:hint="@string/userName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_profileImage"
+        />
+
+    <EditText
+        android:id="@+id/et_profileEmail"
+        style="@style/editText_text_short"
+        android:autofillHints=""
+        android:drawableStart="@drawable/custom_email"
+        android:hint="@string/e_mail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_profileUsername"
+        />
+
+    <Button
+        android:id="@+id/btn_profileSaveInfo"
+        style="@style/button_blue_save"
+        android:text="@string/change"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_profileEmail" />
+
+    <TextView
+        android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/margin_main"
+        android:background="@color/colorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_profileSaveInfo" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_profileImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_launcher_background" />
 
-        <EditText
-            android:id="@+id/et_profileUsername"
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_staff"
+        style="@style/constraint_bottom_sheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <ImageView
+            android:id="@+id/img_staff"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Username"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/et_profileEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="E-mail"
-            android:inputType="textEmailAddress" />
-
-        <Button
-            android:id="@+id/btn_profileSaveInfo"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_button_save"
-            android:layout_margin="10dp"
-            android:backgroundTint="#42A5F5"
-            android:text="Save info"
-            android:textColor="@android:color/white" />
+            android:src="@drawable/ic_people_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/tv_profile_signOut"
-            android:layout_width="match_parent"
+            android:id="@+id/txt_staff"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="Sign out"
-            android:textColor="#EF5350" />
+            android:layout_marginStart="@dimen/padding_large"
+            android:text="@string/staff_ES"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintBottom_toBottomOf="@+id/img_staff"
+            app:layout_constraintStart_toEndOf="@+id/img_staff"
+            app:layout_constraintTop_toTopOf="@+id/img_staff" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
-</RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_cars"
+        style="@style/constraint_bottom_sheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_staff">
+
+        <ImageView
+            android:id="@+id/img_cars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_car_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txt_guard_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_large"
+            android:text="@string/cars"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintBottom_toBottomOf="@+id/img_cars"
+            app:layout_constraintStart_toEndOf="@+id/img_cars"
+            app:layout_constraintTop_toTopOf="@+id/img_cars" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/tv_profile_signOut"
+        style="@style/constraint_bottom_sheet"
+        android:layout_margin="@dimen/margin_main"
+        android:gravity="center"
+        android:text="@string/exit"
+        android:textColor="@color/red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_cars"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,8 @@
             app:destination="@id/viewPagerFragment"
             app:enterAnim="@anim/fade"
             app:launchSingleTop="true"
-            app:popUpTo="@id/my_nav" />
+            app:popUpTo="@id/my_nav"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/viewPagerFragment"
@@ -82,6 +83,13 @@
             app:destination="@id/viewPagerFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_fragmentGuardLate_to_fragmentGuardLateByName"
+            app:destination="@id/fragmentGuardLateByName"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <dialog
         android:id="@+id/fragmentHome"
@@ -93,6 +101,13 @@
             app:destination="@id/viewPagerFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
+        <action
+            android:id="@+id/action_fragmentHome_to_splashFragment"
+            app:destination="@id/splashFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popUpTo="@id/my_nav"
+            app:popUpToInclusive="true" />
 
     </dialog>
     <fragment
@@ -200,7 +215,6 @@
             app:destination="@id/viewPagerFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_right"
-            app:popUpTo="@id/viewPagerFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -249,4 +263,8 @@
             app:exitAnim="@anim/to_right"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentGuardLateByName"
+        android:name="com.example.eshc.onboarding.screens.bottomNavigation.FragmentGuardLateByName"
+        tools:layout="@layout/fragment_guard_late_by_name" />
 </navigation>

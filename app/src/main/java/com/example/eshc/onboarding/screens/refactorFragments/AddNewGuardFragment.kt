@@ -49,7 +49,7 @@ class AddNewGuardFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         btnSave.setOnClickListener {
             val guard = getNewGuard()
             if (guard.guardName.isNotEmpty()) {
@@ -59,7 +59,7 @@ class AddNewGuardFragment : Fragment() {
         }
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mToolbar = mBinding.fragmentAddNewGuardToolbar
         mToolbar.setupWithNavController(findNavController())
         etName = mBinding.fragmentAddNewGuardName

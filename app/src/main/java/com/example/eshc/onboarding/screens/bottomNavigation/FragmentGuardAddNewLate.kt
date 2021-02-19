@@ -129,15 +129,6 @@ class FragmentGuardAddNewLate : Fragment() {
             GUARD.state = stateLate
             GUARD.guardKurator = guard.guardKurator
 
-
-            /*
-            Log.d(
-                TAG,
-                "showDialog: + ${guard.guardName} + $stringTime + ${guard.state} + ${guard.guardWorkPlace} + ${mItem.objectName} "
-            )
-
-
-             */
             val builder = AlertDialog.Builder(APP_ACTIVITY)
             builder.setTitle("Вы уверены!")
             builder.setMessage("Что хотите добавить ${guard.guardName} в список Опоздавших?")
@@ -145,8 +136,6 @@ class FragmentGuardAddNewLate : Fragment() {
             { _: DialogInterface, _: Int ->
 
                 insertGuardLateRoom(GUARD)
-
-
                 APP_ACTIVITY.navController
                     .navigate(R.id.action_fragmentGuardAddNewLate_to_viewPagerFragment)
             }
@@ -159,21 +148,6 @@ class FragmentGuardAddNewLate : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     REPOSITORY_ROOM.insertGuard(guard)
-
-
-                    Log.d(
-                        TAG,
-                        "showDialog: + ${guard.guardName}  + ${guard.state} + ${guard.guardWorkPlace} + "
-
-
-
-                    )
-
-
-
-
-
-
                     withContext(Dispatchers.Main) {
                         showToast("Охранник ${guard.guardName} сохранен как опоздавший")
                     }

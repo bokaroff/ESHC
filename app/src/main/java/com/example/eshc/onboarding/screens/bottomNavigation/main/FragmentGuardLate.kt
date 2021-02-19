@@ -19,9 +19,10 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
-import com.example.eshc.adapters.AdapterGuardLate
+import com.example.eshc.adapters.AdapterGuardLateComplete
 import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.model.Guards
+import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.TAG
 import com.google.android.material.snackbar.Snackbar
 
@@ -33,7 +34,7 @@ class FragmentGuardLate : Fragment() {
     private var mList = mutableListOf<Guards>()
     private var swipeBackground = ColorDrawable(Color.RED)
 
-    private lateinit var mAdapter: AdapterGuardLate
+    private lateinit var mAdapterComplete: AdapterGuardLateComplete
     private lateinit var mToolbar: Toolbar
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mObserveList: Observer<List<Guards>>
@@ -51,25 +52,25 @@ class FragmentGuardLate : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         swipeToDelete()
     }
 
-    private fun initialization() {
-        mAdapter = AdapterGuardLate()
+    private fun initialise() {
+        mAdapterComplete = AdapterGuardLateComplete()
      //  APP_ACTIVITY.bottomNavigationView.setupWithNavController(APP_ACTIVITY.navController)
         deleteIcon = ResourcesCompat.getDrawable(resources,
             R.drawable.ic_delete_white, null)!!
 
         mToolbar = mBinding.fragmentGuardLateToolbar
         mRecyclerView = mBinding.rvFragmentGuardLate
-        mRecyclerView.adapter = mAdapter
+        mRecyclerView.adapter = mAdapterComplete
 
         mObserveList = Observer {
             val list = it.asReversed()
             mList = list.toMutableList()
             Log.d(TAG, "initialization: ${mList.size}")
-            mAdapter.setList(mList)
+            mAdapterComplete.setList(mList)
         }
         mViewModel = ViewModelProvider(this)
             .get(FragmentGuardLateViewModel::class.java)
@@ -97,7 +98,7 @@ class FragmentGuardLate : Fragment() {
 
                 mViewModel.deleteGuardLate(guard)
                 mViewModel.allGuardsLate.removeObserver(mObserveList)
-                mAdapter.removeItem(viewHolder)
+                mAdapterComplete.removeItem(viewHolder)
 
                 Snackbar.make(
                     viewHolder.itemView, "${guard.guardName} удален",
@@ -105,7 +106,7 @@ class FragmentGuardLate : Fragment() {
                 ).setActionTextColor(Color.RED)
                     .setAction("Отмена") {
                         mViewModel.insertGuard(guard)
-                        mAdapter.insertItem(removedPosition, guard)
+                        mAdapterComplete.insertItem(removedPosition, guard)
                         mRecyclerView.smoothScrollToPosition(removedPosition)
                     }.show()
             }
@@ -162,6 +163,15 @@ class FragmentGuardLate : Fragment() {
         _binding = null
         mViewModel.allGuardsLate.removeObserver(mObserveList)
         mRecyclerView.adapter = null
+    }
+
+    companion object {
+        fun itemClick(guard: Guards) {
+            val bundle = Bundle()
+            bundle.putSerializable("guard", guard)
+           APP_ACTIVITY.navController
+                .navigate(R.id.action_fragmentGuardLate_to_fragmentGuardLateByName, bundle)
+        }
     }
 
 }

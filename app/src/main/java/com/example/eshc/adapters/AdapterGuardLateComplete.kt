@@ -14,9 +14,22 @@ import com.example.eshc.model.Guards
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuardLate
 import kotlinx.android.synthetic.main.recycler_guard_late.view.*
 
-class AdapterGuardLate : RecyclerView.Adapter<AdapterGuardLate.SimpleViewHolder>() {
+class AdapterGuardLateComplete : RecyclerView.Adapter<AdapterGuardLateComplete.SimpleViewHolder>() {
     private lateinit var context: Context
     private var mList = mutableListOf<Guards>()
+
+    override fun onViewAttachedToWindow(holder: AdapterGuardLateComplete.SimpleViewHolder) {
+        holder.rvGuardLateContainer.setOnClickListener {
+            val guard = mList[holder.adapterPosition]
+
+            FragmentGuardLate.itemClick(guard)
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: AdapterGuardLateComplete.SimpleViewHolder) {
+        holder.rvGuardLateContainer.setOnClickListener(null)
+        super.onViewDetachedFromWindow(holder)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(

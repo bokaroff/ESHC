@@ -62,6 +62,20 @@
         <item name="android:background">@drawable/custom_input</item>
     </style>
 
+    <style name="editText_text_short">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_main</item>
+        <item name="android:padding">@dimen/margin_main</item>
+        <item name="android:elevation">@dimen/margin_main</item>
+        <item name="android:drawablePadding">@dimen/margin_main</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:inputType">textPersonName|textEmailAddress</item>
+        <item name="android:background">@drawable/custom_input</item>
+    </style>
+
+
     <!-- TextViewStyle -->
     <style name="textView_calendar">
         <item name="android:layout_width">0dp</item>
