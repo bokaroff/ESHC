@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentHomeBinding
@@ -17,6 +18,7 @@ import com.example.eshc.utilits.AUTH
 import com.example.eshc.utilits.showToast
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.UserProfileChangeRequest
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_splash.*
@@ -31,12 +33,11 @@ class FragmentHome : BottomSheetDialogFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val mBinding get() = _binding!!
     private var fileUri: Uri? = null
-    private lateinit var img: CircleImageView
+    private lateinit var img: ShapeableImageView
     private lateinit var etEmail: EditText
     private lateinit var etUserName: EditText
     private lateinit var btnSave: Button
     private lateinit var txtSignOut: TextView
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

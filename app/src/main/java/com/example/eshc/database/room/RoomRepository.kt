@@ -10,8 +10,7 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
     val allChangedItems: LiveData<List<Items>>
         get() = itemRoomDao.getAllChangedItems()
 
-    val allGuardsLate: LiveData<List<Guards>>
-        get() = itemRoomDao.getAllGuardsLate()
+
 
 
   suspend  fun singleChangedItem(name: String): List<Items>{
@@ -56,6 +55,10 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
 
     suspend fun getMainGuardList(): List<Guards> {
         return itemRoomDao.getMainGuardList()
+    }
+
+    suspend fun getAllGuardsLate(): List<Guards> {
+        return itemRoomDao.getAllGuardsLate()
     }
 
     suspend  fun singleGuardLateByName(name: String): List<Guards>{

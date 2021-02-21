@@ -89,6 +89,7 @@ class AddNewGuardFragment : Fragment() {
         GUARD.guardPhone = phone
         GUARD.guardPhone_2 = mobile
         GUARD.guardKurator = kurator
+        GUARD.entity_id = 0
         GUARD.state = stateMain
 
         return GUARD

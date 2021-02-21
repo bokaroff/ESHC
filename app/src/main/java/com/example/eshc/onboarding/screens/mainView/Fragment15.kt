@@ -28,7 +28,6 @@ class Fragment15 : Fragment() {
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
     private var timeRange: Boolean = false
-    private var typeConverter = TypeConverter()
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems

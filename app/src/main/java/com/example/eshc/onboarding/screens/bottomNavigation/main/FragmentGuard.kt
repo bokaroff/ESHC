@@ -63,13 +63,13 @@ class FragmentGuard : Fragment() {
     override fun onStart() {
         super.onStart()
         UIUtil.hideKeyboard(context as Activity)
-        initialization()
+        initialise()
         getGuardData()
         swipeToDelete()
         Log.d(TAG, "$javaClass + onStart")
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mAdapter = AdapterGuard()
         deleteIcon = ResourcesCompat.getDrawable(
             resources,
@@ -82,8 +82,6 @@ class FragmentGuard : Fragment() {
 
 
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
-       // var mList = mutableListOf<Guards>()
-
         try {
             val list = REPOSITORY_ROOM.getMainGuardList()
             Log.d(TAG, " + getMainGuardList + ${list.size}")
@@ -91,7 +89,6 @@ class FragmentGuard : Fragment() {
             withContext(Dispatchers.Main) {
                 mAdapter.setList(mList)
             }
-
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 e.message?.let { showToast(it) }
@@ -120,6 +117,7 @@ class FragmentGuard : Fragment() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 mAdapter.filter.filter(newText)
+                Log.d(TAG, "filter: + $newText")
                 return true
             }
         })

@@ -6,14 +6,12 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -22,9 +20,13 @@ import com.example.eshc.R
 import com.example.eshc.adapters.AdapterGuardLateComplete
 import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.model.Guards
-import com.example.eshc.utilits.APP_ACTIVITY
-import com.example.eshc.utilits.TAG
+import com.example.eshc.utilits.*
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 
 class FragmentGuardLate : Fragment() {
@@ -38,8 +40,8 @@ class FragmentGuardLate : Fragment() {
     private lateinit var mToolbar: Toolbar
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mObserveList: Observer<List<Guards>>
-    private lateinit var mViewModel: FragmentGuardLateViewModel
     private lateinit var deleteIcon: Drawable
+    private lateinit var mSearchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,36 +49,74 @@ class FragmentGuardLate : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentGuardLateBinding.inflate(layoutInflater, container, false)
+
+        setHasOptionsMenu(true)
+        mToolbar = mBinding.fragmentGuardLateToolbar
+        APP_ACTIVITY.setSupportActionBar(mToolbar)
         return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
         initialise()
+        getGuardData()
         swipeToDelete()
     }
 
     private fun initialise() {
         mAdapterComplete = AdapterGuardLateComplete()
-     //  APP_ACTIVITY.bottomNavigationView.setupWithNavController(APP_ACTIVITY.navController)
-        deleteIcon = ResourcesCompat.getDrawable(resources,
-            R.drawable.ic_delete_white, null)!!
+        deleteIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.ic_delete_white, null
+        )!!
 
-        mToolbar = mBinding.fragmentGuardLateToolbar
         mRecyclerView = mBinding.rvFragmentGuardLate
         mRecyclerView.adapter = mAdapterComplete
-
-        mObserveList = Observer {
-            val list = it.asReversed()
-            mList = list.toMutableList()
-            Log.d(TAG, "initialization: ${mList.size}")
-            mAdapterComplete.setList(mList)
-        }
-        mViewModel = ViewModelProvider(this)
-            .get(FragmentGuardLateViewModel::class.java)
-        mViewModel.allGuardsLate.observe(this, mObserveList)
-
         mToolbar.setupWithNavController(findNavController())
+    }
+
+    private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val list = REPOSITORY_ROOM.getAllGuardsLate()
+            Log.d(TAG, " + getGuardLateList + ${list.size}")
+            mList = list.toMutableList()
+            withContext(Dispatchers.Main) {
+                mAdapterComplete.setList(mList)
+            }
+
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                e.message?.let { showToast(it) }
+            }
+        }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.fragment_guard_late_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val menuItem = menu.findItem(R.id.fragmentGuardLate_search)
+        mSearchView = menuItem.actionView as SearchView
+        searching(mSearchView)
+        super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun searching(search: SearchView) {
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                mAdapterComplete.filter.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                mAdapterComplete.filter.filter(newText)
+                Log.d(TAG, "onQueryTextChange: + $newText")
+                return true
+            }
+        })
     }
 
     private fun swipeToDelete() {
@@ -95,19 +135,38 @@ class FragmentGuardLate : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
                 val guard = mList[viewHolder.adapterPosition]
                 val removedPosition = viewHolder.adapterPosition
-
-                mViewModel.deleteGuardLate(guard)
-                mViewModel.allGuardsLate.removeObserver(mObserveList)
-                mAdapterComplete.removeItem(viewHolder)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        REPOSITORY_ROOM.deleteGuardLate(guard)
+                        withContext(Dispatchers.Main) {
+                            mAdapterComplete.removeItem(viewHolder)
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            e.message?.let { showToast(it) }
+                        }
+                    }
+                }
 
                 Snackbar.make(
                     viewHolder.itemView, "${guard.guardName} удален",
                     Snackbar.LENGTH_LONG
                 ).setActionTextColor(Color.RED)
                     .setAction("Отмена") {
-                        mViewModel.insertGuard(guard)
-                        mAdapterComplete.insertItem(removedPosition, guard)
-                        mRecyclerView.smoothScrollToPosition(removedPosition)
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                REPOSITORY_ROOM.insertGuard(guard)
+                                withContext(Dispatchers.Main) {
+                                    mAdapterComplete.insertItem(removedPosition, guard)
+                                    mRecyclerView.smoothScrollToPosition(removedPosition)
+                                }
+                            } catch (e: Exception) {
+                                withContext(Dispatchers.Main) {
+                                    e.message?.let { showToast(it) }
+                                }
+                            }
+                        }
                     }.show()
             }
 
@@ -129,19 +188,23 @@ class FragmentGuardLate : Fragment() {
                         itemView.left, itemView.top,
                         dX.toInt(), itemView.bottom
                     )
-                    deleteIcon.setBounds(itemView.left + iconMargin, itemView.top + iconMargin,
-                    itemView.left + iconMargin + deleteIcon.intrinsicWidth,
-                    itemView.bottom - iconMargin)
+                    deleteIcon.setBounds(
+                        itemView.left + iconMargin, itemView.top + iconMargin,
+                        itemView.left + iconMargin + deleteIcon.intrinsicWidth,
+                        itemView.bottom - iconMargin
+                    )
 
                 } else {
                     swipeBackground.setBounds(
                         itemView.right + dX.toInt(),
                         itemView.top, itemView.right, itemView.bottom
                     )
-                    deleteIcon.setBounds(itemView.right - iconMargin - deleteIcon.intrinsicWidth,
+                    deleteIcon.setBounds(
+                        itemView.right - iconMargin - deleteIcon.intrinsicWidth,
                         itemView.top + iconMargin,
                         itemView.right - iconMargin,
-                        itemView.bottom - iconMargin)
+                        itemView.bottom - iconMargin
+                    )
                 }
                 swipeBackground.draw(c)
                 deleteIcon.draw(c)
@@ -161,7 +224,6 @@ class FragmentGuardLate : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        mViewModel.allGuardsLate.removeObserver(mObserveList)
         mRecyclerView.adapter = null
     }
 
@@ -169,10 +231,9 @@ class FragmentGuardLate : Fragment() {
         fun itemClick(guard: Guards) {
             val bundle = Bundle()
             bundle.putSerializable("guard", guard)
-           APP_ACTIVITY.navController
+            APP_ACTIVITY.navController
                 .navigate(R.id.action_fragmentGuardLate_to_fragmentGuardLateByName, bundle)
         }
     }
-
 }
 

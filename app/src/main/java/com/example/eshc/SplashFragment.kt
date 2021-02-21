@@ -16,6 +16,7 @@ import com.example.eshc.databinding.FragmentSplashBinding
 import com.example.eshc.utilits.AUTH
 import com.example.eshc.utilits.showToast
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.UserProfileChangeRequest
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_splash.*
@@ -31,7 +32,7 @@ class SplashFragment : Fragment() {
     private var firstTimeUser = true
     private var fileUri: Uri? = null
 
-    private lateinit var img: CircleImageView
+    private lateinit var img: ShapeableImageView
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var txtRegister: TextView

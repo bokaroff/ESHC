@@ -23,28 +23,26 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_profileImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_launcher_background" />
+                style="@style/shapeImageView"
+                app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView" />
 
             <EditText
                 android:id="@+id/et_emailLogin"
                 style="@style/editText_text"
+                android:autofillHints=" "
                 android:drawableStart="@drawable/custom_email"
                 android:hint="@string/e_mail"
-                android:inputType="textEmailAddress"
-                android:autofillHints=" " />
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/et_passwordLogin"
                 style="@style/editText_text"
+                android:autofillHints=""
                 android:drawableStart="@drawable/custom_password"
                 android:hint="@string/password"
-                android:inputType="textPassword"
-                android:autofillHints="" />
+                android:inputType="textPassword" />
 
             <Button
                 android:id="@+id/btn_login"
