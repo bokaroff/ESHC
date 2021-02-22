@@ -47,11 +47,7 @@ class FragmentGuardLateByName : Fragment() {
         name = mCurrentGuardLate.guardName
         return mBinding.root
     }
-
-
-
-
-
+    
     override fun onStart() {
         super.onStart()
         initialise()
