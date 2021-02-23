@@ -23,11 +23,8 @@ class Fragment15 : Fragment() {
     private var mMutableList = mutableListOf<Items>()
     private var currentDate: String = String()
     private var currentTime: Date = Date()
-    private var timeStart: Calendar = Calendar.getInstance(Locale.getDefault())
-    private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
-    private var timeRange: Boolean = false
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
@@ -70,7 +67,7 @@ class Fragment15 : Fragment() {
         initialise()
         setCurrentTime()
         setListToAdapter()
-        if (timeRange) {
+        if (timeRange15) {
             getChanges()
         }
     }
@@ -86,16 +83,16 @@ class Fragment15 : Fragment() {
             .format(Date())
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
-        timeStart.set(Calendar.HOUR_OF_DAY, 14)
-        timeStart.set(Calendar.MINUTE, 40)
-        timeStart.set(Calendar.SECOND, 0)
-        timeEnd.set(Calendar.HOUR_OF_DAY, 15)
-        timeEnd.set(Calendar.MINUTE, 30)
-        timeEnd.set(Calendar.SECOND, 0)
+        timeStart15.set(Calendar.HOUR_OF_DAY, 14)
+        timeStart15.set(Calendar.MINUTE, 40)
+        timeStart15.set(Calendar.SECOND, 0)
+        timeEnd15.set(Calendar.HOUR_OF_DAY, 15)
+        timeEnd15.set(Calendar.MINUTE, 30)
+        timeEnd15.set(Calendar.SECOND, 0)
 
-        timeRange = (currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))
-        timeStartLongType = timeStart.time.time
-        timeEndLongType = timeEnd.time.time
+        timeRange15 = (currentTime.after(timeStart15.time)) && (currentTime.before(timeEnd15.time))
+        timeStartLongType = timeStart15.time.time
+        timeEndLongType = timeEnd15.time.time
     }
 
     private fun setListToAdapter() {
@@ -103,7 +100,7 @@ class Fragment15 : Fragment() {
             try {
                 mMutableList = mDeferred.await()
 
-                if (timeRange) {
+                if (timeRange15) {
 
                     val list = REPOSITORY_ROOM
                         .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)

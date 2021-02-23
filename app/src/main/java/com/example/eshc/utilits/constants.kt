@@ -9,6 +9,7 @@ import com.example.eshc.model.Items
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 
 const val TAG = "ktx"
@@ -30,7 +31,8 @@ const val singleChangedItem =
 const val getAllChangedItemsWhereTimeBetween =
     "SELECT * FROM items_table WHERE state = 'changed'and itemLongTime BETWEEN :timeStart and :timeEnd"
 const val getAllGuardsLate = "SELECT * FROM guards_table WHERE state = 'late'"
-const val singleGuardLateByName = "SELECT * FROM guards_table WHERE state = 'late' and guardName =:name"
+const val singleGuardLateByName =
+    "SELECT * FROM guards_table WHERE state = 'late' and guardName =:name"
 const val getMainItemList00 =
     "SELECT * FROM items_table WHERE order00 = 'true' AND state = 'main' ORDER BY objectName Asc"
 const val getMainItemList02 =
@@ -70,6 +72,39 @@ const val item_worker08 = "worker08"
 const val item_worker15 = "worker15"
 const val item_img = "img"
 const val item_serverTimeStamp = "serverTimeStamp"
+
+var timeStart08: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeEnd08: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeRange08: Boolean = false
+
+var timeStart15: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeEnd15: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeRange15: Boolean = false
+
+var timeStart21: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeEnd21: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeRange21: Boolean = false
+
+var timeStart02: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeEnd02: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeRange02: Boolean = false
+
+var timeStart04: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeEnd04: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeRange04: Boolean = false
+
+var timeStart06: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeEnd06: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeRange06: Boolean = false
+
+var timeStartBeforeMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeStartAfterMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeEndBeforeMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeEndAfterMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+var timeRangeBeforeMidnight: Boolean = false
+var timeRangeAfterMidnight: Boolean = false
+
+
 
 lateinit var APP_ACTIVITY: MainActivity
 lateinit var DB: FirebaseFirestore

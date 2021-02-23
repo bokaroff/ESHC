@@ -44,7 +44,7 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
         val kurator: TextView = itemView.kurator_mini
         val objectPhone: TextView = itemView.phone_mini
         val mobilePhone: TextView = itemView.mobile_mini
-        val recyclerItemContainer: ConstraintLayout = itemView.rv_item_container
+        val recyclerItemContainer: ConstraintLayout = itemView.rvItemContainer_mini
     }
 
     fun setList(list: List<Items>) {

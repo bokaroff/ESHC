@@ -24,16 +24,10 @@ class Fragment00 : Fragment() {
     private var mMutableList = mutableListOf<Items>()
     private var currentDate: String = String()
     private var currentTime: Date = Date()
-    private var timeStartBeforeMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
-    private var timeStartAfterMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
-    private var timeEndBeforeMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
-    private var timeEndAfterMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
     private var timeStartBeforeMidnightLongType: Long = 0
     private var timeStartAfterMidnightLongType: Long = 0
     private var timeEndBeforeMidnightLongType: Long = 0
     private var timeEndAfterMidnightLongType: Long = 0
-    private var timeRangeBeforeMidnight: Boolean = false
-    private var timeRangeAfterMidnight: Boolean = false
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapterItems: AdapterItems
@@ -104,7 +98,6 @@ class Fragment00 : Fragment() {
         timeEndAfterMidnight.set(Calendar.MINUTE, 30)
         timeEndAfterMidnight.set(Calendar.SECOND, 0)
 
-      //  timeStartBeforeMidnightLongType = typeConverter.dateToLong(timeStartBeforeMidnight.time)
         timeStartBeforeMidnightLongType = timeStartBeforeMidnight.time.time
         timeEndBeforeMidnightLongType = timeEndBeforeMidnight.time.time
 
@@ -116,7 +109,6 @@ class Fragment00 : Fragment() {
 
         timeRangeAfterMidnight = (currentTime.after(timeStartAfterMidnight.time))
                 && (currentTime.before(timeEndAfterMidnight.time))
-
     }
 
     private fun setListToAdapter() {
@@ -148,7 +140,6 @@ class Fragment00 : Fragment() {
                     val timeStart = timeEndAfterMidnight
                     timeStart.add(Calendar.MINUTE, -50)
                     val timeStartLong = timeStart.time.time
-                    Log.d(TAG, "timeRangeBeforeMidnight:  +  ${timeStart.time}")
 
                     val list = REPOSITORY_ROOM
                         .getAllChangedItemsWhereTimeBetween(

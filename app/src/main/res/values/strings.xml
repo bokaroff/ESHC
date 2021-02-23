@@ -25,6 +25,8 @@
     <string name="et_hint_object_phone">Введите номер телефона</string>
     <string name="et_hint_mobile_phone">Введите номер мобильного телефона</string>
     <string name="et_hint_kurator">Введите имя куратора</string>
+    <string name="kurator">Куратор</string>
+    <string name="phone_number">номер телефона</string>
     <string name="enter_object_name">Введите имя объекта</string>
     <string name="new_object_created">Создан новый объект</string>
     <string name="_08_00">08:00</string>
@@ -45,4 +47,5 @@
     <string name="exit">Выйти</string>
     <string name="cars">Авто E.S</string>
     <string name="staff_ES">Сотрудники E.S</string>
+    <string name="work_place">место работы</string>
 </resources>

@@ -88,6 +88,8 @@ class FragmentItemRoomByDateSelected : Fragment() {
                 { _, year, month, dayOfMonth ->
                     val cal = Calendar.getInstance()
                     cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    cal.set(Calendar.HOUR, 0)
+                    cal.set(Calendar.MINUTE, 0)
                     cal.set(Calendar.MONTH, month)
                     cal.set(Calendar.YEAR, year)
 
@@ -107,6 +109,8 @@ class FragmentItemRoomByDateSelected : Fragment() {
                 { _, year, month, dayOfMonth ->
                     val cal = Calendar.getInstance()
                     cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    cal.set(Calendar.HOUR, 0)
+                    cal.set(Calendar.MINUTE, 0)
                     cal.set(Calendar.MONTH, month)
                     cal.set(Calendar.YEAR, year)
 

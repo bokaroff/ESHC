@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/padding_small"
     android:paddingBottom="@dimen/padding_small"
+    android:background="@color/deepBlue"
     tools:context=".onboarding.screens.bottomSheetDialog.FragmentGuardBottomSheet">
 
     <TextView

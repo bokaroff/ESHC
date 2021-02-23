@@ -23,12 +23,8 @@ class Fragment21 : Fragment() {
     private var mMutableList = mutableListOf<Items>()
     private var currentDate: String = String()
     private var currentTime: Date = Date()
-    private var timeStart: Calendar = Calendar.getInstance(Locale.getDefault())
-    private var timeEnd: Calendar = Calendar.getInstance(Locale.getDefault())
-    private var timeRange: Boolean = false
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
-    private var typeConverter = TypeConverter()
 
     private lateinit var mDeferred: Deferred<MutableList<Items>>
     private lateinit var mRecyclerView: RecyclerView
@@ -68,7 +64,7 @@ class Fragment21 : Fragment() {
         initialise()
         setCurrentTime()
         setListToAdapter()
-        if (timeRange) {
+        if (timeRange21) {
             getChanges()
         }
     }
@@ -84,16 +80,16 @@ class Fragment21 : Fragment() {
             .format(Date())
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
-        timeStart.set(Calendar.HOUR_OF_DAY, 19)
-        timeStart.set(Calendar.MINUTE, 0)
-        timeStart.set(Calendar.SECOND, 0)
-        timeEnd.set(Calendar.HOUR_OF_DAY, 23)
-        timeEnd.set(Calendar.MINUTE, 0)
-        timeEnd.set(Calendar.SECOND, 0)
+        timeStart21.set(Calendar.HOUR_OF_DAY, 19)
+        timeStart21.set(Calendar.MINUTE, 0)
+        timeStart21.set(Calendar.SECOND, 0)
+        timeEnd21.set(Calendar.HOUR_OF_DAY, 23)
+        timeEnd21.set(Calendar.MINUTE, 0)
+        timeEnd21.set(Calendar.SECOND, 0)
 
-        timeRange = (currentTime.after(timeStart.time)) && (currentTime.before(timeEnd.time))
-        timeStartLongType = timeStart.time.time
-        timeEndLongType = timeEnd.time.time
+        timeRange21 = (currentTime.after(timeStart21.time)) && (currentTime.before(timeEnd21.time))
+        timeStartLongType = timeStart21.time.time
+        timeEndLongType = timeEnd21.time.time
     }
 
     private fun setListToAdapter() {
@@ -101,7 +97,7 @@ class Fragment21 : Fragment() {
             try {
                 mMutableList = mDeferred.await()
 
-                if (timeRange) {
+                if (timeRange21) {
 
                     val list = REPOSITORY_ROOM
                         .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)

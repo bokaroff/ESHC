@@ -28,6 +28,8 @@ import java.util.*
 class AddNewItemFragment : Fragment() {
     private var _binding: FragmentAddNewItemBinding? = null
     private val mBinding get() = _binding!!
+    private var currentTime: Date = Date()
+
     private lateinit var mToolbar: Toolbar
     private lateinit var mEdtxtObjectName: EditText
     private lateinit var mEdtxtAddress: EditText
@@ -57,8 +59,16 @@ class AddNewItemFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
+        checkTimeRanges()
         mButtonSave.setOnClickListener {
+
+            if (timeRange08 || timeRange15 || timeRange21 || timeRangeBeforeMidnight || timeRangeAfterMidnight
+                || timeRange02 || timeRange04 || timeRange06){
+                showToast("Внесение изменений во время доклада невозможно!")
+                return@setOnClickListener
+            }
+
             val item = getNewItem()
             if (item.objectName.isNotEmpty()) {
                 addNewItem(item)
@@ -67,7 +77,7 @@ class AddNewItemFragment : Fragment() {
         }
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mToolbar = mBinding.fragmentAddNewItemToolbar
         mToolbar.setupWithNavController(findNavController())
         mEdtxtObjectName = mBinding.fragmentAddNewItemName
@@ -83,6 +93,22 @@ class AddNewItemFragment : Fragment() {
         checkBox04 = mBinding.fragmentAddItemField04
         checkBox06 = mBinding.fragmentAddItemField06
         mButtonSave = mBinding.fragmentAddNewItemButtonAdd
+    }
+
+    private fun checkTimeRanges() {
+        currentTime = Calendar.getInstance(Locale.getDefault()).time
+
+        timeRange08 = (currentTime.after(timeStart08.time)) && (currentTime.before(timeEnd08.time))
+        timeRange15 = (currentTime.after(timeStart15.time)) && (currentTime.before(timeEnd15.time))
+        timeRange21 = (currentTime.after(timeStart21.time)) && (currentTime.before(timeEnd21.time))
+        timeRange02 = (currentTime.after(timeStart02.time)) && (currentTime.before(timeEnd02.time))
+        timeRange04 = (currentTime.after(timeStart04.time)) && (currentTime.before(timeEnd04.time))
+        timeRange06 = (currentTime.after(timeStart06.time)) && (currentTime.before(timeEnd06.time))
+        timeRangeBeforeMidnight = (currentTime.after(timeStartBeforeMidnight.time))
+                && (currentTime.before(timeEndBeforeMidnight.time))
+
+        timeRangeAfterMidnight = (currentTime.after(timeStartAfterMidnight.time))
+                && (currentTime.before(timeEndAfterMidnight.time))
     }
 
     private fun getNewItem(): Items {

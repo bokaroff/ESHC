@@ -42,7 +42,7 @@ class AdapterItemsRoom() : RecyclerView.Adapter<AdapterItemsRoom.SimpleViewHolde
         val objectName: TextView = itemView.objectName_mini
         val worker: TextView = itemView.phone_mini
         val serverTime: TextView = itemView.mobile_mini
-        val recyclerItemContainer: ConstraintLayout = itemView.rv_item_container
+        val recyclerItemContainer: ConstraintLayout = itemView.rvItemContainer_mini
     }
 
     fun setList(list: List<Items>) {

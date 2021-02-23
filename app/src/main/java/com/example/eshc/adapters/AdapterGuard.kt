@@ -15,7 +15,9 @@ import com.example.eshc.R
 import com.example.eshc.model.Guards
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuard
 import com.example.eshc.utilits.TAG
+import com.google.android.material.imageview.ShapeableImageView
 import kotlinx.android.synthetic.main.recycler_guard.view.*
+import kotlinx.android.synthetic.main.recycler_item.view.*
 import java.util.*
 
 class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filterable {
@@ -44,6 +46,9 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
     }
 
     override fun onBindViewHolder(holder: SimpleViewHolder, position: Int) {
+
+        holder.guardImg.animation =
+            AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation)
         holder.guardRvContainer.animation =
             AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
 
@@ -65,6 +70,7 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
         val guardKurator: TextView = itemView.guard_kurator_txt
         val guardWorkPlace: TextView = itemView.guard_work_txt
         val guardRvContainer: ConstraintLayout = itemView.recycler_item_guard_container
+        val guardImg: ShapeableImageView = itemView.iv_guardLogo
     }
 
     fun setList(list: MutableList<Guards>) {

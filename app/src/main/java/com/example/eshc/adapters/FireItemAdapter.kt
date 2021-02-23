@@ -13,6 +13,7 @@ import com.example.eshc.model.Items
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.imageview.ShapeableImageView
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
 
@@ -22,14 +23,14 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
     private lateinit var context: Context
 
     override fun onViewAttachedToWindow(holder: ItemViewHolder) {
-        holder.recyclerItemContainer.setOnClickListener {
+        holder.img.setOnClickListener {
             val item = getItem(holder.adapterPosition)
             FragmentView.popUpFragmentClick(item)
         }
     }
 
     override fun onViewDetachedFromWindow(holder: ItemViewHolder) {
-        holder.recyclerItemContainer.setOnClickListener(null)
+        holder.img.setOnClickListener(null)
         super.onViewDetachedFromWindow(holder)
     }
 
@@ -42,6 +43,8 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int, model: Items) {
+
+        holder.img.animation = AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation)
 
         holder.recyclerItemContainer.animation =
             AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
@@ -63,7 +66,7 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
         val address: TextView = itemView.address_txt
         val worker08: TextView = itemView.worker08_txt
         val serverTimestamp: TextView = itemView.serverTimestamp_txt
-        val recyclerItemContainer: ConstraintLayout = itemView.rv_item_container
+        val recyclerItemContainer : ConstraintLayout = itemView.rvItemContainer
+        val img: ShapeableImageView = itemView.iv_itemLogo
     }
-
 }

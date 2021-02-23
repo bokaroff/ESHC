@@ -31,6 +31,8 @@ class UpdateItemFragment : Fragment() {
 
     private var _binding: FragmentUpdateItemBinding? = null
     private val mBinding get() = _binding!!
+    private var currentTime: Date = Date()
+
     private lateinit var mToolbar: Toolbar
     private lateinit var mTextView: TextView
     private lateinit var mCurrentItem: Items
@@ -63,8 +65,16 @@ class UpdateItemFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
+        checkTimeRanges()
         mButtonSave.setOnClickListener {
+
+            if (timeRange08 || timeRange15 || timeRange21 || timeRangeBeforeMidnight || timeRangeAfterMidnight
+                || timeRange02 || timeRange04 || timeRange06){
+                showToast("Внесение изменений во время доклада невозможно!")
+                return@setOnClickListener
+            }
+
             val item = getNewItem()
             if (item.objectName.isNotEmpty()) {
                 updateItem(item)
@@ -73,7 +83,23 @@ class UpdateItemFragment : Fragment() {
         }
     }
 
-    private fun initialization() {
+    private fun checkTimeRanges() {
+        currentTime = Calendar.getInstance(Locale.getDefault()).time
+
+        timeRange08 = (currentTime.after(timeStart08.time)) && (currentTime.before(timeEnd08.time))
+        timeRange15 = (currentTime.after(timeStart15.time)) && (currentTime.before(timeEnd15.time))
+        timeRange21 = (currentTime.after(timeStart21.time)) && (currentTime.before(timeEnd21.time))
+        timeRange02 = (currentTime.after(timeStart02.time)) && (currentTime.before(timeEnd02.time))
+        timeRange04 = (currentTime.after(timeStart04.time)) && (currentTime.before(timeEnd04.time))
+        timeRange06 = (currentTime.after(timeStart06.time)) && (currentTime.before(timeEnd06.time))
+        timeRangeBeforeMidnight = (currentTime.after(timeStartBeforeMidnight.time))
+                && (currentTime.before(timeEndBeforeMidnight.time))
+
+        timeRangeAfterMidnight = (currentTime.after(timeStartAfterMidnight.time))
+                && (currentTime.before(timeEndAfterMidnight.time))
+    }
+
+    private fun initialise() {
         mToolbar = mBinding.fragmentUpdateItemToolbar
         mTextView = mBinding.fragmentUpdateItemTextView
         mToolbar.setupWithNavController(findNavController())
