@@ -26,14 +26,14 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
     private var mListFiltered = mutableListOf<Guards>()
 
     override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
-        holder.guardRvContainer.setOnClickListener {
+        holder.guardImg.setOnClickListener {
             val guard = mListFiltered[holder.adapterPosition]
             FragmentGuard.popUpFragmentClick(guard)
         }
     }
 
     override fun onViewDetachedFromWindow(holder: SimpleViewHolder) {
-        holder.guardRvContainer.setOnClickListener(null)
+        holder.guardImg.setOnClickListener(null)
         super.onViewDetachedFromWindow(holder)
     }
 

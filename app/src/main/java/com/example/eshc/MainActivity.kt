@@ -1,11 +1,15 @@
 package com.example.eshc
 
+import android.content.DialogInterface
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     val mBinding get() = _binding!!
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    //  @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
@@ -57,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         getMainItemsList()
         getMainGuardsList()
         setUpNavController()
+        checkForPermissions(android.Manifest.permission.CALL_PHONE, "звонки", CALL_PHONE_RQ)
         Log.d(TAG, "start: $localClassName")
     }
 
@@ -65,12 +70,12 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val itemsData =  REPOSITORY_ROOM.getMainItemList()
+                val itemsData = REPOSITORY_ROOM.getMainItemList()
                 Log.d(TAG, "$localClassName getMainItemList: + ${itemsData.size}")
 
-                if (itemsData.isEmpty()){
+                if (itemsData.isEmpty()) {
 
-                   val querySnapshot = collectionITEMS_REF
+                    val querySnapshot = collectionITEMS_REF
                         .orderBy("objectName", Query.Direction.ASCENDING)
                         .get().await()
 
@@ -96,12 +101,12 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val guardsData =  REPOSITORY_ROOM.getMainGuardList()
+                val guardsData = REPOSITORY_ROOM.getMainGuardList()
                 Log.d(TAG, " $localClassName getMainGuardList: + ${guardsData.size}")
 
-                if (guardsData.isEmpty()){
+                if (guardsData.isEmpty()) {
 
-                    val querySnapshot =  collectionGUARDS_REF
+                    val querySnapshot = collectionGUARDS_REF
                         .orderBy("guardName", Query.Direction.ASCENDING).get().await()
 
                     for (documentSnapShot in querySnapshot) {
@@ -167,6 +172,64 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+
+
+    private fun checkForPermissions(permission: String, name: String, requestCode: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    applicationContext,
+                    permission
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                   // showToast("Разрешение на $name получено")
+                }
+                shouldShowRequestPermissionRationale(permission) -> showDialog(
+                    permission,
+                    name,
+                    requestCode
+                )
+
+                else -> ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        fun innerCheck(name: String) {
+            if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                showToast("Отказано в разрешении на $name")
+            } else {
+                showToast("Разрешение на $name получено")
+            }
+        }
+
+        when (requestCode) {
+            CALL_PHONE_RQ -> innerCheck("звонки")
+        }
+
+    }
+
+    private fun showDialog(permission: String, name: String, requestCode: Int) {
+        val builder = AlertDialog.Builder(this)
+
+        builder.apply {
+            setMessage("Необходимо разрешение на $name для использования этого приложения")
+            setTitle("Необходимо разрешение!")
+            setPositiveButton("Да") { dialogInterface: DialogInterface, i: Int ->
+                ActivityCompat.requestPermissions(
+                    this@MainActivity,
+                    arrayOf(permission),
+                    requestCode
+                )
+            }
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     override fun onResume() {

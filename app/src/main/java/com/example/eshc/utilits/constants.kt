@@ -13,6 +13,7 @@ import java.util.*
 
 
 const val TAG = "ktx"
+const val CALL_PHONE_RQ = 101
 
 const val field_00 = "order00"
 const val field_02 = "order02"
