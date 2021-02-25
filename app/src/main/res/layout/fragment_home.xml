@@ -11,10 +11,22 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_profileImage"
         style="@style/shapeImageView"
-        app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.App.BottomRightCornerCut" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_camera"
+        app:srcCompat="@drawable/camera"
+        style="@style/shapeImageView_small"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_profileImage"
+        app:layout_constraintEnd_toEndOf="@+id/iv_profileImage"
+        app:layout_constraintStart_toEndOf="@+id/iv_profileImage"
+        app:layout_constraintTop_toBottomOf="@+id/iv_profileImage"
+        app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"
+        android:contentDescription=""
+        />
 
     <EditText
         android:id="@+id/et_profileUsername"
@@ -24,8 +36,7 @@
         android:hint="@string/userName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_profileImage"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/img_camera" />
 
     <EditText
         android:id="@+id/et_profileEmail"
@@ -35,8 +46,7 @@
         android:hint="@string/e_mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_profileUsername"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/et_profileUsername" />
 
     <Button
         android:id="@+id/btn_profileSaveInfo"
@@ -126,7 +136,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container_cars"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/container_cars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

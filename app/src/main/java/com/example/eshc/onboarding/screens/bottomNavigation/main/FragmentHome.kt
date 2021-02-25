@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentHomeBinding
@@ -20,7 +19,6 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.UserProfileChangeRequest
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,7 +31,8 @@ class FragmentHome : BottomSheetDialogFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val mBinding get() = _binding!!
     private var fileUri: Uri? = null
-    private lateinit var img: ShapeableImageView
+    private lateinit var img_profile: ShapeableImageView
+    private lateinit var img_camera: ShapeableImageView
     private lateinit var etEmail: EditText
     private lateinit var etUserName: EditText
     private lateinit var btnSave: Button
@@ -55,7 +54,8 @@ class FragmentHome : BottomSheetDialogFragment() {
     }
 
     private fun initialise() {
-        img = mBinding.ivProfileImage
+        img_profile = mBinding.ivProfileImage
+        img_camera = mBinding.imgCamera
         etUserName = mBinding.etProfileUsername
         etEmail = mBinding.etProfileEmail
         btnSave = mBinding.btnProfileSaveInfo
@@ -71,7 +71,11 @@ class FragmentHome : BottomSheetDialogFragment() {
             saveUserInfo()
         }
 
-        img.setOnClickListener {
+        img_profile.setOnClickListener {
+            selectImage()
+        }
+
+        img_camera.setOnClickListener {
             selectImage()
         }
     }
@@ -79,7 +83,7 @@ class FragmentHome : BottomSheetDialogFragment() {
     private fun setUserInfo(){
         etEmail.setText(AUTH.currentUser?.email)
         etUserName.setText(AUTH.currentUser?.displayName)
-        img.setImageURI(AUTH.currentUser?.photoUrl)
+        img_profile.setImageURI(AUTH.currentUser?.photoUrl)
 
         fileUri = AUTH.currentUser?.photoUrl
     }

@@ -84,7 +84,7 @@ class Fragment15 : Fragment() {
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
         timeStart15.set(Calendar.HOUR_OF_DAY, 14)
-        timeStart15.set(Calendar.MINUTE, 40)
+        timeStart15.set(Calendar.MINUTE, 0)
         timeStart15.set(Calendar.SECOND, 0)
         timeEnd15.set(Calendar.HOUR_OF_DAY, 15)
         timeEnd15.set(Calendar.MINUTE, 30)

@@ -2,6 +2,7 @@ package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.example.eshc.adapters.AdapterItemsRoom
 import com.example.eshc.databinding.FragmentItemRoomBottomSheetBinding
 import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.REPOSITORY_ROOM
+import com.example.eshc.utilits.TAG
 import com.example.eshc.utilits.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,18 +30,13 @@ class FragmentItemRoomByDateSelected : Fragment() {
     private var _binding: FragmentItemRoomBottomSheetBinding? = null
     private val mBinding get() = _binding!!
 
-    private var day = 0
-    private var month = 0
-    private var year = 0
     private var firstDateLongType: Long = 0
     private var secondDateLongType: Long = 0
     private var firstCurrentDateString = ""
     private var secondCurrentDateString = ""
 
-    private lateinit var firstDatePicker: DatePickerDialog
-    private lateinit var secondDatePicker: DatePickerDialog
-    private lateinit var firstDate: TextView
-    private lateinit var secondDate: TextView
+    private lateinit var firstDateTextView: TextView
+    private lateinit var secondDateTextView: TextView
     private lateinit var btn: Button
     private lateinit var mToolbar: Toolbar
     private lateinit var mRecyclerView: RecyclerView
@@ -57,15 +54,14 @@ class FragmentItemRoomByDateSelected : Fragment() {
     override fun onStart() {
         super.onStart()
         initialise()
-        getDateCalendar()
-        setFirstDate()
-        setSecondDate()
+        setStartDate()
+        setEndDate()
         getSelectedData()
     }
 
     private fun initialise() {
-        firstDate = mBinding.FragmentItemRoomByDateSelectedTxt1
-        secondDate = mBinding.FragmentItemRoomByDateSelectedTxt2
+        firstDateTextView = mBinding.FragmentItemRoomByDateSelectedTxt1
+        secondDateTextView = mBinding.FragmentItemRoomByDateSelectedTxt2
         btn = mBinding.FragmentItemRoomByDateSelectedButton
         mRecyclerView = mBinding.rvFragmentItemRoomByDateSelected
         mToolbar = mBinding.FragmentItemRoomByDateSelectedToolbar
@@ -74,52 +70,75 @@ class FragmentItemRoomByDateSelected : Fragment() {
         mRecyclerView.adapter = mAdapterItems
     }
 
-    private fun getDateCalendar() {
-        val cal = Calendar.getInstance()
-        day = cal.get(Calendar.DAY_OF_MONTH)
-        month = cal.get(Calendar.MONTH)
-        year = cal.get(Calendar.YEAR)
-    }
+    private fun setStartDate() {
+        firstDateTextView.setOnClickListener {
 
-    private fun setFirstDate() {
-        firstDate.setOnClickListener {
-            firstDatePicker = DatePickerDialog(
+            val currentDateTime = Calendar.getInstance()
+            val startYear = currentDateTime.get(Calendar.YEAR)
+            val startMonth = currentDateTime.get(Calendar.MONTH)
+            val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+
+            DatePickerDialog(
                 APP_ACTIVITY,
-                { _, year, month, dayOfMonth ->
-                    val cal = Calendar.getInstance()
-                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    cal.set(Calendar.HOUR, 0)
-                    cal.set(Calendar.MINUTE, 0)
-                    cal.set(Calendar.MONTH, month)
-                    cal.set(Calendar.YEAR, year)
+                DatePickerDialog.OnDateSetListener { _, year, month, day ->
 
-                    firstDateLongType = cal.time.time
-                    firstCurrentDateString = DateFormat.getDateInstance().format(cal.time)
-                    firstDate.text = firstCurrentDateString
-                }, year, month, day
-            )
-            firstDatePicker.show()
+                    val pickedDateTime = Calendar.getInstance()
+                    pickedDateTime.set(Calendar.YEAR, year)
+                    pickedDateTime.set(Calendar.MONTH, month)
+                    pickedDateTime.set(Calendar.DAY_OF_MONTH, day)
+                    pickedDateTime.set(Calendar.HOUR_OF_DAY, 0)
+                    pickedDateTime.set(Calendar.MINUTE, 0)
+                    pickedDateTime.set(Calendar.SECOND, 0)
+                    pickedDateTime.set(Calendar.MILLISECOND, 0)
+
+                    firstDateLongType = pickedDateTime.time.time
+                    firstCurrentDateString =
+                        DateFormat.getDateInstance().format(pickedDateTime.time)
+                    firstDateTextView.text = firstCurrentDateString
+
+                    Log.d(TAG, "pickDateTime: +${pickedDateTime.time} + $firstDateLongType")
+
+                },
+                startYear,
+                startMonth,
+                startDay
+            ).show()
         }
     }
 
-    private fun setSecondDate() {
-        secondDate.setOnClickListener {
-            secondDatePicker = DatePickerDialog(
-                APP_ACTIVITY,
-                { _, year, month, dayOfMonth ->
-                    val cal = Calendar.getInstance()
-                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    cal.set(Calendar.HOUR, 0)
-                    cal.set(Calendar.MINUTE, 0)
-                    cal.set(Calendar.MONTH, month)
-                    cal.set(Calendar.YEAR, year)
+    private fun setEndDate() {
+        secondDateTextView.setOnClickListener {
 
-                    secondDateLongType = cal.time.time
-                    secondCurrentDateString = DateFormat.getDateInstance().format(cal.time)
-                    secondDate.text = secondCurrentDateString
-                }, year, month, day
-            )
-            secondDatePicker.show()
+            val currentDateTime = Calendar.getInstance()
+            val startYear = currentDateTime.get(Calendar.YEAR)
+            val startMonth = currentDateTime.get(Calendar.MONTH)
+            val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+
+            DatePickerDialog(
+                APP_ACTIVITY,
+                DatePickerDialog.OnDateSetListener { _, year, month, day ->
+
+                    val pickedDateTime = Calendar.getInstance()
+                    pickedDateTime.set(Calendar.YEAR, year)
+                    pickedDateTime.set(Calendar.MONTH, month)
+                    pickedDateTime.set(Calendar.DAY_OF_MONTH, day)
+                    pickedDateTime.set(Calendar.HOUR_OF_DAY, 0)
+                    pickedDateTime.set(Calendar.MINUTE, 0)
+                    pickedDateTime.set(Calendar.SECOND, 0)
+                    pickedDateTime.set(Calendar.MILLISECOND, 0)
+
+                    secondDateLongType = pickedDateTime.time.time
+                    secondCurrentDateString =
+                        DateFormat.getDateInstance().format(pickedDateTime.time)
+                    secondDateTextView.text = secondCurrentDateString
+
+                    Log.d(TAG, "pickDateTime: +${pickedDateTime.time} + $secondDateLongType")
+
+                },
+                startYear,
+                startMonth,
+                startDay
+            ).show()
         }
     }
 
@@ -137,7 +156,9 @@ class FragmentItemRoomByDateSelected : Fragment() {
                             )
                         withContext(Dispatchers.Main) {
                             mAdapterItems.setList(list.asReversed())
-                            showToast("${list.size}")
+                            if (list.isNullOrEmpty()) {
+                                showToast("Объектов за данный период нет")
+                            }
                         }
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
@@ -152,5 +173,6 @@ class FragmentItemRoomByDateSelected : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        mRecyclerView.adapter = null
     }
 }

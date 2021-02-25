@@ -9,6 +9,7 @@
     android:startY="0"
     android:endY="24"
     android:type="linear"
+    android:src="@drawable/camera"
     />
 
 

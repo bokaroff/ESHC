@@ -79,7 +79,7 @@ class FragmentGuardLate : Fragment() {
         try {
             val list = REPOSITORY_ROOM.getAllGuardsLate()
             Log.d(TAG, " + getGuardLateList + ${list.size}")
-            mList = list.toMutableList()
+            mList = list.toMutableList().asReversed()
             withContext(Dispatchers.Main) {
                 mAdapterComplete.setList(mList)
             }
