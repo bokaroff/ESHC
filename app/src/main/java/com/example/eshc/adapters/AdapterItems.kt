@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Items
 import com.example.eshc.onboarding.ViewPagerFragment
-import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuard
 import kotlinx.android.synthetic.main.recycler_item_mini.view.*
 
 class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
@@ -22,15 +21,14 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
 
     override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
 
-
         holder.objectPhone.setOnClickListener {
             val objectPhoneNumber = mList[holder.adapterPosition].objectPhone
-            ViewPagerFragment.phoneDial(objectPhoneNumber)
+            ViewPagerFragment.startPhoneDial(objectPhoneNumber)
         }
 
         holder.mobilePhone.setOnClickListener {
             val mobilePhoneNumber = mList[holder.adapterPosition].mobilePhone
-            ViewPagerFragment.phoneDial(mobilePhoneNumber)
+            ViewPagerFragment.startPhoneDial(mobilePhoneNumber)
         }
     }
 

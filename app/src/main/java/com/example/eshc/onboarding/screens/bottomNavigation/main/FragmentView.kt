@@ -1,16 +1,20 @@
 package com.example.eshc.onboarding.screens.bottomNavigation.main
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -31,6 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
+
 
 class FragmentView : Fragment() {
     private var _binding: FragmentViewBinding? = null
@@ -217,8 +222,10 @@ class FragmentView : Fragment() {
                 .navigate(R.id.action_fragmentView_to_fragmentViewBottomSheet, bundle)
         }
 
-        fun phoneDial(phoneNumber: String){
-            showToast(phoneNumber)
+       fun startPhoneDial(phoneNumber: String){
+           val  intent = Intent(Intent.ACTION_DIAL)
+           intent.data = Uri.parse("tel:$phoneNumber")
+           startActivity(APP_ACTIVITY, intent, null)
         }
     }
 }

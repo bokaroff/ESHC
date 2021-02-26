@@ -1,11 +1,14 @@
 package com.example.eshc.onboarding
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.FragmentViewPagerBinding
@@ -95,8 +98,10 @@ class ViewPagerFragment : Fragment() {
     }
 
     companion object {
-        fun phoneDial(phoneNumber: String){
-            showToast(phoneNumber)
+        fun startPhoneDial(phoneNumber: String){
+            val  intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$phoneNumber")
+            ContextCompat.startActivity(APP_ACTIVITY, intent, null)
         }
     }
 }

@@ -34,12 +34,12 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
 
         holder.guardPhone.setOnClickListener {
             val guardPhoneNumber = mListFiltered[holder.adapterPosition].guardPhone
-            FragmentGuard.phoneDial(guardPhoneNumber)
+            FragmentGuard.startPhoneDial(guardPhoneNumber)
         }
 
         holder.guardPhone2.setOnClickListener {
             val guardPhoneNumber2 = mListFiltered[holder.adapterPosition].guardPhone_2
-            FragmentGuard.phoneDial(guardPhoneNumber2)
+            FragmentGuard.startPhoneDial(guardPhoneNumber2)
         }
     }
 

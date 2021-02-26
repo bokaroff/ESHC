@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.eshc.MainActivity
 import com.example.eshc.R
 import com.example.eshc.model.Items
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentView
@@ -31,12 +32,12 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>) :
 
         holder.objectPhone.setOnClickListener {
             val objectPhoneNumber = getItem(holder.adapterPosition).objectPhone
-            FragmentView.phoneDial(objectPhoneNumber)
+           FragmentView.startPhoneDial(objectPhoneNumber)
         }
 
         holder.mobilePhone.setOnClickListener {
             val mobilePhoneNumber = getItem(holder.adapterPosition).mobilePhone
-            FragmentView.phoneDial(mobilePhoneNumber)
+            FragmentView.startPhoneDial(mobilePhoneNumber)
         }
     }
 

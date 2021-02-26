@@ -98,10 +98,16 @@ class SplashFragment : Fragment() {
                     }
 
                     withContext(Dispatchers.Main) {
-                        showToast("Вы вошли в свой аккаунт")
-                        findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
-                    }
+                        val name = AUTH.currentUser?.displayName
+                        if (name.isNullOrEmpty()){
+                            showToast("Добро пожаловать!")
+                            findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
 
+                        }else {
+                            showToast("Добро пожаловать $name!")
+                            findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
+                        }
+                    }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
                         e.message?.let { showToast(it) }
