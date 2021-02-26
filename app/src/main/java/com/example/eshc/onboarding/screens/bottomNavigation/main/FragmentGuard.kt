@@ -250,5 +250,9 @@ class FragmentGuard : Fragment() {
             APP_ACTIVITY.navController
                 .navigate(R.id.action_fragmentGuard_to_fragmentGuardBottomSheet, bundle)
         }
+
+        fun phoneDial(phoneNumber: String){
+            showToast(phoneNumber)
+        }
     }
 }

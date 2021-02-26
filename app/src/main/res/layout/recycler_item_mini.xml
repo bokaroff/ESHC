@@ -14,12 +14,7 @@
 
         <TextView
             android:id="@+id/objectName_mini"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_size_large"
-            android:textStyle="bold"
+            style="@style/rv_item_name_textView_style"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,23 +28,13 @@
 
         <TextView
             android:id="@+id/phone_mini"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin_small"
-            android:textColor="@color/eliteColorLight"
-            android:textStyle="italic"
+            style="@style/rv_item_phone_textView_style"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/objectName_mini" />
 
         <TextView
             android:id="@+id/mobile_mini"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin_small"
-            android:textColor="@color/eliteColorLight"
-            android:textStyle="italic"
+            style="@style/rv_item_phone_textView_style"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/objectName_mini" />
 

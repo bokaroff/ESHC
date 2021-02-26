@@ -11,11 +11,34 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Items
+import com.example.eshc.onboarding.ViewPagerFragment
+import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuard
 import kotlinx.android.synthetic.main.recycler_item_mini.view.*
 
 class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
     private lateinit var context: Context
     private var mList = mutableListOf<Items>()
+
+
+    override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
+
+
+        holder.objectPhone.setOnClickListener {
+            val objectPhoneNumber = mList[holder.adapterPosition].objectPhone
+            ViewPagerFragment.phoneDial(objectPhoneNumber)
+        }
+
+        holder.mobilePhone.setOnClickListener {
+            val mobilePhoneNumber = mList[holder.adapterPosition].mobilePhone
+            ViewPagerFragment.phoneDial(mobilePhoneNumber)
+        }
+    }
+
+    override fun onViewDetachedFromWindow(holder: SimpleViewHolder) {
+        holder.objectPhone.setOnClickListener(null)
+        holder.mobilePhone.setOnClickListener(null)
+        super.onViewDetachedFromWindow(holder)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(

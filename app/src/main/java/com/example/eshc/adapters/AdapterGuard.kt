@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
 import com.example.eshc.model.Guards
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuard
+import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentView
 import com.example.eshc.utilits.TAG
 import com.google.android.material.imageview.ShapeableImageView
 import kotlinx.android.synthetic.main.recycler_guard.view.*
@@ -30,10 +31,22 @@ class AdapterGuard : RecyclerView.Adapter<AdapterGuard.SimpleViewHolder>(), Filt
             val guard = mListFiltered[holder.adapterPosition]
             FragmentGuard.popUpFragmentClick(guard)
         }
+
+        holder.guardPhone.setOnClickListener {
+            val guardPhoneNumber = mListFiltered[holder.adapterPosition].guardPhone
+            FragmentGuard.phoneDial(guardPhoneNumber)
+        }
+
+        holder.guardPhone2.setOnClickListener {
+            val guardPhoneNumber2 = mListFiltered[holder.adapterPosition].guardPhone_2
+            FragmentGuard.phoneDial(guardPhoneNumber2)
+        }
     }
 
     override fun onViewDetachedFromWindow(holder: SimpleViewHolder) {
         holder.guardImg.setOnClickListener(null)
+        holder.guardPhone.setOnClickListener(null)
+        holder.guardPhone2.setOnClickListener(null)
         super.onViewDetachedFromWindow(holder)
     }
 

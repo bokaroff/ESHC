@@ -216,5 +216,9 @@ class FragmentView : Fragment() {
             APP_ACTIVITY.navController
                 .navigate(R.id.action_fragmentView_to_fragmentViewBottomSheet, bundle)
         }
+
+        fun phoneDial(phoneNumber: String){
+            showToast(phoneNumber)
+        }
     }
 }

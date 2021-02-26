@@ -93,4 +93,10 @@ class ViewPagerFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    companion object {
+        fun phoneDial(phoneNumber: String){
+            showToast(phoneNumber)
+        }
+    }
 }

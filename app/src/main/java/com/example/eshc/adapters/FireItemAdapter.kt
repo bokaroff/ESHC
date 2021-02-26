@@ -1,6 +1,7 @@
 package com.example.eshc.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +18,8 @@ import com.google.android.material.imageview.ShapeableImageView
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
 
-class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
-    : FirestoreRecyclerAdapter<Items, FireItemAdapter.ItemViewHolder>(options) {
+class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>) :
+    FirestoreRecyclerAdapter<Items, FireItemAdapter.ItemViewHolder>(options) {
 
     private lateinit var context: Context
 
@@ -27,10 +28,22 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
             val item = getItem(holder.adapterPosition)
             FragmentView.popUpFragmentClick(item)
         }
+
+        holder.objectPhone.setOnClickListener {
+            val objectPhoneNumber = getItem(holder.adapterPosition).objectPhone
+            FragmentView.phoneDial(objectPhoneNumber)
+        }
+
+        holder.mobilePhone.setOnClickListener {
+            val mobilePhoneNumber = getItem(holder.adapterPosition).mobilePhone
+            FragmentView.phoneDial(mobilePhoneNumber)
+        }
     }
 
     override fun onViewDetachedFromWindow(holder: ItemViewHolder) {
         holder.img.setOnClickListener(null)
+        holder.objectPhone.setOnClickListener(null)
+        holder.mobilePhone.setOnClickListener(null)
         super.onViewDetachedFromWindow(holder)
     }
 
@@ -44,7 +57,8 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int, model: Items) {
 
-        holder.img.animation = AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation)
+        holder.img.animation =
+            AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation)
 
         holder.recyclerItemContainer.animation =
             AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
@@ -66,7 +80,7 @@ class FireItemAdapter<T, U>(options: FirestoreRecyclerOptions<Items>)
         val address: TextView = itemView.address_txt
         val worker08: TextView = itemView.worker08_txt
         val serverTimestamp: TextView = itemView.serverTimestamp_txt
-        val recyclerItemContainer : ConstraintLayout = itemView.rvItemContainer
+        val recyclerItemContainer: ConstraintLayout = itemView.rvItemContainer
         val img: ShapeableImageView = itemView.iv_itemLogo
     }
 }

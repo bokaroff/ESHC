@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.eshc.R
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment08Binding
+import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.google.firebase.firestore.DocumentChange
