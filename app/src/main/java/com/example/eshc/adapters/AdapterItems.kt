@@ -10,12 +10,13 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
+import com.example.eshc.databinding.RecyclerItemMiniBinding
 import com.example.eshc.model.Items
 import com.example.eshc.onboarding.ViewPagerFragment
 import kotlinx.android.synthetic.main.recycler_item_mini.view.*
 
 class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
-    private lateinit var context: Context
+    private lateinit var mContext: Context
     private var mList = mutableListOf<Items>()
 
 
@@ -39,16 +40,20 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.recycler_item_mini, parent, false
+        val view = SimpleViewHolder(
+            RecyclerItemMiniBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-        context = parent.context
-        return SimpleViewHolder(view)
+        mContext = parent.context
+        return view
     }
 
     override fun onBindViewHolder(holder: SimpleViewHolder, position: Int) {
         holder.recyclerItemContainer.animation =
-            AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
+            AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation)
 
         holder.objectName.text = mList[position].objectName
         holder.kurator.text = mList[position].kurator
@@ -60,12 +65,13 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
         return mList.size
     }
 
-    class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val objectName: TextView = itemView.objectName_mini
-        val kurator: TextView = itemView.kurator_mini
-        val objectPhone: TextView = itemView.phone_mini
-        val mobilePhone: TextView = itemView.mobile_mini
-        val recyclerItemContainer: ConstraintLayout = itemView.rvItemContainer_mini
+    class SimpleViewHolder(binding: RecyclerItemMiniBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val objectName: TextView = binding.objectNameMini
+        val kurator: TextView = binding.kuratorMini
+        val objectPhone: TextView = binding.phoneMini
+        val mobilePhone: TextView = binding.mobileMini
+        val recyclerItemContainer: ConstraintLayout = binding.rvItemContainerMini
     }
 
     fun setList(list: List<Items>) {

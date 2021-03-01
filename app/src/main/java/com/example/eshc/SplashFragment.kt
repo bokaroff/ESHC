@@ -18,8 +18,6 @@ import com.example.eshc.utilits.showToast
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.UserProfileChangeRequest
-import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -73,7 +71,7 @@ class SplashFragment : Fragment() {
             createOrLoginUser()
         }
 
-        iv_profileImage.setOnClickListener {
+        img.setOnClickListener {
             selectImage()
         }
     }
@@ -139,7 +137,7 @@ class SplashFragment : Fragment() {
         when(resultCode){
             Activity.RESULT_OK ->{
                 fileUri = data?.data
-                iv_profileImage.setImageURI(fileUri)
+                img.setImageURI(fileUri)
             }
             ImagePicker.RESULT_ERROR ->{
                 showToast(ImagePicker.getError(data))

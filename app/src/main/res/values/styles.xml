@@ -79,6 +79,16 @@
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
 
+    <style name="rv_simple_textView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:layout_marginTop">@dimen/margin_small</item>
+        <item name="android:textColor">@color/eliteColorLight</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+
     <style name="rv_item_name_textView_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -214,6 +224,10 @@
         <item name="android:padding">@dimen/padding_main</item>
     </style>
 
+    <!-- CardView -->
 
+    <style name="AppCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">8dp</item>
+    </style>
 
 </resources>

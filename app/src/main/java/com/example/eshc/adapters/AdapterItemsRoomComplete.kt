@@ -10,12 +10,14 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
+import com.example.eshc.databinding.RvItemRoomMiniBinding
 import com.example.eshc.model.Items
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentItemRoom
 import kotlinx.android.synthetic.main.recycler_item_mini.view.*
 
-class AdapterItemsRoomComplete() : RecyclerView.Adapter<AdapterItemsRoomComplete.SimpleViewHolder>() {
-    private lateinit var context: Context
+class AdapterItemsRoomComplete() :
+    RecyclerView.Adapter<AdapterItemsRoomComplete.SimpleViewHolder>() {
+    private lateinit var mContext: Context
     private var mList = mutableListOf<Items>()
 
     override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
@@ -32,18 +34,23 @@ class AdapterItemsRoomComplete() : RecyclerView.Adapter<AdapterItemsRoomComplete
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.recycler_item_mini, parent, false
+        val view = SimpleViewHolder(
+            RvItemRoomMiniBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-        context = parent.context
-        return SimpleViewHolder(view)
+        mContext = parent.context
+        return view
     }
 
     override fun onBindViewHolder(holder: SimpleViewHolder, position: Int) {
         holder.recyclerItemContainer.animation =
-            AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
+            AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation)
 
         holder.objectName.text = mList[position].objectName
+        holder.kurator.text = mList[position].kurator
         holder.worker.text = mList[position].worker08
         holder.serverTime.text = mList[position].serverTimeStamp
     }
@@ -52,11 +59,12 @@ class AdapterItemsRoomComplete() : RecyclerView.Adapter<AdapterItemsRoomComplete
         return mList.size
     }
 
-    class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val objectName: TextView = itemView.objectName_mini
-        val worker: TextView = itemView.phone_mini
-        val serverTime: TextView = itemView.mobile_mini
-        val recyclerItemContainer: ConstraintLayout = itemView.rvItemContainer_mini
+    class SimpleViewHolder(binding: RvItemRoomMiniBinding) : RecyclerView.ViewHolder(binding.root) {
+        val objectName: TextView = binding.objectNameRoomMini
+        val kurator: TextView = binding.kuratorRoomMini
+        val worker: TextView = binding.workerRoomMini
+        val serverTime: TextView = binding.timeRoomMini
+        val recyclerItemContainer: ConstraintLayout = binding.rvItemRoomContainerMini
     }
 
     fun setList(list: List<Items>) {

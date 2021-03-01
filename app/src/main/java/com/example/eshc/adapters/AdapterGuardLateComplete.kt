@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eshc.R
+import com.example.eshc.databinding.RecyclerGuardLateBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuardLate
 import com.example.eshc.utilits.TAG
@@ -21,7 +22,7 @@ import java.util.*
 
 class AdapterGuardLateComplete : RecyclerView.Adapter<AdapterGuardLateComplete.SimpleViewHolder>(),
     Filterable {
-    private lateinit var context: Context
+    private lateinit var mContext: Context
     private var mList = mutableListOf<Guards>()
     private var mListFiltered = mutableListOf<Guards>()
 
@@ -40,16 +41,20 @@ class AdapterGuardLateComplete : RecyclerView.Adapter<AdapterGuardLateComplete.S
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.recycler_guard_late, parent, false
+        val view = SimpleViewHolder(
+            RecyclerGuardLateBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-        context = parent.context
-        return SimpleViewHolder(view)
+        mContext = parent.context
+        return view
     }
 
     override fun onBindViewHolder(holder: SimpleViewHolder, position: Int) {
         holder.rvGuardLateContainer.animation =
-            AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
+            AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation)
 
         holder.guardLateName.text = mListFiltered[position].guardName
         holder.guardLateKurator.text = mListFiltered[position].guardKurator
@@ -61,12 +66,13 @@ class AdapterGuardLateComplete : RecyclerView.Adapter<AdapterGuardLateComplete.S
         return mListFiltered.size
     }
 
-    class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val rvGuardLateContainer: ConstraintLayout = itemView.rvGuardLateContainer
-        val guardLateName: TextView = itemView.guardLateName
-        val guardLateKurator: TextView = itemView.guardLateKurator
-        val guardLateWork: TextView = itemView.guardLateWork
-        val guardLateTime: TextView = itemView.guardLateTime
+    class SimpleViewHolder(binding: RecyclerGuardLateBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val rvGuardLateContainer: ConstraintLayout = binding.rvGuardLateContainer
+        val guardLateName: TextView = binding.guardLateName
+        val guardLateKurator: TextView = binding.guardLateKurator
+        val guardLateWork: TextView = binding.guardLateWork
+        val guardLateTime: TextView = binding.guardLateTime
     }
 
     fun setList(list: MutableList<Guards>) {
