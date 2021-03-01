@@ -3,7 +3,6 @@ package com.example.eshc.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
@@ -13,7 +12,6 @@ import com.example.eshc.R
 import com.example.eshc.databinding.RvItemRoomMiniBinding
 import com.example.eshc.model.Items
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentItemRoom
-import kotlinx.android.synthetic.main.recycler_item_mini.view.*
 
 class AdapterItemsRoomComplete() :
     RecyclerView.Adapter<AdapterItemsRoomComplete.SimpleViewHolder>() {

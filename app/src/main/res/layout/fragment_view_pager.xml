@@ -16,9 +16,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tabGravity="center"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
-        app:tabTextColor="@color/colorBlack">
+        >
 
     </com.google.android.material.tabs.TabLayout>
 

@@ -4,7 +4,6 @@ package com.example.eshc.adapters
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Filter
@@ -17,7 +16,6 @@ import com.example.eshc.databinding.RecyclerGuardLateBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.onboarding.screens.bottomNavigation.main.FragmentGuardLate
 import com.example.eshc.utilits.TAG
-import kotlinx.android.synthetic.main.recycler_guard_late.view.*
 import java.util.*
 
 class AdapterGuardLateComplete : RecyclerView.Adapter<AdapterGuardLateComplete.SimpleViewHolder>(),

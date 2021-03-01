@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/eliteColorLight</item>
-        <item name="colorPrimaryDark">@color/eliteColor</item>
+        <item name="colorPrimary">@color/material_blue_dark</item>
+        <item name="colorPrimaryDark">@color/material_blue</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorWhite</item>
     </style>
@@ -170,7 +170,7 @@
     <style name="toolBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/toolbar_height</item>
-        <item name="android:background">@color/eliteColor</item>
+        <item name="android:background">@color/material_blue</item>
     </style>
 
     <!-- ButtonStyle -->

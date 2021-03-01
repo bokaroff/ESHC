@@ -17,18 +17,18 @@ import kotlinx.android.synthetic.main.recycler_guard.view.*
 class FireGuardAdapter<T, U>(options: FirestoreRecyclerOptions<Guards>)
     : FirestoreRecyclerAdapter<Guards, FireGuardAdapter.GuardViewHolder>(options) {
 
-    private lateinit var context: Context
+    private lateinit var mContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuardViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_guard, parent, false)
-        context = parent.context
+        mContext = parent.context
         return GuardViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: GuardViewHolder, position: Int, model: Guards) {
         holder.guardRvContainer.animation =
-            AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
+            AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation)
 
         holder.guardName.text = model.guardName
         holder.guardPhone.text = model.guardPhone
