@@ -1,5 +1,6 @@
 package com.example.eshc
 
+import android.app.DownloadManager
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
@@ -23,6 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,20 +51,23 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        APP_ACTIVITY = this
-        AUTH = FirebaseAuth.getInstance()
-        DB = FirebaseFirestore.getInstance()
-        ITEM = Items()
-        GUARD = Guards()
-        ITEM_ROOM_DATABASE = ItemRoomDatabase.getInstance(this)
-        ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
-        REPOSITORY_ROOM = RoomRepository(ITEM_ROOM_DAO)
-
+        initialise()
         getMainItemsList()
         getMainGuardsList()
         setUpNavController()
         checkForPermissions(android.Manifest.permission.CALL_PHONE, "звонки", CALL_PHONE_RQ)
         Log.d(TAG, "start: $localClassName")
+    }
+
+    private fun initialise() {
+        APP_ACTIVITY = this
+        AUTH = FirebaseAuth.getInstance()
+      //  DB = FirebaseFirestore.getInstance()
+        ITEM = Items()
+        GUARD = Guards()
+        ITEM_ROOM_DATABASE = ItemRoomDatabase.getInstance(this)
+        ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
+        REPOSITORY_ROOM = RoomRepository(ITEM_ROOM_DAO)
     }
 
     private fun getMainItemsList() {
@@ -211,7 +216,6 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             CALL_PHONE_RQ -> innerCheck("звонки")
         }
-
     }
 
     private fun showDialog(permission: String, name: String, requestCode: Int) {

@@ -10,16 +10,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.eshc.R
 import com.example.eshc.databinding.FragmentHomeBinding
 import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.AUTH
 import com.example.eshc.utilits.showToast
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.UserProfileChangeRequest
-import kotlinx.android.synthetic.main.fragment_splash.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +38,7 @@ class FragmentHome : BottomSheetDialogFragment() {
     private lateinit var etUserName: EditText
     private lateinit var btnSave: Button
     private lateinit var txtSignOut: TextView
+    private lateinit var mContainer: ConstraintLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,6 +62,7 @@ class FragmentHome : BottomSheetDialogFragment() {
         etEmail = mBinding.etProfileEmail
         btnSave = mBinding.btnProfileSaveInfo
         txtSignOut = mBinding.tvProfileSignOut
+        mContainer = mBinding.fragmentHomeMainContainer
     }
 
     private fun btnClicks(){
@@ -139,7 +142,7 @@ class FragmentHome : BottomSheetDialogFragment() {
         when(resultCode){
             Activity.RESULT_OK ->{
                 fileUri = data?.data
-                iv_profileImage.setImageURI(fileUri)
+                img_profile.setImageURI(fileUri)
             }
             ImagePicker.RESULT_ERROR ->{
                 showToast(ImagePicker.getError(data))

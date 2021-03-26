@@ -108,7 +108,7 @@ var timeRangeAfterMidnight: Boolean = false
 
 
 lateinit var APP_ACTIVITY: MainActivity
-lateinit var DB: FirebaseFirestore
+ //lateinit var DB: FirebaseFirestore
 lateinit var AUTH: FirebaseAuth
 lateinit var ITEM: Items
 lateinit var GUARD: Guards

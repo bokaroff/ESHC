@@ -70,7 +70,8 @@ class UpdateItemFragment : Fragment() {
         mButtonSave.setOnClickListener {
 
             if (timeRange08 || timeRange15 || timeRange21 || timeRangeBeforeMidnight || timeRangeAfterMidnight
-                || timeRange02 || timeRange04 || timeRange06){
+                || timeRange02 || timeRange04 || timeRange06
+            ) {
                 showToast("Внесение изменений во время доклада невозможно!")
                 return@setOnClickListener
             }
@@ -129,28 +130,21 @@ class UpdateItemFragment : Fragment() {
 
     private fun checkBoxState() {
 
-        when (mCurrentItem.order08) {
-            "true" -> checkBox08.isChecked = true
-        }
-        when (mCurrentItem.order15) {
-            "true" -> checkBox15.isChecked = true
-        }
-        when (mCurrentItem.order21) {
-            "true" -> checkBox21.isChecked = true
-        }
-        when (mCurrentItem.order00) {
-            "true" -> checkBox00.isChecked = true
-        }
-        when (mCurrentItem.order02) {
-            "true" -> checkBox02.isChecked = true
-        }
-        when (mCurrentItem.order04) {
-            "true" -> checkBox04.isChecked = true
-        }
-        when (mCurrentItem.order06) {
-            "true" -> checkBox06.isChecked = true
-        }
+        when {
+            mCurrentItem.order08 == "true" -> checkBox08.isChecked = true
 
+            mCurrentItem.order15 == "true" -> checkBox15.isChecked = true
+
+            mCurrentItem.order21 == "true" -> checkBox21.isChecked = true
+
+            mCurrentItem.order00 == "true" -> checkBox00.isChecked = true
+
+            mCurrentItem.order02 == "true" -> checkBox02.isChecked = true
+
+            mCurrentItem.order04 == "true" -> checkBox04.isChecked = true
+
+            mCurrentItem.order06 == "true" -> checkBox06.isChecked = true
+        }
     }
 
     private fun getNewItem(): Items {
@@ -178,31 +172,26 @@ class UpdateItemFragment : Fragment() {
         when {
             checkBox08.isChecked -> ITEM.order08 = "true"
             !checkBox08.isChecked -> ITEM.order08 = "false"
-        }
-        when {
+
             checkBox15.isChecked -> ITEM.order15 = "true"
             !checkBox15.isChecked -> ITEM.order15 = "false"
-        }
-        when {
+
             checkBox21.isChecked -> ITEM.order21 = "true"
             !checkBox21.isChecked -> ITEM.order21 = "false"
-        }
-        when {
+
             checkBox00.isChecked -> ITEM.order00 = "true"
             !checkBox00.isChecked -> ITEM.order00 = "false"
-        }
-        when {
+
             checkBox02.isChecked -> ITEM.order02 = "true"
             !checkBox02.isChecked -> ITEM.order02 = "false"
-        }
-        when {
+
             checkBox04.isChecked -> ITEM.order04 = "true"
             !checkBox04.isChecked -> ITEM.order04 = "false"
-        }
-        when {
+
             checkBox06.isChecked -> ITEM.order06 = "true"
             !checkBox06.isChecked -> ITEM.order06 = "false"
         }
+
         ITEM.state = stateMain
 
         return ITEM
@@ -228,11 +217,11 @@ class UpdateItemFragment : Fragment() {
                         return@launch
                     }
                 }
-                 collectionITEMS_REF.document(newId)
+                collectionITEMS_REF.document(newId)
                     .set(item, SetOptions.merge()).await()
-              REPOSITORY_ROOM.deleteMainItem(newId)
+                REPOSITORY_ROOM.deleteMainItem(newId)
 
-                    Log.d(TAG, "job_1.isCompleted")
+                Log.d(TAG, "job_1.isCompleted")
 
                 REPOSITORY_ROOM.insertItem(item)
                 withContext(Dispatchers.Main) {

@@ -73,13 +73,13 @@ class FragmentView : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         swipeToDelete()
         UIUtil.hideKeyboard(context as Activity)
         Log.d(TAG, "start: $javaClass")
     }
 
-    private fun initialization() {
+    private fun initialise() {
         deleteIcon = ResourcesCompat.getDrawable(
             resources,
             R.drawable.ic_delete_white, null

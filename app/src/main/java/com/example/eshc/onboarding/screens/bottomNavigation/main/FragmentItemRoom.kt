@@ -41,11 +41,11 @@ class FragmentItemRoom : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         getData()
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mAdapterItemsRoomComplete = AdapterItemsRoomComplete()
         mRecyclerView = mBinding.rvFragmentItemRoom
     }

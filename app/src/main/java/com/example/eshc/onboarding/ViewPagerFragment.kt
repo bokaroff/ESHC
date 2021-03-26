@@ -29,8 +29,6 @@ import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 class ViewPagerFragment : Fragment() {
     private var _binding: FragmentViewPagerBinding? = null
     private val mBinding get() = _binding!!
-    private lateinit var mAdapterItems: AdapterItems
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -134,31 +134,26 @@ class AddNewItemFragment : Fragment() {
         when {
             checkBox08.isChecked -> ITEM.order08 = "true"
             !checkBox08.isChecked -> ITEM.order08 = "false"
-        }
-        when {
+
             checkBox15.isChecked -> ITEM.order15 = "true"
             !checkBox15.isChecked -> ITEM.order15 = "false"
-        }
-        when {
+
             checkBox21.isChecked -> ITEM.order21 = "true"
             !checkBox21.isChecked -> ITEM.order21 = "false"
-        }
-        when {
+
             checkBox00.isChecked -> ITEM.order00 = "true"
             !checkBox00.isChecked -> ITEM.order00 = "false"
-        }
-        when {
+
             checkBox02.isChecked -> ITEM.order02 = "true"
             !checkBox02.isChecked -> ITEM.order02 = "false"
-        }
-        when {
+
             checkBox04.isChecked -> ITEM.order04 = "true"
             !checkBox04.isChecked -> ITEM.order04 = "false"
-        }
-        when {
+
             checkBox06.isChecked -> ITEM.order06 = "true"
             !checkBox06.isChecked -> ITEM.order06 = "false"
         }
+
         ITEM.state = stateMain
 
         return ITEM

@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/deepBlue"
+    android:id="@+id/fragmentHomeMainContainer"
     tools:context=".MainActivity">
 
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_profileImage"
         style="@style/shapeImageView"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/ShapeAppearance.App.BottomRightCornerCut" />

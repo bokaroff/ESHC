@@ -139,7 +139,7 @@
     </style>
 
 
-    <!-- TextViewStyle -->
+    <!-- TextViewStyle_Calendar -->
     <style name="textView_calendar">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
