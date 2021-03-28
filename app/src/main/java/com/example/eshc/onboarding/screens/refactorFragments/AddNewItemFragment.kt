@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -17,6 +19,7 @@ import com.example.eshc.R
 import com.example.eshc.databinding.FragmentAddNewItemBinding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,6 +47,8 @@ class AddNewItemFragment : Fragment() {
     private lateinit var checkBox04: CheckBox
     private lateinit var checkBox06: CheckBox
     private lateinit var mButtonSave: Button
+    private lateinit var mSnack: Snackbar
+    private lateinit var mContainer: ConstraintLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,20 +66,12 @@ class AddNewItemFragment : Fragment() {
         super.onStart()
         initialise()
         checkTimeRanges()
-        mButtonSave.setOnClickListener {
+        saveChanges()
+    }
 
-            if (timeRange08 || timeRange15 || timeRange21 || timeRangeBeforeMidnight || timeRangeAfterMidnight
-                || timeRange02 || timeRange04 || timeRange06){
-                showToast("Внесение изменений во время доклада невозможно!")
-                return@setOnClickListener
-            }
-
-            val item = getNewItem()
-            if (item.objectName.isNotEmpty()) {
-                addNewItem(item)
-            }
-            UIUtil.hideKeyboard(context as Activity)
-        }
+    override fun onStop() {
+        super.onStop()
+        mSnack.dismiss()
     }
 
     private fun initialise() {
@@ -93,6 +90,15 @@ class AddNewItemFragment : Fragment() {
         checkBox04 = mBinding.fragmentAddItemField04
         checkBox06 = mBinding.fragmentAddItemField06
         mButtonSave = mBinding.fragmentAddNewItemButtonAdd
+        mContainer = mBinding.fragmentAddNewItemContainer
+
+        mSnack =
+            Snackbar
+                .make(mContainer, "Внесение изменений во время доклада невозможно!", Snackbar.LENGTH_INDEFINITE)
+
+        val view: View = mSnack.view
+        val txt = view.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
+        txt.textAlignment = View.TEXT_ALIGNMENT_CENTER
     }
 
     private fun checkTimeRanges() {
@@ -111,6 +117,23 @@ class AddNewItemFragment : Fragment() {
                 && (currentTime.before(timeEndAfterMidnight.time))
     }
 
+    private fun saveChanges() {
+        if (timeRange08 || timeRange15 || timeRange21 || timeRangeBeforeMidnight || timeRangeAfterMidnight
+            || timeRange02 || timeRange04 || timeRange06
+        ) {
+            mSnack.show()
+            mButtonSave.isEnabled = false
+        } else {
+            mButtonSave.setOnClickListener {
+                val item = getNewItem()
+                if (item.objectName.isNotEmpty()) {
+                    addNewItem(item)
+                }
+                UIUtil.hideKeyboard(context as Activity)
+            }
+        }
+    }
+
     private fun getNewItem(): Items {
         val name = mEdtxtObjectName.text.toString().trim()
         val address = mEdtxtAddress.text.toString().trim()
@@ -121,7 +144,7 @@ class AddNewItemFragment : Fragment() {
         when {
             name.isEmpty() -> {
                 ITEM.objectName = ""
-                showToast("Введите имя охранника")
+                showToast("Введите имя объекта")
             }
             else -> ITEM.objectName = name
         }
@@ -134,25 +157,57 @@ class AddNewItemFragment : Fragment() {
         when {
             checkBox08.isChecked -> ITEM.order08 = "true"
             !checkBox08.isChecked -> ITEM.order08 = "false"
-
+        }
+        when {
             checkBox15.isChecked -> ITEM.order15 = "true"
             !checkBox15.isChecked -> ITEM.order15 = "false"
-
+        }
+        when {
             checkBox21.isChecked -> ITEM.order21 = "true"
             !checkBox21.isChecked -> ITEM.order21 = "false"
-
+        }
+        when {
             checkBox00.isChecked -> ITEM.order00 = "true"
             !checkBox00.isChecked -> ITEM.order00 = "false"
-
+        }
+        when {
             checkBox02.isChecked -> ITEM.order02 = "true"
             !checkBox02.isChecked -> ITEM.order02 = "false"
-
+        }
+        when {
             checkBox04.isChecked -> ITEM.order04 = "true"
             !checkBox04.isChecked -> ITEM.order04 = "false"
-
+        }
+        when {
             checkBox06.isChecked -> ITEM.order06 = "true"
             !checkBox06.isChecked -> ITEM.order06 = "false"
         }
+
+        /*
+               when {
+                   checkBox08.isChecked -> ITEM.order08 = "true"
+                   !checkBox08.isChecked -> ITEM.order08 = "false"
+
+                   checkBox15.isChecked -> ITEM.order15 = "true"
+                   !checkBox15.isChecked -> ITEM.order15 = "false"
+
+                   checkBox21.isChecked -> ITEM.order21 = "true"
+                   !checkBox21.isChecked -> ITEM.order21 = "false"
+
+                   checkBox00.isChecked -> ITEM.order00 = "true"
+                   !checkBox00.isChecked -> ITEM.order00 = "false"
+
+                   checkBox02.isChecked -> ITEM.order02 = "true"
+                   !checkBox02.isChecked -> ITEM.order02 = "false"
+
+                   checkBox04.isChecked -> ITEM.order04 = "true"
+                   !checkBox04.isChecked -> ITEM.order04 = "false"
+
+                   checkBox06.isChecked -> ITEM.order06 = "true"
+                   !checkBox06.isChecked -> ITEM.order06 = "false"
+               }
+
+         */
 
         ITEM.state = stateMain
 
@@ -197,7 +252,7 @@ class AddNewItemFragment : Fragment() {
                     showToast("Добавлен новый объект ${ITEM.objectName}")
                 }
 
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
                 }

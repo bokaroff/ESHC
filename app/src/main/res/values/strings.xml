@@ -8,6 +8,7 @@
     <string name="add_itemsLateList">Добавить текущего сотрудника в список "Опоздавших"</string>
     <string name="add_itemsLateList_new">Добавить нового сотрудника в список "Опоздавших"</string>
     <string name="update_object">Редактировать данные по объекту</string>
+    <string name="update_guard">Редактировать данные по охраннику</string>
     <string name="menu_item_add">Добавить новый объект</string>
     <string name="menu_guard_add">Добавить нового охранника</string>
     <string name="menu_guard_update">Изменить данные охранника</string>
