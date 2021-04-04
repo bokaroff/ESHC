@@ -2,7 +2,6 @@ package com.example.eshc.onboarding.screens.refactorFragments
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -123,7 +122,6 @@ class UpdateGuardFragment : Fragment() {
                     val oldId = doc.guardFire_id
 
                     if (oldName == newName && oldId != newId) {
-                        Log.d(TAG, "equal: + $oldName + $newName ")
                         withContext(Dispatchers.Main) {
                             showToast("Охранник с таким именем уже существует")
                         }

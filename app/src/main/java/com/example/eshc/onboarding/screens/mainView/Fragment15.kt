@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +12,17 @@ import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class Fragment15 : Fragment() {
 
+    private var timeStart15: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEnd15: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange15: Boolean = false
+
     private var _binding: Fragment15Binding? = null
     private val mBinding get() = _binding!!
     private var mMutableList = mutableListOf<Items>()
-    private var currentDate: String = String()
     private var currentTime: Date = Date()
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
@@ -32,7 +33,7 @@ class Fragment15 : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      getData15()
+        getData15()
     }
 
     private fun getData15() {
@@ -41,13 +42,11 @@ class Fragment15 : Fragment() {
             try {
                 val list = async { REPOSITORY_ROOM.getMainItemList15() }
                 mMutableList = list.await() as MutableList<Items>
-                Log.d(TAG, "mMutableList_1: + ${mMutableList.size} ")
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
                 }
             }
-            Log.d(TAG, "mMutableList_2: + ${mMutableList.size} ")
             mMutableList
         }
     }
@@ -57,7 +56,6 @@ class Fragment15 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = Fragment15Binding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
@@ -79,18 +77,19 @@ class Fragment15 : Fragment() {
     }
 
     private fun setCurrentTime() {
-        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
-            .format(Date())
+
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
         timeStart15.set(Calendar.HOUR_OF_DAY, 14)
-        timeStart15.set(Calendar.MINUTE, 40)
+        timeStart15.set(Calendar.MINUTE, 35)
         timeStart15.set(Calendar.SECOND, 0)
-        timeEnd15.set(Calendar.HOUR_OF_DAY, 15)
-        timeEnd15.set(Calendar.MINUTE, 30)
+        timeEnd15.set(Calendar.HOUR_OF_DAY, 18)
+        timeEnd15.set(Calendar.MINUTE, 5)
         timeEnd15.set(Calendar.SECOND, 0)
 
-        timeRange15 = (currentTime.after(timeStart15.time)) && (currentTime.before(timeEnd15.time))
+        if ((currentTime.after(timeStart15.time)) && (currentTime.before(timeEnd15.time))) {
+            timeRange15 = true
+        }
         timeStartLongType = timeStart15.time.time
         timeEndLongType = timeEnd15.time.time
     }
@@ -101,7 +100,6 @@ class Fragment15 : Fragment() {
                 mMutableList = mDeferred.await()
 
                 if (timeRange15) {
-
                     val list = REPOSITORY_ROOM
                         .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
 
@@ -138,21 +136,16 @@ class Fragment15 : Fragment() {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
 
                             val currentTimeLongType = currentTime.time
-                            val stringTime = SimpleDateFormat(
-                                "HH:mm, dd MMM.yyyy",
-                                Locale.getDefault()
-                            ).format(Date())
 
                             val item = dc.document.toObject(Items::class.java)
                             val name = item.objectName
                             item.itemLongTime = currentTimeLongType
-                            item.serverTimeStamp = stringTime
-                            item.state = stateChanged
 
                             val newIterator: MutableIterator<Items> = mMutableList.iterator()
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
+                                    item.state = stateChanged
                                     saveChangedItemToRoom(item)
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
@@ -167,8 +160,8 @@ class Fragment15 : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         mRecyclerView.adapter = null
+        _binding = null
     }
 }
 

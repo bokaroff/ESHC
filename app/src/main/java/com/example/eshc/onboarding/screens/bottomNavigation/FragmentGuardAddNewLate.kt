@@ -2,7 +2,6 @@ package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
@@ -40,7 +39,6 @@ class FragmentGuardAddNewLate : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentGuardAddNewLateBinding.inflate(
             layoutInflater, container,
             false
@@ -57,7 +55,6 @@ class FragmentGuardAddNewLate : Fragment() {
         super.onStart()
         initialization()
         getGuardData()
-        Log.d(TAG, "$javaClass + onStart")
     }
 
     private fun initialization() {
@@ -68,11 +65,9 @@ class FragmentGuardAddNewLate : Fragment() {
         mRecyclerView.adapter = mAdapter
     }
 
-
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
         try {
             val list = REPOSITORY_ROOM.getMainGuardList()
-            Log.d(TAG, " + getMainGuardList + ${list.size}")
             mList = list.toMutableList()
             withContext(Dispatchers.Main) {
                 mAdapter.setList(mList)
@@ -114,7 +109,6 @@ class FragmentGuardAddNewLate : Fragment() {
         super.onDestroyView()
         _binding = null
         mRecyclerView.adapter = null
-        Log.d(TAG, "stop: $javaClass")
     }
 
     companion object {

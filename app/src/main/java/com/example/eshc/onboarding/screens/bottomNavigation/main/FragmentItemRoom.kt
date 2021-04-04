@@ -30,12 +30,8 @@ class FragmentItemRoom : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentItemRoomBinding.inflate(layoutInflater, container, false)
-
         setHasOptionsMenu(true)
-        mToolbar = mBinding.fragmentItemRoomToolbar
-        APP_ACTIVITY.setSupportActionBar(mToolbar)
         return mBinding.root
     }
 
@@ -46,9 +42,12 @@ class FragmentItemRoom : Fragment() {
     }
 
     private fun initialise() {
+        mToolbar = mBinding.fragmentItemRoomToolbar
         mAdapterItemsRoomComplete = AdapterItemsRoomComplete()
         mRecyclerView = mBinding.rvFragmentItemRoom
+        APP_ACTIVITY.setSupportActionBar(mToolbar)
     }
+
 
     private fun getData() {
         mObserveList = Observer {

@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.example.eshc.adapters.AdapterItemsRoom
 import com.example.eshc.databinding.FragmentItemRoomSingleBinding
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.REPOSITORY_ROOM
-import com.example.eshc.utilits.TAG
 import com.example.eshc.utilits.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +33,6 @@ class FragmentItemRoomByNameSelected : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentItemRoomSingleBinding
             .inflate(layoutInflater, container, false)
         mCurrentItem = arguments?.getSerializable("item") as Items
@@ -62,7 +59,6 @@ class FragmentItemRoomByNameSelected : Fragment() {
 
         try {
             val list = REPOSITORY_ROOM.singleChangedItem(name)
-            Log.d(TAG, " + singleChangedItem + ${list.size}")
             withContext(Dispatchers.Main) {
                 mAdapterItemsRoom.setList(list.asReversed())
             }
@@ -75,7 +71,7 @@ class FragmentItemRoomByNameSelected : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         mRecyclerView.adapter = null
+        _binding = null
     }
 }

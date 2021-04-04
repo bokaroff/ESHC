@@ -1,30 +1,29 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eshc.R
 import com.example.eshc.adapters.AdapterItems
 import com.example.eshc.databinding.Fragment08Binding
-import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 
 class Fragment08 : Fragment() {
 
+    private var timeStart08: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEnd08: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange08: Boolean = false
+
     private var _binding: Fragment08Binding? = null
     private val mBinding get() = _binding!!
     private var mMutableList = mutableListOf<Items>()
-    private var currentDate: String = String()
     private var currentTime: Date = Date()
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
@@ -36,7 +35,7 @@ class Fragment08 : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       getData08()
+        getData08()
     }
 
     private fun getData08() {
@@ -44,7 +43,7 @@ class Fragment08 : Fragment() {
         mDeferred = CoroutineScope(Dispatchers.IO).async {
             try {
                 val list = async { REPOSITORY_ROOM.getMainItemList08() }
-               mMutableList = list.await() as MutableList<Items>
+                mMutableList = list.await() as MutableList<Items>
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
@@ -58,9 +57,7 @@ class Fragment08 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = Fragment08Binding.inflate(layoutInflater, container, false)
-        Log.d(TAG, "onCreateView08: ")
         return mBinding.root
     }
 
@@ -92,7 +89,6 @@ class Fragment08 : Fragment() {
                             val it = newIterator.next()
                             if (it.objectName == name) {
                                 newIterator.remove()
-                                Log.d(TAG, "newIterator_removed: + ${it.objectName}")
                             }
                         }
                     }
@@ -109,11 +105,14 @@ class Fragment08 : Fragment() {
         }
     }
 
+    private fun initialise() {
+        mRecyclerView = mBinding.rvFragment08
+        mAdapterItems = AdapterItems()
+        mRecyclerView.adapter = mAdapterItems
+    }
+
     private fun setCurrentTime() {
-        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
-            .format(Date())
-        currentTime = Calendar.getInstance(Locale.getDefault()).time
-        Log.d(TAG, "date_08:  + $currentDate")
+        val currentTime = Calendar.getInstance(Locale.getDefault()).time
 
         timeStart08.set(Calendar.HOUR_OF_DAY, 7)
         timeStart08.set(Calendar.MINUTE, 0)
@@ -122,16 +121,12 @@ class Fragment08 : Fragment() {
         timeEnd08.set(Calendar.MINUTE, 30)
         timeEnd08.set(Calendar.SECOND, 0)
 
-        timeRange08 = (currentTime.after(timeStart08.time)) && (currentTime.before(timeEnd08.time))
+        if ((currentTime.after(timeStart08.time)) && (currentTime.before(timeEnd08.time))) {
+            timeRange08 = true
+        }
+
         timeStartLongType = timeStart08.time.time
         timeEndLongType = timeEnd08.time.time
-    }
-
-
-    private fun initialise() {
-        mRecyclerView = mBinding.rvFragment08
-        mAdapterItems = AdapterItems()
-        mRecyclerView.adapter = mAdapterItems
     }
 
 
@@ -144,21 +139,16 @@ class Fragment08 : Fragment() {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
 
                             val currentTimeLongType = currentTime.time
-                            val stringTime = SimpleDateFormat(
-                                "HH:mm, dd MMM.yyyy",
-                                Locale.getDefault()
-                            ).format(Date())
 
                             val item = dc.document.toObject(Items::class.java)
                             val name = item.objectName
                             item.itemLongTime = currentTimeLongType
-                            item.serverTimeStamp = stringTime
-                            item.state = stateChanged
 
                             val newIterator: MutableIterator<Items> = mMutableList.iterator()
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
+                                    item.state = stateChanged
                                     saveChangedItemToRoom(item)
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
@@ -173,7 +163,7 @@ class Fragment08 : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         mRecyclerView.adapter = null
+        _binding = null
     }
 }

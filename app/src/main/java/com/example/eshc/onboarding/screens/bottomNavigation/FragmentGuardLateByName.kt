@@ -1,25 +1,18 @@
 package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.eshc.R
 import com.example.eshc.adapters.AdapterGuardLate
-import com.example.eshc.adapters.AdapterGuardLateComplete
-import com.example.eshc.databinding.ActivityMainBinding.inflate
-import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.databinding.FragmentGuardLateByNameBinding
 import com.example.eshc.model.Guards
-import com.example.eshc.model.Items
 import com.example.eshc.utilits.REPOSITORY_ROOM
-import com.example.eshc.utilits.TAG
 import com.example.eshc.utilits.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,20 +34,19 @@ class FragmentGuardLateByName : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentGuardLateByNameBinding.inflate(layoutInflater, container, false)
         mCurrentGuardLate = arguments?.getSerializable("guard") as Guards
         name = mCurrentGuardLate.guardName
         return mBinding.root
     }
-    
+
     override fun onStart() {
         super.onStart()
         initialise()
         getData(name)
     }
 
-    private  fun initialise(){
+    private fun initialise() {
         mAdapter = AdapterGuardLate()
         mToolbar = mBinding.fragmentGuardLateByNameToolbar
         mRecyclerView = mBinding.rvFragmentGuardLateByName
@@ -68,7 +60,6 @@ class FragmentGuardLateByName : Fragment() {
         try {
             val list = REPOSITORY_ROOM.singleGuardLateByName(name)
             val mutableList = list.toMutableList()
-            Log.d(TAG, " + singleGuardLateByName + ${list.size}")
             withContext(Dispatchers.Main) {
                 mAdapter.setList(mutableList.asReversed())
             }
@@ -79,22 +70,9 @@ class FragmentGuardLateByName : Fragment() {
         }
     }
 
-
-
-
-
-
-
-
-
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         mRecyclerView.adapter = null
+        _binding = null
     }
-
-
-
-
-
 }

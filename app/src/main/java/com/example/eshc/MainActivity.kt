@@ -1,12 +1,11 @@
 package com.example.eshc
 
-import android.app.DownloadManager
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -21,10 +20,9 @@ import com.example.eshc.model.Guards
 import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,6 +31,8 @@ import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mSnack: Snackbar
 
     private lateinit var navigationItemSelectedListener:
             BottomNavigationView.OnNavigationItemSelectedListener
@@ -51,23 +51,30 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
+        connectionLiveData = ConnectionLiveData(this)
+
         initialise()
         getMainItemsList()
         getMainGuardsList()
         setUpNavController()
         checkForPermissions(android.Manifest.permission.CALL_PHONE, "звонки", CALL_PHONE_RQ)
-        Log.d(TAG, "start: $localClassName")
     }
 
     private fun initialise() {
         APP_ACTIVITY = this
         AUTH = FirebaseAuth.getInstance()
-      //  DB = FirebaseFirestore.getInstance()
         ITEM = Items()
         GUARD = Guards()
         ITEM_ROOM_DATABASE = ItemRoomDatabase.getInstance(this)
         ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
         REPOSITORY_ROOM = RoomRepository(ITEM_ROOM_DAO)
+
+        mSnack = Snackbar
+            .make(mBinding.root, "Проверьте наличие интернета", Snackbar.LENGTH_INDEFINITE)
+
+        val view: View = mSnack.view
+        val txt = view.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
+        txt.textAlignment = View.TEXT_ALIGNMENT_CENTER
     }
 
     private fun getMainItemsList() {
@@ -76,7 +83,6 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val itemsData = REPOSITORY_ROOM.getMainItemList()
-                Log.d(TAG, "$localClassName getMainItemList: + ${itemsData.size}")
 
                 if (itemsData.isEmpty()) {
 
@@ -90,7 +96,6 @@ class MainActivity : AppCompatActivity() {
                         itemsList.add(item)
                     }
                     REPOSITORY_ROOM.insertItemList(itemsList)
-                    Log.d(TAG, " $localClassName insertItemList: + ${itemsList.size} + ")
                 }
 
             } catch (e: Exception) {
@@ -107,7 +112,6 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val guardsData = REPOSITORY_ROOM.getMainGuardList()
-                Log.d(TAG, " $localClassName getMainGuardList: + ${guardsData.size}")
 
                 if (guardsData.isEmpty()) {
 
@@ -120,7 +124,6 @@ class MainActivity : AppCompatActivity() {
                         guardsList.add(guard)
                     }
                     REPOSITORY_ROOM.insertGuardList(guardsList)
-                    Log.d(TAG, " $localClassName insertGuardList: + ${guardsList.size} + ")
                 }
 
             } catch (e: Exception) {
@@ -179,7 +182,6 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-
     private fun checkForPermissions(permission: String, name: String, requestCode: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             when {
@@ -187,7 +189,6 @@ class MainActivity : AppCompatActivity() {
                     applicationContext,
                     permission
                 ) == PackageManager.PERMISSION_GRANTED -> {
-                   // showToast("Разрешение на $name получено")
                 }
                 shouldShowRequestPermissionRationale(permission) -> showDialog(
                     permission,
@@ -236,6 +237,21 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    private fun checkNetWorkConnection() {
+        connectionLiveData.checkValidNetworks()
+        connectionLiveData.observe(this, { isNetWorkAvailable ->
+            when (isNetWorkAvailable) {
+                false -> mSnack.show()
+                true -> mSnack.dismiss()
+            }
+        })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        checkNetWorkConnection()
+    }
+
     override fun onResume() {
         super.onResume()
         bottomNavigationView
@@ -253,43 +269,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        Log.d(TAG, " $localClassName stop: ")
     }
-
-    /*
-    companion object{
-        fun phoneDial(phoneNumber: String){
-            //showToast(phoneNumber)
-
-            val  intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:$phoneNumber")
-            startActivity(APP_ACTIVITY, intent, null)
-        }
-    }
-
-
-
-
-    override fun onBackPressed() {
-
-        val count = supportFragmentManager.backStackEntryCount
-        if (count == 0) {
-
-
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Вы уверены!")
-            builder.setMessage("Что хотите выйти из приложения?")
-            builder.setPositiveButton("Да")
-            { _: DialogInterface, _: Int ->
-                finish()
-            }
-            builder.setNegativeButton("Нет")
-            { _: DialogInterface, _: Int -> }
-            builder.show()
-        } else {
-            supportFragmentManager.popBackStack()
-        }
-    }
-
- */
 }

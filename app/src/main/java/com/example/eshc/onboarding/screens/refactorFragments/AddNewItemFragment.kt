@@ -29,6 +29,38 @@ import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 import java.util.*
 
 class AddNewItemFragment : Fragment() {
+
+    private var timeStartBeforeMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeStartAfterMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEndBeforeMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEndAfterMidnight: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRangeBeforeMidnight: Boolean = false
+    private var timeRangeAfterMidnight: Boolean = false
+
+    private var timeStart02: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEnd02: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange02: Boolean = false
+
+    private var timeStart04: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEnd04: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange04: Boolean = false
+
+    private var timeStart06: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEnd06: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange06: Boolean = false
+
+    private var timeStart08: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEnd08: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange08: Boolean = false
+
+    private var timeStart15: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEnd15: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange15: Boolean = false
+
+    private var timeStart21: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEnd21: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange21: Boolean = false
+
     private var _binding: FragmentAddNewItemBinding? = null
     private val mBinding get() = _binding!!
     private var currentTime: Date = Date()
@@ -54,7 +86,6 @@ class AddNewItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentAddNewItemBinding.inflate(
             layoutInflater,
             container, false
@@ -65,6 +96,7 @@ class AddNewItemFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initialise()
+        setCurrentTime()
         checkTimeRanges()
         saveChanges()
     }
@@ -94,27 +126,114 @@ class AddNewItemFragment : Fragment() {
 
         mSnack =
             Snackbar
-                .make(mContainer, "Внесение изменений во время доклада невозможно!", Snackbar.LENGTH_INDEFINITE)
+                .make(
+                    mContainer,
+                    "Внесение изменений во время доклада невозможно!",
+                    Snackbar.LENGTH_INDEFINITE
+                )
 
         val view: View = mSnack.view
-        val txt = view.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
+        val txt =
+            view.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
         txt.textAlignment = View.TEXT_ALIGNMENT_CENTER
+    }
+
+    private fun setCurrentTime() {
+        timeStartBeforeMidnight.set(Calendar.HOUR_OF_DAY, 23)
+        timeStartBeforeMidnight.set(Calendar.MINUTE, 40)
+        timeStartBeforeMidnight.set(Calendar.SECOND, 0)
+        timeEndBeforeMidnight.set(Calendar.HOUR_OF_DAY, 23)
+        timeEndBeforeMidnight.set(Calendar.MINUTE, 59)
+        timeEndBeforeMidnight.set(Calendar.SECOND, 59)
+
+        timeStartAfterMidnight.set(Calendar.HOUR_OF_DAY, 0)
+        timeStartAfterMidnight.set(Calendar.MINUTE, 0)
+        timeStartAfterMidnight.set(Calendar.SECOND, 0)
+        timeEndAfterMidnight.set(Calendar.HOUR_OF_DAY, 0)
+        timeEndAfterMidnight.set(Calendar.MINUTE, 30)
+        timeEndAfterMidnight.set(Calendar.SECOND, 0)
+
+        timeStart02.set(Calendar.HOUR_OF_DAY, 1)
+        timeStart02.set(Calendar.MINUTE, 40)
+        timeStart02.set(Calendar.SECOND, 0)
+        timeEnd02.set(Calendar.HOUR_OF_DAY, 2)
+        timeEnd02.set(Calendar.MINUTE, 30)
+        timeEnd02.set(Calendar.SECOND, 0)
+
+        timeStart04.set(Calendar.HOUR_OF_DAY, 3)
+        timeStart04.set(Calendar.MINUTE, 40)
+        timeStart04.set(Calendar.SECOND, 0)
+        timeEnd04.set(Calendar.HOUR_OF_DAY, 4)
+        timeEnd04.set(Calendar.MINUTE, 30)
+        timeEnd04.set(Calendar.SECOND, 0)
+
+        timeStart06.set(Calendar.HOUR_OF_DAY, 5)
+        timeStart06.set(Calendar.MINUTE, 40)
+        timeStart06.set(Calendar.SECOND, 0)
+        timeEnd06.set(Calendar.HOUR_OF_DAY, 6)
+        timeEnd06.set(Calendar.MINUTE, 30)
+        timeEnd06.set(Calendar.SECOND, 0)
+
+        timeStart08.set(Calendar.HOUR_OF_DAY, 7)
+        timeStart08.set(Calendar.MINUTE, 0)
+        timeStart08.set(Calendar.SECOND, 0)
+        timeEnd08.set(Calendar.HOUR_OF_DAY, 11)
+        timeEnd08.set(Calendar.MINUTE, 30)
+        timeEnd08.set(Calendar.SECOND, 0)
+
+        timeStart15.set(Calendar.HOUR_OF_DAY, 14)
+        timeStart15.set(Calendar.MINUTE, 30)
+        timeStart15.set(Calendar.SECOND, 0)
+        timeEnd15.set(Calendar.HOUR_OF_DAY, 16)
+        timeEnd15.set(Calendar.MINUTE, 30)
+        timeEnd15.set(Calendar.SECOND, 0)
+
+        timeStart21.set(Calendar.HOUR_OF_DAY, 20)
+        timeStart21.set(Calendar.MINUTE, 40)
+        timeStart21.set(Calendar.SECOND, 0)
+        timeEnd21.set(Calendar.HOUR_OF_DAY, 23)
+        timeEnd21.set(Calendar.MINUTE, 0)
+        timeEnd21.set(Calendar.SECOND, 0)
     }
 
     private fun checkTimeRanges() {
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
-        timeRange08 = (currentTime.after(timeStart08.time)) && (currentTime.before(timeEnd08.time))
-        timeRange15 = (currentTime.after(timeStart15.time)) && (currentTime.before(timeEnd15.time))
-        timeRange21 = (currentTime.after(timeStart21.time)) && (currentTime.before(timeEnd21.time))
-        timeRange02 = (currentTime.after(timeStart02.time)) && (currentTime.before(timeEnd02.time))
-        timeRange04 = (currentTime.after(timeStart04.time)) && (currentTime.before(timeEnd04.time))
-        timeRange06 = (currentTime.after(timeStart06.time)) && (currentTime.before(timeEnd06.time))
-        timeRangeBeforeMidnight = (currentTime.after(timeStartBeforeMidnight.time))
-                && (currentTime.before(timeEndBeforeMidnight.time))
+        if ((currentTime.after(timeStart08.time)) && (currentTime.before(timeEnd08.time))) {
+            timeRange08 = true
+        }
 
-        timeRangeAfterMidnight = (currentTime.after(timeStartAfterMidnight.time))
-                && (currentTime.before(timeEndAfterMidnight.time))
+        if ((currentTime.after(timeStart15.time)) && (currentTime.before(timeEnd15.time))) {
+            timeRange15 = true
+        }
+
+        if ((currentTime.after(timeStart21.time)) && (currentTime.before(timeEnd21.time))) {
+            timeRange21 = true
+        }
+
+        if ((currentTime.after(timeStart02.time)) && (currentTime.before(timeEnd02.time))) {
+            timeRange02 = true
+        }
+
+        if ((currentTime.after(timeStart04.time)) && (currentTime.before(timeEnd04.time))) {
+            timeRange04 = true
+        }
+
+        if ((currentTime.after(timeStart06.time)) && (currentTime.before(timeEnd06.time))) {
+            timeRange06 = true
+        }
+
+        if ((currentTime.after(timeStartBeforeMidnight.time))
+            && (currentTime.before(timeEndBeforeMidnight.time))
+        ) {
+            timeRangeBeforeMidnight = true
+        }
+
+        if ((currentTime.after(timeStartAfterMidnight.time))
+            && (currentTime.before(timeEndAfterMidnight.time))
+        ) {
+            timeRangeAfterMidnight = true
+        }
     }
 
     private fun saveChanges() {
@@ -183,32 +302,6 @@ class AddNewItemFragment : Fragment() {
             !checkBox06.isChecked -> ITEM.order06 = "false"
         }
 
-        /*
-               when {
-                   checkBox08.isChecked -> ITEM.order08 = "true"
-                   !checkBox08.isChecked -> ITEM.order08 = "false"
-
-                   checkBox15.isChecked -> ITEM.order15 = "true"
-                   !checkBox15.isChecked -> ITEM.order15 = "false"
-
-                   checkBox21.isChecked -> ITEM.order21 = "true"
-                   !checkBox21.isChecked -> ITEM.order21 = "false"
-
-                   checkBox00.isChecked -> ITEM.order00 = "true"
-                   !checkBox00.isChecked -> ITEM.order00 = "false"
-
-                   checkBox02.isChecked -> ITEM.order02 = "true"
-                   !checkBox02.isChecked -> ITEM.order02 = "false"
-
-                   checkBox04.isChecked -> ITEM.order04 = "true"
-                   !checkBox04.isChecked -> ITEM.order04 = "false"
-
-                   checkBox06.isChecked -> ITEM.order06 = "true"
-                   !checkBox06.isChecked -> ITEM.order06 = "false"
-               }
-
-         */
-
         ITEM.state = stateMain
 
         return ITEM
@@ -220,14 +313,13 @@ class AddNewItemFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val roomList = REPOSITORY_ROOM.getMainItemList()
-                Log.d(TAG, "roomList: + ${roomList.size}  ")
 
                 for (doc in roomList) {
+
                     val oldName = doc.objectName
                         .toLowerCase(Locale.ROOT).trim()
 
                     if (oldName == newName) {
-                        Log.d(TAG, "equal: + $oldName + $newName ")
                         withContext(Dispatchers.Main) {
                             showToast(" Объект с таким именем уже существует")
                         }
@@ -243,9 +335,6 @@ class AddNewItemFragment : Fragment() {
                 item.state = stateMain
                 REPOSITORY_ROOM.insertItem(item)
 
-                Log.d(TAG, "addNewItem: job is completed")
-
-                //  Log.d(TAG, "addNewItem: ${ITEM.item_id} + ${ITEM.objectName} + ${ITEM.state}")
                 withContext(Dispatchers.Main) {
                     APP_ACTIVITY.navController
                         .navigate(R.id.action_addNewItemFragment_to_viewPagerFragment)

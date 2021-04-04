@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -52,7 +51,6 @@ class FragmentGuard : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentGuardBinding.inflate(
             layoutInflater, container,
             false
@@ -69,7 +67,6 @@ class FragmentGuard : Fragment() {
         initialise()
         getGuardData()
         swipeToDelete()
-        Log.d(TAG, "$javaClass + onStart")
     }
 
     private fun initialise() {
@@ -83,11 +80,9 @@ class FragmentGuard : Fragment() {
         mRecyclerView.adapter = mAdapter
     }
 
-
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
         try {
             val list = REPOSITORY_ROOM.getMainGuardList()
-            Log.d(TAG, " + getMainGuardList + ${list.size}")
             mList = list.toMutableList()
             withContext(Dispatchers.Main) {
                 mAdapter.setList(mList)
@@ -120,7 +115,6 @@ class FragmentGuard : Fragment() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 mAdapter.filter.filter(newText)
-                Log.d(TAG, "filter: + $newText")
                 return true
             }
         })
@@ -243,7 +237,6 @@ class FragmentGuard : Fragment() {
         super.onDestroyView()
         _binding = null
         mRecyclerView.adapter = null
-        Log.d(TAG, "stop: $javaClass")
     }
 
     companion object {
@@ -254,8 +247,8 @@ class FragmentGuard : Fragment() {
                 .navigate(R.id.action_fragmentGuard_to_fragmentGuardBottomSheet, bundle)
         }
 
-        fun startPhoneDial(phoneNumber: String){
-            val  intent = Intent(Intent.ACTION_DIAL)
+        fun startPhoneDial(phoneNumber: String) {
+            val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:$phoneNumber")
             ContextCompat.startActivity(APP_ACTIVITY, intent, null)
         }

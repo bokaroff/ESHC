@@ -2,7 +2,6 @@ package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import com.example.eshc.adapters.AdapterItemsRoom
 import com.example.eshc.databinding.FragmentItemRoomBottomSheetBinding
 import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.REPOSITORY_ROOM
-import com.example.eshc.utilits.TAG
 import com.example.eshc.utilits.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -80,7 +78,7 @@ class FragmentItemRoomByDateSelected : Fragment() {
 
             DatePickerDialog(
                 APP_ACTIVITY,
-                DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                 { _, year, month, day ->
 
                     val pickedDateTime = Calendar.getInstance()
                     pickedDateTime.set(Calendar.YEAR, year)
@@ -95,8 +93,6 @@ class FragmentItemRoomByDateSelected : Fragment() {
                     firstCurrentDateString =
                         DateFormat.getDateInstance().format(pickedDateTime.time)
                     firstDateTextView.text = firstCurrentDateString
-
-                    Log.d(TAG, "pickDateTime: +${pickedDateTime.time} + $firstDateLongType")
 
                 },
                 startYear,
@@ -116,7 +112,7 @@ class FragmentItemRoomByDateSelected : Fragment() {
 
             DatePickerDialog(
                 APP_ACTIVITY,
-                DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                 { _, year, month, day ->
 
                     val pickedDateTime = Calendar.getInstance()
                     pickedDateTime.set(Calendar.YEAR, year)
@@ -131,8 +127,6 @@ class FragmentItemRoomByDateSelected : Fragment() {
                     secondCurrentDateString =
                         DateFormat.getDateInstance().format(pickedDateTime.time)
                     secondDateTextView.text = secondCurrentDateString
-
-                    Log.d(TAG, "pickDateTime: +${pickedDateTime.time} + $secondDateLongType")
 
                 },
                 startYear,
@@ -172,7 +166,7 @@ class FragmentItemRoomByDateSelected : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         mRecyclerView.adapter = null
+        _binding = null
     }
 }

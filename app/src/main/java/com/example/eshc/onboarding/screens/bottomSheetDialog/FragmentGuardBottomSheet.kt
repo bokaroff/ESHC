@@ -19,9 +19,7 @@ class FragmentGuardBottomSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentGuardBottomSheetBinding.
-        inflate(layoutInflater, container, false)
+        _binding = FragmentGuardBottomSheetBinding.inflate(layoutInflater, container, false)
         mCurrentItem = arguments?.getSerializable("guard") as Guards
         return mBinding.root
     }
@@ -43,8 +41,10 @@ class FragmentGuardBottomSheet : BottomSheetDialogFragment() {
         }
         mBinding.containerGuardUpdate.setOnClickListener {
             APP_ACTIVITY.navController
-                .navigate(R.id.action_fragmentGuardBottomSheet_to_updateGuardFragment,
-                    arguments)
+                .navigate(
+                    R.id.action_fragmentGuardBottomSheet_to_updateGuardFragment,
+                    arguments
+                )
         }
     }
 
@@ -52,7 +52,4 @@ class FragmentGuardBottomSheet : BottomSheetDialogFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
-
 }

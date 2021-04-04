@@ -12,15 +12,17 @@ import com.example.eshc.model.Items
 import com.example.eshc.utilits.*
 import com.google.firebase.firestore.DocumentChange
 import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class Fragment06 : Fragment() {
 
+    private var timeStart06: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeEnd06: Calendar = Calendar.getInstance(Locale.getDefault())
+    private var timeRange06: Boolean = false
+
     private var _binding: Fragment06Binding? = null
     private val mBinding get() = _binding!!
     private var mMutableList = mutableListOf<Items>()
-    private var currentDate: String = String()
     private var currentTime: Date = Date()
     private var timeStartLongType: Long = 0
     private var timeEndLongType: Long = 0
@@ -31,7 +33,7 @@ class Fragment06 : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     getData06()
+        getData06()
     }
 
     private fun getData06() {
@@ -49,12 +51,10 @@ class Fragment06 : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = Fragment06Binding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
@@ -76,9 +76,7 @@ class Fragment06 : Fragment() {
     }
 
     private fun setCurrentTime() {
-        currentDate = SimpleDateFormat("HH:mm, dd/MM/yyyy", Locale.getDefault())
-            .format(Date())
-        currentTime = Calendar.getInstance(Locale.getDefault()).time
+        val currentTime = Calendar.getInstance(Locale.getDefault()).time
 
         timeStart06.set(Calendar.HOUR_OF_DAY, 5)
         timeStart06.set(Calendar.MINUTE, 40)
@@ -87,7 +85,10 @@ class Fragment06 : Fragment() {
         timeEnd06.set(Calendar.MINUTE, 30)
         timeEnd06.set(Calendar.SECOND, 0)
 
-        timeRange06 = (currentTime.after(timeStart06.time)) && (currentTime.before(timeEnd06.time))
+        if ((currentTime.after(timeStart06.time)) && (currentTime.before(timeEnd06.time))) {
+            timeRange06 = true
+        }
+
         timeStartLongType = timeStart06.time.time
         timeEndLongType = timeEnd06.time.time
     }
@@ -135,21 +136,16 @@ class Fragment06 : Fragment() {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
 
                             val currentTimeLongType = currentTime.time
-                            val stringTime = SimpleDateFormat(
-                                "HH:mm, dd MMM.yyyy",
-                                Locale.getDefault()
-                            ).format(Date())
 
                             val item = dc.document.toObject(Items::class.java)
                             val name = item.objectName
                             item.itemLongTime = currentTimeLongType
-                            item.serverTimeStamp = stringTime
-                            item.state = stateChanged
 
                             val newIterator: MutableIterator<Items> = mMutableList.iterator()
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
+                                    item.state = stateChanged
                                     saveChangedItemToRoom(item)
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
@@ -164,7 +160,7 @@ class Fragment06 : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         mRecyclerView.adapter = null
+        _binding = null
     }
 }

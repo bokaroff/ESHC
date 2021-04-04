@@ -17,7 +17,6 @@ import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.AUTH
 import com.example.eshc.utilits.showToast
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -65,7 +64,7 @@ class FragmentHome : BottomSheetDialogFragment() {
         mContainer = mBinding.fragmentHomeMainContainer
     }
 
-    private fun btnClicks(){
+    private fun btnClicks() {
         txtSignOut.setOnClickListener {
             signOutUser()
         }
@@ -83,7 +82,7 @@ class FragmentHome : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setUserInfo(){
+    private fun setUserInfo() {
         etEmail.setText(AUTH.currentUser?.email)
         etUserName.setText(AUTH.currentUser?.displayName)
         img_profile.setImageURI(AUTH.currentUser?.photoUrl)
@@ -91,8 +90,8 @@ class FragmentHome : BottomSheetDialogFragment() {
         fileUri = AUTH.currentUser?.photoUrl
     }
 
-    private fun  saveUserInfo(){
-        AUTH.currentUser?.let{
+    private fun saveUserInfo() {
+        AUTH.currentUser?.let {
             val userName = etUserName.text.toString()
             val userEmail = etEmail.text.toString()
             val userProfilePicture = fileUri
@@ -107,12 +106,12 @@ class FragmentHome : BottomSheetDialogFragment() {
                     it.updateProfile(update).await()
                     it.updateEmail(userEmail).await()
 
-                    withContext(Dispatchers.Main){
+                    withContext(Dispatchers.Main) {
                         setUserInfo()
                         showToast("Вы успешно изменили данные аккаунта!")
                     }
-                }catch (e: Exception){
-                    withContext(Dispatchers.Main){
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
                         e.message?.let { showToast(it) }
                     }
                 }
@@ -120,7 +119,7 @@ class FragmentHome : BottomSheetDialogFragment() {
         }
     }
 
-    private fun signOutUser(){
+    private fun signOutUser() {
         AUTH.signOut()
 
         APP_ACTIVITY.navController
@@ -128,7 +127,7 @@ class FragmentHome : BottomSheetDialogFragment() {
         showToast("Вы вышли из своего аккаунта")
     }
 
-    private fun selectImage(){
+    private fun selectImage() {
         ImagePicker.with(this)
             .crop()
             .compress(1024)
@@ -139,12 +138,12 @@ class FragmentHome : BottomSheetDialogFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        when(resultCode){
-            Activity.RESULT_OK ->{
+        when (resultCode) {
+            Activity.RESULT_OK -> {
                 fileUri = data?.data
                 img_profile.setImageURI(fileUri)
             }
-            ImagePicker.RESULT_ERROR ->{
+            ImagePicker.RESULT_ERROR -> {
                 showToast(ImagePicker.getError(data))
             }
             else -> {

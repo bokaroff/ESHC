@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -20,12 +19,13 @@ import com.example.eshc.R
 import com.example.eshc.adapters.AdapterGuardLateComplete
 import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.model.Guards
-import com.example.eshc.utilits.*
+import com.example.eshc.utilits.APP_ACTIVITY
+import com.example.eshc.utilits.REPOSITORY_ROOM
+import com.example.eshc.utilits.showToast
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 
@@ -47,7 +47,6 @@ class FragmentGuardLate : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentGuardLateBinding.inflate(layoutInflater, container, false)
 
         setHasOptionsMenu(true)
@@ -78,7 +77,6 @@ class FragmentGuardLate : Fragment() {
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
         try {
             val list = REPOSITORY_ROOM.getAllGuardsLate()
-            Log.d(TAG, " + getGuardLateList + ${list.size}")
             mList = list.toMutableList().asReversed()
             withContext(Dispatchers.Main) {
                 mAdapterComplete.setList(mList)
@@ -113,7 +111,6 @@ class FragmentGuardLate : Fragment() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 mAdapterComplete.filter.filter(newText)
-                Log.d(TAG, "onQueryTextChange: + $newText")
                 return true
             }
         })
@@ -181,7 +178,6 @@ class FragmentGuardLate : Fragment() {
             ) {
                 val itemView = viewHolder.itemView
                 val iconMargin = (itemView.height - deleteIcon.intrinsicHeight) / 2
-
 
                 if (dX > 0) {
                     swipeBackground.setBounds(

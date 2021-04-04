@@ -7,13 +7,10 @@ import com.example.eshc.model.Items
 
 class RoomRepository(private val itemRoomDao: ItemRoomDao) {
 
-    val allChangedItems: LiveData<List<Items>>
+    val allChangedItems: LiveData<MutableList<Items>>
         get() = itemRoomDao.getAllChangedItems()
 
-
-
-
-  suspend  fun singleChangedItem(name: String): List<Items>{
+    suspend fun singleChangedItem(name: String): List<Items> {
         return itemRoomDao.singleChangedItem(name)
     }
 
@@ -61,7 +58,7 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
         return itemRoomDao.getAllGuardsLate()
     }
 
-    suspend  fun singleGuardLateByName(name: String): List<Guards>{
+    suspend fun singleGuardLateByName(name: String): List<Guards> {
         return itemRoomDao.singleGuardLateByName(name)
     }
 
@@ -84,17 +81,16 @@ class RoomRepository(private val itemRoomDao: ItemRoomDao) {
     }
 
 
-    suspend fun deleteMainItem(item_id: String){
+    suspend fun deleteMainItem(item_id: String) {
         itemRoomDao.deleteMainItem(item_id)
     }
 
-    suspend fun deleteMainGuard(guardFire_id: String){
+    suspend fun deleteMainGuard(guardFire_id: String) {
         itemRoomDao.deleteMainGuard(guardFire_id)
     }
 
     suspend fun deleteGuardLate(guard: Guards) {
         itemRoomDao.deleteGuard(guard)
     }
-
 }
 

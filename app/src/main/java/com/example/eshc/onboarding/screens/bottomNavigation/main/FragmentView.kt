@@ -8,12 +8,10 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -36,8 +34,8 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 
-
 class FragmentView : Fragment() {
+
     private var _binding: FragmentViewBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var adapterFireItem: FireItemAdapter<Items, FireItemAdapter.ItemViewHolder>
@@ -52,7 +50,6 @@ class FragmentView : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentViewBinding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
@@ -76,7 +73,6 @@ class FragmentView : Fragment() {
         initialise()
         swipeToDelete()
         UIUtil.hideKeyboard(context as Activity)
-        Log.d(TAG, "start: $javaClass")
     }
 
     private fun initialise() {
@@ -113,7 +109,6 @@ class FragmentView : Fragment() {
                 mViewHolder = viewHolder
                 val removedPosition = viewHolder.adapterPosition
                 performSwipe(removedPosition)
-                Log.d(TAG, "position: + ${viewHolder.adapterPosition} ")
             }
 
             override fun onChildDraw(
@@ -170,13 +165,11 @@ class FragmentView : Fragment() {
         val item = adapterFireItem.getItem(mViewHolder.adapterPosition)
         val name = item.objectName
         mKey = item.item_id
-        Log.d(TAG, "mKey: $mKey + $name ")
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 collectionITEMS_REF.document(mKey).delete().await()
                 REPOSITORY_ROOM.deleteMainItem(mKey)
-                Log.d(TAG, "deleted: + ${item.objectName}")
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -211,7 +204,6 @@ class FragmentView : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        Log.d(TAG, "stop: $javaClass")
     }
 
     companion object {
@@ -222,10 +214,10 @@ class FragmentView : Fragment() {
                 .navigate(R.id.action_fragmentView_to_fragmentViewBottomSheet, bundle)
         }
 
-       fun startPhoneDial(phoneNumber: String){
-           val  intent = Intent(Intent.ACTION_DIAL)
-           intent.data = Uri.parse("tel:$phoneNumber")
-           startActivity(APP_ACTIVITY, intent, null)
+        fun startPhoneDial(phoneNumber: String) {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:$phoneNumber")
+            startActivity(APP_ACTIVITY, intent, null)
         }
     }
 }

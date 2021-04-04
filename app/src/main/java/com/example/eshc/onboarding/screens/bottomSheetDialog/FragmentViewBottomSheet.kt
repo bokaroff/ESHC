@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.bottomSheetDialog
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,9 +27,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentViewBottomSheetBinding.
-        inflate(layoutInflater, container, false)
+        _binding = FragmentViewBottomSheetBinding.inflate(layoutInflater, container, false)
         mCurrentItem = arguments?.getSerializable("item") as Items
         return mBinding.root
     }
@@ -50,9 +47,7 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
 
             stringTime = SimpleDateFormat("HH:mm, dd MMM.yyyy", Locale.getDefault())
                 .format(Date())
-          //  dateTime = Calendar.getInstance(Locale.getDefault()).time
             val longTime = Date().time
-            Log.d(TAG, "clicks: + $longTime")
             GUARD.guardWorkPlace = mCurrentItem.objectName
             GUARD.guardName = mCurrentItem.worker08
             GUARD.guardKurator = mCurrentItem.kurator
@@ -78,7 +73,6 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-
     private fun insertGuardLateRoom(guard: Guards) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -98,5 +92,4 @@ class FragmentViewBottomSheet : BottomSheetDialogFragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

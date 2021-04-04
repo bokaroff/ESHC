@@ -1,10 +1,8 @@
 package com.example.eshc.utilits
 
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import com.example.eshc.model.Items
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,6 +21,7 @@ fun saveChangedItemToRoom(item: Items) {
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 e.message?.let { showToast(it) }
+                Log.d(TAG, "Exception + ${e.message.toString()} :")
             }
         }
     }

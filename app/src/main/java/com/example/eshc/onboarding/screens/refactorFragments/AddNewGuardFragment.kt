@@ -2,7 +2,6 @@ package com.example.eshc.onboarding.screens.refactorFragments
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +38,6 @@ class AddNewGuardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentAddNewGuardBinding.inflate(
             layoutInflater,
             container, false
@@ -79,10 +77,11 @@ class AddNewGuardFragment : Fragment() {
         val kurator = etKurator.text.toString().trim()
 
         when {
-            name.isEmpty() ->{
+            name.isEmpty() -> {
                 GUARD.guardName = ""
                 showToast("Введите имя охранника")
-            } else -> GUARD.guardName = name
+            }
+            else -> GUARD.guardName = name
         }
 
         GUARD.guardWorkPlace = address
@@ -97,18 +96,16 @@ class AddNewGuardFragment : Fragment() {
 
     private fun addNewGuard(guard: Guards) {
         val newName = guard.guardName.toLowerCase(Locale.ROOT).trim()
-        Log.d(TAG, "newName: + $newName  ")
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val roomList = REPOSITORY_ROOM.getMainGuardList()
-                Log.d(TAG, "roomList: + ${roomList.size}  ")
 
                 for (doc in roomList) {
+
                     val oldName = doc.guardName
                         .toLowerCase(Locale.ROOT).trim()
 
                     if (oldName == newName) {
-                        Log.d(TAG, "equal: + $oldName + $newName ")
                         withContext(Dispatchers.Main) {
                             showToast("Охранник с таким именем уже существует")
                         }
@@ -123,8 +120,6 @@ class AddNewGuardFragment : Fragment() {
                 guard.state = stateMain
                 REPOSITORY_ROOM.insertGuard(guard)
 
-
-                 Log.d(TAG, "addNewItem: $key + ${ guard.guardName} + ${ guard.state}")
                 withContext(Dispatchers.Main) {
                     APP_ACTIVITY.navController
                         .navigate(R.id.action_addNewGuardFragment_to_viewPagerFragment)

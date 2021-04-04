@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.eshc.databinding.FragmentSplashBinding
 import com.example.eshc.utilits.AUTH
@@ -24,7 +23,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-class SplashFragment : Fragment() {
+class SplashFragment : androidx.fragment.app.Fragment() {
     private var _binding: FragmentSplashBinding? = null
     private val mBinding get() = _binding!!
     private var firstTimeUser = true
@@ -97,11 +96,11 @@ class SplashFragment : Fragment() {
 
                     withContext(Dispatchers.Main) {
                         val name = AUTH.currentUser?.displayName
-                        if (name.isNullOrEmpty()){
+                        if (name.isNullOrEmpty()) {
                             showToast("Добро пожаловать!")
                             findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
 
-                        }else {
+                        } else {
                             showToast("Добро пожаловать $name!")
                             findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
                         }
@@ -117,13 +116,13 @@ class SplashFragment : Fragment() {
         }
     }
 
-    private fun checkIfUserIsLoggedIn(){
-        if (AUTH.currentUser != null){
+    private fun checkIfUserIsLoggedIn() {
+        if (AUTH.currentUser != null) {
             findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
         }
     }
 
-    private fun selectImage(){
+    private fun selectImage() {
         ImagePicker.with(this)
             .crop()
             .compress(1024)
@@ -134,12 +133,12 @@ class SplashFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        when(resultCode){
-            Activity.RESULT_OK ->{
+        when (resultCode) {
+            Activity.RESULT_OK -> {
                 fileUri = data?.data
                 img.setImageURI(fileUri)
             }
-            ImagePicker.RESULT_ERROR ->{
+            ImagePicker.RESULT_ERROR -> {
                 showToast(ImagePicker.getError(data))
             }
             else -> {
