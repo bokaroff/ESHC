@@ -1,6 +1,7 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,7 +81,7 @@ class Fragment15 : Fragment() {
 
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
-        timeStart15.set(Calendar.HOUR_OF_DAY, 14)
+        timeStart15.set(Calendar.HOUR_OF_DAY, 13)
         timeStart15.set(Calendar.MINUTE, 35)
         timeStart15.set(Calendar.SECOND, 0)
         timeEnd15.set(Calendar.HOUR_OF_DAY, 18)
@@ -98,6 +99,13 @@ class Fragment15 : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 mMutableList = mDeferred.await()
+/*
+                for ( i in mMutableList){
+                    Log.d(TAG,"initialList_15: ${i.objectName} + order15 ${i.order08} +  state ${i.state}")
+                }
+
+ */
+
 
                 if (timeRange15) {
                     val list = REPOSITORY_ROOM
@@ -145,7 +153,7 @@ class Fragment15 : Fragment() {
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
-                                    item.state = stateChanged
+                                  //  item.state = stateChanged
                                     saveChangedItemToRoom(item)
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
@@ -156,6 +164,20 @@ class Fragment15 : Fragment() {
                     }
                 } else showToast(error?.message.toString())
             }
+    }
+
+    private fun saveChangedItemToRoom(item: Items) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                REPOSITORY_ROOM.insertItem(item)
+           //     Log.d(TAG, "saveChangedItemToRoom:")
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    e.message?.let { showToast(it) }
+                    Log.d(TAG, "Exception + ${e.message.toString()} :")
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

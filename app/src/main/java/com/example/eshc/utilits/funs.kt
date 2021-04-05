@@ -13,6 +13,7 @@ fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_LONG).show()
 }
 
+/*
 fun saveChangedItemToRoom(item: Items) {
     CoroutineScope(Dispatchers.IO).launch {
         try {
@@ -26,5 +27,7 @@ fun saveChangedItemToRoom(item: Items) {
         }
     }
 }
+
+ */
 
 

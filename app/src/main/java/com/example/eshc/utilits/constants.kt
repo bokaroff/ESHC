@@ -28,6 +28,7 @@ const val guard_name = "guardName"
 const val item_fire_id = "item_id"
 const val item_worker08 = "worker08"
 
+const val getAllItems = "SELECT * FROM items_table"
 const val getAllMainItems = "SELECT * FROM items_table WHERE state = 'main'"
 const val getAllMainGuards =
     "SELECT * FROM guards_table WHERE state = 'main' ORDER BY guardName Asc"
@@ -35,7 +36,7 @@ const val getAllChangedItems = "SELECT * FROM items_table WHERE state = 'changed
 const val singleChangedItem =
     "SELECT * FROM items_table WHERE state = 'changed' and objectName =:name"
 const val getAllChangedItemsWhereTimeBetween =
-    "SELECT * FROM items_table WHERE state = 'changed'and itemLongTime BETWEEN :timeStart and :timeEnd"
+    "SELECT * FROM items_table WHERE state = 'changed' and itemLongTime BETWEEN :timeStart and :timeEnd"
 const val getAllGuardsLate = "SELECT * FROM guards_table WHERE state = 'late'"
 const val singleGuardLateByName =
     "SELECT * FROM guards_table WHERE state = 'late' and guardName =:name"

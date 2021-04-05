@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -83,6 +84,11 @@ class FragmentGuard : Fragment() {
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
         try {
             val list = REPOSITORY_ROOM.getMainGuardList()
+
+            for(i in list){
+                Log.d(TAG,"getMainGuardList:  ${i.guardName}+ ${i.entity_id}+ ${i.state} ")
+            }
+
             mList = list.toMutableList()
             withContext(Dispatchers.Main) {
                 mAdapter.setList(mList)

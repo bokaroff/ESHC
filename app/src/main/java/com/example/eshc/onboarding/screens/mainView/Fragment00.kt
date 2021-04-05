@@ -1,6 +1,7 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,7 +96,7 @@ class Fragment00 : Fragment() {
         timeStartAfterMidnight.set(Calendar.MINUTE, 0)
         timeStartAfterMidnight.set(Calendar.SECOND, 0)
         timeEndAfterMidnight.set(Calendar.HOUR_OF_DAY, 0)
-        timeEndAfterMidnight.set(Calendar.MINUTE, 30)
+        timeEndAfterMidnight.set(Calendar.MINUTE, 15 )
         timeEndAfterMidnight.set(Calendar.SECOND, 0)
 
         timeStartBeforeMidnightLongType = timeStartBeforeMidnight.time.time
@@ -195,7 +196,7 @@ class Fragment00 : Fragment() {
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
-                                    item.state = stateChanged
+                                  //  item.state = stateChanged
                                     saveChangedItemToRoom(item)
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
@@ -206,6 +207,20 @@ class Fragment00 : Fragment() {
                     }
                 } else showToast(error?.message.toString())
             }
+    }
+
+    private fun saveChangedItemToRoom(item: Items) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                REPOSITORY_ROOM.insertItem(item)
+                Log.d(TAG, "saveChangedItemToRoom:")
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    e.message?.let { showToast(it) }
+                    Log.d(TAG, "Exception + ${e.message.toString()} :")
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

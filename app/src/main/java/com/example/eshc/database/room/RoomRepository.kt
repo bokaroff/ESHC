@@ -7,11 +7,22 @@ import com.example.eshc.model.Items
 
 class RoomRepository(private val itemRoomDao: ItemRoomDao) {
 
+    val allItems: LiveData<MutableList<Items>>
+        get() = itemRoomDao.getAllItems()
+
     val allChangedItems: LiveData<MutableList<Items>>
         get() = itemRoomDao.getAllChangedItems()
 
+    suspend fun getCompleteItemList(): List<Items> {
+        return itemRoomDao.getCompleteItemList()
+    }
+
     suspend fun singleChangedItem(name: String): List<Items> {
         return itemRoomDao.singleChangedItem(name)
+    }
+
+    suspend fun getChangedItemList(): List<Items> {
+        return itemRoomDao.getChangedItemList()
     }
 
     suspend fun getMainItemList(): List<Items> {

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -21,6 +22,7 @@ import com.example.eshc.databinding.FragmentGuardLateBinding
 import com.example.eshc.model.Guards
 import com.example.eshc.utilits.APP_ACTIVITY
 import com.example.eshc.utilits.REPOSITORY_ROOM
+import com.example.eshc.utilits.TAG
 import com.example.eshc.utilits.showToast
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -77,6 +79,12 @@ class FragmentGuardLate : Fragment() {
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
         try {
             val list = REPOSITORY_ROOM.getAllGuardsLate()
+
+            for(i in list){
+                Log.d(TAG,"getAllGuardsLate:  ${i.guardName}+ ${i.entity_id}+ ${i.state} ")
+            }
+
+
             mList = list.toMutableList().asReversed()
             withContext(Dispatchers.Main) {
                 mAdapterComplete.setList(mList)

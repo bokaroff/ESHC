@@ -2,6 +2,7 @@ package com.example.eshc.onboarding.screens.bottomNavigation
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
@@ -53,11 +54,11 @@ class FragmentGuardAddNewLate : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
+        initialise()
         getGuardData()
     }
 
-    private fun initialization() {
+    private fun initialise() {
         mAdapter = AdapterGuardAddNewLate()
         mAdapter.senCurrentItem(mCurrentItem)
         mRecyclerView = mBinding.rvFragmentGuardAddNewLate
@@ -68,6 +69,12 @@ class FragmentGuardAddNewLate : Fragment() {
     private fun getGuardData() = CoroutineScope(Dispatchers.IO).launch {
         try {
             val list = REPOSITORY_ROOM.getMainGuardList()
+
+            for(i in list){
+                Log.d(TAG,"getMainGuardList:  ${i.guardName}+ ${i.entity_id}+ ${i.state} ")
+            }
+
+
             mList = list.toMutableList()
             withContext(Dispatchers.Main) {
                 mAdapter.setList(mList)
@@ -123,6 +130,8 @@ class FragmentGuardAddNewLate : Fragment() {
             GUARD.state = stateLate
             GUARD.guardKurator = guard.guardKurator
 
+            Log.d(TAG, "insertGuard: + ${GUARD.guardName}+ ${GUARD.entity_id}+ ${GUARD.state} ")
+
             val builder = AlertDialog.Builder(APP_ACTIVITY)
             builder.setTitle("Вы уверены!")
             builder.setMessage("Что хотите добавить ${guard.guardName} в список Опоздавших?")
@@ -142,6 +151,10 @@ class FragmentGuardAddNewLate : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     REPOSITORY_ROOM.insertGuard(guard)
+
+                    Log.d(TAG, "insertGuard: + ${guard.guardName}+ ${guard.entity_id}+ ${guard.state} ")
+
+
                     withContext(Dispatchers.Main) {
                         showToast("Охранник ${guard.guardName} сохранен как опоздавший")
                     }
