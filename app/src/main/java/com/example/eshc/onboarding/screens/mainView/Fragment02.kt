@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -136,18 +135,17 @@ class Fragment02 : Fragment() {
                     for (dc in value.documentChanges) {
                         if (dc.type == DocumentChange.Type.MODIFIED) {
 
-                            val currentTimeLongType = currentTime.time
-
                             val item = dc.document.toObject(Items::class.java)
                             val name = item.objectName
-                            item.itemLongTime = currentTimeLongType
 
-                            val newIterator: MutableIterator<Items> = mMutableList.iterator()
+                            val newIterator: MutableIterator<Items> =
+                                mMutableList.iterator()
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
-                                   // item.state = stateChanged
+
                                     saveChangedItemToRoom(item)
+
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
                                     mAdapterItems.removeItem(index, it, mMutableList)
@@ -162,12 +160,21 @@ class Fragment02 : Fragment() {
     private fun saveChangedItemToRoom(item: Items) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                REPOSITORY_ROOM.insertItem(item)
-                Log.d(TAG, "saveChangedItemToRoom:")
+
+                ITEM.order02 = item.order02
+                ITEM.item_id = item.item_id
+                ITEM.objectName = item.objectName
+                ITEM.itemLongTime = item.itemLongTime
+                ITEM.serverTimeStamp = item.serverTimeStamp
+                ITEM.worker08 = item.worker08
+                ITEM.kurator = item.kurator
+                ITEM.state = stateChanged
+
+                REPOSITORY_ROOM.insertItem(ITEM)
+
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
-                    Log.d(TAG, "Exception + ${e.message.toString()} :")
                 }
             }
         }

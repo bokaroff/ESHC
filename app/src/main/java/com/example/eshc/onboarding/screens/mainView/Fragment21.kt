@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,11 +79,11 @@ class Fragment21 : Fragment() {
 
         currentTime = Calendar.getInstance(Locale.getDefault()).time
 
-        timeStart21.set(Calendar.HOUR_OF_DAY, 19)
+        timeStart21.set(Calendar.HOUR_OF_DAY, 20)
         timeStart21.set(Calendar.MINUTE, 40)
         timeStart21.set(Calendar.SECOND, 0)
-        timeEnd21.set(Calendar.HOUR_OF_DAY, 19)
-        timeEnd21.set(Calendar.MINUTE, 45)
+        timeEnd21.set(Calendar.HOUR_OF_DAY, 23)
+        timeEnd21.set(Calendar.MINUTE, 0)
         timeEnd21.set(Calendar.SECOND, 0)
 
         if ((currentTime.after(timeStart21.time)) && (currentTime.before(timeEnd21.time))) {
@@ -99,50 +98,10 @@ class Fragment21 : Fragment() {
             try {
                 mMutableList = mDeferred.await()
 
-
-                for ( i in mMutableList){
-                    Log.d(TAG,"initialList_21: ${i.objectName} + order21 ${i.order21}  + entityID ${i.entity_id}+  state ${i.state}")
-                }
-
-
-
-                val listOfChanged = REPOSITORY_ROOM.getChangedItemList()
-
-                for (i in listOfChanged) {
-                    Log.d(
-                        TAG,
-                        "getChangedItemList_21: ${i.objectName} + order21 ${i.order21} + entityID ${i.entity_id} +  state ${i.state}"
-                    )
-                }
-
-/*
-                val completeList = REPOSITORY_ROOM.getCompleteItemList()
-                for (i in completeList) {
-                    Log.d(
-                        TAG,
-                        "completeList: ${i.objectName} + order21 ${i.order21} +  entityID ${i.entity_id}+  state ${i.state}"
-                    )
-                }
-
- */
-
-
-
                 if (timeRange21) {
 
                     val list = REPOSITORY_ROOM
                         .getAllChangedItemsWhereTimeBetween(timeStartLongType, timeEndLongType)
-
-
-                    for (i in list) {
-                        Log.d(
-                            TAG,
-                            "getAllChangedItemsWhereTimeBetween_21: ${i.objectName} + order21 ${i.order21} + entityID ${i.entity_id} +  state ${i.state}"
-                        )
-                    }
-
-
-
 
                     for (item in list) {
                         val name = item.objectName
@@ -187,15 +146,8 @@ class Fragment21 : Fragment() {
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
-                                  //  item.state = stateChanged
+
                                     saveChangedItemToRoom(item)
-
-
-                                    Log.d(
-                                        TAG,
-                                        "saveChangedItemToRoom _21: ${item.objectName} + order21 ${item.order21} + entityID ${item.entity_id} +  state ${item.state}"
-                                    )
-
 
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
@@ -223,16 +175,9 @@ class Fragment21 : Fragment() {
 
                 REPOSITORY_ROOM.insertItem(ITEM)
 
-                Log.d(
-                    TAG,
-                    "insertItem _21: ${ITEM.objectName} + order21 ${ITEM.order21} + entityID ${ITEM.entity_id} +  state ${ITEM.state}"
-                )
-
-              //  Log.d(TAG, "saveChangedItemToRoom:")
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
-                    Log.d(TAG, "Exception + ${e.message.toString()} :")
                 }
             }
         }

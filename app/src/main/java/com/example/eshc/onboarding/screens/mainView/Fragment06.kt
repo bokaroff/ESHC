@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -146,8 +145,9 @@ class Fragment06 : Fragment() {
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
-                                  //  item.state = stateChanged
+
                                     saveChangedItemToRoom(item)
+
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
                                     mAdapterItems.removeItem(index, it, mMutableList)
@@ -162,12 +162,21 @@ class Fragment06 : Fragment() {
     private fun saveChangedItemToRoom(item: Items) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                REPOSITORY_ROOM.insertItem(item)
-                Log.d(TAG, "saveChangedItemToRoom:")
+
+                ITEM.order06 = item.order06
+                ITEM.item_id = item.item_id
+                ITEM.objectName = item.objectName
+                ITEM.itemLongTime = item.itemLongTime
+                ITEM.serverTimeStamp = item.serverTimeStamp
+                ITEM.worker08 = item.worker08
+                ITEM.kurator = item.kurator
+                ITEM.state = stateChanged
+
+                REPOSITORY_ROOM.insertItem(ITEM)
+
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
-                    Log.d(TAG, "Exception + ${e.message.toString()} :")
                 }
             }
         }

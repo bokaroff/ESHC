@@ -1,7 +1,6 @@
 package com.example.eshc.onboarding.screens.mainView
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,37 +71,34 @@ class Fragment08 : Fragment() {
         }
     }
 
+    private fun initialise() {
+        mRecyclerView = mBinding.rvFragment08
+        mAdapterItems = AdapterItems()
+        mRecyclerView.adapter = mAdapterItems
+    }
+
+    private fun setCurrentTime() {
+        val currentTime = Calendar.getInstance(Locale.getDefault()).time
+
+        timeStart08.set(Calendar.HOUR_OF_DAY, 7)
+        timeStart08.set(Calendar.MINUTE, 0)
+        timeStart08.set(Calendar.SECOND, 0)
+        timeEnd08.set(Calendar.HOUR_OF_DAY, 11)
+        timeEnd08.set(Calendar.MINUTE, 0)
+        timeEnd08.set(Calendar.SECOND, 0)
+
+        if ((currentTime.after(timeStart08.time)) && (currentTime.before(timeEnd08.time))) {
+            timeRange08 = true
+        }
+
+        timeStartLongType = timeStart08.time.time
+        timeEndLongType = timeEnd08.time.time
+    }
+
     private fun setListToAdapter() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 mMutableList = mDeferred.await()
-/*
-                for (i in mMutableList) {
-                    Log.d(
-                        TAG,
-                        "initialList_08: ${i.objectName} + order08 ${i.order08} +  state ${i.state}"
-                    )
-                }
-
-                val listOfChanged = REPOSITORY_ROOM.getChangedItemList()
-
-                for (i in listOfChanged) {
-                    Log.d(
-                        TAG,
-                        "changed_08: ${i.objectName} + order08 ${i.order08} +  state ${i.state}"
-                    )
-                }
-
-                val completeList = REPOSITORY_ROOM.getCompleteItemList()
-                for (i in completeList) {
-                    Log.d(
-                        TAG,
-                        "completeList: ${i.objectName} + order08 ${i.order08} +  state ${i.state}"
-                    )
-                }
-
- */
-
 
                 if (timeRange08) {
 
@@ -133,31 +129,6 @@ class Fragment08 : Fragment() {
         }
     }
 
-    private fun initialise() {
-        mRecyclerView = mBinding.rvFragment08
-        mAdapterItems = AdapterItems()
-        mRecyclerView.adapter = mAdapterItems
-    }
-
-    private fun setCurrentTime() {
-        val currentTime = Calendar.getInstance(Locale.getDefault()).time
-
-        timeStart08.set(Calendar.HOUR_OF_DAY, 7)
-        timeStart08.set(Calendar.MINUTE, 0)
-        timeStart08.set(Calendar.SECOND, 0)
-        timeEnd08.set(Calendar.HOUR_OF_DAY, 11)
-        timeEnd08.set(Calendar.MINUTE, 0)
-        timeEnd08.set(Calendar.SECOND, 0)
-
-        if ((currentTime.after(timeStart08.time)) && (currentTime.before(timeEnd08.time))) {
-            timeRange08 = true
-        }
-
-        timeStartLongType = timeStart08.time.time
-        timeEndLongType = timeEnd08.time.time
-    }
-
-
     private fun getChanges() {
         collectionITEMS_REF
             .whereEqualTo(field_08, "true")
@@ -176,17 +147,8 @@ class Fragment08 : Fragment() {
                             while (newIterator.hasNext()) {
                                 val it = newIterator.next()
                                 if (it.objectName == name) {
-                                   // item.state = stateChanged
+
                                     saveChangedItemToRoom(item)
-
-/*
-                                    Log.d(
-                                        TAG,
-                                        "saveChangedItemToRoom _08: ${item.objectName} + order08 ${item.order08} +  state ${item.state}"
-                                    )
-
-
- */
 
                                     val index: Int = mMutableList.lastIndexOf(it)
                                     newIterator.remove()
@@ -202,12 +164,21 @@ class Fragment08 : Fragment() {
     private fun saveChangedItemToRoom(item: Items) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                REPOSITORY_ROOM.insertItem(item)
-             //   Log.d(TAG, "saveChangedItemToRoom:")
+
+                ITEM.order08 = item.order08
+                ITEM.item_id = item.item_id
+                ITEM.objectName = item.objectName
+                ITEM.itemLongTime = item.itemLongTime
+                ITEM.serverTimeStamp = item.serverTimeStamp
+                ITEM.worker08 = item.worker08
+                ITEM.kurator = item.kurator
+                ITEM.state = stateChanged
+
+                REPOSITORY_ROOM.insertItem(ITEM)
+
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     e.message?.let { showToast(it) }
-                    Log.d(TAG, "Exception + ${e.message.toString()} :")
                 }
             }
         }
