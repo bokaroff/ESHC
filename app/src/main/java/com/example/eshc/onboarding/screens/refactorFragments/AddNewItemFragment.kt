@@ -182,9 +182,9 @@ class AddNewItemFragment : Fragment() {
         timeEnd08.set(Calendar.SECOND, 0)
 
         timeStart15.set(Calendar.HOUR_OF_DAY, 14)
-        timeStart15.set(Calendar.MINUTE, 30)
+        timeStart15.set(Calendar.MINUTE, 40)
         timeStart15.set(Calendar.SECOND, 0)
-        timeEnd15.set(Calendar.HOUR_OF_DAY, 16)
+        timeEnd15.set(Calendar.HOUR_OF_DAY, 15)
         timeEnd15.set(Calendar.MINUTE, 30)
         timeEnd15.set(Calendar.SECOND, 0)
 
@@ -237,13 +237,13 @@ class AddNewItemFragment : Fragment() {
     }
 
     private fun saveChanges() {
-        if (timeRange08 || timeRange15 || timeRange21 || timeRangeBeforeMidnight || timeRangeAfterMidnight
-            || timeRange02 || timeRange04 || timeRange06
-        ) {
-            mSnack.show()
-            mButtonSave.isEnabled = false
-        } else {
-            mButtonSave.setOnClickListener {
+        mButtonSave.setOnClickListener {
+            if (timeRange08 || timeRange15 || timeRange21 || timeRangeBeforeMidnight || timeRangeAfterMidnight
+                || timeRange02 || timeRange04 || timeRange06
+            ) {
+                showToast("Внесение изменений во время доклада невозможно!")
+                 return@setOnClickListener
+            } else {
                 val item = getNewItem()
                 if (item.objectName.isNotEmpty()) {
                     addNewItem(item)

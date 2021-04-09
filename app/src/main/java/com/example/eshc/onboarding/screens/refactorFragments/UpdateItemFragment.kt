@@ -182,6 +182,40 @@ class UpdateItemFragment : Fragment() {
     }
 
     private fun setCurrentTime() {
+        timeStartBeforeMidnight.set(Calendar.HOUR_OF_DAY, 23)
+        timeStartBeforeMidnight.set(Calendar.MINUTE, 40)
+        timeStartBeforeMidnight.set(Calendar.SECOND, 0)
+        timeEndBeforeMidnight.set(Calendar.HOUR_OF_DAY, 23)
+        timeEndBeforeMidnight.set(Calendar.MINUTE, 59)
+        timeEndBeforeMidnight.set(Calendar.SECOND, 59)
+
+        timeStartAfterMidnight.set(Calendar.HOUR_OF_DAY, 0)
+        timeStartAfterMidnight.set(Calendar.MINUTE, 0)
+        timeStartAfterMidnight.set(Calendar.SECOND, 0)
+        timeEndAfterMidnight.set(Calendar.HOUR_OF_DAY, 0)
+        timeEndAfterMidnight.set(Calendar.MINUTE, 30)
+        timeEndAfterMidnight.set(Calendar.SECOND, 0)
+
+        timeStart02.set(Calendar.HOUR_OF_DAY, 1)
+        timeStart02.set(Calendar.MINUTE, 40)
+        timeStart02.set(Calendar.SECOND, 0)
+        timeEnd02.set(Calendar.HOUR_OF_DAY, 2)
+        timeEnd02.set(Calendar.MINUTE, 30)
+        timeEnd02.set(Calendar.SECOND, 0)
+
+        timeStart04.set(Calendar.HOUR_OF_DAY, 3)
+        timeStart04.set(Calendar.MINUTE, 40)
+        timeStart04.set(Calendar.SECOND, 0)
+        timeEnd04.set(Calendar.HOUR_OF_DAY, 4)
+        timeEnd04.set(Calendar.MINUTE, 30)
+        timeEnd04.set(Calendar.SECOND, 0)
+
+        timeStart06.set(Calendar.HOUR_OF_DAY, 5)
+        timeStart06.set(Calendar.MINUTE, 40)
+        timeStart06.set(Calendar.SECOND, 0)
+        timeEnd06.set(Calendar.HOUR_OF_DAY, 6)
+        timeEnd06.set(Calendar.MINUTE, 30)
+        timeEnd06.set(Calendar.SECOND, 0)
 
         timeStart08.set(Calendar.HOUR_OF_DAY, 7)
         timeStart08.set(Calendar.MINUTE, 0)
@@ -191,9 +225,9 @@ class UpdateItemFragment : Fragment() {
         timeEnd08.set(Calendar.SECOND, 0)
 
         timeStart15.set(Calendar.HOUR_OF_DAY, 14)
-        timeStart15.set(Calendar.MINUTE, 30)
+        timeStart15.set(Calendar.MINUTE, 40)
         timeStart15.set(Calendar.SECOND, 0)
-        timeEnd15.set(Calendar.HOUR_OF_DAY, 16)
+        timeEnd15.set(Calendar.HOUR_OF_DAY, 15)
         timeEnd15.set(Calendar.MINUTE, 30)
         timeEnd15.set(Calendar.SECOND, 0)
 

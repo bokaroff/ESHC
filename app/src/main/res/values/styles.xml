@@ -42,6 +42,11 @@
         <item name="cornerFamilyBottomRight">cut</item>
     </style>
 
+    <style name="ShapeAppearance.App.TopLeftCornerCut" parent="">
+        <item name="cornerSize">30%</item>
+        <item name="cornerFamilyTopLeft">cut</item>
+    </style>
+
     <style name="shapeImageView">
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">100dp</item>
@@ -228,6 +233,16 @@
 
     <style name="AppCard" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">8dp</item>
+    </style>
+
+
+    <!-- MyBottomSheetDialogTheme -->
+    <style name="MyBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/MYBottomSheetStyle</item>
+    </style>
+
+    <style name="MYBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
 </resources>

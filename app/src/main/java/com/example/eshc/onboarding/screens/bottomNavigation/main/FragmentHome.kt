@@ -7,18 +7,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.*
+import androidx.appcompat.content.res.AppCompatResources
 import com.example.eshc.R
-import com.example.eshc.databinding.FragmentHomeBinding
-import com.example.eshc.utilits.APP_ACTIVITY
-import com.example.eshc.utilits.AUTH
-import com.example.eshc.utilits.showToast
+import com.example.eshc.databinding.FragmentHomeCustomBinding
+import com.example.eshc.utilits.*
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +25,7 @@ import kotlinx.coroutines.withContext
 
 class FragmentHome : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentHomeCustomBinding? = null
     private val mBinding get() = _binding!!
     private var fileUri: Uri? = null
     private lateinit var img_profile: ShapeableImageView
@@ -37,21 +34,52 @@ class FragmentHome : BottomSheetDialogFragment() {
     private lateinit var etUserName: EditText
     private lateinit var btnSave: Button
     private lateinit var txtSignOut: TextView
-    private lateinit var mContainer: ConstraintLayout
+    private lateinit var mContainer: LinearLayout
+    private lateinit var mSnack: Snackbar
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentHomeCustomBinding.inflate(layoutInflater, container, false)
         return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mContainer = mBinding.fragmentHomeCustomMainContainer
+        mContainer.background = AppCompatResources.getDrawable(APP_ACTIVITY, R.color.deepBlueStrong)
     }
 
     override fun onStart() {
         super.onStart()
+        checkNetWorkConnection()
         initialise()
         setUserInfo()
         btnClicks()
+    }
+
+    private fun checkNetWorkConnection() {
+        mSnack = Snackbar
+            .make(mBinding.coordinatorLayout, "Проверьте наличие интернета", Snackbar.LENGTH_INDEFINITE)
+
+        val vvv: View = mSnack.view
+        val txt = vvv.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
+        txt.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
+        connectionLiveData.checkValidNetworks()
+        connectionLiveData.observe(this, { isNetWorkAvailable ->
+            when (isNetWorkAvailable) {
+                false -> mSnack.show()
+                true -> mSnack.dismiss()
+            }
+        })
     }
 
     private fun initialise() {
@@ -61,7 +89,6 @@ class FragmentHome : BottomSheetDialogFragment() {
         etEmail = mBinding.etProfileEmail
         btnSave = mBinding.btnProfileSaveInfo
         txtSignOut = mBinding.tvProfileSignOut
-        mContainer = mBinding.fragmentHomeMainContainer
     }
 
     private fun btnClicks() {
