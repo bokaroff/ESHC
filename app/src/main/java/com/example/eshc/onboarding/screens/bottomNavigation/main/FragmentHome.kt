@@ -24,19 +24,17 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class FragmentHome : BottomSheetDialogFragment() {
-
     private var _binding: FragmentHomeCustomBinding? = null
     private val mBinding get() = _binding!!
     private var fileUri: Uri? = null
-    private lateinit var img_profile: ShapeableImageView
-    private lateinit var img_camera: ShapeableImageView
+    private lateinit var imgProfile: ShapeableImageView
+    private lateinit var imgCamera: ShapeableImageView
     private lateinit var etEmail: EditText
     private lateinit var etUserName: EditText
     private lateinit var btnSave: Button
     private lateinit var txtSignOut: TextView
     private lateinit var mContainer: LinearLayout
     private lateinit var mSnack: Snackbar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,8 +81,8 @@ class FragmentHome : BottomSheetDialogFragment() {
     }
 
     private fun initialise() {
-        img_profile = mBinding.ivProfileImage
-        img_camera = mBinding.imgCamera
+        imgProfile = mBinding.ivProfileImage
+        imgCamera = mBinding.imgCamera
         etUserName = mBinding.etProfileUsername
         etEmail = mBinding.etProfileEmail
         btnSave = mBinding.btnProfileSaveInfo
@@ -100,11 +98,11 @@ class FragmentHome : BottomSheetDialogFragment() {
             saveUserInfo()
         }
 
-        img_profile.setOnClickListener {
+        imgProfile.setOnClickListener {
             selectImage()
         }
 
-        img_camera.setOnClickListener {
+        imgCamera.setOnClickListener {
             selectImage()
         }
     }
@@ -112,7 +110,7 @@ class FragmentHome : BottomSheetDialogFragment() {
     private fun setUserInfo() {
         etEmail.setText(AUTH.currentUser?.email)
         etUserName.setText(AUTH.currentUser?.displayName)
-        img_profile.setImageURI(AUTH.currentUser?.photoUrl)
+        imgProfile.setImageURI(AUTH.currentUser?.photoUrl)
 
         fileUri = AUTH.currentUser?.photoUrl
     }
@@ -168,7 +166,7 @@ class FragmentHome : BottomSheetDialogFragment() {
         when (resultCode) {
             Activity.RESULT_OK -> {
                 fileUri = data?.data
-                img_profile.setImageURI(fileUri)
+                imgProfile.setImageURI(fileUri)
             }
             ImagePicker.RESULT_ERROR -> {
                 showToast(ImagePicker.getError(data))

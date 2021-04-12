@@ -111,6 +111,4 @@ class AdapterGuardAddNewLate : RecyclerView.Adapter<AdapterGuardAddNewLate.Simpl
     fun senCurrentItem(items: Items) {
         mItem = items
     }
-
-
 }

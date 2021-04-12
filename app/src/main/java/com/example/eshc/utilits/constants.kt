@@ -28,7 +28,6 @@ const val guard_name = "guardName"
 const val item_fire_id = "item_id"
 const val item_worker08 = "worker08"
 
-const val getAllItems = "SELECT * FROM items_table"
 const val getAllMainItems = "SELECT * FROM items_table WHERE state = 'main'"
 const val getAllMainGuards =
     "SELECT * FROM guards_table WHERE state = 'main' ORDER BY guardName Asc"
@@ -64,7 +63,6 @@ lateinit var ITEM_ROOM_DAO: ItemRoomDao
 lateinit var ITEM_ROOM_DATABASE: ItemRoomDatabase
 lateinit var optionsItems: FirestoreRecyclerOptions<Items>
 lateinit var connectionLiveData: ConnectionLiveData
-
 
 val collectionITEMS_REF = FirebaseFirestore.getInstance()
     .collection("Items")

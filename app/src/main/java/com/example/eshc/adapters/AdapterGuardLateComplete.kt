@@ -24,8 +24,7 @@ class AdapterGuardLateComplete : RecyclerView.Adapter<AdapterGuardLateComplete.S
     private var mList = mutableListOf<Guards>()
     private var mListFiltered = mutableListOf<Guards>()
 
-
-    override fun onViewAttachedToWindow(holder: AdapterGuardLateComplete.SimpleViewHolder) {
+    override fun onViewAttachedToWindow(holder: SimpleViewHolder) {
         holder.rvGuardLateContainer.setOnClickListener {
             val guard = mListFiltered[holder.adapterPosition]
 
@@ -33,7 +32,7 @@ class AdapterGuardLateComplete : RecyclerView.Adapter<AdapterGuardLateComplete.S
         }
     }
 
-    override fun onViewDetachedFromWindow(holder: AdapterGuardLateComplete.SimpleViewHolder) {
+    override fun onViewDetachedFromWindow(holder: SimpleViewHolder) {
         holder.rvGuardLateContainer.setOnClickListener(null)
         super.onViewDetachedFromWindow(holder)
     }
@@ -82,8 +81,9 @@ class AdapterGuardLateComplete : RecyclerView.Adapter<AdapterGuardLateComplete.S
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
+
                 val key = charSequence.toString().toLowerCase(Locale.ROOT).trim()
-                Log.d(TAG, "performFilteringAdapter: + $key")
+
                 mListFiltered = if (key.isEmpty()) {
                     mList
                 } else {

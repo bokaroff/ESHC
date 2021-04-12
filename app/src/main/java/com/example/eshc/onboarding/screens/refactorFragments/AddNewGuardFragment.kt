@@ -24,6 +24,7 @@ import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil
 import java.util.*
 
 class AddNewGuardFragment : Fragment() {
+
     private var _binding: FragmentAddNewGuardBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mToolbar: Toolbar

@@ -78,7 +78,7 @@ class FragmentItemRoomByDateSelected : Fragment() {
 
             DatePickerDialog(
                 APP_ACTIVITY,
-                 { _, year, month, day ->
+                { _, year, month, day ->
 
                     val pickedDateTime = Calendar.getInstance()
                     pickedDateTime.set(Calendar.YEAR, year)
@@ -112,7 +112,7 @@ class FragmentItemRoomByDateSelected : Fragment() {
 
             DatePickerDialog(
                 APP_ACTIVITY,
-                 { _, year, month, day ->
+                { _, year, month, day ->
 
                     val pickedDateTime = Calendar.getInstance()
                     pickedDateTime.set(Calendar.YEAR, year)

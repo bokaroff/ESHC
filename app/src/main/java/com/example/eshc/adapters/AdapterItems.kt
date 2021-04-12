@@ -74,7 +74,6 @@ class AdapterItems() : RecyclerView.Adapter<AdapterItems.SimpleViewHolder>() {
 
     fun setList(list: List<Items>) {
         mList = list.toMutableList()
-        // Log.d(TAG, "AdaptermainItemList08:  ${mList.size}")
         notifyDataSetChanged()
     }
 

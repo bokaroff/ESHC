@@ -9,12 +9,6 @@ import com.example.eshc.utilits.*
 @Dao
 interface ItemRoomDao {
 
-    @Query(getAllItems)
-    fun getAllItems(): LiveData<MutableList<Items>>
-
-    @Query(getAllMainItems)
-    fun getAllMainItems(): LiveData<List<Items>>
-
     @Query(getAllChangedItems)
     fun getAllChangedItems(): LiveData<MutableList<Items>>
 
@@ -30,14 +24,8 @@ interface ItemRoomDao {
     @Query(singleGuardLateByName)
     suspend fun singleGuardLateByName(name: String): List<Guards>
 
-    @Query(getAllItems)
-    suspend fun getCompleteItemList(): List<Items>
-
     @Query(getAllMainItems)
     suspend fun getMainItemList(): List<Items>
-
-    @Query(getAllChangedItems)
-    suspend fun getChangedItemList(): List<Items>
 
     @Query(getMainItemList00)
     suspend fun getMainItemList00(): List<Items>
@@ -81,14 +69,7 @@ interface ItemRoomDao {
     @Query("DELETE FROM guards_table WHERE guardFire_id =:guardFire_id and state = 'main' ")
     suspend fun deleteMainGuard(guardFire_id: String)
 
-    @Update
-    suspend fun updateMainItem(item: Items)
-
-    @Update
-    suspend fun updateChangedItem(item: Items)
-
     @Delete
     suspend fun deleteGuard(guard: Guards)
-
 }
 

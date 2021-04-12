@@ -33,7 +33,6 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mSnack: Snackbar
-
     private lateinit var navigationItemSelectedListener:
             BottomNavigationView.OnNavigationItemSelectedListener
     private lateinit var destinationChangedListener:

@@ -84,7 +84,6 @@ class FragmentGuardLate : Fragment() {
                 Log.d(TAG,"getAllGuardsLate:  ${i.guardName}+ ${i.entity_id}+ ${i.state} ")
             }
 
-
             mList = list.toMutableList().asReversed()
             withContext(Dispatchers.Main) {
                 mAdapterComplete.setList(mList)

@@ -52,15 +52,6 @@ class AdapterItemsRoom() : RecyclerView.Adapter<AdapterItemsRoom.SimpleViewHolde
 
     fun setList(list: List<Items>) {
         mList = list.toMutableList()
-        // Log.d(TAG, "AdaptermainItemList08:  ${mList.size}")
         notifyDataSetChanged()
     }
-/*
-    fun removeItem(position: Int, item: Items, mutableList: MutableList<Items>) {
-        mList.remove(item)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, mutableList.size)
-    }
-
- */
 }

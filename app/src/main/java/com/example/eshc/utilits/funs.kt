@@ -13,21 +13,5 @@ fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_LONG).show()
 }
 
-/*
-fun saveChangedItemToRoom(item: Items) {
-    CoroutineScope(Dispatchers.IO).launch {
-        try {
-            REPOSITORY_ROOM.insertItem(item)
-            Log.d(TAG, "saveChangedItemToRoom:")
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                e.message?.let { showToast(it) }
-                Log.d(TAG, "Exception + ${e.message.toString()} :")
-            }
-        }
-    }
-}
-
- */
 
 

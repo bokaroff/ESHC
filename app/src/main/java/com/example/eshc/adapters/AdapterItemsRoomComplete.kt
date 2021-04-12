@@ -69,12 +69,4 @@ class AdapterItemsRoomComplete() :
         mList = list.toMutableList()
         notifyDataSetChanged()
     }
-/*
-    fun removeItem(position: Int, item: Items, mutableList: MutableList<Items>) {
-        mList.remove(item)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, mutableList.size)
-    }
-
- */
 }
