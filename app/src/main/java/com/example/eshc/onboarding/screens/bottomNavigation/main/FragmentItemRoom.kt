@@ -58,7 +58,7 @@ class FragmentItemRoom : Fragment() {
         }
         mViewModel = ViewModelProvider(this)
             .get(FragmentItemRoomViewModel::class.java)
-        mViewModel.allChangedItems.observe(this, mObserveList)
+        mViewModel.allChangedItems.observe(viewLifecycleOwner, mObserveList)
         mToolbar.setupWithNavController(findNavController())
     }
 
