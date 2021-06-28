@@ -49,6 +49,15 @@ class FragmentItemRoomByDateSelected : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+        setStartDate()
+        setEndDate()
+        getSelectedData()
+    }
+
+    /*
     override fun onStart() {
         super.onStart()
         initialise()
@@ -56,6 +65,8 @@ class FragmentItemRoomByDateSelected : Fragment() {
         setEndDate()
         getSelectedData()
     }
+
+     */
 
     private fun initialise() {
         firstDateTextView = mBinding.FragmentItemRoomByDateSelectedTxt1

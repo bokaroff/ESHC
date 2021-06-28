@@ -59,9 +59,13 @@ class Fragment06 : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+    }
+
     override fun onStart() {
         super.onStart()
-        initialise()
         setCurrentTime()
         setListToAdapter()
         if (timeRange06) {

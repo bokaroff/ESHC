@@ -52,19 +52,21 @@ class UpdateGuardFragment : Fragment() {
         return mBinding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        initialization()
-        btnSave.setOnClickListener {
-            val guard = getNewGuard()
-            if (guard.guardName.isNotEmpty()) {
-                updateGuard(guard)
-            }
-            UIUtil.hideKeyboard(context as Activity)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+        saveChanges()
     }
 
-    private fun initialization() {
+    /*
+    override fun onStart() {
+        super.onStart()
+        initialise()
+        saveChanges()
+    }
+     */
+
+    private fun initialise() {
         mToolbar = mBinding.fragmentUpdateGuardToolbar
         mTextView = mBinding.fragmentUpdateGuardTextView
         mToolbar.setupWithNavController(findNavController())
@@ -81,6 +83,16 @@ class UpdateGuardFragment : Fragment() {
         etPhone.text.append(mCurrentGuard.guardPhone)
         etPhone_2.text.append(mCurrentGuard.guardPhone_2)
         etKurator.text.append(mCurrentGuard.guardKurator)
+    }
+
+    private fun saveChanges(){
+        btnSave.setOnClickListener {
+            val guard = getNewGuard()
+            if (guard.guardName.isNotEmpty()) {
+                updateGuard(guard)
+            }
+            UIUtil.hideKeyboard(context as Activity)
+        }
     }
 
     private fun getNewGuard(): Guards {

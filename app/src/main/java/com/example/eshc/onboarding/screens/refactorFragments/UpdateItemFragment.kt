@@ -93,27 +93,24 @@ class UpdateItemFragment : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+        setCurrentTime()
+        checkTimeRanges()
+        saveChanges()
+    }
+
+    /*
     override fun onStart() {
         super.onStart()
         initialise()
         setCurrentTime()
         checkTimeRanges()
-        mButtonSave.setOnClickListener {
-
-            if (timeRange08 || timeRange15 || timeRange21 || timeRangeBeforeMidnight || timeRangeAfterMidnight
-                || timeRange02 || timeRange04 || timeRange06
-            ) {
-                showToast("Внесение изменений во время доклада невозможно!")
-                return@setOnClickListener
-            }
-
-            val item = getNewItem()
-            if (item.objectName.isNotEmpty()) {
-                updateItem(item)
-            }
-            UIUtil.hideKeyboard(context as Activity)
-        }
+        saveChanges()
     }
+
+     */
 
     private fun checkTimeRanges() {
         currentTime = Calendar.getInstance(Locale.getDefault()).time
@@ -239,6 +236,23 @@ class UpdateItemFragment : Fragment() {
         timeEnd21.set(Calendar.SECOND, 0)
     }
 
+    private fun saveChanges() {
+        mButtonSave.setOnClickListener {
+
+            if (timeRange08 || timeRange15 || timeRange21 || timeRangeBeforeMidnight || timeRangeAfterMidnight
+                || timeRange02 || timeRange04 || timeRange06
+            ) {
+                showToast("Внесение изменений во время доклада невозможно!")
+                return@setOnClickListener
+            }
+
+            val item = getNewItem()
+            if (item.objectName.isNotEmpty()) {
+                updateItem(item)
+            }
+            UIUtil.hideKeyboard(context as Activity)
+        }
+    }
     private fun checkBoxState() {
 
         when (mCurrentItem.order08) {

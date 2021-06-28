@@ -24,11 +24,20 @@ class FragmentGuardBottomSheet : BottomSheetDialogFragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+        clicks()
+    }
+
+    /*
     override fun onStart() {
         super.onStart()
         initialise()
         clicks()
     }
+
+     */
 
     private fun initialise() {
         mBinding.txtName.text = mCurrentItem.guardName

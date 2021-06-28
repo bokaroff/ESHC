@@ -53,8 +53,12 @@ class FragmentHome : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         mContainer = mBinding.fragmentHomeCustomMainContainer
         mContainer.background = AppCompatResources.getDrawable(APP_ACTIVITY, R.color.deepBlueStrong)
+        checkNetWorkConnection()
+        initialise()
+        setUserInfo()
+        btnClicks()
     }
-
+/*
     override fun onStart() {
         super.onStart()
         checkNetWorkConnection()
@@ -62,6 +66,8 @@ class FragmentHome : BottomSheetDialogFragment() {
         setUserInfo()
         btnClicks()
     }
+
+ */
 
     private fun checkNetWorkConnection() {
         mSnack = Snackbar

@@ -18,7 +18,6 @@
         app:tabMode="fixed"
         app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
         >
-
     </com.google.android.material.tabs.TabLayout>
 
 

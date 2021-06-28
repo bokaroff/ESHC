@@ -44,12 +44,22 @@ class SplashFragment : androidx.fragment.app.Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checkIfUserIsLoggedIn()
+        initialise()
+        buttonClicks()
+    }
+
+    /*
     override fun onStart() {
         super.onStart()
         checkIfUserIsLoggedIn()
         initialise()
         buttonClicks()
     }
+
+     */
 
     private fun initialise() {
         img = mBinding.ivProfileImage

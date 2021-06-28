@@ -37,6 +37,7 @@ class FragmentGuard : Fragment() {
 
     private var _binding: FragmentGuardBinding? = null
     private val mBinding get() = _binding!!
+
     private var mList = mutableListOf<Guards>()
     private var swipeBackground = ColorDrawable(Color.RED)
 
@@ -62,6 +63,15 @@ class FragmentGuard : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        UIUtil.hideKeyboard(context as Activity)
+        initialise()
+        getGuardData()
+        swipeToDelete()
+    }
+
+    /*
     override fun onStart() {
         super.onStart()
         UIUtil.hideKeyboard(context as Activity)
@@ -69,6 +79,7 @@ class FragmentGuard : Fragment() {
         getGuardData()
         swipeToDelete()
     }
+     */
 
     private fun initialise() {
         mAdapter = AdapterGuard()

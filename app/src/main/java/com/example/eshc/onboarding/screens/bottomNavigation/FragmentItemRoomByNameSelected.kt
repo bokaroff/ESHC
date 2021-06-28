@@ -40,11 +40,20 @@ class FragmentItemRoomByNameSelected : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+        getData(name)
+    }
+
+    /*
     override fun onStart() {
         super.onStart()
         initialise()
         getData(name)
     }
+
+     */
 
     private fun initialise() {
         mAdapterItemsRoom = AdapterItemsRoom()

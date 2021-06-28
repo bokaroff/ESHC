@@ -35,11 +35,20 @@ class FragmentItemRoom : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+        getData()
+    }
+
+    /*
     override fun onStart() {
         super.onStart()
         initialise()
         getData()
     }
+
+     */
 
     private fun initialise() {
         mToolbar = mBinding.fragmentItemRoomToolbar

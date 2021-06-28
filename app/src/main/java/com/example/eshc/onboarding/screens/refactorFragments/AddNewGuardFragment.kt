@@ -46,6 +46,18 @@ class AddNewGuardFragment : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+        btnSave.setOnClickListener {
+            val guard = getNewGuard()
+            if (guard.guardName.isNotEmpty()) {
+                addNewGuard(guard)
+            }
+            UIUtil.hideKeyboard(context as Activity)
+        }
+    }
+    /*
     override fun onStart() {
         super.onStart()
         initialise()
@@ -57,6 +69,8 @@ class AddNewGuardFragment : Fragment() {
             UIUtil.hideKeyboard(context as Activity)
         }
     }
+
+     */
 
     private fun initialise() {
         mToolbar = mBinding.fragmentAddNewGuardToolbar

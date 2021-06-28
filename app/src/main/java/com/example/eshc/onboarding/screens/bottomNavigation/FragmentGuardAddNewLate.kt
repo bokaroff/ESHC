@@ -52,11 +52,20 @@ class FragmentGuardAddNewLate : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+        getGuardData()
+    }
+
+    /*
     override fun onStart() {
         super.onStart()
         initialise()
         getGuardData()
     }
+
+     */
 
     private fun initialise() {
         mAdapter = AdapterGuardAddNewLate()

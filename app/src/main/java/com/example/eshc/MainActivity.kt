@@ -50,8 +50,6 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        connectionLiveData = ConnectionLiveData(this)
-
         initialise()
         getMainItemsList()
         getMainGuardsList()
@@ -67,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         ITEM_ROOM_DATABASE = ItemRoomDatabase.getInstance(this)
         ITEM_ROOM_DAO = ITEM_ROOM_DATABASE.getItemRoomDao()
         REPOSITORY_ROOM = RoomRepository(ITEM_ROOM_DAO)
+        connectionLiveData = ConnectionLiveData(this)
 
         mSnack = Snackbar
             .make(mBinding.root, "Проверьте наличие интернета", Snackbar.LENGTH_INDEFINITE)

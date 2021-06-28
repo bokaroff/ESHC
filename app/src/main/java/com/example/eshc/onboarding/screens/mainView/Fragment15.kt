@@ -51,7 +51,6 @@ class Fragment15 : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,9 +59,13 @@ class Fragment15 : Fragment() {
         return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+    }
+
     override fun onStart() {
         super.onStart()
-        initialise()
         setCurrentTime()
         setListToAdapter()
         if (timeRange15) {

@@ -68,12 +68,22 @@ class FragmentView : Fragment() {
         adapterFireItem = FireItemAdapter(optionsItems)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
+        swipeToDelete()
+        UIUtil.hideKeyboard(context as Activity)
+    }
+
+    /*
     override fun onStart() {
         super.onStart()
         initialise()
         swipeToDelete()
         UIUtil.hideKeyboard(context as Activity)
     }
+
+     */
 
     private fun initialise() {
         deleteIcon = ResourcesCompat.getDrawable(
